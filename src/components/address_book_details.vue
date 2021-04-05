@@ -251,7 +251,7 @@ export default {
 
 <style lang="scss">
 .address-details {
-  color: #1f1c47;
+  color: #010101;
 }
 .address-book-details {
   .address-book-modal {

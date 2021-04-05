@@ -56,13 +56,13 @@ export default {
   .description {
     white-space: pre-line;
     // oxen-navy
-    color: #1f1c47;
+    color: #010101;
   }
 
   .prices {
     // oxen-navy
     margin-top: 20px;
-    color: #1f1c47;
+    color: #010101;
   }
 }
 </style>

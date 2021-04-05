@@ -385,7 +385,7 @@ export default {
         noPasswordMessage: this.$t("dialog.sweepAll.message"),
         ok: {
           label: this.$t("dialog.sweepAll.ok"),
-          color: "#12C7BA"
+          color: "#35af3b"
         }
       });
       passwordDialog

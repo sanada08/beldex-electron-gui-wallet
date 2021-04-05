@@ -90,11 +90,11 @@ export default {
 .address-header-div {
   .title {
     font-size: 20px;
-    color: #1f1c47;
+    color: #010101;
   }
 
   .extra {
-    color: #1f1c47;
+    color: #010101;
   }
 }
 

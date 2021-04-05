@@ -93,7 +93,7 @@ export default {
 
       * {
         // Oxen navy, can't use vars here :(
-        color: #1f1c47;
+        color: #010101;
       }
     }
 

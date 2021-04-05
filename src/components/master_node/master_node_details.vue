@@ -74,9 +74,7 @@
             <div class="infoBox">
               <div class="infoBoxContent">
                 <div class="text">
-                  <span>{{
-                    $t("strings.masterNodeDetails.operatorFee")
-                  }}</span>
+                  <span>{{ $t("strings.masterNodeDetails.operatorFee") }}</span>
                 </div>
                 <div class="value">
                   <span>{{ operatorFee }}</span>
@@ -122,9 +120,7 @@
           </div>
           <q-list no-border :dark="theme == 'dark'" class="oxen-list">
             <q-item-label class="contributors-title"
-              >{{
-                $t("strings.masterNodeDetails.contributors")
-              }}:</q-item-label
+              >{{ $t("strings.masterNodeDetails.contributors") }}:</q-item-label
             >
             <q-item
               v-for="contributor in contributors"
@@ -280,7 +276,7 @@ export default {
 <style lang="scss">
 .contributors-title {
   margin-bottom: 12px;
-  color: #1f1c47;
+  color: #010101;
 }
 
 .masterNodeDetails {

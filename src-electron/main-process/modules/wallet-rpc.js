@@ -138,7 +138,7 @@ export class WalletRPC {
         const rpcExecutable =
           process.platform === "win32"
             ? "beldex-wallet-rpc.exe"
-            : "beldex-wallet-rpc";
+            : "oxen-wallet-rpc";
         // eslint-disable-next-line no-undef
         const rpcPath = path.join(__ryo_bin, rpcExecutable);
 

@@ -662,7 +662,7 @@ export default {
             label: this.$t("dialog.buttons.cancel"),
             color: this.theme == "dark" ? "white" : "dark"
           },
-          color: "#1F1C47"
+          color: "#010101"
         })
         .onOk(async () => {
           const hasPassword = await this.hasPassword();
@@ -711,16 +711,16 @@ export default {
 .password-modal {
   min-width: 400px;
   background: white;
-  color: #1f1c47;
+  color: #010101;
 
   > * {
-    color: #1f1c47;
+    color: #010101;
   }
 }
 
 .rescan-modal {
   background: white;
-  color: #1f1c47;
+  color: #010101;
 }
 
 .image-path {
@@ -729,11 +729,11 @@ export default {
 }
 
 .key-image-modal {
-  color: #1f1c47;
+  color: #010101;
   background: white;
 
   label * {
-    color: #1f1c47 !important;
+    color: #010101 !important;
     text-overflow: ellipsis;
     overflow: hidden;
   }
@@ -744,7 +744,7 @@ export default {
 
 .private-key-modal {
   background: white;
-  color: #1f1c47;
+  color: #010101;
 
   .copy-btn {
     margin-left: 8px;

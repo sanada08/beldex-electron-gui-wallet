@@ -204,7 +204,7 @@ export default {
               flat: true,
               label: this.$t("dialog.buttons.cancel")
             },
-            color: "#1F1C47",
+            color: "#010101",
             persistent: true
           })
           .onOk(password => {

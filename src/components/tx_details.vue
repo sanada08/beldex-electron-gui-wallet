@@ -326,7 +326,7 @@ export default {
             color: "primary"
           },
           style: "min-width: 500px; overflow-wrap: break-word;",
-          color: "#1F1C47"
+          color: "#010101"
         })
         .onOk(() => {})
         .onCancel(() => {})

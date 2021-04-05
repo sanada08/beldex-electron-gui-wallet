@@ -2,7 +2,7 @@
   <q-page>
     <div class="init-screen-page text-center">
       <div class="absolute-center">
-        <img src="oxen.svg" width="400" class="q-mb-md" />
+        <img src="oxen.png" width="400" class="q-mb-md" />
 
         <div class="startup-icons q-mt-xl q-mb-lg">
           <div ref="backend">
@@ -255,7 +255,7 @@ export default {
 
 <style lang="scss">
 .message {
-  color: #1f1c47;
+  color: #010101;
 }
 .init-screen-page {
   height: 100vh;
