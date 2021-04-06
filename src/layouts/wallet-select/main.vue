@@ -19,7 +19,7 @@
           v-if="page_title == 'beldex'"
           class="flex items-center justify-center"
         >
-          <img src="oxen-white.svg" height="32" />
+          <img src="beldex.png" height="32" />
         </q-toolbar-title>
         <q-toolbar-title v-else class="flex items-center justify-center">{{
           page_title
