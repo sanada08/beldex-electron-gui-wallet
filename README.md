@@ -15,7 +15,7 @@ Please submit any changes as pull requests to the development branch, all change
 
 #### Pre-requisites
 
-- Download latest [beldexd](https://github.com/loki-project/loki-core/releases/latest)
+- Download latest [beldexd](https://github.com/Beldex-Coin/beldex/releases/latest)
 - Extract the beldexd binaries to a folder
 
 #### Commands
@@ -23,7 +23,7 @@ Please submit any changes as pull requests to the development branch, all change
 ```
 nvm use 14.11.0
 npm install -g @quasar/cli
-git clone https://github.com/loki-project/loki-electron-gui-wallet
+git clone https://github.com/Beldex-Coin/beldex-electron-gui-wallet
 cd loki-electron-gui-wallet
 cp path_to_beldexd_binaries/beldexd bin/
 cp path_to_beldexd_binaries/beldex-wallet-rpc bin/
