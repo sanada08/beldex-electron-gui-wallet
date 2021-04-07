@@ -39,8 +39,8 @@
 
         <div class="q-mt-md q-mb-lg external-links">
           <p>
-            <a href="#" @click="openExternal('https://oxen.io/')"
-              >https://oxen.io/</a
+            <a href="#" @click="openExternal('https://beldex.io/')"
+              >https://beldex.io/</a
             >
           </p>
           <p>
@@ -65,7 +65,7 @@
               href="#"
               @click="
                 openExternal(
-                  'https://github.com/loki-project/loki-electron-gui-wallet'
+                  'https://github.com/Beldex-Coin/beldex-electron-gui-wallet'
                 )
               "
               >Github</a

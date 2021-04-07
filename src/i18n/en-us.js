@@ -22,7 +22,7 @@ export default {
     generate: "GENERATE",
     import: "IMPORT",
     importWallet: "IMPORT WALLET | IMPORT WALLETS",
-    lns: "LOKI NAME SERVICE",
+    // lns: "BELDEX NAME SERVICE",
     max: "MAX",
     min: "MIN",
     next: "NEXT",
