@@ -24,7 +24,7 @@ Please submit any changes as pull requests to the development branch, all change
 nvm use 14.11.0
 npm install -g @quasar/cli
 git clone https://github.com/Beldex-Coin/beldex-electron-gui-wallet
-cd loki-electron-gui-wallet
+cd beldex-electron-gui-wallet
 cp path_to_beldexd_binaries/beldexd bin/
 cp path_to_beldexd_binaries/beldex-wallet-rpc bin/
 npm install
