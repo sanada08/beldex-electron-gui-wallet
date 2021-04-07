@@ -66,9 +66,9 @@ export class Backend {
     const daemon = {
       type: "remote",
       p2p_bind_ip: "0.0.0.0",
-      p2p_bind_port: 22022,
+      p2p_bind_port: 19090,
       rpc_bind_ip: "127.0.0.1",
-      rpc_bind_port: 22023,
+      rpc_bind_port: 19091,
       zmq_rpc_bind_ip: "127.0.0.1",
       out_peers: -1,
       in_peers: -1,
@@ -80,20 +80,20 @@ export class Backend {
     const daemons = {
       mainnet: {
         ...daemon,
-        remote_host: "imaginary.stream",
-        remote_port: 22023
+        remote_host: "explorer.beldex.io",
+        remote_port: 19091
       },
       stagenet: {
         ...daemon,
         type: "local",
-        p2p_bind_port: 38153,
-        rpc_bind_port: 38154
+        p2p_bind_port: 29090,
+        rpc_bind_port: 29091
       },
       testnet: {
         ...daemon,
         type: "local",
-        p2p_bind_port: 38156,
-        rpc_bind_port: 38157
+        p2p_bind_port: 39090,
+        rpc_bind_port: 39091
       }
     };
 
@@ -122,20 +122,12 @@ export class Backend {
 
     this.remotes = [
       {
-        host: "imaginary.stream",
-        port: "22023"
+        host: "explorer.beldex.io",
+        port: "19091"
       },
       {
-        host: "nodes.hashvault.pro",
-        port: "22023"
-      },
-      {
-        host: "explorer.loki.aussie-pools.com",
-        port: "18081"
-      },
-      {
-        host: "public.loki.foundation",
-        port: "22023"
+        host: "rpcnode.stream",
+        port: "19091"
       }
     ];
 
