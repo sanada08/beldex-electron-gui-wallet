@@ -41,7 +41,7 @@ export class Daemon {
           resolve(stdout);
         });
       } else {
-        let oxend_path = path.join(__ryo_bin, "oxend");
+        let oxend_path = path.join(__ryo_bin, "beldexd");
         let oxend_version_cmd = `"${oxend_path}" --version`;
         if (!fs.existsSync(oxend_path)) {
           resolve(false);
