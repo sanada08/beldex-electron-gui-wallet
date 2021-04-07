@@ -332,7 +332,7 @@ export default {
       noKeyImageExport: "Keine Key Images zum Exportieren gefunden",
       usingLocalNode:
         "Zugang zur Remote Node nicht möglich, wechsle zur lokalen Node",
-      usingRemoteNode: "loxend nicht gefunden, benutze eine Remote Node"
+      usingRemoteNode: "lbeldexd nicht gefunden, benutze eine Remote Node"
     }
   },
   placeholders: {

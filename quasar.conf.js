@@ -183,7 +183,7 @@ module.exports = function() {
         },
 
         dmg: {
-          background: "src-electron/build/oxen-dmg.tiff",
+          background: "src-electron/build/beldex-dmg.tiff",
           sign: false
         },
 

@@ -178,7 +178,7 @@ export class Daemon {
               );
             } else {
               this.daemonProcess = child_process.spawn(
-                path.join(__ryo_bin, "oxend"),
+                path.join(__ryo_bin, "beldexd"),
                 args,
                 {
                   detached: true
