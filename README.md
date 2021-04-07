@@ -5,7 +5,7 @@
 Beldex is a private cryptocurrency based on Monero. Beldex aims to provide a private data transmission layer using a second layer of Master Nodes.
 More information on the project can be found on the [website](https://beldexio) and in the [whitepaper](https://beldex.io/whitepaper). Beldex is an open source project, and we encourage contributions from anyone with something to offer.
 
-![Beldex wallet image](./src-electron/icons/mrcuug.PNG)
+![Beldex wallet image](./src-electron/icons/mrcuug.png)
 
 ### About this project
 

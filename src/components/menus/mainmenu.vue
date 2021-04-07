@@ -44,13 +44,13 @@
             >
           </p>
           <p>
-            <a href="#" @click="openExternal('https://t.me/Oxen_Community')"
+            <a href="#" @click="openExternal('t.me/official_beldex')"
               >Telegram</a
             >
             -
             <a
               href="#"
-              @click="openExternal('https://discordapp.com/invite/67GXfD6')"
+              @click="openExternal('https://discord.com/invite/Hj4MAmA5gs')"
               >Discord</a
             >
             -
