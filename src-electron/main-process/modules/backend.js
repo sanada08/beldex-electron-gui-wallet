@@ -340,7 +340,7 @@ export class Backend {
   async checkVersion() {
     try {
       const { data } = await axios.get(
-        "https://api.github.com/repos/loki-project/loki-electron-gui-wallet/releases/latest"
+        "https://api.github.com/repos/Beldex-Coin/beldex-electron-gui-wallet/releases/latest"
       );
       // remove the 'v' from front of the version
       const latestVersion = data.tag_name.substring(1);
