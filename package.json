@@ -5,7 +5,7 @@
   "productName": "Beldex Electron Wallet",
   "repository": {
     "type": "git",
-    "url": "https://github.com/loki-project/loki-electron-gui-wallet.git"
+    "url": "https://github.com/Beldex-coin/beldex-electron-gui-wallet.git"
   },
   "cordovaId": "com.beldex.wallet",
   "author": {
