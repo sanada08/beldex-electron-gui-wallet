@@ -120,7 +120,7 @@
       <ConfirmTransactionDialog
         :show="confirmTransaction"
         :amount="confirmFields.totalAmount"
-        :is-blink="confirmFields.isBlink"
+        :is-flash="confirmFields.isflash"
         :send-to="confirmFields.destination"
         :fee="confirmFields.totalFees"
         :on-confirm-transaction="onConfirmTransaction"
@@ -154,7 +154,7 @@ export default {
   mixins: [WalletPassword, ConfirmDialogMixin],
   data() {
     let priorityOptions = [
-      { label: this.$t("strings.priorityOptions.blink"), value: 5 }, // Blink
+      { label: this.$t("strings.priorityOptions.flash"), value: 5 }, // flash
       { label: this.$t("strings.priorityOptions.slow"), value: 1 } // Slow
     ];
     return {
@@ -170,7 +170,7 @@ export default {
       },
       priorityOptions: priorityOptions,
       confirmFields: {
-        isBlink: false,
+        isflash: false,
         totalAmount: -1,
         destination: "",
         totalFees: 0
@@ -299,10 +299,10 @@ export default {
       };
 
       const note = this.newTx.note;
-      const isBlink = this.confirmFields.isBlink;
+      const isflash = this.confirmFields.isflash;
 
       const relayTxData = {
-        isBlink,
+        isflash,
         addressSave,
         note,
         // you may be sending all (which calls sweep_all RPC), but this refers to
