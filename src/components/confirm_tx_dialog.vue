@@ -23,7 +23,7 @@
           <span class="label"
             >{{ $t("dialog.confirmTransaction.priority") }}:
           </span>
-          {{ isflashToTranslatedLabel(isflash) }}
+          {{ isBlinkToTranslatedLabel(isBlink) }}
         </div>
       </q-card-section>
       <q-card-actions align="right">
@@ -60,7 +60,7 @@ export default {
       type: Number,
       required: true
     },
-    isflash: {
+    isBlink: {
       type: Boolean,
       required: true
     },
@@ -79,11 +79,11 @@ export default {
     }
   },
   methods: {
-    isflashToTranslatedLabel(isflash) {
-      const flashOrSlow = isflash
-        ? "strings.priorityOptions.flash"
+    isBlinkToTranslatedLabel(isBlink) {
+      const blinkOrSlow = isBlink
+        ? "strings.priorityOptions.blink"
         : "strings.priorityOptions.slow";
-      return this.$t(flashOrSlow);
+      return this.$t(blinkOrSlow);
     }
   }
 };

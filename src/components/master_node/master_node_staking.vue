@@ -76,7 +76,7 @@
     <ConfirmTransactionDialog
       :show="confirmSweepAll"
       :amount="confirmFields.totalAmount"
-      :is-flash="confirmFields.isflash"
+      :is-blink="confirmFields.isBlink"
       :send-to="confirmFields.destination"
       :fee="confirmFields.totalFees"
       :on-confirm-transaction="onConfirmTransaction"
@@ -123,7 +123,7 @@ export default {
         maxStakeAmount: this.unlocked_balance / 1e9
       },
       confirmFields: {
-        isflash: false,
+        isBlink: false,
         totalAmount: -1,
         destination: "",
         totalFees: 0
@@ -254,7 +254,7 @@ export default {
             this.newTx = {
               amount: 0,
               address: "",
-              // flash
+              // blink
               priority: 5,
               address_book: {
                 save: false,
@@ -323,10 +323,10 @@ export default {
         sending: true
       });
 
-      const isflash = this.confirmFields.isflash;
+      const isBlink = this.confirmFields.isBlink;
 
       const relayTxData = {
-        isflash,
+        isBlink,
         isSweepAll: true
       };
 
