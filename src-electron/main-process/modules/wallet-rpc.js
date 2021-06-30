@@ -347,7 +347,7 @@ export class WalletRPC {
         break;
       case "relay_tx":
         this.relayTransaction(
-          params.isBlink,
+          params.isflash,
           params.addressSave,
           params.note,
           !!params.isSweepAll
@@ -1604,7 +1604,7 @@ export class WalletRPC {
   }
 
   // submits the transaction to the blockchain, irreversible from here
-  async relayTransaction(isBlink, addressSave, note, isSweepAll) {
+  async relayTransaction(isflash, addressSave, note, isSweepAll) {
     // for a sweep these don't exist
     let address = "";
     let address_book = "";
@@ -1620,7 +1620,7 @@ export class WalletRPC {
     for (let hex of this.pending_tx.metadataList) {
       const params = {
         hex,
-        blink: isBlink
+        flash: isflash
       };
 
       // don't try submit more txs if a prev one failed
@@ -1754,7 +1754,7 @@ export class WalletRPC {
             metadataList: data.result.tx_metadata_list
           };
 
-          // async relayTransaction(metadataList, isBlink, addressSave, note, isSweepAll)
+          // async relayTransaction(metadataList, isflash, addressSave, note, isSweepAll)
           // update state to show a confirm popup
           this.sendGateway(gatewayEndpoint, {
             code: 1,
