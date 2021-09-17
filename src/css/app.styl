@@ -76,6 +76,10 @@ footer,
 .text-area-oxen {
   margin-top: 0px;
   margin-bottom: 0px;
+  textarea
+  {
+      color: #fff;
+  }
 }
 
 .q-inner-loading {
@@ -101,7 +105,7 @@ footer,
 }
 
 .q-layout, .app-content {
-        background: #fff;
+        background: #1c1c26;
          color: #000;
 }
 
@@ -110,6 +114,7 @@ footer,
     box-shadow: none;
     border-bottom: 1px solid #333;
     height: 48px;
+    
 
     &.shift-title {
         .q-toolbar {
@@ -133,8 +138,8 @@ footer,
     }
     .q-btn.cancel {
         position: absolute;
-        top: 7px;
-        left: 8px;
+        top: 0px;
+        left: 0px;
         z-index: 1;
     }
 
@@ -165,6 +170,28 @@ footer,
         }
 
     }
+}
+.q-header
+{
+    .q-toolbar
+    {
+        button
+        {
+            i
+            {
+                color: #fff;
+                background: #3773f7;
+                padding: 5px;
+                border-radius: 5px;
+            }
+        }
+    }
+}
+.bg-red.text-white
+{
+    height: 50px;
+    min-width: 170px;
+    border-radius: 8px;
 }
 
 .q-layout-page {
@@ -197,20 +224,20 @@ footer,
         .text {
             font-size: 14px;
             margin-top: 8px;
-            color: $oxen-navy;
+            color: #fff;
         }
 
         .value {
             font-size: 24px;
             margin-top: 4px;
             font-weight: 300;
-            color: $oxen-navy;
+            color: #fff;
         }
     }
 }
 
 .q-checkbox {
-    color: $oxen-navy    
+    color: #fff;    
 }
 
 .q-loading + .modal {
@@ -365,11 +392,11 @@ footer,
 }
 
 .q-menu {
-    background: white;
+    background: #1c1c26;
     color: $oxen-navy !important;
 
     * {
-        color: $oxen-navy;
+        color: $color-white;
     }
 
     .q-list-separator > .q-item-division + .q-item-division, .q-item-division + .q-separator {
@@ -379,10 +406,10 @@ footer,
 
 .menu-list {
 
-    background: white;
+    background: $beldex-bgcol;
 
     .q-item * {
-        color: $oxen-navy;
+        color: $color-white;
     }
 }
 
@@ -423,7 +450,7 @@ footer,
 
 
 .header-popover {
-    background: $primary;
+    background: #2f2f40;
     color: white;
     max-width: 250px !important;
 }
@@ -462,11 +489,12 @@ footer,
 }
 
 .q-toolbar {
-    background-color: $oxen-navy;
+    background-color: $beldex-bgcol;
+    padding: 0 0px;
 }
 
 .header {
-    color: $oxen-navy;
+    color: #fff;
 }
 
 .detail-page {
@@ -474,12 +502,15 @@ footer,
 }
 
 .q-radio {
-    color: $oxen-navy1;
+    color: #fff;
     svg {
-        color: $oxen-navy1;
+        color: #fff;
     }
 }
-
+.q-list
+{
+    color: #fff;
+}
 .qr-code-modal {
   padding: "25px";
   color: white;
@@ -517,11 +548,12 @@ footer,
     height: 2px;
     background: $secondary;
     opacity: 0.4;
+    margin: 10px 0px;
 }
 
 .navigation {
     .q-btn {
-        background: $oxen-navy;
+        background: #2f2f40;
         color: white;
         
         .q-icon {
@@ -545,7 +577,7 @@ footer,
     }
 
     .q-item {
-        background: $oxen-navy;
+        background: $beldex-bgcol;
         .wallet-icon {
             color: $oxen-teal;
             g,path {
@@ -555,7 +587,7 @@ footer,
     }
 
     .q-item:hover, .q-item.selected {
-        background: $oxen-purple !important;
+        background: $beldex-hover !important;
 
         .wallet-icon {
             color: $oxen-teal;
@@ -569,17 +601,30 @@ footer,
         }
     }
 }
+.beldex-theme
+{
+    
+    .q-item
+    {
+        margin: 10px 16px;
+        margin-bottom: 20px !important;
+        padding: 14px;
+        height: 70px;
+        border-radius: 10px !important;
+    }
+}
+
 
 .wallet-settings {
   .q-btn {
-    color: $oxen-navy;
+    color: #fff;
   }
 }
 
 .receive {
 
     .list-header {
-        color: $oxen-navy;
+        color: #fff;
     }
 
     .q-separator-component {
@@ -588,7 +633,7 @@ footer,
     }
 
     .primary-address {
-        background: $oxen-teal !important;
+        background: $beldex-bgcol !important;
         border: none !important;
 
         .q-item, .q-item-side {
@@ -605,25 +650,25 @@ footer,
     }
 
     .primary-address:hover {
-        background: #228819 !important;
+        background: #3e3e54 !important;
     }
 
 }
 
 .oxen-list {
     .oxen-list-item {
-        background: white;
+        background: $beldex-bgcol;
         -webkit-transition: background-color 0.2s ease-in;
         transition: background-color 0.2s ease-in;
 
         font-size: 16px;
-        color: $oxen-navy;
+        color: #fff;
         padding-top: 6px;
         padding-bottom: 6px;
 
         margin: 0 16px;
         border: 1px solid $oxen-navy;
-        border-radius: 4px;
+        border-radius: 10px;
 
         + .oxen-list-item {
             margin-top: 10px;
@@ -631,11 +676,11 @@ footer,
     }
 
     .text-caption {
-        color: $oxen-navy;
+        color: #fff;
     }
 
     .oxen-list-item:hover {
-        background: $off-grey;
+        background: #3e3e54;
         cursor: pointer;
 
     }
@@ -733,25 +778,42 @@ footer,
 }
 
 .tab-desc {
-    color: $oxen-navy;
+    color: #fff;
     font-style: normal;
     b {
         color: $oxen-teal;
         font-style: italic;
     }
 }
+.wallet-info .wallet-header .title
+{
+    color: #fff;
+    transform: translate(-24px, 75px);
+    background: #45455a;
+    padding: 10px;
+    border-radius: 6px 0px 15px 0px;
+    min-width: 135px;
+    padding-left: 15px;
+}
+.q-header .q-toolbar__title
+{
+    background: #2f2f40 !important;
+}
 
 .oxen-field {
     .content {
-        border: 1px solid #484848;
-        background: white;
+        border: 1px solid #303040;
+        background: $beldex-bgcol;
         -webkit-transition: background-color 0.2s ease-in, border-color 0.2s ease-in;
         transition: background-color 0.2s ease-in, border-color 0.2s ease-in;
+        border-radius: 10px !important;
+        min-height: 60px !important;
+        margin-bottom: 20px !important;
     }
 
     &:not(.disable):not(.disable-hover) {
         .content:hover {
-            background: white;
+            background: #1c1c26;
         }
     }
 
@@ -766,7 +828,7 @@ footer,
     }
 
     .label {
-        color: $oxen-navy;
+        color: $color-white;
 
         .optional {
             color: #7C7C7C;
@@ -776,12 +838,12 @@ footer,
 
 .welcome {
     .q-footer {
-        background: $secondary
+        background: #2f2f40;
     }
 }
 
 .welcome-container {
-    color: $oxen-navy1;
+    color: #fff;
 }
 
 .address-book, .address-header {
@@ -843,13 +905,14 @@ footer,
   .address {
     text-align: center;
     word-break: break-all;
+    color: #fff;
   }
 
   .seed-box {
-    border: 1px solid white;
-    border-radius: 3px;
-    margin: 16px;
+        margin: 16px;
     padding: 16px;
+    background: #2f2f40;
+    border-radius: 10px;
 
     div,
     h6 {
@@ -859,6 +922,7 @@ footer,
     .seed {
       font-size: 24px;
       font-weight: 600;
+      color: #fff;
     }
 
     .warning {
@@ -869,9 +933,124 @@ footer,
     font-size: 18px;
     margin: 8px 0;
     font-weight: 450;
+    color: #35af3b;
   }
   .advanced-options-label {
     padding-left: 0;
     padding-right: 0;
   }
+}
+
+
+.bg-primary
+{
+    background: #35af3b !important;
+    height: 50px;
+    min-width: 170px;
+    border-radius: 8px;
+}
+.q-btn--flat
+{
+    background: #3773f7 !important;
+    height: 50px;
+    min-width: 170px;
+    border-radius: 8px;
+    color: #fff;
+    
+}
+.q-card__actions
+{
+    margin-right: 16px;
+}
+.q-page-container
+{
+    width: 80%;
+    margin: 0 auto;
+    padding-top: 80px !important;
+}
+.bg-accent
+{
+    background: #2f2f40 !important;
+    min-width: 160px;
+    height: 50px;
+    border-radius: 8px;
+}
+.q-dialog-plugin
+{
+    border-radius: 10px !important;
+    background: #2f2f40 !important;
+    color: #fff !important;
+}
+.q-field--standard .q-field__control:before {
+    border-bottom: 1px solid #818184 !important;
+}
+.q-placeholder
+{
+    color: #fff;
+}
+
+@media only screen and (max-width: 600px)
+{
+    .q-btn--flat
+    {
+        height: 36px;
+        min-width: auto;
+        border-radius: 3px;  
+    }
+}
+.q-date__calendar-item > div, .q-date__calendar-item button
+{
+    height: unset;
+    min-width: unset;
+    border-radius: unset;
+    background: unset !important;
+}
+.q-date__calendar-item button.bg-primary
+{
+    background: #35af3b !important;
+}
+.q-date__content .q-btn
+{
+        min-width: auto;
+    background: transparent !important;
+}
+.bg-positive.text-white, .bg-negative.text-white
+{
+    min-width: 170px;
+    height: 50px;
+    border-radius: 8px;
+}
+.message
+{
+    color: #fff !important;
+}
+.q-btn__content .block
+{
+    color: #fff !important;
+}
+.q-card__actions
+{
+    display: inherit;
+    text-align: center;
+}
+.q-item__label
+{
+    color: #fff;
+}
+.q-date
+{
+        background: #2f2f40;
+}
+.btn-wrapper
+{
+        transform: translate(10px, -20px);
+}
+.prove-transaction, .sign-and-verify, .check-transaction
+{
+    background: #252531;
+    border: 1px solid #303040;
+}
+.relative-position
+{
+    color: #fff;
 }

@@ -1,6 +1,6 @@
 <template>
-  <q-page class="create-wallet">
-    <div class="fields q-mx-md q-mt-md">
+  <q-page class="create-wallet beldex-wallet">
+    <div class="fields">
       <OxenField
         :label="$t('fieldLabels.walletName')"
         :error="$v.wallet.name.$error"

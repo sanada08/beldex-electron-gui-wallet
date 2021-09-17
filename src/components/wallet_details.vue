@@ -62,7 +62,10 @@ export default {
   .wallet-content {
     text-align: center;
     padding: 2em;
-
+    background: #2f2f40;
+    margin-bottom: 15px;
+    margin-top: 15px;
+    border-radius: 10px;
     .balance {
       .text {
         font-size: 16px;
@@ -78,6 +81,9 @@ export default {
         overflow: hidden;
         text-overflow: ellipsis;
         margin: 4px 0;
+        background: #45455a;
+        padding: 15px;
+        border-radius: 10px;
       }
       .q-btn {
         margin-left: 8px;

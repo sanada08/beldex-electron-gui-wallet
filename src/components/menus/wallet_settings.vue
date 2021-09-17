@@ -709,18 +709,22 @@ export default {
 
 <style lang="scss">
 .password-modal {
-  min-width: 400px;
-  background: white;
-  color: #010101;
+  background: #2f2f40;
+  color: #fff;
+  border-radius: 10px !important;
 
   > * {
-    color: #010101;
+    color: #fff;
   }
+}
+.q-field__label {
+  color: #fff !important;
 }
 
 .rescan-modal {
-  background: white;
-  color: #010101;
+  background: #2f2f40;
+  color: #fff;
+  border-radius: 10px !important;
 }
 
 .image-path {
@@ -729,11 +733,12 @@ export default {
 }
 
 .key-image-modal {
-  color: #010101;
-  background: white;
+  background: #2f2f40;
+  color: #fff;
+  border-radius: 10px !important;
 
   label * {
-    color: #010101 !important;
+    color: #fff !important;
     text-overflow: ellipsis;
     overflow: hidden;
   }
@@ -743,8 +748,9 @@ export default {
 }
 
 .private-key-modal {
-  background: white;
-  color: #010101;
+  background: #2f2f40;
+  color: #fff;
+  border-radius: 10px !important;
 
   .copy-btn {
     margin-left: 8px;
