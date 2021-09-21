@@ -15,9 +15,9 @@ export default {
       // If the tx is a sweep all, we're sending to the wallet's primary address
       // a tx can be split, but only sent to one address
       let destination = isSweepAll ? address : destinations[0].address;
-      const isBlink = [0, 2, 3, 4, 5].includes(priority) ? true : false;
+      const isflash = [0, 2, 3, 4, 5].includes(priority) ? true : false;
       const confirmFields = {
-        isBlink,
+        isflash,
         destination,
         totalAmount,
         totalFees
