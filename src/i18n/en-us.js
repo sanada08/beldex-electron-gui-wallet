@@ -518,7 +518,7 @@ export default {
       normal: "Normal",
       fast: "Fast",
       fastest: "Fastest",
-      blink: "Flash"
+      flash: "Flash"
     },
 
     proveTransactionDescription:
