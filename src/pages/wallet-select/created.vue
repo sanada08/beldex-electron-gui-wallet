@@ -54,7 +54,7 @@
       <template v-if="secret.view_key != secret.spend_key">
         <h6 class="q-mb-xs title">{{ $t("strings.viewKey") }}</h6>
         <div class="row">
-          <div class="col" style="word-break:break-all;">
+          <div class="col" style="word-break:break-all; color: #fff;">
             {{ secret.view_key }}
           </div>
           <div class="q-item-side">
@@ -80,7 +80,7 @@
       <template v-if="!/^0*$/.test(secret.spend_key)">
         <h6 class="q-mb-xs title">{{ $t("strings.spendKey") }}</h6>
         <div class="row">
-          <div class="col" style="word-break:break-all;">
+          <div class="col" style="word-break:break-all; color: #fff;">
             {{ secret.spend_key }}
           </div>
           <div class="q-item-side">

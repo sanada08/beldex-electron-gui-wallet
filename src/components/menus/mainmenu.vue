@@ -175,12 +175,13 @@ export default {
 <style lang="scss">
 .about-modal {
   padding: 25px;
-  background-color: white;
-  color: #010101;
+  background-color: #2f2f40;
+  color: #fff;
+  border-radius: 10px !important;
 
   .external-links {
     a {
-      color: #497dc6;
+      color: #35af3b;
       text-decoration: none;
 
       &:hover,

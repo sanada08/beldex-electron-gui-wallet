@@ -93,7 +93,7 @@ export default {
 
       * {
         // Oxen navy, can't use vars here :(
-        color: #010101;
+        color: #fff;
       }
     }
 
@@ -106,6 +106,7 @@ export default {
     .q-date {
       min-width: 100%;
       max-width: 100%;
+      background: #2f2f40 !important;
     }
 
     .q-btn {

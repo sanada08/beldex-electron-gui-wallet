@@ -8,7 +8,7 @@
             $t("titles.settings.title")
           }}</q-toolbar-title>
 
-          <div class="row col justify-center q-pr-xl">
+          <div class="row beldex-btn col justify-center q-pr-xl">
             <q-btn-toggle
               v-model="page"
               toggle-color="primary"
