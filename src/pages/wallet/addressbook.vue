@@ -126,7 +126,7 @@ export default {
   .header {
     font-size: 14px;
     font-weight: 500;
-    color: #010101;
+    color: #fff;
   }
 
   .oxen-list-item {

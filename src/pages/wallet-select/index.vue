@@ -1,6 +1,6 @@
 <template>
   <q-page>
-    <q-list class="wallet-list" no-border :dark="theme == 'dark'">
+    <q-list class="wallet-list beldex-theme" no-border :dark="theme == 'dark'">
       <template v-if="wallets.list.length">
         <div class="header row justify-between items-center">
           <div class="header-title">
@@ -277,13 +277,14 @@ export default {
     .add {
       width: 38px;
       padding: 0;
+      margin-top: 20px;
     }
   }
   .wallet-name {
     font-size: 1.1rem;
   }
   .q-item {
-    margin: 10px 16px;
+    margin: 10px 0px;
     margin-bottom: 0px;
     padding: 14px;
     border-radius: 3px;

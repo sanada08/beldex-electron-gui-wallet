@@ -305,6 +305,10 @@ export default {
 <style>
 .restore-from-button {
   width: 100%;
-  height: 54px;
+  height: 60px;
+  transform: translate(10px, -20px);
+  border-radius: 10px;
+  background: #1154e6;
+  color: #fff;
 }
 </style>

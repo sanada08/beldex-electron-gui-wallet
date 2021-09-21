@@ -47,6 +47,7 @@ export default {
 
 <style lang="scss">
 .language-select {
+  color: #fff;
   .q-btn {
     margin: 2px;
   }
