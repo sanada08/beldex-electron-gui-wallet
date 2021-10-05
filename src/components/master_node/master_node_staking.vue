@@ -6,7 +6,7 @@
         <span
           style="cursor: pointer; text-decoration: underline;"
           @click="oxenWebsite"
-          >Oxen {{ $t("strings.website") }}.</span
+          >Beldex {{ $t("strings.website") }}.</span
         >
       </p>
       <OxenField
@@ -278,7 +278,7 @@ export default {
   },
   methods: {
     oxenWebsite() {
-      const url = "https://oxen.io/";
+      const url = "https://www.beldex.io/";
       this.$gateway.send("core", "open_url", {
         url
       });

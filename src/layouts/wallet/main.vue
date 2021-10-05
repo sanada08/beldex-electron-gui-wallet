@@ -3,7 +3,7 @@
     <q-header class="shift-title">
       <MainMenu />
       <q-toolbar-title style="background: white;">
-        <div class="flex items-center justify-center" style="margin:8px">
+        <div class="flex items-center justify-center" style="margin:9px">
           <img src="beldex.png" height="32" />
         </div>
       </q-toolbar-title>
