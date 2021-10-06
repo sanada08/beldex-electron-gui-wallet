@@ -310,6 +310,7 @@ export default {
   notification: {
     positive: {
       addressCopied: "Address copied to clipboard",
+      linkCopied: "Link copied to clipboard",
       backupOwnerCopied: "Backup owner copied to clipboard",
       bannedPeer: "Banned {host} until {time}",
       copied: "{item} copied to clipboard",
