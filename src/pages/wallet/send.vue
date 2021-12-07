@@ -120,7 +120,7 @@
       <ConfirmTransactionDialog
         :show="confirmTransaction"
         :amount="confirmFields.totalAmount"
-        :is-flash="confirmFields.isflash"
+        :isflash="confirmFields.isflash"
         :send-to="confirmFields.destination"
         :fee="confirmFields.totalFees"
         :on-confirm-transaction="onConfirmTransaction"
