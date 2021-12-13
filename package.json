@@ -1,6 +1,6 @@
 {
   "name": "beldex-electron-wallet",
-  "version": "4.0.1",
+  "version": "4.1.0",
   "description": "Modern GUI interface for Beldex Currency",
   "productName": "Beldex Electron Wallet",
   "repository": {
@@ -28,12 +28,12 @@
     "electron-updater": "^4.2.0",
     "electron-window-state": "^5.0.3",
     "fs-extra": "^8.1.0",
+    "node-request-queue": "^1.0.2",
     "object-assign-deep": "^0.4.0",
     "portscanner": "^2.2.0",
     "promise-queue": "^2.2.5",
     "qrcode.vue": "^1.6.1",
     "quasar": "^1.13.1",
-    "request": "^2.88.0",
     "request-promise": "^4.2.4",
     "semver": "^7.3.2",
     "upath": "^1.2.0",

@@ -11,8 +11,7 @@
             <div class="text">
               <span>{{ $t("strings.oxenBalance") }}</span>
             </div>
-            <div class="value">
-              <span><FormatOxen :amount="info.balance"/></span>
+            <div class="value"><span><FormatOxen :amount="info.balance" /></span>
             </div>
           </div>
           <div class="row unlocked">
@@ -20,6 +19,27 @@
               >{{ $t("strings.oxenUnlockedShort") }}:
               <FormatOxen :amount="info.unlocked_balance"
             /></span>
+             
+          </div>
+          <div class="row">
+            <div v-if="load_balance">
+                <q-btn
+                  class="balance-button"
+                  label="Fetching Balance & Txn..."
+                  color="primary"
+                  @click="get_balance()"
+                >
+                </q-btn>
+              </div>
+              <div v-if="!load_balance">
+                <q-btn
+                  class="balance-button"
+                  label="Fetch Balance & Txn"
+                  color="primary"
+                  @click="get_balance()"
+                >
+                </q-btn>
+              </div>
           </div>
         </div>
       </div>
@@ -44,9 +64,22 @@ export default {
     CopyIcon
   },
   computed: mapState({
-    theme: state => state.gateway.app.config.appearance.theme,
-    info: state => state.gateway.wallet.info
-  })
+    theme: (state) => state.gateway.app.config.appearance.theme,
+    info: (state) => state.gateway.wallet.info,
+    load_balance: (state) => {
+      return state.gateway.wallet.info.load_balance;
+    }
+  }),
+  methods: {
+    get_balance() {
+      this.$store.commit("gateway/set_wallet_data", {
+        info: {
+          load_balance: true
+        }
+      });
+      this.$gateway.send("wallet", "get_balance");
+    }
+  }
 };
 </script>
 

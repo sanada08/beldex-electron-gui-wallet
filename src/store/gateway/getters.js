@@ -29,3 +29,7 @@ export const isAbleToSend = state => {
     return state.wallet.info.height >= target_height - 1;
   }
 };
+
+export const load_balance = state => {
+  return state.wallet.info.load_balance;
+}

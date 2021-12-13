@@ -2,6 +2,7 @@ import child_process from "child_process";
 
 const request = require("request-promise");
 const queue = require("promise-queue");
+const nodeQueue = require("node-request-queue")
 const http = require("http");
 const os = require("os");
 const fs = require("fs-extra");
@@ -57,7 +58,7 @@ export class WalletRPC {
       }
     ];
 
-    this.agent = new http.Agent({ keepAlive: true, maxSockets: 1 });
+    this.agent = new http.Agent({ keepAlive: true, maxSockets: 10 });
     this.queue = new queue(1, Infinity);
   }
 
@@ -442,8 +443,67 @@ export class WalletRPC {
         this.deleteWallet(params.password);
         break;
 
+      case "get_balance":
+        this.getBalance("getbalance");
+        break;
+
       default:
     }
+  }
+
+  async getBalance(method) {
+    let options = {
+      uri: `${this.protocol}${this.hostname}:${this.port}/json_rpc`,
+      method: "POST",
+      json: {
+        jsonrpc: "2.0",
+        id: this.id++,
+        method: method
+      },
+      auth: {
+        user: this.auth[0],
+        pass: this.auth[1],
+        sendImmediately: false
+      },
+      agent: this.agent
+    };
+    this.getTransactions().then(wallet => {
+      console.log("get transfer data", wallet)
+      this.sendGateway("set_wallet_data", wallet);
+    });
+    let rq = new nodeQueue(1000);
+    rq.push(options);
+    rq.on('resolved', response => {
+      // console.log("response method", response, method)
+      if(method == "getbalance") {
+      let walletData = {
+        info: {
+          address: response.result.per_subaddress[0].address,
+          balance: response.result.balance,
+          unlocked_balance: response.result.unlocked_balance,
+          view_only: false,
+          load_balance: false
+        }
+      }
+      this.sendGateway("set_wallet_data", walletData);
+    }
+      // Handle successfull response
+    }).on('rejected', err => {      
+      // console.log("rejected", method)
+      return {
+        method: method,
+        params: {},
+        error: {
+          code: -1,
+          message: "Cannot connect to wallet-rpc",
+          cause: err.message
+        }
+      };
+      // Handle rejected response
+    }).on('completed', () => {
+      console.log("completed queue")
+      // Handle queue empty.
+    });
   }
 
   isValidPasswordHash(password_hash) {
@@ -755,7 +815,8 @@ export class WalletRPC {
           balance: 0,
           unlocked_balance: 0,
           height: 0,
-          view_only: false
+          view_only: false,
+          load_balance: false
         },
         secret: {
           mnemonic: "",
@@ -861,14 +922,14 @@ export class WalletRPC {
     clearInterval(this.heartbeat);
     this.heartbeat = setInterval(() => {
       this.heartbeatAction();
-    }, 5000);
+    }, 80000);
     this.heartbeatAction(true);
 
-    clearInterval(this.lnsHeartbeat);
-    this.lnsHeartbeat = setInterval(() => {
-      this.updateLocalLNSRecords();
-    }, 30 * 1000); // Every 30 seconds
-    this.updateLocalLNSRecords();
+    // clearInterval(this.lnsHeartbeat);
+    // this.lnsHeartbeat = setInterval(() => {
+    //   this.updateLocalLNSRecords();
+    // }, 30 * 1000); // Every 30 seconds
+    // this.updateLocalLNSRecords();
   }
 
   heartbeatAction(extended = false) {
@@ -1710,15 +1771,15 @@ export class WalletRPC {
       // the call coming from the SN page will have address = wallet primary address
       const rpcSpecificParams = isSweepAllRPC
         ? {
-            address,
-            // gui wallet only supports one account currently
-            account_index: 0,
-            // sweep *all* funds from all subaddresses to the address specified
-            subaddr_indices_all: true
-          }
+          address,
+          // gui wallet only supports one account currently
+          account_index: 0,
+          // sweep *all* funds from all subaddresses to the address specified
+          subaddr_indices_all: true
+        }
         : {
-            destinations: [{ amount: amount, address: address }]
-          };
+          destinations: [{ amount: amount, address: address }]
+        };
       const params = {
         ...rpcSpecificParams,
         priority,
@@ -2212,7 +2273,7 @@ export class WalletRPC {
           }
         });
 
-        wallet.transactions.tx_list.sort(function(a, b) {
+        wallet.transactions.tx_list.sort(function (a, b) {
           if (a.timestamp < b.timestamp) return 1;
           if (a.timestamp > b.timestamp) return -1;
           return 0;
