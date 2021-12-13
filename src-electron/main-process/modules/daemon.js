@@ -16,7 +16,7 @@ export class Daemon {
     this.net_type = "mainnet";
     this.local = false; // do we have a local daemon ?
 
-    this.agent = new http.Agent({ keepAlive: true, maxSockets: 1 });
+    this.agent = new http.Agent({ keepAlive: true, maxSockets: 100 });
     this.queue = new queue(1, Infinity);
 
     // Settings for timestamp to height conversion
