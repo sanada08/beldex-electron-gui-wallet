@@ -1,5 +1,5 @@
 <template>
-  <q-list link no-border class="lns-record-list">
+  <q-list link no-border class="bns-record-list">
     <q-item
       v-for="record in recordList"
       :key="record.name_hash"
@@ -27,7 +27,7 @@
                 @click="onUpdate(record)"
               />
               <q-btn
-                v-if="isLokinet"
+                v-if="isBelnet"
                 color="primary"
                 :label="$t('buttons.renew')"
                 @click="onRenew(record)"
@@ -40,7 +40,7 @@
         <span v-if="record.type === 'session'">{{
           record.update_height | blockHeight
         }}</span>
-        <span v-else class="lokinet-expiration">{{
+        <span v-else class="belnet-expiration">{{
           record.expiration_height | expirationHeight
         }}</span>
       </q-item-section>
@@ -67,7 +67,7 @@ import ContextMenu from "components/menus/contextmenu";
 const { clipboard } = require("electron");
 
 export default {
-  name: "LNSRecordList",
+  name: "BNSRecordList",
   components: {
     ContextMenu
   },
@@ -76,7 +76,7 @@ export default {
       type: Array,
       required: true
     },
-    isLokinet: {
+    isBelnet: {
       type: Boolean,
       required: true
     }
@@ -111,19 +111,19 @@ export default {
       if (record.type === "session") {
         return "menuItems.copyName";
       } else {
-        return "menuItems.copyLokinetName";
+        return "menuItems.copyBelnetName";
       }
     },
     copyValueI18nLabel(record) {
       if (record.type === "session") {
         return "menuItems.copySessionId";
-      } else if (record.type === "lokinet") {
-        return "menuItems.copyLokinetAddress";
+      } else if (record.type === "belnet") {
+        return "menuItems.copyBelnetAddress";
       }
       return "menuItems.copyAddress";
     },
     validMenuItems(record) {
-      // change name depending on if lokinet or session
+      // change name depending on if belnet or session
       const lockedItems = [
         { action: "nameCopy", i18n: this.copyNameI18nLabel(record) },
         { action: "copyValue", i18n: this.copyValueI18nLabel(record) }
@@ -142,7 +142,7 @@ export default {
     },
     // can copy a value on unlock
     copyValue(record) {
-      let message = this.$t("notification.positive.lokinetAddressCopied");
+      let message = this.$t("notification.positive.belnetAddressCopied");
       if (record.type === "session") {
         message = this.$t("notification.positive.sessionIdCopied");
       }

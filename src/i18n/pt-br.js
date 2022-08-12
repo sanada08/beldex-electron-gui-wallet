@@ -241,7 +241,7 @@ export default {
     copyViewKey: "Copiar chave de visualização",
     createNewWallet: "Criar nova carteira",
     deleteWallet: "Apagar carteira",
-    exit: "Saír da Carteira GUI Loki",
+    exit: "Saír da Carteira GUI Beldex",
     importOldGUIWallet: "Importar carteiras da antiga carteira GUI",
     manageKeyImages: "Administrar Imagens de Chave",
     openWallet: "Abrir carteira",

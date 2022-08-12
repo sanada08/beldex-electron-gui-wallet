@@ -22,7 +22,7 @@ export default {
     generate: "GENERATE",
     import: "IMPORT",
     importWallet: "IMPORT WALLET | IMPORT WALLETS",
-    // lns: "BELDEX NAME SERVICE",
+    bns: "BELDEX NAME SERVICE",
     max: "MAX",
     min: "MIN",
     next: "NEXT",
@@ -97,9 +97,9 @@ export default {
       export: "Export",
       import: "Import"
     },
-    lnsUpdate: {
-      title: "Update LNS record",
-      message: "Do you want to update the LNS record?",
+    bnsUpdate: {
+      title: "Update BNS record",
+      message: "Do you want to update the BNS record?",
       ok: "UPDATE"
     },
     noPassword: {
@@ -222,10 +222,10 @@ export default {
     },
     limitDownloadRate: "LIMIT DOWNLOAD RATE",
     limitUploadRate: "LIMIT UPLOAD RATE",
-    lnsType: "LNS RECORD TYPE",
+    bnsType: "BNS RECORD TYPE",
     localDaemonIP: "LOCAL DAEMON IP",
     localDaemonPort: "LOCAL DAEMON PORT",
-    lokinetFullAddress: "LOKINET FULL ADDRESS",
+    belnetFullAddress: "BELNET FULL ADDRESS",
     maxIncomingPeers: "MAX INCOMING PEERS",
     maxOutgoingPeers: "MAX OUTGOING PEERS",
     message: "MESSAGE",
@@ -278,8 +278,8 @@ export default {
     changePassword: "Change Password",
     copyAddress: "Copy address",
     copyBackupOwner: "Copy backup owner",
-    copyLokinetAddress: "Copy lokinet address",
-    copyLokinetName: "Copy lokinet name",
+    copyBelnetAddress: "Copy belnet address",
+    copyBelnetName: "Copy belnet name",
     copyName: "Copy name",
     copyOwner: "Copy owner",
     copyQR: "Copy QR code",
@@ -314,15 +314,15 @@ export default {
       backupOwnerCopied: "Backup owner copied to clipboard",
       bannedPeer: "Banned {host} until {time}",
       copied: "{item} copied to clipboard",
-      decryptedLNSRecord: "Successfully decrypted LNS Record for {name}",
+      decryptedBNSRecord: "Successfully decrypted BNS Record for {name}",
       itemSaved: "{item} saved to {filename}",
       keyImages: {
         exported: "Key images exported to {filename}",
         imported: "Key images imported"
       },
-      lnsRecordUpdated: "LNS Record was successfully updated",
-      lokinetAddressCopied: "Full lokinet address copied",
-      lokinetNameCopied: "Lokinet name copied",
+      bnsRecordUpdated: "BNS Record was successfully updated",
+      belnetAddressCopied: "Full belnet address copied",
+      belnetNameCopied: "Belnet name copied",
       passwordUpdated: "Password updated",
       namePurchased: "Name successfully purchased",
       nameRenewed: "Name successfully renewed",
@@ -346,7 +346,7 @@ export default {
       copyWalletFail: "Failed to copy wallet",
       copyingPrivateKeys: "Error copying private keys",
       dataPathNotFound: "Data storage path not found",
-      decryptLNSRecord: "Failed to decrypt LNS Record for {name}",
+      decryptBNSRecord: "Failed to decrypt BNS Record for {name}",
       differentNetType: "Remote node is using a different nettype",
       enterSeedWords: "Enter seed words",
       enterTransactionId: "Enter transaction ID",
@@ -413,11 +413,10 @@ export default {
     dataToSign: "Data you want to sign with your primary address's private key",
     filterTx: "Enter an ID, name, address or amount",
     hexCharacters: "{count} hexadecimal characters",
-    lnsName: "The name to purchase via Loki Name Service",
-    lnsBackupOwner: "The wallet address of the backup owner",
-    lnsDecryptName: "A LNS name that belongs to you",
-    lokinetFullAddress:
-      "Full lokinet address to map LNS name to (without .loki)",
+    bnsName: "The name to purchase via Beldex Name Service",
+    bnsBackupOwner: "The wallet address of the backup owner",
+    bnsDecryptName: "A BNS name that belongs to you",
+    belnetFullAddress: "Full belnet address to map BNS name to (without .bdx)",
     mnemonicSeed: "25 (or 24) word mnemonic seed",
     pasteTransactionId: "Paste transaction ID",
     pasteTransactionProof: "Paste transaction proof",
@@ -425,7 +424,7 @@ export default {
       "Optional message against which the signature is signed",
     recipientWalletAddress: "Recipient's wallet address",
     selectAFile: "Please select a file",
-    sessionId: "The Session ID to link to Loki Name Service",
+    sessionId: "The Session ID to link to Beldex Name Service",
     signature: "Signature to verify",
     transactionNotes: "Additional notes to locally attach to the transaction",
     unsignedData: "The data as it should look before it was signed",
@@ -490,20 +489,20 @@ export default {
     destinationUnknown: "Destination Unknown",
     editAddressBookEntry: "Edit address book entry",
     expirationHeight: "Expiration height",
-    lns: {
-      sessionID: "Session ID",
-      lokinetName1Year: "Lokinet Name 1 year",
-      lokinetNameXYears: "Lokinet Name {years} years",
-      prices: "LNS Prices:"
+    bns: {
+      sessionID: "Bchat ID",
+      belnetName1Year: "Belnet Name 1 year",
+      belnetNameXYears: "Belnet Name {years} years",
+      prices: "BNS Prices:"
     },
-    lnsPurchaseDescription:
-      "Purchase or update an LNS record. If you purchase a name, it may take a minute or two for it to show up in the list.",
-    lnsDescription:
-      "Here you can find all the LNS names owned by this wallet. Decrypting a record you own will return the name and value of that LNS record.",
+    bnsPurchaseDescription:
+      "Purchase or update an BNS record. If you purchase a name, it may take a minute or two for it to show up in the list.",
+    bnsDescription:
+      "Here you can find all the BNS names owned by this wallet. Decrypting a record you own will return the name and value of that BNS record.",
     loadingSettings: "Loading settings",
     oxenBalance: "Balance",
-    lokinetNameDescription:
-      "Purchase or update a name on Lokinet. If you purchase a name it may take a minute or two for it to show up in the list. To learn more about lokinet visit: ",
+    belnetNameDescription:
+      "Purchase or update a name on Belnet. If you purchase a name it may take a minute or two for it to show up in the list. To learn more about belnet visit: ",
     oxenUnlockedBalance: "Unlocked balance",
     oxenUnlockedShort: "Unlocked",
     me: "Me",
@@ -613,14 +612,14 @@ export default {
     changePassword: "Change password",
     configure: "Configure",
     currentlyStakedNodes: "Currently staked nodes",
-    lnsRecordDetails: "LNS record details",
-    lnsSessionRecords: "Session records",
-    lnsLokinetRecords: "Lokinet records",
+    bnsRecordDetails: "BNS record details",
+    bnsSessionRecords: "Session records",
+    bnsBelnetRecords: "Belnet records",
     privateKeys: "Private keys",
     rescanWallet: "Rescan wallet",
-    lns: {
+    bns: {
       purchase: "PURCHASE",
-      myLns: "MY LNS"
+      myBns: "MY BNS"
     },
     masterNode: {
       registration: "REGISTRATION",

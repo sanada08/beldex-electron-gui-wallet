@@ -1,45 +1,45 @@
 <template>
-  <div class="lns-purchase">
+  <div class="bns-purchase">
     <div class="q-mb-lg q-px-md q-pt-md">
       <div class="tab-desc">
-        {{ $t("strings.lnsPurchaseDescription") }}
+        {{ $t("strings.bnsPurchaseDescription") }}
       </div>
       <div class="prices">
-        {{ $t("strings.lns.prices") }}
+        {{ $t("strings.bns.prices") }}
         <table>
           <tr>
-            <td>{{ $t("strings.lns.sessionID") }}:</td>
+            <td>{{ $t("strings.bns.sessionID") }}:</td>
             <td>15 BDX</td>
           </tr>
           <tr>
-            <td>{{ $t("strings.lns.lokinetName1Year") }}:</td>
+            <td>{{ $t("strings.bns.belnetName1Year") }}:</td>
             <td>15 BDX</td>
           </tr>
           <tr>
-            <td>{{ $t("strings.lns.lokinetNameXYears", { years: 2 }) }}:</td>
+            <td>{{ $t("strings.bns.belnetNameXYears", { years: 2 }) }}:</td>
             <td>30 BDX</td>
           </tr>
           <tr>
-            <td>{{ $t("strings.lns.lokinetNameXYears", { years: 5 }) }}:</td>
+            <td>{{ $t("strings.bns.belnetNameXYears", { years: 5 }) }}:</td>
             <td>60 BDX</td>
           </tr>
           <tr>
-            <td>{{ $t("strings.lns.lokinetNameXYears", { years: 10 }) }}:</td>
+            <td>{{ $t("strings.bns.belnetNameXYears", { years: 10 }) }}:</td>
             <td>90 BDX</td>
           </tr>
         </table>
       </div>
-      <LNSInput ref="input" />
+      <BNSInput ref="input" />
     </div>
   </div>
 </template>
 
 <script>
-import LNSInput from "./lns_input";
+import BNSInput from "./bns_input";
 export default {
-  name: "LNSPurchase",
+  name: "BNSPurchase",
   components: {
-    LNSInput
+    BNSInput
   },
   methods: {
     startUpdating(record) {
@@ -52,7 +52,7 @@ export default {
 };
 </script>
 <style lang="scss">
-.lns-purchase {
+.bns-purchase {
   .description {
     white-space: pre-line;
     // oxen-navy
@@ -62,7 +62,7 @@ export default {
   .prices {
     // oxen-navy
     margin-top: 20px;
-    color: #010101;
+    color: #ff0000;
   }
 }
 </style>

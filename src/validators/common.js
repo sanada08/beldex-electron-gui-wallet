@@ -17,8 +17,8 @@ export const session_id = input => {
   return input.length === 66 && /^05[0-9A-Za-z]+$/.test(input);
 };
 
-// shortened Lokinet LNS name
-export const lokinet_name = (input, lokiExt = false) => {
+// shortened Belnet BNS name
+export const belnet_name = (input, beldexExt = false) => {
   let inputSafe = input || "";
   let maxLength = 32;
 
@@ -32,10 +32,10 @@ export const lokinet_name = (input, lokiExt = false) => {
     !(inputSafe.slice(0, 2) === "xn")
   );
 
-  let reservedNames = ["localhost", "loki", "mnode"];
+  let reservedNames = ["localhost", "beldex", "mnode"];
   let regexCheck;
-  if (lokiExt) {
-    regexCheck = /^[a-z0-9](?:[a-z0-9-]*[a-z0-9])?.loki$/.test(inputSafe);
+  if (beldexExt) {
+    regexCheck = /^[a-z0-9](?:[a-z0-9-]*[a-z0-9])?.bdx$/.test(inputSafe);
   } else {
     regexCheck = /^[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/.test(inputSafe);
   }
@@ -47,13 +47,13 @@ export const lokinet_name = (input, lokiExt = false) => {
   );
 };
 
-export const session_name_or_lokinet_name = input => {
+export const session_name_or_belnet_name = input => {
   const lcInput = input.toLowerCase();
-  return session_name(lcInput) || lokinet_name(lcInput, true);
+  return session_name(lcInput) || belnet_name(lcInput, true);
 };
 
-// Full lokinet address
-export const lokinet_address = input => {
+// Full belnet address
+export const belnet_address = input => {
   return (
     input.length === 52 &&
     /^[ybndrfg8ejkmcpqxot1uwisza345h769]{51}[yo]$/.test(input)
