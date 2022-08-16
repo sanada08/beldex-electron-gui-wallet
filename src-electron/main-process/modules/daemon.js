@@ -518,7 +518,7 @@ export class Daemon {
       entries: [
         {
           name_hash: nameHash,
-          // 0 = session
+          // 0 = bchat
           // 2 = belnet
           types: [0, 2]
         }
@@ -537,11 +537,11 @@ export class Daemon {
   _sanitizeBNSRecords(records) {
     return (records || []).map(record => {
       // Record type is in uint16 format
-      // Session = 0
+      // Bchat = 0
       // Belnet = 2
       let type = "belnet";
       if (record.type === 0) {
-        type = "session";
+        type = "bchat";
       }
       return {
         ...record,

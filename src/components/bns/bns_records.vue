@@ -25,12 +25,10 @@
         />
       </div>
     </div>
-    <div v-if="session_records.length > 0" class="records-group">
-      <span class="record-type-title">{{
-        $t("titles.bnsSessionRecords")
-      }}</span>
+    <div v-if="bchat_records.length > 0" class="records-group">
+      <span class="record-type-title">{{ $t("titles.bnsBchatRecords") }}</span>
       <BNSRecordList
-        :record-list="session_records"
+        :record-list="bchat_records"
         :is-belnet="false"
         @onUpdate="onUpdate"
       />
@@ -50,7 +48,7 @@
 <script>
 import { mapState } from "vuex";
 import OxenField from "components/oxen_field";
-import { session_name_or_belnet_name } from "src/validators/common";
+import { bchat_name_or_belnet_name } from "src/validators/common";
 import BNSRecordList from "./bns_record_list";
 
 export default {
@@ -76,14 +74,14 @@ export default {
       const all = [...used, ...unused, ...primary];
       return all.map(a => a.address).filter(a => !!a);
     },
-    session_records(state) {
-      return this.records_of_type(state, "session");
+    bchat_records(state) {
+      return this.records_of_type(state, "bchat");
     },
     belnet_records(state) {
       return this.records_of_type(state, "belnet");
     },
     needsDecryption() {
-      const records = [...this.belnet_records, ...this.session_records];
+      const records = [...this.belnet_records, ...this.bchat_records];
       return records.find(r => this.isLocked(r));
     }
   }),
@@ -164,8 +162,8 @@ export default {
         this.decrypting = false;
       });
 
-      let type = "session";
-      // session names cannot have a "." so this is safe
+      let type = "bchat";
+      // bchat names cannot have a "." so this is safe
       if (name.endsWith(".bdx")) {
         type = "belnet";
       }
@@ -180,7 +178,7 @@ export default {
 
   validations: {
     name: {
-      session_name_or_belnet_name
+      bchat_name_or_belnet_name
     }
   }
 };

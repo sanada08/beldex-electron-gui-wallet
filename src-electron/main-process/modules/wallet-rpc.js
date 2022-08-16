@@ -354,7 +354,7 @@ export class WalletRPC {
           !!params.isSweepAll
         );
         break;
-      case "purchase_lns":
+      case "purchase_bns":
         this.purchaseBNS(
           params.password,
           params.type,
@@ -1127,7 +1127,6 @@ export class WalletRPC {
         include_expired: false
       };
       let data = await this.sendRPC("bns_known_names", params);
-      console.log("data:", data);
 
       if (data.result && data.result.known_names) {
         return data.result.known_names;
@@ -1262,8 +1261,8 @@ export class WalletRPC {
   Get a BNS record associated with the given name
   */
   async getBNSRecord(type, name) {
-    // We currently only support session and belnet
-    const types = ["session", "belnet"];
+    // We currently only support bchat and belnet
+    const types = ["bchat", "belnet"];
     if (!types.includes(type)) return null;
 
     if (!name || name.trim().length === 0) return null;
@@ -1924,7 +1923,7 @@ export class WalletRPC {
     const _owner = owner.trim() === "" ? null : owner;
     const backup_owner = backupOwner.trim() === "" ? null : backupOwner;
 
-    // updated records have type "belnet" or "session"
+    // updated records have type "belnet" or "bchat"
     // UI passes the values without the extension
     if (type === "belnet") {
       _name = _name + ".bdx";

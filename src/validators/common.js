@@ -13,8 +13,8 @@ export const master_node_key = input => {
   return input.length === 64 && /^[0-9A-Za-z]+$/.test(input);
 };
 
-export const session_id = input => {
-  return input.length === 66 && /^05[0-9A-Za-z]+$/.test(input);
+export const bchat_id = input => {
+  return input.length === 66 && /^bd[0-9A-Za-z]+$/.test(input);
 };
 
 // shortened Belnet BNS name
@@ -47,9 +47,9 @@ export const belnet_name = (input, beldexExt = false) => {
   );
 };
 
-export const session_name_or_belnet_name = input => {
+export const bchat_name_or_belnet_name = input => {
   const lcInput = input.toLowerCase();
-  return session_name(lcInput) || belnet_name(lcInput, true);
+  return bchat_name(lcInput) || belnet_name(lcInput, true);
 };
 
 // Full belnet address
@@ -60,7 +60,7 @@ export const belnet_address = input => {
   );
 };
 
-export const session_name = input => {
+export const bchat_name = input => {
   return (
     input.length === 0 ||
     /^[a-z0-9_]([a-z0-9-_]*[a-z0-9_])?$/.test(input.toLowerCase())

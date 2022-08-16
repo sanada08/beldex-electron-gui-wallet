@@ -37,7 +37,7 @@
         </template>
       </q-item-section>
       <q-item-section v-if="!isLocked(record)" side>
-        <span v-if="record.type === 'session'">{{
+        <span v-if="record.type === 'bchat'">{{
           record.update_height | blockHeight
         }}</span>
         <span v-else class="belnet-expiration">{{
@@ -108,22 +108,22 @@ export default {
       this.$emit("onRenew", record);
     },
     copyNameI18nLabel(record) {
-      if (record.type === "session") {
+      if (record.type === "bchat") {
         return "menuItems.copyName";
       } else {
         return "menuItems.copyBelnetName";
       }
     },
     copyValueI18nLabel(record) {
-      if (record.type === "session") {
-        return "menuItems.copySessionId";
+      if (record.type === "bchat") {
+        return "menuItems.copyBchatId";
       } else if (record.type === "belnet") {
         return "menuItems.copyBelnetAddress";
       }
       return "menuItems.copyAddress";
     },
     validMenuItems(record) {
-      // change name depending on if belnet or session
+      // change name depending on if belnet or bchat
       const lockedItems = [
         { action: "nameCopy", i18n: this.copyNameI18nLabel(record) },
         { action: "copyValue", i18n: this.copyValueI18nLabel(record) }
@@ -143,8 +143,8 @@ export default {
     // can copy a value on unlock
     copyValue(record) {
       let message = this.$t("notification.positive.belnetAddressCopied");
-      if (record.type === "session") {
-        message = this.$t("notification.positive.sessionIdCopied");
+      if (record.type === "bchat") {
+        message = this.$t("notification.positive.bchatIdCopied");
       }
       this.copy(record.value, message);
     },

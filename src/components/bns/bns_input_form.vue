@@ -28,13 +28,13 @@
           :disable="disableName"
           borderless
           dense
-          :suffix="record.type === 'session' ? '' : '.bdx'"
+          :suffix="record.type === 'bchat' ? '' : '.bdx'"
           @blur="$v.record.name.$touch"
         />
       </OxenField>
     </div>
 
-    <!-- Value (Session ID, Wallet Address or .bdx address) -->
+    <!-- Value (Bchat ID, Wallet Address or .bdx address) -->
     <div class="col q-mt-sm">
       <OxenField
         class="q-mt-md"
@@ -48,7 +48,7 @@
           borderless
           dense
           :disable="renewing"
-          :suffix="record.type === 'session' ? '' : '.bdx'"
+          :suffix="record.type === 'bchat' ? '' : '.bdx'"
           @blur="$v.record.value.$touch"
         />
       </OxenField>
@@ -114,10 +114,10 @@ import { mapState } from "vuex";
 import { required, maxLength } from "vuelidate/lib/validators";
 import {
   address,
-  session_id,
+  bchat_id,
   belnet_address,
   belnet_name,
-  session_name
+  bchat_name
 } from "src/validators/common";
 import OxenField from "components/oxen_field";
 import WalletPassword from "src/mixins/wallet_password";
@@ -164,8 +164,8 @@ export default {
     }
   },
   data() {
-    let sessionOptions = [
-      { label: this.$t("strings.bns.sessionID"), value: "session" }
+    let bchatOptions = [
+      { label: this.$t("strings.bns.bchatID"), value: "bchat" }
     ];
     let belnetOptions = [
       { label: this.$t("strings.bns.belnetName1Year"), value: "belnet_1y" },
@@ -182,7 +182,7 @@ export default {
         value: "belnet_10y"
       }
     ];
-    let typeOptions = [...sessionOptions, ...belnetOptions];
+    let typeOptions = [...bchatOptions, ...belnetOptions];
 
     const initialRecord = {
       // Belnet 1 year is valid on renew or purchase
@@ -205,8 +205,8 @@ export default {
       return this.$store.getters["gateway/isAbleToSend"];
     },
     value_field_label() {
-      if (this.record.type === "session") {
-        return this.$t("fieldLabels.sessionId");
+      if (this.record.type === "bchat") {
+        return this.$t("fieldLabels.bchatId");
       } else {
         return this.$t("fieldLabels.belnetFullAddress");
       }
@@ -229,8 +229,8 @@ export default {
       return true;
     },
     value_placeholder() {
-      if (this.record.type === "session") {
-        return this.$t("placeholders.sessionId");
+      if (this.record.type === "bchat") {
+        return this.$t("placeholders.bchatId");
       } else {
         return this.$t("placeholders.belnetFullAddress");
       }
@@ -245,7 +245,7 @@ export default {
     },
     cleanRecord() {
       return {
-        type: "session",
+        type: "bchat",
         name: "",
         value: "",
         owner: "",
@@ -301,8 +301,8 @@ export default {
 
       if (this.$v.record.value.$error) {
         let message = "Invalid value provided";
-        if (this.record.type === "session") {
-          message = this.$t("notification.errors.invalidSessionId");
+        if (this.record.type === "bchat") {
+          message = this.$t("notification.errors.invalidBchatId");
         }
         this.$q.notify({
           type: "negative",
@@ -353,8 +353,8 @@ export default {
         },
         validate: function(value) {
           const _value = value.toLowerCase();
-          if (this.record.type === "session") {
-            return session_name(_value);
+          if (this.record.type === "bchat") {
+            return bchat_name(_value);
           } else {
             // shortened belnet BNS name
             return belnet_name(_value);
@@ -370,8 +370,8 @@ export default {
         required,
         validate: function(value) {
           const _value = value.toLowerCase();
-          if (this.record.type === "session") {
-            return session_id(_value);
+          if (this.record.type === "bchat") {
+            return bchat_id(_value);
           } else {
             // full belnet address
             return belnet_address(_value);

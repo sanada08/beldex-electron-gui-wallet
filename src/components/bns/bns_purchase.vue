@@ -8,7 +8,7 @@
         {{ $t("strings.bns.prices") }}
         <table>
           <tr>
-            <td>{{ $t("strings.bns.sessionID") }}:</td>
+            <td>{{ $t("strings.bns.bchatID") }}:</td>
             <td>15 BDX</td>
           </tr>
           <tr>
