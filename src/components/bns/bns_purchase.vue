@@ -62,7 +62,7 @@ export default {
   .prices {
     // oxen-navy
     margin-top: 20px;
-    color: #ff0000;
+    color: #47fa2f;
   }
 }
 </style>
