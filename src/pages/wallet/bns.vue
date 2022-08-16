@@ -1,5 +1,5 @@
 <template>
-  <q-page class="lns-page">
+  <q-page class="bns-page">
     <div class="header row items-center justify-center q-pt-md">
       <q-btn-toggle
         v-model="screen"
@@ -7,31 +7,31 @@
         color="accent"
         :options="[
           {
-            label: $t('titles.lns.purchase'),
+            label: $t('titles.bns.purchase'),
             value: 'purchase'
           },
           {
-            label: $t('titles.lns.myLns'),
-            value: 'my_lns'
+            label: $t('titles.bns.myBns'),
+            value: 'my_bns'
           }
         ]"
       />
     </div>
-    <LNSPurchase v-if="screen === 'purchase'" ref="purchase" />
-    <MyLNS v-if="screen === 'my_lns'" @onUpdate="onUpdate" @onRenew="onRenew" />
+    <BNSPurchase v-if="screen === 'purchase'" ref="purchase" />
+    <MyBNS v-if="screen === 'my_bns'" @onUpdate="onUpdate" @onRenew="onRenew" />
   </q-page>
 </template>
 
 <script>
-import LNSPurchase from "components/lns/lns_purchase";
-import MyLNS from "components/lns/lns_mylns";
+import BNSPurchase from "components/bns/bns_purchase";
+import MyBNS from "components/bns/bns_mybns";
 import Vue from "vue";
 import _ from "lodash";
 
 export default {
   components: {
-    MyLNS,
-    LNSPurchase
+    MyBNS,
+    BNSPurchase
   },
   data() {
     return {
@@ -43,8 +43,8 @@ export default {
       // don't update the pointer to the record (else it'll update on the records page)
       let recordCopy = _.cloneDeep(record);
 
-      if (record.type === "lokinet" && record.name.endsWith(".loki")) {
-        // The UI expects no ".loki" extension
+      if (record.type === "belnet" && record.name.endsWith(".bdx")) {
+        // The UI expects no ".bdx" extension
         recordCopy.name = recordCopy.name.slice(0, -5);
         recordCopy.value = recordCopy.value.slice(0, -5);
       }

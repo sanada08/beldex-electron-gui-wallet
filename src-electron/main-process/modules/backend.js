@@ -35,20 +35,20 @@ export class Backend {
 
   init(config) {
     let configDir;
-    let legacyLokiConfigDir;
+    let legacyBeldexConfigDir;
     if (os.platform() === "win32") {
       configDir = "C:\\ProgramData\\beldex";
-      legacyLokiConfigDir = "C:\\ProgramData\\beldex\\";
+      legacyBeldexConfigDir = "C:\\ProgramData\\beldex\\";
       this.wallet_dir = `${os.homedir()}\\Documents\\Beldex`;
     } else {
       configDir = path.join(os.homedir(), ".beldex");
-      legacyLokiConfigDir = path.join(os.homedir(), ".beldex/");
+      legacyBeldexConfigDir = path.join(os.homedir(), ".beldex/");
       this.wallet_dir = path.join(os.homedir(), "Beldex");
     }
 
-    // if the user has used loki before, just keep the same stuff
-    if (fs.existsSync(legacyLokiConfigDir)) {
-      this.config_dir = legacyLokiConfigDir;
+    // if the user has used beldex before, just keep the same stuff
+    if (fs.existsSync(legacyBeldexConfigDir)) {
+      this.config_dir = legacyBeldexConfigDir;
     } else {
       // create the new, Beldex location
       this.config_dir = configDir;
@@ -124,7 +124,7 @@ export class Backend {
       {
         host: "mainnet.beldex.io",
         port: "29095"
-        },
+      },
       {
         host: "explorer.beldex.io",
         port: "19091"

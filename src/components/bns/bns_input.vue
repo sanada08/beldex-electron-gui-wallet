@@ -1,6 +1,6 @@
 <template>
-  <div class="lns-input">
-    <LNSInputForm
+  <div class="bns-input">
+    <BNSInputForm
       ref="form"
       :submit-label="submit_label"
       :disable-name="updating || renewing"
@@ -11,7 +11,7 @@
       @onSubmit="onSubmit"
       @onClear="onClear"
     />
-    <q-inner-loading :showing="lns_status.sending" :dark="theme == 'dark'">
+    <q-inner-loading :showing="bns_status.sending" :dark="theme == 'dark'">
       <q-spinner color="primary" size="30" />
     </q-inner-loading>
   </div>
@@ -19,14 +19,14 @@
 
 <script>
 import { mapState } from "vuex";
-import LNSInputForm from "./lns_input_form";
+import BNSInputForm from "./bns_input_form";
 import WalletPassword from "src/mixins/wallet_password";
 const objectAssignDeep = require("object-assign-deep");
 
 export default {
-  name: "LNSInput",
+  name: "BNSInput",
   components: {
-    LNSInputForm
+    BNSInputForm
   },
   mixins: [WalletPassword],
   data() {
@@ -37,7 +37,7 @@ export default {
   },
   computed: mapState({
     theme: state => state.gateway.app.config.appearance.theme,
-    lns_status: state => state.gateway.lns_status,
+    bns_status: state => state.gateway.bns_status,
     unlocked_balance: state => state.gateway.wallet.info.unlocked_balance,
     disable_submit_button() {
       const minBalance = this.updating ? 0.05 : 21;
@@ -55,7 +55,7 @@ export default {
   }),
 
   watch: {
-    lns_status: {
+    bns_status: {
       handler(val, old) {
         if (val.code == old.code) return;
         const { code, message } = val;
@@ -92,7 +92,7 @@ export default {
       // set the type such that we default to one year
       let renewRecord = {
         ...record,
-        type: "lokinet_1y"
+        type: "belnet_1y"
       };
       this.$refs.form.setRecord(renewRecord);
     },
@@ -119,10 +119,10 @@ export default {
       };
 
       let passwordDialog = await this.showPasswordConfirmation({
-        title: this.$t("dialog.lnsUpdate.title"),
-        noPasswordMessage: this.$t("dialog.lnsUpdate.message"),
+        title: this.$t("dialog.bnsUpdate.title"),
+        noPasswordMessage: this.$t("dialog.bnsUpdate.message"),
         ok: {
-          label: this.$t("dialog.lnsUpdate.ok"),
+          label: this.$t("dialog.bnsUpdate.ok"),
           color: "primary"
         },
         color: "#010101"
@@ -131,15 +131,15 @@ export default {
         .onOk(password => {
           // if no password set
           password = password || "";
-          this.$store.commit("gateway/set_lns_status", {
+          this.$store.commit("gateway/set_bns_status", {
             code: 1,
             message: "Sending transaction",
             sending: true
           });
-          const lns = objectAssignDeep.noMutate(updatedRecord, {
+          const bns = objectAssignDeep.noMutate(updatedRecord, {
             password
           });
-          this.$gateway.send("wallet", "update_lns_mapping", lns);
+          this.$gateway.send("wallet", "update_bns_mapping", bns);
         })
         .onDismiss(() => {})
         .onCancel(() => {});
@@ -157,15 +157,15 @@ export default {
         .onOk(password => {
           // if no password set
           password = password || "";
-          this.$store.commit("gateway/set_lns_status", {
+          this.$store.commit("gateway/set_bns_status", {
             code: 1,
             message: "Sending transaction",
             sending: true
           });
-          const lns = objectAssignDeep.noMutate(record, {
+          const bns = objectAssignDeep.noMutate(record, {
             password
           });
-          this.$gateway.send("wallet", "purchase_lns", lns);
+          this.$gateway.send("wallet", "purchase_bns", bns);
         })
         .onDismiss(() => {})
         .onCancel(() => {});
@@ -185,7 +185,7 @@ export default {
         .onOk(password => {
           // if no password set
           password = password || "";
-          this.$store.commit("gateway/set_lns_status", {
+          this.$store.commit("gateway/set_bns_status", {
             code: 1,
             message: "Sending renew mapping transaction",
             sending: true
@@ -195,7 +195,7 @@ export default {
             name: record.name,
             password
           };
-          this.$gateway.send("wallet", "lns_renew_mapping", params);
+          this.$gateway.send("wallet", "bns_renew_mapping", params);
         })
         .onDismiss(() => {})
         .onCancel(() => {});

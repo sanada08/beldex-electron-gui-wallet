@@ -1,5 +1,5 @@
 <template>
-  <div class="lns-record-list">
+  <div class="bns-record-list">
     <div v-if="needsDecryption" class="decrypt row justify-between items-end">
       <OxenField
         :label="$t('fieldLabels.decryptRecord')"
@@ -11,7 +11,7 @@
           :dark="theme == 'dark'"
           borderless
           dense
-          :placeholder="$t('placeholders.lnsDecryptName')"
+          :placeholder="$t('placeholders.bnsDecryptName')"
           :disable="decrypting"
           @blur="$v.name.$touch"
         />
@@ -25,23 +25,19 @@
         />
       </div>
     </div>
-    <div v-if="session_records.length > 0" class="records-group">
-      <span class="record-type-title">{{
-        $t("titles.lnsSessionRecords")
-      }}</span>
-      <LNSRecordList
-        :record-list="session_records"
-        :is-lokinet="false"
+    <div v-if="bchat_records.length > 0" class="records-group">
+      <span class="record-type-title">{{ $t("titles.bnsBchatRecords") }}</span>
+      <BNSRecordList
+        :record-list="bchat_records"
+        :is-belnet="false"
         @onUpdate="onUpdate"
       />
     </div>
-    <div v-if="lokinet_records.length > 0" class="records-group">
-      <span class="record-type-title">{{
-        $t("titles.lnsLokinetRecords")
-      }}</span>
-      <LNSRecordList
-        :record-list="lokinet_records"
-        :is-lokinet="true"
+    <div v-if="belnet_records.length > 0" class="records-group">
+      <span class="record-type-title">{{ $t("titles.bnsBelnetRecords") }}</span>
+      <BNSRecordList
+        :record-list="belnet_records"
+        :is-belnet="true"
         @onUpdate="onUpdate"
         @onRenew="onRenew"
       />
@@ -52,14 +48,14 @@
 <script>
 import { mapState } from "vuex";
 import OxenField from "components/oxen_field";
-import { session_name_or_lokinet_name } from "src/validators/common";
-import LNSRecordList from "./lns_record_list";
+import { bchat_name_or_belnet_name } from "src/validators/common";
+import BNSRecordList from "./bns_record_list";
 
 export default {
-  name: "LNSRecords",
+  name: "BNSRecords",
   components: {
     OxenField,
-    LNSRecordList
+    BNSRecordList
   },
   data() {
     return {
@@ -68,7 +64,7 @@ export default {
     };
   },
   mounted() {
-    this.$gateway.send("wallet", "lns_known_names");
+    this.$gateway.send("wallet", "bns_known_names");
   },
   computed: mapState({
     theme: state => state.gateway.app.config.appearance.theme,
@@ -78,14 +74,14 @@ export default {
       const all = [...used, ...unused, ...primary];
       return all.map(a => a.address).filter(a => !!a);
     },
-    session_records(state) {
-      return this.records_of_type(state, "session");
+    bchat_records(state) {
+      return this.records_of_type(state, "bchat");
     },
-    lokinet_records(state) {
-      return this.records_of_type(state, "lokinet");
+    belnet_records(state) {
+      return this.records_of_type(state, "belnet");
     },
     needsDecryption() {
-      const records = [...this.lokinet_records, ...this.session_records];
+      const records = [...this.belnet_records, ...this.bchat_records];
       return records.find(r => this.isLocked(r));
     }
   }),
@@ -93,7 +89,7 @@ export default {
     records_of_type(state, type) {
       // receives the type and returns the records of that type
       const ourAddresses = this.ourAddresses;
-      const records = state.gateway.wallet.lnsRecords;
+      const records = state.gateway.wallet.bnsRecords;
       const ourRecords = records.filter(record => {
         return (
           record.type === type &&
@@ -151,7 +147,7 @@ export default {
           this.$q.notify({
             type: "positive",
             timeout: 2000,
-            message: this.$t("notification.positive.decryptedLNSRecord", {
+            message: this.$t("notification.positive.decryptedBNSRecord", {
               name
             })
           });
@@ -160,16 +156,16 @@ export default {
           this.$q.notify({
             type: "negative",
             timeout: 3000,
-            message: this.$t("notification.errors.decryptLNSRecord", { name })
+            message: this.$t("notification.errors.decryptBNSRecord", { name })
           });
         }
         this.decrypting = false;
       });
 
-      let type = "session";
-      // session names cannot have a "." so this is safe
-      if (name.endsWith(".loki")) {
-        type = "lokinet";
+      let type = "bchat";
+      // bchat names cannot have a "." so this is safe
+      if (name.endsWith(".bdx")) {
+        type = "belnet";
       }
 
       this.$gateway.send("wallet", "decrypt_record", {
@@ -182,14 +178,14 @@ export default {
 
   validations: {
     name: {
-      session_name_or_lokinet_name
+      bchat_name_or_belnet_name
     }
   }
 };
 </script>
 
 <style lang="scss">
-.lns-record-list {
+.bns-record-list {
   .height {
     font-size: 0.9em;
   }
