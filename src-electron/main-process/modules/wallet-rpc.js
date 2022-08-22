@@ -924,7 +924,7 @@ export class WalletRPC {
     clearInterval(this.heartbeat);
     this.heartbeat = setInterval(() => {
       this.heartbeatAction();
-    }, 80000);
+    }, 8000);
     this.heartbeatAction(true);
 
     clearInterval(this.bnsHeartbeat);
