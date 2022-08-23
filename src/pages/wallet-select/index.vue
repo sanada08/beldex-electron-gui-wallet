@@ -124,7 +124,7 @@ export default {
     wallets: state => state.gateway.wallets,
     status: state => state.gateway.wallet.status,
     actions() {
-      // TODO: Add this in once LOKI has the functionality
+      // TODO: Add this in once BELDEX has the functionality
       // <q-item @click.native="restoreViewWallet()">
       //     <q-item-label label="Restore view-only wallet" />
       // </q-item>

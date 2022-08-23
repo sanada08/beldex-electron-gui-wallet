@@ -1,13 +1,13 @@
 <template>
-  <div class="lns-input-form">
+  <div class="bns-input-form">
     <!-- Type -->
     <div class="col q-mt-sm">
-      <OxenField :label="$t('fieldLabels.lnsType')" :disable="updating">
+      <OxenField :label="$t('fieldLabels.bnsType')" :disable="updating">
         <q-select
           v-model.trim="record.type"
           emit-value
           map-options
-          :options="renewing ? lokinetOptions : typeOptions"
+          :options="renewing ? belnetOptions : typeOptions"
           :disable="updating"
           borderless
           dense
@@ -24,17 +24,17 @@
         <q-input
           v-model.trim="record.name"
           :dark="theme == 'dark'"
-          :placeholder="$t('placeholders.lnsName')"
+          :placeholder="$t('placeholders.bnsName')"
           :disable="disableName"
           borderless
           dense
-          :suffix="record.type === 'session' ? '' : '.loki'"
+          :suffix="record.type === 'bchat' ? '' : '.bdx'"
           @blur="$v.record.name.$touch"
         />
       </OxenField>
     </div>
 
-    <!-- Value (Session ID, Wallet Address or .loki address) -->
+    <!-- Value (Bchat ID, Wallet Address or .bdx address) -->
     <div class="col q-mt-sm">
       <OxenField
         class="q-mt-md"
@@ -48,7 +48,7 @@
           borderless
           dense
           :disable="renewing"
-          :suffix="record.type === 'session' ? '' : '.loki'"
+          :suffix="record.type === 'bchat' ? '' : '.bdx'"
           @blur="$v.record.value.$touch"
         />
       </OxenField>
@@ -85,7 +85,7 @@
         <q-input
           v-model.trim="record.backup_owner"
           :dark="theme == 'dark'"
-          :placeholder="$t('placeholders.lnsBackupOwner')"
+          :placeholder="$t('placeholders.bnsBackupOwner')"
           :disable="renewing"
           borderless
           dense
@@ -114,16 +114,16 @@ import { mapState } from "vuex";
 import { required, maxLength } from "vuelidate/lib/validators";
 import {
   address,
-  session_id,
-  lokinet_address,
-  lokinet_name,
-  session_name
+  bchat_id,
+  belnet_address,
+  belnet_name,
+  bchat_name
 } from "src/validators/common";
 import OxenField from "components/oxen_field";
 import WalletPassword from "src/mixins/wallet_password";
 
 export default {
-  name: "LNSInputForm",
+  name: "BNSInputForm",
   components: {
     OxenField
   },
@@ -164,28 +164,28 @@ export default {
     }
   },
   data() {
-    let sessionOptions = [
-      { label: this.$t("strings.lns.sessionID"), value: "session" }
+    let bchatOptions = [
+      { label: this.$t("strings.bns.bchatID"), value: "bchat" }
     ];
-    let lokinetOptions = [
-      { label: this.$t("strings.lns.lokinetName1Year"), value: "lokinet_1y" },
+    let belnetOptions = [
+      { label: this.$t("strings.bns.belnetName1Year"), value: "belnet_1y" },
       {
-        label: this.$t("strings.lns.lokinetNameXYears", { years: 2 }),
-        value: "lokinet_2y"
+        label: this.$t("strings.bns.belnetNameXYears", { years: 2 }),
+        value: "belnet_2y"
       },
       {
-        label: this.$t("strings.lns.lokinetNameXYears", { years: 5 }),
-        value: "lokinet_5y"
+        label: this.$t("strings.bns.belnetNameXYears", { years: 5 }),
+        value: "belnet_5y"
       },
       {
-        label: this.$t("strings.lns.lokinetNameXYears", { years: 10 }),
-        value: "lokinet_10y"
+        label: this.$t("strings.bns.belnetNameXYears", { years: 10 }),
+        value: "belnet_10y"
       }
     ];
-    let typeOptions = [...sessionOptions, ...lokinetOptions];
+    let typeOptions = [...bchatOptions, ...belnetOptions];
 
     const initialRecord = {
-      // Lokinet 1 year is valid on renew or purchase
+      // Belnet 1 year is valid on renew or purchase
       type: typeOptions[1].value,
       name: "",
       value: "",
@@ -195,7 +195,7 @@ export default {
     return {
       record: { ...initialRecord },
       typeOptions,
-      lokinetOptions
+      belnetOptions
     };
   },
   computed: mapState({
@@ -205,10 +205,10 @@ export default {
       return this.$store.getters["gateway/isAbleToSend"];
     },
     value_field_label() {
-      if (this.record.type === "session") {
-        return this.$t("fieldLabels.sessionId");
+      if (this.record.type === "bchat") {
+        return this.$t("fieldLabels.bchatId");
       } else {
-        return this.$t("fieldLabels.lokinetFullAddress");
+        return this.$t("fieldLabels.belnetFullAddress");
       }
     },
     can_update() {
@@ -229,10 +229,10 @@ export default {
       return true;
     },
     value_placeholder() {
-      if (this.record.type === "session") {
-        return this.$t("placeholders.sessionId");
+      if (this.record.type === "bchat") {
+        return this.$t("placeholders.bchatId");
       } else {
-        return this.$t("placeholders.lokinetFullAddress");
+        return this.$t("placeholders.belnetFullAddress");
       }
     },
     owner_placeholder() {
@@ -245,7 +245,7 @@ export default {
     },
     cleanRecord() {
       return {
-        type: "session",
+        type: "bchat",
         name: "",
         value: "",
         owner: "",
@@ -301,8 +301,8 @@ export default {
 
       if (this.$v.record.value.$error) {
         let message = "Invalid value provided";
-        if (this.record.type === "session") {
-          message = this.$t("notification.errors.invalidSessionId");
+        if (this.record.type === "bchat") {
+          message = this.$t("notification.errors.invalidBchatId");
         }
         this.$q.notify({
           type: "negative",
@@ -353,11 +353,11 @@ export default {
         },
         validate: function(value) {
           const _value = value.toLowerCase();
-          if (this.record.type === "session") {
-            return session_name(_value);
+          if (this.record.type === "bchat") {
+            return bchat_name(_value);
           } else {
-            // shortened lokinet LNS name
-            return lokinet_name(_value);
+            // shortened belnet BNS name
+            return belnet_name(_value);
           }
         }
       },
@@ -370,11 +370,11 @@ export default {
         required,
         validate: function(value) {
           const _value = value.toLowerCase();
-          if (this.record.type === "session") {
-            return session_id(_value);
+          if (this.record.type === "bchat") {
+            return bchat_id(_value);
           } else {
-            // full lokinet address
-            return lokinet_address(_value);
+            // full belnet address
+            return belnet_address(_value);
           }
         }
       },
@@ -389,7 +389,7 @@ export default {
 </script>
 
 <style lang="scss">
-.lns-input-form {
+.bns-input-form {
   .buttons {
     margin-top: 6px;
 

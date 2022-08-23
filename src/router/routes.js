@@ -93,10 +93,10 @@ export default [
         path: "masternode",
         component: () => import("pages/wallet/master-node")
       },
-      // {
-      //   path: "lns",
-      //   component: () => import("pages/wallet/lns")
-      // },
+      {
+        path: "bns",
+        component: () => import("pages/wallet/bns")
+      },
       {
         path: "advanced",
         component: () => import("pages/wallet/advanced")

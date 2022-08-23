@@ -1,21 +1,21 @@
 <template>
-  <div class="my-lns">
+  <div class="my-bns">
     <div class="q-px-md q-pt-md">
       <div class="tab-desc">
-        {{ $t("strings.lnsDescription") }}
+        {{ $t("strings.bnsDescription") }}
       </div>
-      <LNSRecords @onUpdate="onUpdate" @onRenew="onRenew" />
+      <BNSRecords @onUpdate="onUpdate" @onRenew="onRenew" />
     </div>
   </div>
 </template>
 
 <script>
-import LNSRecords from "./lns_records";
+import BNSRecords from "./bns_records";
 
 export default {
-  name: "MyLNS",
+  name: "MyBNS",
   components: {
-    LNSRecords
+    BNSRecords
   },
   methods: {
     onUpdate(record) {
@@ -29,7 +29,7 @@ export default {
 </script>
 
 <style lang="scss">
-.my-lns {
+.my-bns {
   .description {
     white-space: pre-line;
     color: #cecece;

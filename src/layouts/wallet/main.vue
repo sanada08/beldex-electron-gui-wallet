@@ -11,35 +11,39 @@
 
     <q-page-container>
       <WalletDetails />
-     <q-dialog ref="aboutModal" minimized>
-      <div class="about-modal">
-
-        <p class="q-my-sm"> There is a new version of Beldex Electron Wallet is available. Please update your wallet  from Beldex Official Website.</p>
-
-        <div class="q-mt-md q-mb-lg external-links">
-          <p>
-            <a
-              href="#"
-              style="text-decoration:none"
-              @click="openExternal('https://beldex.io/index.html#beldex-wallets')"
-              >https://beldex.io/index.html#beldex-wallets</a
-            >
-            <q-btn
-            ref="copy"
-            color="primary"
-            padding="xs"
-            size="sm"
-            icon="file_copy"
-            style="margin-left:8px;"
-            @click="copyAddress"
-          />
+      <q-dialog ref="aboutModal" minimized>
+        <div class="about-modal">
+          <p class="q-my-sm">
+            There is a new version of Beldex Electron Wallet is available.
+            Please update your wallet from Beldex Official Website.
           </p>
+
+          <div class="q-mt-md q-mb-lg external-links">
+            <p>
+              <a
+                href="#"
+                style="text-decoration:none"
+                @click="
+                  openExternal('https://beldex.io/index.html#beldex-wallets')
+                "
+                >https://beldex.io/index.html#beldex-wallets</a
+              >
+              <q-btn
+                ref="copy"
+                color="primary"
+                padding="xs"
+                size="sm"
+                icon="file_copy"
+                style="margin-left:8px;"
+                @click="copyAddress"
+              />
+            </p>
+          </div>
+          <q-btn color="primary" label="Close" @click="showAbout(false)" />
         </div>
-        <q-btn color="primary" label="Close" @click="showAbout(false)" />
-      </div>
-    </q-dialog>
-      <div class="app-content" v-if="!is_able_to_send">
-        <div class="navigation row items-end" >
+      </q-dialog>
+      <div v-if="!is_able_to_send" class="app-content">
+        <div class="navigation row items-end">
           <router-link to="/wallet">
             <q-btn class="single-icon" size="md" icon="swap_horiz" />
           </router-link>
@@ -70,15 +74,15 @@
               align="between"
             />
           </router-link>
-          <!-- <router-link to="/wallet/lns">
+          <router-link to="/wallet/bns">
             <q-btn
               class="large-btn"
-              :label="$t('buttons.lns')"
+              :label="$t('buttons.bns')"
               size="md"
               icon-right="text_fields"
               align="between"
             />
-          </router-link> -->
+          </router-link>
           <router-link to="/wallet/advanced">
             <q-btn
               class="large-btn"
@@ -124,8 +128,10 @@ export default {
     is_able_to_send() {
       return this.$store.state.gateway.update_required;
     }
+  }),
+  mounted() {
+    this.update_required == true ? this.showAbout() : "";
   },
-  ),
   methods: {
     openURL,
     openExternal(url) {
@@ -143,9 +149,6 @@ export default {
         message: this.$t("notification.positive.linkCopied")
       });
     }
-  },
-  mounted() {
-    this.update_required == true ? this.showAbout() : '';
   }
 };
 </script>

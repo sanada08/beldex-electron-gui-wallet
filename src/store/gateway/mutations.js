@@ -54,8 +54,8 @@ export const set_verify_status = (state, data) => {
   };
 };
 
-export const set_lns_status = (state, data) => {
-  state.lns_status = data;
+export const set_bns_status = (state, data) => {
+  state.bns_status = data;
 };
 
 export const set_update_required = (state, data) => {

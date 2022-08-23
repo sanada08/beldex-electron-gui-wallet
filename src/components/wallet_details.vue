@@ -11,7 +11,8 @@
             <div class="text">
               <span>{{ $t("strings.oxenBalance") }}</span>
             </div>
-            <div class="value"><span><FormatOxen :amount="info.balance" /></span>
+            <div class="value">
+              <span><FormatOxen :amount="info.balance"/></span>
             </div>
           </div>
           <div class="row unlocked">
@@ -19,8 +20,8 @@
               >{{ $t("strings.oxenUnlockedShort") }}:
               <FormatOxen :amount="info.unlocked_balance"
             /></span>
-             
-          </div>
+
+            <!--  </div>
           <div class="row">
             <div v-if="load_balance">
                 <q-btn
@@ -39,7 +40,7 @@
                   @click="get_balance()"
                 >
                 </q-btn>
-              </div>
+              </div> -->
           </div>
         </div>
       </div>
@@ -64,9 +65,9 @@ export default {
     CopyIcon
   },
   computed: mapState({
-    theme: (state) => state.gateway.app.config.appearance.theme,
-    info: (state) => state.gateway.wallet.info,
-    load_balance: (state) => {
+    theme: state => state.gateway.app.config.appearance.theme,
+    info: state => state.gateway.wallet.info,
+    load_balance: state => {
       return state.gateway.wallet.info.load_balance;
     }
   }),
