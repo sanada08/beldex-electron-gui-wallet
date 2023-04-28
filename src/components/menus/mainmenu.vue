@@ -1,6 +1,6 @@
 <template>
   <div>
-    <q-btn class="menu" icon="menu" size="md" flat>
+    <q-btn class="menu" icon="settings" size="md" flat>
       <q-menu>
         <q-list separator class="menu-list">
           <q-item

@@ -22,8 +22,12 @@
           <img src="beldex.png" height="32" />
         </q-toolbar-title>
         <q-toolbar-title v-else class="flex items-center justify-center">{{
-          page_title
+          page_title + "done"
         }}</q-toolbar-title>
+
+        <template>
+          <MainMenu :disable-switch-wallet="true" />
+        </template>
       </q-toolbar>
     </q-header>
 
