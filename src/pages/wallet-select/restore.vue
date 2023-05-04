@@ -1,151 +1,167 @@
 <template>
-  <q-page>
-    <div class="q-mx-md">
-      <OxenField
-        class="q-mt-md"
-        :label="$t('fieldLabels.walletName')"
-        :error="$v.wallet.name.$error"
-      >
-        <q-input
-          v-model="wallet.name"
-          :placeholder="$t('placeholders.walletName')"
-          borderless
-          dense
-          @keyup.enter="restore_wallet"
-          @blur="$v.wallet.name.$touch"
-        />
-      </OxenField>
-
-      <OxenField
-        class="q-mt-md"
-        :label="$t('fieldLabels.mnemonicSeed')"
-        :error="$v.wallet.seed.$error"
-      >
-        <q-input
-          v-model="wallet.seed"
-          class="full-width text-area-oxen"
-          :placeholder="$t('placeholders.mnemonicSeed')"
-          type="textarea"
-          borderless
-          dense
-          @blur="$v.wallet.seed.$touch"
-        />
-      </OxenField>
-
-      <div class="row items-end q-mt-md">
-        <div class="col-md-9 col-sm-8">
+  <q-page class="create-wallet beldex-wallet">
+    <section class="flex justify-center align-center">
+      <div class="fields">
+        <div class="createTitle">Restore from Seed</div>
+        <div class="q-mx-md">
           <OxenField
-            v-if="wallet.refresh_type == 'date'"
-            :label="$t('fieldLabels.restoreFromDate')"
+            class="q-mt-md"
+            :label="$t('fieldLabels.walletName')"
+            :error="$v.wallet.name.$error"
           >
             <q-input
-              v-model="wallet.refresh_start_date"
-              mask="date"
+              v-model="wallet.name"
+              :placeholder="$t('placeholders.walletName')"
               borderless
               dense
-            >
-              <template v-slot:append>
-                <q-icon
-                  v-if="wallet.refresh_type == 'date'"
-                  name="event"
-                  class="cursor-pointer"
-                >
-                  <q-popup-proxy
-                    ref="qDateProxy"
-                    transition-show="scale"
-                    transition-hide="scale"
-                  >
-                    <q-date
-                      v-model="wallet.refresh_start_date"
-                      :options="dateRangeOptions"
-                    >
-                      <div class="row items-center justify-end">
-                        <q-btn
-                          v-close-popup
-                          label="Close"
-                          color="primary"
-                          flat
-                        />
-                      </div>
-                    </q-date>
-                  </q-popup-proxy>
-                </q-icon>
-              </template>
-            </q-input>
+              @keyup.enter="restore_wallet"
+              @blur="$v.wallet.name.$touch"
+            />
           </OxenField>
+
           <OxenField
-            v-else-if="wallet.refresh_type == 'height'"
-            :label="$t('fieldLabels.restoreFromBlockHeight')"
-            :error="$v.wallet.refresh_start_height.$error"
+            class="q-mt-md"
+            :label="$t('fieldLabels.mnemonicSeed')"
+            :error="$v.wallet.seed.$error"
           >
             <q-input
-              v-model="wallet.refresh_start_height"
-              type="number"
-              min="0"
+              v-model="wallet.seed"
+              class="full-width text-area-oxen"
+              :placeholder="$t('placeholders.mnemonicSeed')"
+              type="textarea"
+              borderless
+              dense
+              @blur="$v.wallet.seed.$touch"
+            />
+          </OxenField>
+
+          <div class="row items-end q-mt-md">
+            <div class="col-md-7 col-sm-8">
+              <OxenField
+                v-if="wallet.refresh_type == 'date'"
+                :label="$t('fieldLabels.restoreFromDate')"
+              >
+                <q-input
+                  v-model="wallet.refresh_start_date"
+                  mask="date"
+                  borderless
+                  dense
+                >
+                  <template v-slot:append>
+                    <q-icon
+                      v-if="wallet.refresh_type == 'date'"
+                      name="event"
+                      class="cursor-pointer"
+                    >
+                      <q-popup-proxy
+                        ref="qDateProxy"
+                        transition-show="scale"
+                        transition-hide="scale"
+                      >
+                        <q-date
+                          v-model="wallet.refresh_start_date"
+                          :options="dateRangeOptions"
+                        >
+                          <div class="row items-center justify-end">
+                            <q-btn
+                              v-close-popup
+                              label="Close"
+                              color="primary"
+                              flat
+                            />
+                          </div>
+                        </q-date>
+                      </q-popup-proxy>
+                    </q-icon>
+                  </template>
+                </q-input>
+              </OxenField>
+              <OxenField
+                v-else-if="wallet.refresh_type == 'height'"
+                :label="$t('fieldLabels.restoreFromBlockHeight')"
+                :error="$v.wallet.refresh_start_height.$error"
+              >
+                <q-input
+                  v-model="wallet.refresh_start_height"
+                  type="number"
+                  min="0"
+                  :dark="theme == 'dark'"
+                  borderless
+                  dense
+                  @blur="$v.wallet.refresh_start_height.$touch"
+                />
+              </OxenField>
+            </div>
+            <div class="col-sm-4 col-md-5">
+              <template v-if="wallet.refresh_type == 'date'">
+                <q-btn
+                  class="restore-from-button"
+                  flat
+                  @click="wallet.refresh_type = 'height'"
+                >
+                  <div class="row justify-center items-center">
+                    {{ "From Blockheight" }}
+                    <span class="divider"></span>
+
+                    <q-icon name="arrow_forward" />
+                  </div>
+                </q-btn>
+              </template>
+              <template v-else-if="wallet.refresh_type == 'height'">
+                <q-btn
+                  class="restore-from-button"
+                  flat
+                  @click="wallet.refresh_type = 'date'"
+                >
+                  <div class="column justify-center items-center">
+                    <q-icon name="today" />
+                    {{ $t("strings.switchToDateSelect") }}
+                  </div>
+                </q-btn>
+              </template>
+            </div>
+          </div>
+
+          <OxenField class="q-mt-md" :label="$t('fieldLabels.password')">
+            <q-input
+              v-model="wallet.password"
+              :placeholder="$t('placeholders.walletPassword')"
+              type="password"
               :dark="theme == 'dark'"
               borderless
               dense
-              @blur="$v.wallet.refresh_start_height.$touch"
+              @keyup.enter="restore_wallet"
             />
           </OxenField>
-        </div>
-        <div class="col-sm-4 col-md-3">
-          <template v-if="wallet.refresh_type == 'date'">
+
+          <OxenField class="q-mt-md" :label="$t('fieldLabels.confirmPassword')">
+            <q-input
+              v-model="wallet.password_confirm"
+              type="password"
+              :dark="theme == 'dark'"
+              borderless
+              dense
+              @keyup.enter="restore_wallet"
+            />
+          </OxenField>
+          <div class="flex justify-center align-center submit">
             <q-btn
-              class="restore-from-button"
-              flat
-              @click="wallet.refresh_type = 'height'"
-            >
-              <div class="column justify-center items-center">
-                <q-icon name="clear_all" />
-                {{ $t("strings.switchToHeightSelect") }}
-              </div>
-            </q-btn>
-          </template>
-          <template v-else-if="wallet.refresh_type == 'height'">
+              class="submit-button"
+              color="cancel"
+              :label="$t('buttons.cancel')"
+              @click="cancel()"
+            />
+            <span class="divider"></span>
             <q-btn
-              class="restore-from-button"
-              flat
-              @click="wallet.refresh_type = 'date'"
-            >
-              <div class="column justify-center items-center">
-                <q-icon name="today" />
-                {{ $t("strings.switchToDateSelect") }}
-              </div>
-            </q-btn>
-          </template>
+              class="submit-button"
+              color="primary"
+              :label="$t('buttons.restoreWallet')"
+              @click="restore_wallet"
+            />
+          </div>
         </div>
       </div>
-
-      <OxenField class="q-mt-md" :label="$t('fieldLabels.password')">
-        <q-input
-          v-model="wallet.password"
-          :placeholder="$t('placeholders.walletPassword')"
-          type="password"
-          :dark="theme == 'dark'"
-          borderless
-          dense
-          @keyup.enter="restore_wallet"
-        />
-      </OxenField>
-
-      <OxenField class="q-mt-md" :label="$t('fieldLabels.confirmPassword')">
-        <q-input
-          v-model="wallet.password_confirm"
-          type="password"
-          :dark="theme == 'dark'"
-          borderless
-          dense
-          @keyup.enter="restore_wallet"
-        />
-      </OxenField>
-      <q-btn
-        class="submit-button"
-        color="primary"
-        :label="$t('buttons.restoreWallet')"
-        @click="restore_wallet"
-      />
-    </div>
+    </section>
   </q-page>
 </template>
 
@@ -302,13 +318,18 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 .restore-from-button {
   width: 100%;
   height: 60px;
   transform: translate(10px, -20px);
   border-radius: 10px;
-  background: #1154e6;
+  background: #2879fb;
   color: #fff;
+}
+.submit {
+  .q-btn {
+    width: 251px;
+  }
 }
 </style>

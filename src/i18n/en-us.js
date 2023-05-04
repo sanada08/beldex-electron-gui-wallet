@@ -36,7 +36,7 @@ export default {
     save: "SAVE",
     saveTxNotes: "SAVE TX NOTES",
     selectLocation: "SELECT LOCATION",
-    selectWalletFile: "SELECT WALLET FILE",
+    selectWalletFile: "SELECT FILE",
     send: "SEND",
     sendCoins: "SEND COINS",
     masterNode: "MASTER NODES",

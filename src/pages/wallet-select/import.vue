@@ -1,78 +1,97 @@
 <template>
   <q-page>
-    <div class="q-mx-md import-wallet">
-      <OxenField
-        :label="$t('fieldLabels.newWalletName')"
-        :error="$v.wallet.name.$error"
-      >
-        <q-input
-          v-model="wallet.name"
-          :placeholder="$t('placeholders.walletName')"
-          :dark="theme == 'dark'"
-          borderless
-          dense
-          @keyup.enter="import_wallet"
-          @blur="$v.wallet.name.$touch"
-        />
-      </OxenField>
+    <section class="flex justify-center align-center">
+      <div class="fields">
+        <div class="createTitle">Import from File</div>
 
-      <OxenField
-        :label="$t('fieldLabels.walletFile')"
-        disable-hover
-        :error="$v.wallet.path.$error"
-      >
-        <q-input
-          v-model="wallet.path"
-          :placeholder="$t('placeholders.selectAFile')"
-          disable
-          :dark="theme == 'dark'"
-          borderless
-          dense
-        />
-        <input
-          id="walletPath"
-          ref="fileInput"
-          type="file"
-          hidden
-          @change="setWalletPath"
-        />
-        <q-btn
-          color="primary"
-          :label="$t('buttons.selectWalletFile')"
-          :text-color="theme == 'dark' ? 'white' : 'dark'"
-          @click="selectFile"
-        />
-      </OxenField>
+        <div class="q-mx-md import-wallet">
+          <OxenField
+            :label="$t('fieldLabels.newWalletName')"
+            :error="$v.wallet.name.$error"
+          >
+            <q-input
+              v-model="wallet.name"
+              :placeholder="$t('placeholders.walletName')"
+              :dark="theme == 'dark'"
+              borderless
+              dense
+              @keyup.enter="import_wallet"
+              @blur="$v.wallet.name.$touch"
+            />
+          </OxenField>
 
-      <OxenField :label="$t('fieldLabels.password')">
-        <q-input
-          v-model="wallet.password"
-          :placeholder="$t('placeholders.walletPassword')"
-          type="password"
-          :dark="theme == 'dark'"
-          borderless
-          dense
-          @keyup.enter="import_wallet"
-        />
-      </OxenField>
+          <OxenField
+            :label="$t('fieldLabels.walletFile')"
+            disable-hover
+            :error="$v.wallet.path.$error"
+          >
+            <q-input
+              v-model="wallet.path"
+              :placeholder="$t('placeholders.selectAFile')"
+              disable
+              :dark="theme == 'dark'"
+              borderless
+              dense
+            />
+            <input
+              id="walletPath"
+              ref="fileInput"
+              type="file"
+              hidden
+              @change="setWalletPath"
+            />
+            <q-btn
+              color="secondary"
+              :label="$t('buttons.selectWalletFile')"
+              :text-color="theme == 'dark' ? 'white' : 'dark'"
+              @click="selectFile"
+            >
+              <span
+                ><img src="../../assets/images/fileUpload.png" class="fileIcon"
+              /></span>
+            </q-btn>
+          </OxenField>
 
-      <OxenField :label="$t('fieldLabels.confirmPassword')">
-        <q-input
-          v-model="wallet.password_confirm"
-          type="password"
-          :dark="theme == 'dark'"
-          borderless
-          dense
-          @keyup.enter="import_wallet"
-        />
-      </OxenField>
-      <q-btn
-        class="submit-button"
-        color="primary"
-        :label="$tc('buttons.importWallet', 1)"
-        @click="import_wallet"
-      />
-    </div>
+          <OxenField :label="$t('fieldLabels.password')">
+            <q-input
+              v-model="wallet.password"
+              :placeholder="$t('placeholders.walletPassword')"
+              type="password"
+              :dark="theme == 'dark'"
+              borderless
+              dense
+              @keyup.enter="import_wallet"
+            />
+          </OxenField>
+
+          <OxenField :label="$t('fieldLabels.confirmPassword')">
+            <q-input
+              v-model="wallet.password_confirm"
+              type="password"
+              :dark="theme == 'dark'"
+              borderless
+              dense
+              @keyup.enter="import_wallet"
+            />
+          </OxenField>
+          <div class="flex justify-center align-center submit">
+            <q-btn
+              class="submit-button "
+              color="cancel"
+              :label="$t('buttons.cancel')"
+              @click="cancel()"
+            />
+            <span class="divider"></span>
+            <q-btn
+              class="submit-button "
+              color="primary"
+              :label="$tc('buttons.importWallet', 1)"
+              @click="import_wallet"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
   </q-page>
 </template>
 
@@ -192,6 +211,17 @@ export default {
 
   .oxen-field {
     margin-top: 16px;
+  }
+  .fileIcon {
+    width: 14px;
+    height: 14px;
+    margin-top: 5px;
+    margin-left: 3px;
+  }
+  .submit {
+    .q-btn {
+      width: 251px;
+    }
   }
 }
 </style>

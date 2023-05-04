@@ -2,7 +2,14 @@
   <q-layout view="hHh Lpr lFf">
     <q-header>
       <q-toolbar>
-        <template v-if="show_menu">
+        <div>
+          <img src="../../assets/images/Logo.png" />
+        </div>
+        <div class="main-title">
+          <span class="green">Beldex </span>
+          <span>Electron Wallet</span>
+        </div>
+        <!-- <template v-if="show_menu">
           <MainMenu :disable-switch-wallet="true" />
         </template>
         <template v-else>
@@ -23,7 +30,7 @@
         </q-toolbar-title>
         <q-toolbar-title v-else class="flex items-center justify-center">{{
           page_title + "done"
-        }}</q-toolbar-title>
+        }}</q-toolbar-title> -->
 
         <template>
           <MainMenu :disable-switch-wallet="true" />

@@ -221,6 +221,8 @@ export default {
     transactionNotes: "Notas de la Transacción",
     chooseNetwork: "Seleccione una Red",
     network: "Red"
+
+    // new design revamp
   },
   footer: {
     ready: "LISTO",
@@ -467,7 +469,10 @@ export default {
     userUsedAddress: "Ha utilizado esta dirección",
     viewKey: "Clave de visualización",
     viewOnlyMode:
-      "Este monedero solo permite visualizar operaciones. Por favor, abra uno completo para poder transferir fondos."
+      "Este monedero solo permite visualizar operaciones. Por favor, abra uno completo para poder transferir fondos.",
+
+    // new design revamp
+    fromBlockHeight: "From Blockheight"
   },
   titles: {
     addressBook: "Libreta de direcciones",

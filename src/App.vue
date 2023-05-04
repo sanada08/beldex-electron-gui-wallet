@@ -42,4 +42,10 @@ export default {
   src: local("Poppins-SemiBold"),
     url(./assets/fonts/Poppins-SemiBold.ttf) format("truetype");
 }
+
+@font-face {
+  font-family: "Poppins-Bold";
+  src: local("Poppins-Bold"),
+    url(./assets/fonts/Poppins-Bold.ttf) format("truetype");
+}
 </style>

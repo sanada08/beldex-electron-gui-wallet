@@ -1,62 +1,73 @@
 <template>
   <q-page class="create-wallet beldex-wallet">
-    <div class="fields">
-      <OxenField
-        :label="$t('fieldLabels.walletName')"
-        :error="$v.wallet.name.$error"
-      >
-        <q-input
-          v-model="wallet.name"
-          :dark="theme == 'dark'"
-          :placeholder="$t('placeholders.walletName')"
-          borderless
-          dense
-          @keyup.enter="create"
-          @blur="$v.wallet.name.$touch"
-        />
-      </OxenField>
+    <section class="flex justify-center align-center">
+      <div class="fields">
+        <div class="createTitle">Create New Wallet</div>
+        <OxenField
+          :label="$t('fieldLabels.walletName')"
+          :error="$v.wallet.name.$error"
+        >
+          <q-input
+            v-model="wallet.name"
+            :dark="theme == 'dark'"
+            :placeholder="$t('placeholders.walletName')"
+            borderless
+            dense
+            @keyup.enter="create"
+            @blur="$v.wallet.name.$touch"
+          />
+        </OxenField>
 
-      <OxenField :label="$t('fieldLabels.seedLanguage')">
-        <q-select
-          v-model="wallet.language"
-          :options="languageOptions"
-          borderless
-          dense
-          emit-value
-          map-options
-        />
-      </OxenField>
+        <OxenField :label="$t('fieldLabels.seedLanguage')">
+          <q-select
+            v-model="wallet.language"
+            :options="languageOptions"
+            borderless
+            dense
+            emit-value
+            map-options
+          />
+        </OxenField>
 
-      <OxenField :label="$t('fieldLabels.password')" optional>
-        <q-input
-          v-model="wallet.password"
-          type="password"
-          :dark="theme == 'dark'"
-          :placeholder="$t('placeholders.walletPassword')"
-          borderless
-          dense
-          @keyup.enter="create"
-        />
-      </OxenField>
+        <OxenField :label="$t('fieldLabels.password')" optional>
+          <q-input
+            v-model="wallet.password"
+            type="password"
+            :dark="theme == 'dark'"
+            :placeholder="$t('placeholders.walletPassword')"
+            borderless
+            dense
+            @keyup.enter="create"
+          />
+        </OxenField>
 
-      <OxenField :label="$t('fieldLabels.confirmPassword')">
-        <q-input
-          v-model="wallet.password_confirm"
-          type="password"
-          :dark="theme == 'dark'"
-          borderless
-          dense
-          @keyup.enter="create"
-        />
-      </OxenField>
-
-      <q-btn
-        class="submit-button"
-        color="primary"
-        :label="$t('buttons.createWallet')"
-        @click="create"
-      />
-    </div>
+        <OxenField :label="$t('fieldLabels.confirmPassword')">
+          <q-input
+            v-model="wallet.password_confirm"
+            type="password"
+            :dark="theme == 'dark'"
+            borderless
+            dense
+            @keyup.enter="create"
+          />
+        </OxenField>
+        <div class="flex justify-center align-center submit">
+          <q-btn
+            class="submit-button"
+            color="cancel"
+            :label="$t('buttons.cancel')"
+            @click="cancel()"
+          />
+          <span class="divider"></span>
+          <q-btn
+            class="submit-button"
+            color="primary"
+            :label="$t('buttons.createWallet')"
+            @click="create"
+          />
+        </div>
+      </div>
+    </section>
   </q-page>
 </template>
 
@@ -189,4 +200,10 @@ export default {
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.submit {
+  .q-btn {
+    width: 251px;
+  }
+}
+</style>
