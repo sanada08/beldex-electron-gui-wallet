@@ -48,4 +48,9 @@ export default {
   src: local("Poppins-Bold"),
     url(./assets/fonts/Poppins-Bold.ttf) format("truetype");
 }
+@font-face {
+  font-family: "Poppins-Light";
+  src: local("Poppins-Light"),
+    url(./assets/fonts/Poppins-Light.ttf) format("truetype");
+}
 </style>

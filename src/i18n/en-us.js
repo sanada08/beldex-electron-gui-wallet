@@ -8,7 +8,7 @@ export default {
     cancel: "CANCEL",
     change: "CHANGE",
     check: "CHECK",
-    clear: "CLEAR",
+    clear: "Clear",
     close: "CLOSE",
     contacts: "CONTACTS",
     copyAddress: "COPY ADDRESS",
@@ -23,12 +23,12 @@ export default {
     import: "IMPORT",
     importWallet: "IMPORT WALLET | IMPORT WALLETS",
     bns: "BELDEX NAME SERVICE",
-    max: "MAX",
+
     min: "MIN",
     next: "NEXT",
     openWallet: "OPEN WALLET",
     purchase: "PURCHASE",
-    receive: "RECEIVE",
+    receive: "Receive",
     registerMasterNode: "REGISTER MASTER NODE",
     renew: "RENEW",
     rescan: "RESCAN",
@@ -37,7 +37,7 @@ export default {
     saveTxNotes: "SAVE TX NOTES",
     selectLocation: "SELECT LOCATION",
     selectWalletFile: "SELECT FILE",
-    send: "SEND",
+    send: "Send",
     sendCoins: "SEND COINS",
     masterNode: "MASTER NODES",
     settings: "SETTINGS",
@@ -49,7 +49,9 @@ export default {
     unlock: "UNLOCK",
     update: "UPDATE",
     verify: "VERIFY",
-    viewOnExplorer: "VIEW ON EXPLORER"
+    viewOnExplorer: "VIEW ON EXPLORER",
+    //new wamp
+    max: "Max"
   },
   dialog: {
     // Generic buttons
@@ -205,7 +207,7 @@ export default {
   fieldLabels: {
     // Field labels are also all uppercased
     address: "ADDRESS",
-    amount: "AMOUNT",
+    amount: "Amount",
     backupOwner: "BACKUP OWNER",
     confirmPassword: "CONFIRM PASSWORD",
     daemonLogLevel: "DAEMON LOG LEVEL",
@@ -237,7 +239,7 @@ export default {
     owner: "OWNER",
     password: "PASSWORD",
     paymentId: "PAYMENT ID",
-    priority: "PRIORITY",
+    priority: "Priority",
     remoteNodeHost: "REMOTE NODE HOST",
     remoteNodePort: "REMOTE NODE PORT",
     restoreFromBlockHeight: "RESTORE FROM BLOCK HEIGHT",
@@ -262,7 +264,10 @@ export default {
     rescanSpentOutputs: "Rescan spent outputs",
     transactionNotes: "Transaction Notes",
     chooseNetwork: "Choose a Network",
-    network: "Network"
+    network: "Network",
+
+    // new design vamp
+    to: "To"
   },
   footer: {
     ready: "READY",
@@ -441,7 +446,9 @@ export default {
       myUsedAddresses: "My used addresses",
       primaryAddress: "Primary address",
       subAddress: "Sub-address",
-      subAddressIndex: "Index {index}"
+      subAddressIndex: "Index {index}",
+      //new design vamp
+      primaryAccount: "Primary Account"
     },
     advancedOptions: "Advanced Options",
     awaitingConfirmation: "Awaiting confirmation",

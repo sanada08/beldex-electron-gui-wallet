@@ -1,10 +1,10 @@
 <template>
-  <q-page class="receive">
+  <q-page class="receive" style="">
     <q-list link no-border :dark="theme == 'dark'" class="oxen-list">
-      <q-item-label header class="list-header">{{
-        $t("strings.addresses.myPrimaryAddress")
+      <q-item-label header class="list-header text-center ft-medium ">{{
+        $t("strings.addresses.primaryAccount")
       }}</q-item-label>
-      <ReceiveItem
+      <!-- <ReceiveItem
         v-for="address in address_list.primary"
         :key="address.address"
         class="primary-address"
@@ -14,12 +14,34 @@
         :copy-address="copyAddress"
         :details="details"
         white-q-r-icon
-      />
+      /> -->
+      <article class="flex  justify-center align-center">
+        <div
+          style="border: 11px solid #1F1F28;display:inline-block;border-radius: 20px; "
+        >
+          <div class="text-center   qr-card">
+            <QrcodeVue ref="qr" :value="address" size="100"> </QrcodeVue>
+          </div>
+        </div>
+      </article>
+      <article
+        class="copy-btn flex justify-center align-center q-mt-sm q-mb-lg"
+      >
+        <q-btn
+          color="primary"
+          :label="$t('dialog.copyAddress.title')"
+          icon="content_copy"
+          padding="sm"
+          @click="copyAddress"
+        />
+      </article>
+      <div class="hr-separator" />
 
       <template v-if="address_list.used.length">
         <q-item-label header class="list-header">{{
           $t("strings.addresses.myUsedAddresses")
         }}</q-item-label>
+
         <ReceiveItem
           v-for="address in address_list.used"
           :key="address.address"
@@ -177,6 +199,9 @@ export default {
 }
 
 .receive {
+  height: 599px;
+  overflow: auto;
+  min-height: unset;
   .q-item-label {
     font-weight: 400;
   }
@@ -200,6 +225,26 @@ export default {
         font-weight: bold;
       }
     }
+  }
+  .qr-card {
+    background: white;
+    display: inline-block;
+    border-radius: 10px;
+    line-height: unset;
+    padding: 8px 8px 4px 8px;
+  }
+}
+.copy-btn {
+  .q-btn .q-icon {
+    font-size: 1.2em;
+  }
+  .on-left {
+    margin-right: 5px;
+  }
+  .bg-primary {
+    min-width: unset;
+    height: 35px;
+    font-size: 14px;
   }
 }
 </style>
