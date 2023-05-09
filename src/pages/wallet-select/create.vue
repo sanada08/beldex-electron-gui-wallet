@@ -29,7 +29,7 @@
           />
         </OxenField>
 
-        <OxenField :label="$t('fieldLabels.password')" optional>
+        <OxenField :label="$t('fieldLabels.password')">
           <q-input
             v-model="wallet.password"
             type="password"
@@ -46,6 +46,7 @@
             v-model="wallet.password_confirm"
             type="password"
             :dark="theme == 'dark'"
+            :placeholder="$t('placeholders.reEnterWalletPassword')"
             borderless
             dense
             @keyup.enter="create"

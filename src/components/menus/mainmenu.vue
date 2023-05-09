@@ -29,49 +29,84 @@
     <!-- TODO: Move this to it's own component -->
     <q-dialog ref="aboutModal" minimized>
       <div class="about-modal">
-        <img class="q-mb-md" src="beldex.png" height="42" />
-
-        <p class="q-my-sm">Wallet Version: v{{ version }}</p>
-        <p class="q-my-sm">Deaemon Version: v{{ daemonVersion }}</p>
-        <p class="q-my-sm">Copyright (c) 2018-2021, Beldex</p>
-        <p class="q-my-sm">All rights reserved.</p>
-
-        <div class="q-mt-md q-mb-lg external-links">
-          <p>
-            <a href="#" @click="openExternal('https://beldex.io/')"
-              >https://beldex.io/</a
-            >
+        <div style="">
+          <div class="logo">
+            <img src="beldex.svg" height="50" />
+          </div>
+          <p class="text">
+            Beldex <span style="color: #FFFFFF;">Electron Wallet</span>
           </p>
-          <p>
-            <a href="#" @click="openExternal('t.me/official_beldex')"
-              >Telegram</a
-            >
-            -
-            <a
-              href="#"
-              @click="openExternal('https://discord.com/invite/Hj4MAmA5gs')"
-              >Discord</a
-            >
-            -
-            <!-- readded once oxen subreddit is known -->
-            <!-- <a
+          <hr style="width: 70%; border:1px solid #4D4D6D;" />
+          <p class="q-my-sm">
+            Wallet Version: <span style="color:#00AD07">{{ version }}</span>
+          </p>
+          <p class="q-my-sm">
+            Deaemon Version:
+            <span style="color:#00AD07">{{ daemonVersion }}</span>
+          </p>
+          <p class="q-my-sm">
+            Copyright (c) - <span style="color:#00AD07">2018-2021, Beldex</span>
+          </p>
+          <p
+            class="q-my-sm"
+            style="font-family:Poppins-Regular;font-size: 13px;"
+          >
+            All rights reserved.
+          </p>
+
+          <div class="q-mt-md q-mb-lg external-links">
+            <p>
+              <img src="telegram.svg" height="12" />
+              <a href="#" @click="openExternal('t.me/official_beldex')"
+                >Telegram</a
+              >
+
+              <img src="discord.svg" height="12" />
+              <a
+                href="#"
+                @click="openExternal('https://discord.com/invite/Hj4MAmA5gs')"
+                >Discord</a
+              >
+
+              <!-- readded once oxen subreddit is known -->
+              <!-- <a
               href="#"
               @click="openExternal('https://www.reddit.com/r/LokiProject/')"
               >Reddit</a
             >
             - -->
-            <a
-              href="#"
-              @click="
-                openExternal(
-                  'https://github.com/Beldex-Coin/beldex-electron-gui-wallet'
-                )
-              "
-              >Github</a
-            >
-          </p>
+              <img src="github.svg" height="12" />
+              <a
+                href="#"
+                @click="
+                  openExternal(
+                    'https://github.com/Beldex-Coin/beldex-electron-gui-wallet'
+                  )
+                "
+                >Github</a
+              >
+            </p>
+          </div>
+          <div
+            style="    
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;"
+          >
+            <p>
+              <img src="www.svg" height="12" />
+              <a
+                style="color:#FFFFFF;"
+                href="#"
+                @click="openExternal('https://beldex.io')"
+                >beldex.io</a
+              >
+            </p>
+          </div>
+          <div style="display:flex; justify-content: center;">
+            <q-btn color="primary" label="OK" @click="showAbout(false)" />
+          </div>
         </div>
-        <q-btn color="primary" label="Close" @click="showAbout(false)" />
       </div>
     </q-dialog>
   </div>
@@ -174,6 +209,20 @@ export default {
 
 <style lang="scss">
 .about-modal {
+  font-family: Poppins-Medium;
+
+  .logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .text {
+    font-family: Poppins-Bold;
+    color: #00ad07;
+    font-size: 20px;
+  }
+
   padding: 25px;
   background-color: #2f2f40;
   color: #fff;
@@ -181,7 +230,7 @@ export default {
 
   .external-links {
     a {
-      color: #35af3b;
+      color: #ffffff;
       text-decoration: none;
 
       &:hover,
