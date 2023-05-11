@@ -132,6 +132,7 @@
             :disable="!is_able_to_send"
             icon="replay"
             :label="$t('buttons.clear')"
+            @click="clearStateValues()"
           />
           <q-btn
             class="send-btn"
@@ -345,6 +346,20 @@ export default {
         message: "Cancel the transaction from confirm dialog",
         sending: false
       });
+    },
+
+    clearStateValues() {
+      this.newTx = {
+        amount: 0,
+        address: "",
+        priority: this.priorityOptions[0].value,
+        address_book: {
+          save: false,
+          name: "",
+          description: ""
+        },
+        note: ""
+      };
     },
 
     async send() {

@@ -1,5 +1,5 @@
 <template>
-  <q-page class="receive" style="">
+  <q-page class="receive" style="min-height: unset;">
     <q-list link no-border :dark="theme == 'dark'" class="oxen-list">
       <q-item-label header class="list-header text-center ft-medium ">{{
         $t("strings.addresses.primaryAccount")
@@ -19,7 +19,7 @@
         <div
           style="border: 11px solid #1F1F28;display:inline-block;border-radius: 20px; "
         >
-          <div class="text-center   qr-card">
+          <div class="text-center qr-card">
             <QrcodeVue ref="qr" :value="address" size="100"> </QrcodeVue>
           </div>
         </div>

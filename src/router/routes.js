@@ -69,6 +69,7 @@ export default [
       }
     ]
   },
+
   {
     path: "/wallet",
     component: () => import("layouts/wallet/main"),

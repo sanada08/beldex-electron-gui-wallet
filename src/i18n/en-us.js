@@ -51,6 +51,7 @@ export default {
     verify: "VERIFY",
     viewOnExplorer: "VIEW ON EXPLORER",
     //new wamp
+    add: "Add",
     max: "Max"
   },
   dialog: {
@@ -310,7 +311,10 @@ export default {
     showPrivateKeys: "Show Private Keys",
     showQRCode: "Show QR Code",
     switchWallet: "Switch Wallet",
-    viewOnExplorer: "View on explorer"
+    viewOnExplorer: "View on explorer",
+
+    // new vamp
+    favourite: "Favourite"
   },
   notification: {
     positive: {
@@ -438,7 +442,7 @@ export default {
     reEnterWalletPassword: "Re-Enter Password"
   },
   strings: {
-    addAddressBookEntry: "Add address book entry",
+    addAddressBookEntry: "Add address ",
     addressBookDetails: "Address book details",
     addressBookIsEmpty: "Address book is empty",
     addresses: {

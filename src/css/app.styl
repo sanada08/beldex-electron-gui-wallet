@@ -1331,6 +1331,7 @@ footer,
         
 }
 .rightPane{
+
     .send-btn{
         width: 168px;
         height: 45px;
@@ -1349,6 +1350,21 @@ footer,
         background-color:$beldex-disable-grey;
 
     }
+
+    .active > .send-btn {
+        background-color:$beldex-std-blue;
+        .btn-txt {
+            color:#fff;
+            margin-left:5px;
+        }
+       
+
+     }
+
+     .active >.contact-btn
+     {
+        background-color:$beldex-std-blue;
+     }
 }
 
 .q-textarea.q-field--dense .q-field__native {
@@ -1370,4 +1386,8 @@ body
 .ft-Light
 {
     font-family:'Poppins-Light';
+}
+.ft-semibold
+{
+    font-family:'Poppins-SemiBold';
 }

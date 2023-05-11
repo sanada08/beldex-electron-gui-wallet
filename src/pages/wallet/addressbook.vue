@@ -1,57 +1,97 @@
 <template>
   <q-page class="address-book">
-    <div
-      class="header row q-pt-md q-pb-xs q-mx-md q-mb-none items-center non-selectable"
-    >
-      {{ $t("titles.addressBook") }}
-    </div>
-
-    <template v-if="address_book_combined.length">
-      <q-list link no-border :dark="theme == 'dark'" class="oxen-list">
-        <q-item
-          v-for="(entry, index) in address_book_combined"
-          :key="`${entry.address}-${entry.name}-${index}`"
-          class="oxen-list-item"
-          @click.native="details(entry)"
+    <section v-show="this.isvisible">
+      <article class="flex row justify-between addbtn-box align-center">
+        <div
+          class="header row q-pt-md q-pb-xs q-mx-md q-mb-none items-center non-selectable ft-semibold "
         >
-          <q-item-section>
-            <q-item-label class="ellipsis">{{ entry.address }}</q-item-label>
-            <q-item-label class="non-selectable" caption>{{
-              entry.name
-            }}</q-item-label>
-          </q-item-section>
-          <q-item-section side>
-            <q-item-label>
-              <q-icon
-                size="24px"
-                :name="entry.starred ? 'star' : 'star_border'"
-              />
-              <q-btn
+          {{ $t("titles.addressBook") }}
+        </div>
+        <q-btn round color="primary" icon="add" @click="addEntry" />
+      </article>
+      <template v-if="address_book_combined.length">
+        <q-list link no-border :dark="theme == 'dark'" class="oxen-list">
+          <q-item
+            v-for="(entry, index) in address_book_combined"
+            :key="`${entry.address}-${entry.name}-${index}`"
+            class="oxen-list-item"
+            @click.native="details(entry)"
+          >
+            <q-item-section side>
+              <article class="flex row">
+                <q-item-label class=" flex justify-center star-icon">
+                  <q-icon
+                    size="24px"
+                    :name="entry.starred ? 'star' : 'star_border'"
+                  />
+                  <q-tooltip
+                    anchor="bottom right"
+                    self="top right"
+                    :offset="[0, 5]"
+                  >
+                    {{ $t("menuItems.favourite") }}
+                  </q-tooltip>
+                  <!-- <q-btn
                 color="primary"
                 style="margin-left: 10px;"
                 :label="$t('buttons.send')"
                 :disabled="view_only"
                 @click="sendToAddress(entry, $event)"
-              />
-            </q-item-label>
-          </q-item-section>
-          <ContextMenu
-            :menu-items="menuItems"
-            @showDetails="details(entry)"
-            @sendToAddress="sendToAddress(entry, $event)"
-            @copyAddress="copyAddress(entry)"
-          />
-        </q-item>
-      </q-list>
-    </template>
-    <template v-else>
-      <p class="q-ma-md tab-desc">{{ $t("strings.addressBookIsEmpty") }}</p>
-    </template>
+              /> -->
+                </q-item-label>
 
+                <div class="copy-icon q-ml-sm">
+                  <q-btn
+                    flat
+                    padding="sm"
+                    size="sm"
+                    icon="content_copy"
+                    class="q-mr-sm"
+                    color="green"
+                    @click="copyAddress(entry)"
+                  >
+                    <q-tooltip
+                      anchor="bottom right"
+                      self="top right"
+                      :offset="[0, 5]"
+                    >
+                      {{ $t("menuItems.copyAddress") }}
+                    </q-tooltip>
+                  </q-btn>
+                </div>
+              </article>
+            </q-item-section>
+            <q-item-section @click.native="details(entry)">
+              <q-item-label class="ellipsis address-label ">{{
+                entry.address
+              }}</q-item-label>
+              <q-item-label class="non-selectable address-sub-label" caption>{{
+                entry.name
+              }}</q-item-label>
+            </q-item-section>
+            <ContextMenu
+              :menu-items="menuItems"
+              @showDetails="details(entry)"
+              @sendToAddress="sendToAddress(entry, $event)"
+              @copyAddress="copyAddress(entry)"
+            />
+          </q-item>
+        </q-list>
+      </template>
+      <template v-else>
+        <p class="q-ma-md tab-desc">{{ $t("strings.addressBookIsEmpty") }}</p>
+      </template>
+    </section>
+    <!-- 
     <q-page-sticky position="bottom-right" :offset="[18, 18]">
       <q-btn round color="primary" icon="add" @click="addEntry" />
-    </q-page-sticky>
-    <AddressBookDetails ref="addressBookDetails" />
+    </q-page-sticky> -->
+    <section>
+      <AddressBookDetails
+        ref="addressBookDetails"
+        @isvisible="displayAddressList"
+      />
+    </section>
   </q-page>
 </template>
 
@@ -71,8 +111,10 @@ export default {
       { action: "sendToAddress", i18n: "menuItems.sendToThisAddress" },
       { action: "copyAddress", i18n: "menuItems.copyAddress" }
     ];
+
     return {
-      menuItems
+      menuItems,
+      isvisible: true
     };
   },
   computed: mapState({
@@ -94,11 +136,13 @@ export default {
       this.$refs.addressBookDetails.entry = entry;
       this.$refs.addressBookDetails.mode = "view";
       this.$refs.addressBookDetails.isVisible = true;
+      this.isvisible = false;
     },
     addEntry: function() {
       this.$refs.addressBookDetails.entry = null;
       this.$refs.addressBookDetails.mode = "new";
       this.$refs.addressBookDetails.isVisible = true;
+      this.isvisible = false;
     },
     sendToAddress(address, event) {
       event.stopPropagation();
@@ -109,7 +153,11 @@ export default {
         }
       });
     },
+    displayAddressList() {
+      this.isvisible = true;
+    },
     copyAddress(entry) {
+      console.log("copy address", entry);
       clipboard.writeText(entry.address);
       this.$q.notify({
         type: "positive",
@@ -148,6 +196,40 @@ export default {
       align-items: center;
       margin-left: 12px;
     }
+  }
+  .addbtn-box {
+    .q-btn {
+      font-size: 11px;
+    }
+    .bg-primary {
+      height: 31px;
+      min-width: unset;
+    }
+  }
+  .star-icon {
+    width: 35px;
+    background-color: #1f1f28;
+    height: 35px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    color: #2879fb;
+  }
+
+  .copy-icon {
+    .q-btn {
+      background-color: #1f1f28;
+      height: 35px;
+      width: 35px;
+    }
+  }
+  .address-label {
+    color: #afafbe;
+    font-size: 14px;
+  }
+  .address-sub-label {
+    color: #afafbe;
+    font-size: 10px;
   }
 }
 </style>
