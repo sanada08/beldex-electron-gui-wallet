@@ -79,7 +79,7 @@
 <script>
 import { mapState } from "vuex";
 import SettingsGeneral from "components/settings_general";
-import LanguageSelect from "components/language_select";
+import LanguageSelect from "components/language_select_settings";
 
 export default {
   name: "SettingsModal",
@@ -131,6 +131,7 @@ export default {
   },
   methods: {
     save() {
+      console.log("nowfiiiiiilllll----save");
       this.$gateway.send("core", "save_config", this.pending_config);
       this.isVisible = false;
     },

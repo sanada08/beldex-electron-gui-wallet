@@ -297,7 +297,7 @@ export default {
     copyViewKey: "Copy view key",
     createNewWallet: "Create new wallet",
     deleteWallet: "Delete Wallet",
-    exit: "Exit Beldex GUI Wallet",
+    exit: "Exit Wallet",
     importOldGUIWallet: "Import wallets from old GUI",
     manageKeyImages: "Manage Key Images",
     openWallet: "Open wallet",
