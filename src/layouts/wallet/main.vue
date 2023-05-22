@@ -168,9 +168,9 @@
         </q-dialog>
         <div v-if="!is_able_to_send" class="app-content">
           <div class="navigation row items-end">
-            <router-link to="/wallet">
+            <!-- <router-link to="/wallet">
               <q-btn class="single-icon" size="md" icon="swap_horiz" />
-            </router-link>
+            </router-link> -->
             <!-- <router-link to="/wallet/send">
               <q-btn
                 class="large-btn"
@@ -216,9 +216,9 @@
                 align="between"
               />
             </router-link>
-            <router-link to="/wallet/addressbook" class="address">
+            <!-- <router-link to="/wallet/addressbook" class="address">
               <q-btn class="single-icon" size="md" icon="person" />
-            </router-link>
+            </router-link> -->
           </div>
           <div class="hr-separator" />
           <keep-alive>
@@ -228,6 +228,7 @@
       </div>
       <div class="col-md-3">
         <section class="rectangleBox rightPane">
+          <!-- <router-view class="view right-sidebar" name="RightSidebar"></router-view> -->
           <RightPane />
         </section>
       </div>

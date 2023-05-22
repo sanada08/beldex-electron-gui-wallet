@@ -1,11 +1,6 @@
 <template>
   <div class="wallet-settings">
-    <q-btn
-      icon-right="more_vert"
-      :label="$t('buttons.settings')"
-      size="md"
-      flat
-    >
+    <q-btn icon-right="menu" size="md" flat>
       <q-menu anchor="bottom right" self="top right">
         <q-list separator class="menu-list">
           <q-item
