@@ -7,20 +7,20 @@
           <img src="../../assets/images/Logo.png" />
         </div>
         <div class="main-title">
-          <span class="green">Beldex </span>
+          <span class="green">Beldex</span>
           <span>Electron Wallet</span>
         </div>
         <!-- <div class="flex items-center justify-center" style="margin:9px">
           <img src="beldex.png" height="32" />
           welcome
-        </div> -->
+        </div>-->
 
         <MainMenu />
       </q-toolbar>
     </q-header>
 
     <q-page class="flex row justify-around">
-      <div class="col-md-3  ">
+      <div class="col-md-3">
         <section class="rectangleBox">
           <router-link to="/wallet">
             <article
@@ -179,7 +179,7 @@
                 icon-right="arrow_right_alt"
                 align="between"
               />
-            </router-link> -->
+            </router-link>-->
             <!-- <router-link to="/wallet/receive">
               <q-btn
                 class="large-btn"
@@ -188,7 +188,7 @@
                 icon-right="save_alt"
                 align="between"
               />
-            </router-link> -->
+            </router-link>-->
             <router-link to="/wallet/masternode">
               <q-btn
                 class="large-btn"
@@ -206,7 +206,7 @@
               icon-right="text_fields"
               align="between"
             />
-          </router-link> -->
+            </router-link>-->
             <router-link to="/wallet/advanced">
               <q-btn
                 class="large-btn"
@@ -226,7 +226,7 @@
           </keep-alive>
         </div>
       </div>
-      <div class="col-md-3 ">
+      <div class="col-md-3">
         <section class="rectangleBox rightPane">
           <RightPane />
         </section>

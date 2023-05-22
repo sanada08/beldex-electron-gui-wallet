@@ -54,8 +54,8 @@
             All rights reserved.
           </p>
 
-          <div class="q-mt-md q-mb-lg external-links">
-            <p>
+          <div class="q-mt-md external-links">
+            <p style="margin: 0 0 20px;">
               <img src="telegram.svg" height="12" />
               <a href="#" @click="openExternal('t.me/official_beldex')"
                 >Telegram</a
@@ -89,9 +89,9 @@
           </div>
           <div
             style="    
-                  display: flex;
-                  align-items: center;
-                  justify-content: center;"
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;"
           >
             <p>
               <img src="www.svg" height="12" />
@@ -104,7 +104,12 @@
             </p>
           </div>
           <div style="display:flex; justify-content: center;">
-            <q-btn color="primary" label="OK" @click="showAbout(false)" />
+            <q-btn
+              style="min-width: 100px;height: 45px;"
+              color="primary"
+              label="OK"
+              @click="showAbout(false)"
+            />
           </div>
         </div>
       </div>
@@ -210,6 +215,13 @@ export default {
 <style lang="scss">
 .about-modal {
   font-family: Poppins-Medium;
+
+  a {
+    margin-right: 10px;
+  }
+  img {
+    margin-right: 5px;
+  }
 
   .logo {
     display: flex;
