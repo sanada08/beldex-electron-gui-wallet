@@ -167,11 +167,11 @@
           </div>
         </q-dialog>
         <div v-if="!is_able_to_send" class="app-content">
-          <div class="navigation row items-end">
-            <!-- <router-link to="/wallet">
+          <!-- <div class="navigation row items-end"> -->
+          <!-- <router-link to="/wallet">
               <q-btn class="single-icon" size="md" icon="swap_horiz" />
             </router-link> -->
-            <!-- <router-link to="/wallet/send">
+          <!-- <router-link to="/wallet/send">
               <q-btn
                 class="large-btn"
                 :label="$t('buttons.send')"
@@ -180,7 +180,7 @@
                 align="between"
               />
             </router-link>-->
-            <!-- <router-link to="/wallet/receive">
+          <!-- <router-link to="/wallet/receive">
               <q-btn
                 class="large-btn"
                 :label="$t('buttons.receive')"
@@ -189,7 +189,7 @@
                 align="between"
               />
             </router-link>-->
-            <router-link to="/wallet/masternode">
+          <!-- <router-link to="/wallet/masternode">
               <q-btn
                 class="large-btn"
                 :label="$t('buttons.masterNode')"
@@ -197,8 +197,8 @@
                 icon-right="router"
                 align="between"
               />
-            </router-link>
-            <!-- <router-link to="/wallet/bns">
+            </router-link> -->
+          <!-- <router-link to="/wallet/bns">
             <q-btn
               class="large-btn"
               :label="$t('buttons.bns')"
@@ -207,7 +207,7 @@
               align="between"
             />
             </router-link>-->
-            <router-link to="/wallet/advanced">
+          <!-- <router-link to="/wallet/advanced">
               <q-btn
                 class="large-btn"
                 :label="$t('buttons.advanced')"
@@ -215,17 +215,18 @@
                 icon-right="tune"
                 align="between"
               />
-            </router-link>
-            <!-- <router-link to="/wallet/addressbook" class="address">
+            </router-link> -->
+          <!-- <router-link to="/wallet/addressbook" class="address">
               <q-btn class="single-icon" size="md" icon="person" />
             </router-link> -->
-          </div>
-          <div class="hr-separator" />
+          <!-- </div> -->
+          <!-- <div class="hr-separator" /> -->
           <keep-alive>
             <router-view />
           </keep-alive>
         </div>
       </div>
+
       <div class="col-md-3">
         <section class="rectangleBox rightPane">
           <!-- <router-view class="view right-sidebar" name="RightSidebar"></router-view> -->

@@ -1,31 +1,45 @@
 <template>
-  <q-page>
-    <div class="row q-pt-sm q-mx-md q-mb-sm items-end non-selectable">
-      <div class="col-5">
-        {{ $t("titles.transactions") }}
+  <q-page class="transactionBox" style="min-height: unset">
+    <section v-if="true">
+      <div
+        class="row q-pt-sm q-mx-md q-mb-sm items-center flex color-white justify-between"
+      >
+        <div class="col-2 ft-semibold txn-title">
+          {{ $t("titles.transactions") }}
+        </div>
+        <section class="searchBox flex row col-8">
+          <article class="flex row items-center col-9">
+            <div class="col-1 filter-txt ft-semibold">
+              {{ $t("fieldLabels.filter") }}
+            </div>
+            <OxenField class="col-11 q-px-sm">
+              <q-input
+                v-model="tx_filter"
+                :placeholder="$t('placeholders.filterTx')"
+                borderless
+                dense
+              />
+            </OxenField>
+          </article>
+
+          <OxenField class="col-3">
+            <q-select
+              v-model="tx_type"
+              :options="tx_type_options"
+              borderless
+              dense
+              emit-value
+              map-options
+              class="ft-semibold"
+            />
+          </OxenField>
+        </section>
       </div>
-
-      <OxenField class="col-5 q-px-sm" :label="$t('fieldLabels.filter')">
-        <q-input
-          v-model="tx_filter"
-          :placeholder="$t('placeholders.filterTx')"
-          borderless
-          dense
-        />
-      </OxenField>
-
-      <OxenField class="col-2" :label="$t('fieldLabels.filterTransactionType')">
-        <q-select
-          v-model="tx_type"
-          :options="tx_type_options"
-          borderless
-          dense
-          emit-value
-          map-options
-        />
-      </OxenField>
-    </div>
-    <TxList :type="tx_type" :filter="tx_filter" />
+      <TxList :type="tx_type" :filter="tx_filter" />
+    </section>
+    <section v-else>
+      <TxDetails ref="txDetails" />
+    </section>
   </q-page>
 </template>
 
@@ -33,10 +47,13 @@
 import { mapState } from "vuex";
 import TxList from "components/tx_list";
 import OxenField from "components/oxen_field";
+import TxDetails from "components/tx_details";
+
 export default {
   components: {
     TxList,
-    OxenField
+    OxenField,
+    TxDetails
   },
   data() {
     return {
@@ -89,4 +106,21 @@ export default {
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.color-white {
+  color: white;
+}
+.txn-title {
+  font-size: 18px;
+}
+.filter-txt {
+  font-size: 16px;
+}
+.searchBox .oxen-field .content {
+  min-height: 45px !important;
+  height: 45px !important;
+  background-color: #32324a;
+  margin-bottom: unset !important;
+  border: unset;
+}
+</style>

@@ -7,6 +7,8 @@
     </template>
 
     <template v-else>
+      <!-- <section v-if="true"> -->
+
       <q-infinite-scroll ref="scroller" @load="loadMore">
         <q-list
           link
@@ -17,28 +19,47 @@
           <q-item
             v-for="(tx, i) in tx_list_paged"
             :key="`${tx.txid}-${tx.type}-${i}`"
-            class="oxen-list-item transaction"
+            class="oxen-list-item transaction "
             :class="'tx-' + tx.type"
             @click.native="details(tx)"
           >
-            <q-item-section class="type">
-              <div>{{ tx.type | typeToString }}</div>
+            <q-item-section class="type flex items-center">
+              <div>
+                <img
+                  :src="txnTypeIndicate(tx.type)"
+                  width="25px"
+                  height="25px"
+                />
+              </div>
+              <!-- <div>{{ tx.type | typeToString }}</div> -->
             </q-item-section>
             <q-item-label class="main">
-              <q-item-label class="amount">
+              <q-item-label class="amount ft-semibold">
+                {{ "out" === tx.type ? "-" : "" }}
                 <FormatOxen :amount="tx.amount || 0" />
               </q-item-label>
-              <q-item-label caption>{{ tx.txid }}</q-item-label>
+              <q-item-label class="txn_id ft-Light" caption>{{
+                tx.txid
+              }}</q-item-label>
             </q-item-label>
             <q-item-section class="meta">
-              <q-item-label>
-                <timeago
+              <q-item-label class="ft-medium">
+                {{
+                  `${
+                    monthNames[new Date(tx.timestamp * 1000).getMonth()]
+                  }  ${new Date(tx.timestamp * 1000).getDate()},${new Date(
+                    tx.timestamp * 1000
+                  ).getFullYear()}`
+                }}
+                <!-- <timeago
                   :datetime="tx.timestamp * 1000"
                   :auto-update="60"
                   :locale="$i18n.locale"
-                />
+                /> -->
               </q-item-label>
-              <q-item-label caption>{{ formatHeight(tx) }}</q-item-label>
+              <q-item-label caption class="blk-height-txt ft-Light">{{
+                formatHeight(tx)
+              }}</q-item-label>
             </q-item-section>
             <ContextMenu
               :menu-items="menuItems"
@@ -46,13 +67,19 @@
               @showDetails="details(tx)"
               @openExplorer="openExplorer(tx.txid)"
             />
+            <div class="hr-separator" />
           </q-item>
+
           <QSpinnerDots slot="message" :size="40"></QSpinnerDots>
         </q-list>
       </q-infinite-scroll>
+      <!-- </section> -->
+      <!-- <section v-else> -->
+      <!-- <TxDetails ref="txDetails"/> -->
+      <!-- </section> -->
     </template>
 
-    <TxDetails ref="txDetails" />
+    <!-- <TxDetails  ref="txDetails"/> -->
   </div>
 </template>
 
@@ -60,7 +87,7 @@
 const { clipboard } = require("electron");
 import { mapState } from "vuex";
 import { QSpinnerDots } from "quasar";
-import TxDetails from "components/tx_details";
+// import TxDetails from "components/tx_details";
 import FormatOxen from "components/format_oxen";
 import { i18n } from "boot/i18n";
 import ContextMenu from "components/menus/contextmenu";
@@ -94,7 +121,7 @@ export default {
   },
   components: {
     QSpinnerDots,
-    TxDetails,
+    // TxDetails,
     FormatOxen,
     ContextMenu
   },
@@ -131,11 +158,28 @@ export default {
       { action: "copyTxId", i18n: "menuItems.copyTransactionId" },
       { action: "openExplorer", i18n: "menuItems.viewOnExplorer" }
     ];
+    const monthNames = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December"
+    ];
+
     return {
       page: 0,
       tx_list_filtered: [],
       tx_list_paged: [],
-      menuItems
+      menuItems,
+      monthNames,
+      isVisible: true
     };
   },
   computed: mapState({
@@ -245,6 +289,29 @@ export default {
         return valid;
       });
     },
+    txnTypeIndicate(value) {
+      switch (value) {
+        case "in":
+          return require("../assets/images/recieve_icon.svg");
+        case "out":
+          return require("../assets/images/send_icon.svg");
+        case "failed":
+          return i18n.t("strings.transactions.types.failed");
+        case "pending":
+        case "pool":
+          return require("../assets/images/pending.svg");
+        case "miner":
+          return i18n.t("strings.transactions.types.miner");
+        case "mnode":
+          return i18n.t("strings.transactions.types.masterNode");
+        case "gov":
+          return i18n.t("strings.transactions.types.governance");
+        case "stake":
+          return i18n.t("strings.transactions.types.stake");
+        default:
+          return "-";
+      }
+    },
     txContains(tx, value) {
       // The tx can be searchable using:
       // id, address, notes, amount, recipient name
@@ -272,6 +339,7 @@ export default {
         0,
         this.limit !== -1 ? this.limit : this.page * 24 + 24
       );
+      console.log("this.tx_list_paged ::", this.tx_list_paged);
     },
     loadMore: function(index, done) {
       this.page = index;
@@ -297,12 +365,12 @@ export default {
       if (height == 0) return this.$t("strings.transactions.types.pending");
       if (confirms < Math.max(10, tx.unlock_time - height))
         return (
-          this.$t("strings.blockHeight") +
+          this.$t("strings.height") +
           `: ${height} (${confirms} confirm${confirms == 1 ? "" : "s"})`
         );
       else
         return (
-          this.$t("strings.blockHeight") +
+          this.$t("strings.height") +
           `: ${height} (${this.$t("strings.transactionConfirmed")})`
         );
     },
@@ -336,15 +404,26 @@ export default {
     .main {
       margin: 0;
       padding: 8px 10px;
+      .amount {
+        color: white;
+        span {
+          color: white;
+        }
+      }
+      .txn_id {
+        font-size: 14px;
+      }
       div {
         overflow: hidden;
         text-overflow: ellipsis;
       }
     }
-
+    .blk-height-txt {
+      color: #afafbe;
+    }
     .type {
-      min-width: 100px;
-      max-width: 100px;
+      min-width: 71px;
+      max-width: 71px;
       div {
         margin-right: 8px;
       }

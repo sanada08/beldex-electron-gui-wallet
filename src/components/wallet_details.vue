@@ -179,7 +179,7 @@ export default {
     padding: 2em;
     background: #2f2f40;
     margin-bottom: 15px;
-    margin-top: 15px;
+    // margin-top: 15px;
     border-radius: 10px;
 
     .balance {

@@ -34,7 +34,7 @@ export default {
     rescan: "RESCAN",
     restoreWallet: "Restore Wallet",
     save: "SAVE",
-    saveTxNotes: "SAVE TX NOTES",
+    saveTxNotes: "Save Notes",
     selectLocation: "SELECT LOCATION",
     selectWalletFile: "Select File",
     send: "Send",
@@ -42,14 +42,14 @@ export default {
     masterNode: "MASTER NODES",
     settings: "SETTINGS",
     showQRCode: "SHOW QR CODE",
-    showTxDetails: "SHOW TX DETAILS",
+    showTxDetails: "TXN Details",
     sign: "SIGN",
     stake: "STAKE",
     sweepAll: "SWEEP ALL",
     unlock: "UNLOCK",
     update: "UPDATE",
     verify: "VERIFY",
-    viewOnExplorer: "VIEW ON EXPLORER",
+    viewOnExplorer: "View in explorer",
     //new wamp
     add: "Add",
     max: "Max"
@@ -216,7 +216,7 @@ export default {
     data: "DATA",
     dataStoragePath: "DATA STORAGE PATH",
     decryptRecord: "DECRYPT RECORD",
-    filter: "FILTER",
+    filter: "Filter",
     filterTransactionType: "FILTER BY TRANSACTION TYPE",
     internalWalletPort: "INTERNAL WALLET PORT",
     keyImages: {
@@ -461,7 +461,8 @@ export default {
       title: "Banned peers (bans will cleared if wallet is restarted)",
       bannedUntil: "Banned until {time}"
     },
-    blockHeight: "Height",
+    blockHeight: "Blockheight",
+    height: "Height",
     cannotSign: "You cannot sign with a view only wallet.",
     checkTransaction: {
       description:
@@ -587,6 +588,7 @@ export default {
       sent: "Sent",
       sentTo: "{type} transaction sent to",
       timestamp: "Timestamp",
+      date: "Date",
       types: {
         all: "All",
         incoming: "Incoming",
@@ -649,6 +651,7 @@ export default {
       }
     },
     transactionDetails: "Transaction details",
+    details: "Details",
     transactions: "Transactions",
     wallet: {
       createNew: "Create new wallet",

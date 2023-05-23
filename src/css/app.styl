@@ -203,11 +203,12 @@ footer,
 }
 
 .infoBox {
-    height: 75px;
+   // height: 40px;
     cursor: default;
     position: relative;
     overflow: hidden;
     margin: 10px 0;
+    color:white;
 
     .infoBoxIcon {
         position: absolute;
@@ -351,11 +352,11 @@ footer,
     .q-item.tx-mnode,
     .q-item.tx-gov {
         .amount span {
-            color: $oxen-navy;
-            &:before {
-                content: "+";
-                color: $oxen-navy;
-            }
+           // color: $oxen-navy;
+           // &:before {
+              //  content: "+";
+               // color: $oxen-navy;
+           // }
         }
     }
 
@@ -369,11 +370,11 @@ footer,
     .q-item.tx-pending {
         .amount span {
             // color: white;
-            &:before {
-                content: "-";
-                font-weight: bold;
+            //&:before {
+             //   content: "-";
+               // font-weight: bold;
                 // color: white;
-            }
+           // }
         }
     }
 
@@ -778,7 +779,7 @@ footer,
 
 .tx-list {
     .transaction .main {
-            border-left: 1px solid #252525;
+           // border-left: 1px solid #252525;
     }
 }
 
@@ -1390,3 +1391,22 @@ body
 {
     font-family:'Poppins-SemiBold';
 }
+
+.transactionBox
+{
+    background-color:$beldex-lightgray;
+    padding: 15px;
+    border-radius: 20px;
+    -webkit-box-shadow: 0px 6px 24px rgba(0,0,0,0.2);
+    box-shadow: 0px 6px 24px rgba(0,0,0,0.2);
+    height: 53vh;
+    overflow: auto;
+    .oxen-list .oxen-list-item 
+    {
+        background-color:unset;
+        border:unset;
+    border-bottom: 1px solid #40405E;
+    border-radius: 0;
+    }
+    
+} 

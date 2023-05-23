@@ -1,5 +1,5 @@
 <template>
-  <q-page class="send">
+  <q-page class="send" style="min-height: unset;">
     <template v-if="view_only">
       <div class="q-pa-md">
         {{ $t("strings.viewOnlyMode") }}
