@@ -29,8 +29,9 @@ export default {
     openWallet: "OPEN WALLET",
     purchase: "PURCHASE",
     receive: "Receive",
-    registerMasterNode: "REGISTER MASTER NODE",
+    registerMasterNode: "Register Master Node",
     renew: "RENEW",
+    refresh: "Refresh",
     rescan: "RESCAN",
     restoreWallet: "Restore Wallet",
     save: "SAVE",
@@ -44,8 +45,8 @@ export default {
     showQRCode: "SHOW QR CODE",
     showTxDetails: "TXN Details",
     sign: "SIGN",
-    stake: "STAKE",
-    sweepAll: "SWEEP ALL",
+    stake: "Stake",
+    sweepAll: "Sweep All",
     unlock: "UNLOCK",
     update: "UPDATE",
     verify: "VERIFY",
@@ -519,7 +520,7 @@ export default {
     oxenUnlockedBalance: "Unlocked balance",
     oxenUnlockedShort: "Unlocked",
     me: "Me",
-    noTransactionsFound: "No transactions found",
+    noTransactionsFound: "No transactions yet",
     notes: "Notes",
     numberOfUnspentOutputs: "Number of unspent outputs",
     operator: "Operator",
@@ -636,9 +637,9 @@ export default {
       myBns: "MY BNS"
     },
     masterNode: {
-      registration: "REGISTRATION",
-      staking: "STAKING",
-      myStakes: "MY STAKES"
+      registration: "Registration",
+      staking: "Staking",
+      myStakes: "My Stakes"
     },
 
     masterNodeDetails: "Master node details",

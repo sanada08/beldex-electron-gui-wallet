@@ -115,7 +115,7 @@
               </article>
             </router-link>
 
-            <articel class="p-relative">
+            <article class="p-relative">
               <div class="version">
                 <svg
                   width="18"
@@ -133,7 +133,7 @@
 
                 <span>Version</span>
               </div>
-            </articel>
+            </article>
           </section>
         </div>
         <div class="col-md-9">

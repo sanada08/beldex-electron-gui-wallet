@@ -1,9 +1,20 @@
 <template>
   <div class="tx-list">
     <template v-if="tx_list_paged.length === 0">
-      <p class="q-pa-md q-mb-none tab-desc">
-        {{ $t("strings.noTransactionsFound") }}
-      </p>
+      <section
+        class="flex column justify-center items-center"
+        style="height: 39vh;"
+      >
+        <div>
+          <img src="../assets/images/No_transaction.svg" height="119px" />
+        </div>
+        <p class="q-pa-md q-mb-none qtab-desc ft-semibold infoTxt">
+          {{ $t("strings.noTransactionsFound") }}
+        </p>
+
+        <div class="hint-txt ">After your first transaction,</div>
+        <div class="hint-txt ">you will be able to view it here.</div>
+      </section>
     </template>
 
     <template v-else>
@@ -19,7 +30,7 @@
           <q-item
             v-for="(tx, i) in tx_list_paged"
             :key="`${tx.txid}-${tx.type}-${i}`"
-            class="oxen-list-item transaction "
+            class="oxen-list-item transaction"
             :class="'tx-' + tx.type"
             @click.native="details(tx)"
           >
@@ -355,9 +366,10 @@ export default {
       });
     },
     details(tx) {
-      this.$refs.txDetails.tx = tx;
-      this.$refs.txDetails.txNotes = tx.note;
-      this.$refs.txDetails.isVisible = true;
+      this.$emit("submitTxDetails", tx);
+      // this.$refs.txDetails.tx = tx;
+      // this.$refs.txDetails.txNotes = tx.note;
+      // this.$refs.txDetails.isVisible = true;
     },
     formatHeight(tx) {
       let height = tx.height;
@@ -400,6 +412,9 @@ export default {
     padding-top: 0;
     padding-bottom: 0;
   }
+  .infoTxt {
+    color: white;
+  }
   .transaction {
     .main {
       margin: 0;
@@ -428,6 +443,9 @@ export default {
         margin-right: 8px;
       }
     }
+  }
+  .hint-txt {
+    color: #82828d;
   }
 }
 </style>

@@ -112,7 +112,7 @@
             </article>
           </router-link>
 
-          <articel class="p-relative">
+          <article class="p-relative">
             <div class="version">
               <svg
                 width="18"
@@ -130,7 +130,7 @@
 
               <span>Version {{ this.version }}</span>
             </div>
-          </articel>
+          </article>
         </section>
       </div>
       <div class="col-md-6">
@@ -225,6 +225,9 @@
             <router-view />
           </keep-alive>
         </div>
+        <div class="footer ">
+          <StatusFooter />
+        </div>
       </div>
 
       <div class="col-md-3">
@@ -234,8 +237,6 @@
         </section>
       </div>
     </q-page>
-
-    <!-- <StatusFooter /> -->
   </q-layout>
 </template>
 
@@ -244,7 +245,7 @@ import { openURL } from "quasar";
 import { mapState } from "vuex";
 const { clipboard } = require("electron");
 import WalletDetails from "components/wallet_details";
-// import StatusFooter from "components/footer";
+import StatusFooter from "components/footer";
 import MainMenu from "components/menus/mainmenu";
 import RightPane from "app/src/layouts/wallet/rightPane.vue";
 import { version } from "../../../package.json";
@@ -252,7 +253,7 @@ import { version } from "../../../package.json";
 export default {
   name: "LayoutDefault",
   components: {
-    // StatusFooter,
+    StatusFooter,
     MainMenu,
     WalletDetails,
     RightPane
@@ -343,6 +344,14 @@ export default {
     font-family: "Poppins-Medium";
     font-size: 18px;
     margin-left: 10px;
+  }
+}
+.footer {
+  .fixed-bottom,
+  .absolute-bottom {
+    right: unset;
+    bottom: unset;
+    left: unset;
   }
 }
 </style>

@@ -40,14 +40,14 @@
       </div>
       <article class="decoration q-my-md">
         <div class="wallet-address row justify-center items-center">
-          <div class="ft-semibold title">Address</div>
-          <div class="address ft-Light">{{ info.address }}</div>
+          <div class="ft-semibold title col-md-1">Address</div>
+          <div class="address ft-Light col-md-9">{{ info.address }}</div>
           <q-btn
             flat
             padding="sm"
             size="md"
             icon="content_copy"
-            class="q-mr-sm"
+            class="q-mr-sm col-md-1"
             color="green"
             @click="copyAddress(info.address)"
           >
@@ -209,7 +209,7 @@ export default {
         margin: 4px 0;
         // background: #45455a;
         padding: 15px;
-        width: 83%;
+        // width: 83%;
         color: #afafbe;
       }
       .title {

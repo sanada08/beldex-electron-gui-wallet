@@ -280,7 +280,7 @@ export default {
     FormatOxen,
     ContextMenu
   },
-  // props:['txnDetails'],
+  // props:['tx'],
   data() {
     const menuItems = [
       { action: "copyAddress", i18n: "menuItems.copyAddress" }

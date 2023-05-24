@@ -5,7 +5,7 @@
       <div class="sub-txt">Total Balance</div>
       <div class="balance">{{ info.balance }}<span>BDX</span></div>
     </article>
-    <articel class="flex justify-between">
+    <article class="flex justify-between">
       <!-- <router-link to="/wallet/send"> -->
       <div :class="[this.routes === 'send' ? 'active' : '']">
         <q-btn class="large-btn send-btn" size="md" @click="router('send')">
@@ -61,7 +61,7 @@
         </q-btn>
         <!-- </router-link> -->
       </div>
-    </articel>
+    </article>
     <div class="hr-separator" />
     <article>
       <keep-alive>

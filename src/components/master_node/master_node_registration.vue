@@ -4,7 +4,7 @@
       <i18n
         path="strings.masterNodeRegistrationDescription"
         tag="div"
-        class="tab-desc q-mb-lg"
+        class="tab-desc q-mb-lg ft-semibold"
       >
         <b place="registerCommand">register_master_node</b>
         <b place="prepareCommand">prepare_registration</b>
@@ -26,13 +26,15 @@
           @paste="onPaste"
         />
       </OxenField>
-      <q-btn
-        class="register-button"
-        color="primary"
-        :label="$t('buttons.registerMasterNode')"
-        :disabled="registration_status.sending"
-        @click="register()"
-      />
+      <div class="flex justify-center">
+        <q-btn
+          class="register-button"
+          color="primary"
+          :label="$t('buttons.registerMasterNode')"
+          :disabled="registration_status.sending"
+          @click="register()"
+        />
+      </div>
     </div>
 
     <q-inner-loading :showing="registration_status.sending">
@@ -144,7 +146,13 @@ export default {
 </script>
 
 <style lang="scss">
-.register-button {
-  margin-top: 6px;
+.master-node-registration {
+  border: none;
+  .register-button {
+    margin-top: 6px;
+  }
+  .tab-desc {
+    color: #afafbe;
+  }
 }
 </style>

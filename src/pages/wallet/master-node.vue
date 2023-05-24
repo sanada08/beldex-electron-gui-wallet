@@ -1,5 +1,5 @@
 <template>
-  <q-page class="master-node-page">
+  <q-page class="master-node-page" style="min-height: unset">
     <div class="header row items-center justify-left q-pt-md">
       <q-btn-toggle
         v-model="screen"
@@ -45,4 +45,16 @@ export default {
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.master-node-page {
+  height: 53vh;
+  overflow: auto;
+  background-color: #242433;
+  padding: 15px;
+  border-radius: 20px;
+  -webkit-box-shadow: 0px 6px 24px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 6px 24px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  /* MARGIN: 90PX AUTO 0; */
+}
+</style>

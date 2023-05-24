@@ -1,6 +1,28 @@
 <template>
   <q-page class="transactionBox" style="min-height: unset">
-    <section v-if="true">
+    <template v-if="this.tx_list.length === 0">
+      <div
+        class="col-2 ft-semibold txn-title q-ml-sm q-mt-sm"
+        style="color:white"
+      >
+        {{ $t("titles.transactions") }}
+      </div>
+      <section
+        class="flex column justify-center items-center"
+        style="height: 45vh"
+      >
+        <div>
+          <img src="../../assets/images/No_transaction.svg" height="119px" />
+        </div>
+        <p class="q-pa-md q-mb-none qtab-desc ft-semibold infoTxt">
+          {{ $t("strings.noTransactionsFound") }}
+        </p>
+
+        <div class="hint-txt">After your first transaction,</div>
+        <div class="hint-txt">you will be able to view it here.</div>
+      </section>
+    </template>
+    <section v-else-if="this.tx_list.length !== 0 && true">
       <div
         class="row q-pt-sm q-mx-md q-mb-sm items-center flex color-white justify-between"
       >
@@ -35,14 +57,17 @@
           </OxenField>
         </section>
       </div>
-      <TxList :type="tx_type" :filter="tx_filter" />
+      <TxList
+        :type="tx_type"
+        :filter="tx_filter"
+        @submitTxDetails="submitTxDetails($event)"
+      />
     </section>
     <section v-else>
       <TxDetails ref="txDetails" />
     </section>
   </q-page>
 </template>
-
 <script>
 import { mapState } from "vuex";
 import TxList from "components/tx_list";
@@ -59,6 +84,7 @@ export default {
     return {
       tx_type: "all",
       tx_filter: "",
+
       tx_type_options: [
         {
           label: this.$t("strings.transactions.types.all"),
@@ -99,6 +125,12 @@ export default {
       ]
     };
   },
+  methods: {
+    submitTxDetails(details) {
+      this.$ref.txDetails.tx = details;
+      console.log("submitTxDetails ::", this.tx_details);
+    }
+  },
   computed: mapState({
     theme: state => state.gateway.app.config.appearance.theme,
     tx_list: state => state.gateway.wallet.transactions.tx_list
@@ -122,5 +154,11 @@ export default {
   background-color: #32324a;
   margin-bottom: unset !important;
   border: unset;
+}
+.infoTxt {
+  color: white;
+}
+.hint-txt {
+  color: #82828d;
 }
 </style>

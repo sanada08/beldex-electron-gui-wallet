@@ -7,9 +7,9 @@
         </div>
         <div class="col-md-4">
           <q-btn
-            class="float-right vertical-top"
+            class="float-right vertical-top bg-secondary"
             icon="refresh"
-            flat
+            :label="$t('buttons.refresh')"
             @click="updateMasterNodeList"
           />
         </div>
@@ -23,7 +23,9 @@
           :action="contributeToNode"
         />
       </div>
-      <div v-else>{{ $t("strings.noMasterNodesCurrentlyAvailable") }}</div>
+      <div v-else class="info-txt">
+        {{ $t("strings.noMasterNodesCurrentlyAvailable") }}
+      </div>
     </div>
     <MasterNodeDetails
       ref="masterNodeDetailsContribute"
@@ -93,5 +95,12 @@ export default {
     margin: 20 400;
   }
   margin-bottom: 6px;
+}
+
+.master-node-stake-tab .q-btn .q-icon {
+  color: white;
+}
+.info-txt {
+  color: #afafbe;
 }
 </style>

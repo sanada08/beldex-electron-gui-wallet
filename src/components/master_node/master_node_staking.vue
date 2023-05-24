@@ -1,10 +1,10 @@
 <template>
   <div class="master-node-staking">
     <div class="q-px-md q-pt-md">
-      <p class="tab-desc">
+      <p class="tab-desc ft-Light">
         {{ $t("strings.masterNodeContributionDescription") }}
         <span
-          style="cursor: pointer; text-decoration: underline;"
+          style="cursor: pointer; text-decoration: underline"
           @click="oxenWebsite"
           >Beldex {{ $t("strings.website") }}.</span
         >
@@ -39,21 +39,21 @@
           @blur="$v.master_node.amount.$touch"
         />
         <q-btn
-          color="primary"
+          class="minBtn"
           :text-color="theme == 'dark' ? 'white' : 'dark'"
           :label="$t('buttons.min')"
           :disable="!areButtonsEnabled()"
           @click="master_node.amount = minStake(master_node.key)"
         />
         <q-btn
-          color="primary"
+          color="secondary"
           :text-color="theme == 'dark' ? 'white' : 'dark'"
           :label="$t('buttons.max')"
           :disable="!areButtonsEnabled()"
           @click="master_node.amount = maxStake(master_node.key)"
         />
       </OxenField>
-      <div class="submit-button">
+      <div class="submit-button flex row justify-center">
         <q-btn
           :disable="!is_able_to_send"
           color="primary"
@@ -68,9 +68,10 @@
         />
       </div>
     </div>
+    <div class="hr-separator" style="margin: 10px 19px" />
     <MasterNodeContribute
       :awaiting-master-nodes="awaiting_master_nodes"
-      class="contribute"
+      class="contribute q-mx-md"
       @contribute="fillStakingFields"
     />
     <ConfirmTransactionDialog
@@ -483,15 +484,33 @@ export default {
 
 <style lang="scss">
 .master-node-staking {
+  border: unset;
+
   .submit-button {
     .q-btn:not(:first-child) {
       margin-left: 8px;
     }
   }
+  .tab-desc {
+    color: #afafbe;
+  }
+  .q-placeholder {
+    color: #77778b !important;
+  }
+  .minBtn {
+    height: 43px;
+    background-color: #32324a;
+    border-radius: 10px;
+  }
+  .oxen-field .content {
+    min-height: 40px !important;
+  }
 }
 .contribute {
   margin-top: 16px;
   padding-left: 8px;
+  border: 1px solid #484856;
+  border-radius: 10px;
 }
 .master-node-stake-tab {
   margin-top: 4px;
