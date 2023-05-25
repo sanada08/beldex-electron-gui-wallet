@@ -1,6 +1,6 @@
 <template>
   <q-page class="master-node-page" style="min-height: unset">
-    <div class="header row items-center justify-left q-pt-md">
+    <div class="header row items-center justify-left ">
       <q-btn-toggle
         v-model="screen"
         toggle-color="primary"

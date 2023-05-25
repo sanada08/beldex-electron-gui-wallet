@@ -1,7 +1,7 @@
 <template>
   <div class="prove-transaction">
     <div class="q-pa-md">
-      <div class="q-mb-lg tab-desc">
+      <div class="q-mb-lg tab-desc ft-medium">
         {{ $t("strings.proveTransactionDescription") }}
       </div>
       <div>
@@ -42,7 +42,7 @@
             dense
           />
         </OxenField>
-        <div class="buttons submit-button">
+        <div class="buttons submit-button flex justify-center">
           <q-btn
             color="primary"
             :label="$t('buttons.generate')"

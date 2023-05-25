@@ -255,13 +255,14 @@ footer,
     word-break: break-word;
 }
 
-.q-footer.status-footer {
-    background: $oxen-navy;
-    color: rgba(255, 255, 255, 0.51);
+.status-footer {
+    background: $beldex-lightgray;
+    color: #9393B1;
     border-top: 1px solid #333;
     padding-top: 2px;
     box-shadow: none;
     font-size: 12px;
+    border-radius:10px;
 
     .status-line {
         padding: 8px;
@@ -299,7 +300,7 @@ footer,
 
         div {
             height: 3px;
-            position: absolute;
+            position: relative;
             bottom: 0;
             left: 0;
             -webkit-transition: width 0.5s ease-out;
@@ -784,7 +785,9 @@ footer,
 }
 
 .tab-desc {
-    color: #fff;
+  //  color: #fff;
+
+    color: #AFAFBE;
     font-style: normal;
     b {
         color: $oxen-teal;
@@ -836,9 +839,9 @@ footer,
     .label {
         color: $color-white;
 
-        .optional {
-            color: #7C7C7C;
-        }
+        //.optional {
+        //    color: #7C7C7C;
+        //}
     }
 }
 
@@ -986,7 +989,7 @@ footer,
 .bg-accent
 {
     background: #2f2f40 !important;
-    min-width: 160px;
+    min-width: 170px;
     height: 50px;
     border-radius: 8px;
 }
@@ -1062,8 +1065,8 @@ footer,
 }
 .prove-transaction, .sign-and-verify, .check-transaction, .master-node-staking, .master-node-stake-tab, .master-node-registration
 {
-    background: #252531;
-    border: 1px solid #303040;
+    background:$beldex-lightgray ;
+    //border: 1px solid #303040;
 }
 .relative-position
 {
@@ -1241,7 +1244,7 @@ footer,
 }
 
 .q-btn--rectangle {
-    border-radius: 7px;
+    border-radius: 14px;
 }
 .rectangleBox {
    // width: 832px;
@@ -1391,6 +1394,10 @@ body
 {
     font-family:'Poppins-SemiBold';
 }
+.ft-bold{
+    font-family: Poppins-Bold;
+
+}
 
 .transactionBox
 {
@@ -1411,7 +1418,7 @@ body
     
 } 
 
-.master-node-page {
+.master-node-page,.advanced-page {
    
     .q-btn-group {
          border-radius: 0px; 
@@ -1438,3 +1445,42 @@ body
         
     }
   }
+
+  .advanced-page{
+    height: 53vh;
+    overflow: auto;
+    background-color: $beldex-lightgray;
+    padding: 15px;
+    border-radius: 20px;
+    -webkit-box-shadow: 0px 6px 24px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 6px 24px rgba(0, 0, 0, 0.2);
+    width: 100%;
+
+    .q-placeholder {
+        color: #77778b !important;
+      }
+      .oxen-field .content {
+        min-height:45px !important;
+      }
+  }
+
+ 
+
+.menu-list {
+
+    background-color: $beldex-disable-grey;
+
+    .q-item * {
+        color: $color-white !important;
+    }
+    .menuIcon
+    {
+        width:16px;
+        height:16px;
+    }
+}
+
+.private-key-modal {
+    background-color: $beldex-disable-grey;
+
+}

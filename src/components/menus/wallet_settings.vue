@@ -9,9 +9,10 @@
             :disabled="!is_ready"
             @click.native="getPrivateKeys()"
           >
-            <q-item-label header>{{
-              $t("menuItems.showPrivateKeys")
-            }}</q-item-label>
+            <q-item-label header class="sub_menu_txt ft-medium">
+              <img src="../../assets/images/key.svg" class="menuIcon q-mr-md" />
+              {{ $t("menuItems.showPrivateKeys") }}</q-item-label
+            >
           </q-item>
           <q-item
             v-close-popup
@@ -19,9 +20,13 @@
             :disabled="!is_ready"
             @click.native="showModal('change_password')"
           >
-            <q-item-label header>{{
-              $t("menuItems.changePassword")
-            }}</q-item-label>
+            <q-item-label header class="sub_menu_txt ft-medium">
+              <img
+                src="../../assets/images/lock.svg"
+                class="menuIcon  q-mr-md"
+              />
+              {{ $t("menuItems.changePassword") }}</q-item-label
+            >
           </q-item>
           <q-item
             v-close-popup
@@ -29,9 +34,13 @@
             :disabled="!is_ready"
             @click.native="showModal('rescan')"
           >
-            <q-item-label header>{{
-              $t("menuItems.rescanWallet")
-            }}</q-item-label>
+            <q-item-label header class="sub_menu_txt ft-medium">
+              <img
+                src="../../assets/images/reload.svg"
+                class="menuIcon  q-mr-md"
+              />
+              {{ $t("menuItems.rescanWallet") }}</q-item-label
+            >
           </q-item>
           <q-item
             v-close-popup
@@ -39,9 +48,13 @@
             :disabled="!is_ready"
             @click.native="showModal('key_image')"
           >
-            <q-item-label header>{{
-              $t("menuItems.manageKeyImages")
-            }}</q-item-label>
+            <q-item-label header class="sub_menu_txt ft-medium ">
+              <img
+                src="../../assets/images/manage_key.svg"
+                class="menuIcon  q-mr-md"
+              />
+              {{ $t("menuItems.manageKeyImages") }}</q-item-label
+            >
           </q-item>
           <q-item
             v-close-popup
@@ -49,9 +62,13 @@
             :disabled="!is_ready"
             @click.native="deleteWallet()"
           >
-            <q-item-label header>{{
-              $t("menuItems.deleteWallet")
-            }}</q-item-label>
+            <q-item-label header class="sub_menu_txt  ft-medium">
+              <img
+                src="../../assets/images/delete.svg"
+                class="menuIcon q-mr-md"
+              />
+              {{ $t("menuItems.deleteWallet") }}</q-item-label
+            >
           </q-item>
         </q-list>
       </q-menu>
@@ -743,13 +760,17 @@ export default {
 }
 
 .private-key-modal {
-  background: #2f2f40;
+  // background: #2f2f40;
   color: #fff;
   border-radius: 10px !important;
 
   .copy-btn {
     margin-left: 8px;
   }
+}
+.sub_menu_txt {
+  color: white;
+  font-size: 18px;
 }
 
 .key-image-modal {

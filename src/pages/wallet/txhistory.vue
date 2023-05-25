@@ -22,7 +22,7 @@
         <div class="hint-txt">you will be able to view it here.</div>
       </section>
     </template>
-    <section v-else-if="this.tx_list.length !== 0 && true">
+    <section v-else-if="this.tx_list.length !== 0 && !this.txnDetails">
       <div
         class="row q-pt-sm q-mx-md q-mb-sm items-center flex color-white justify-between"
       >
@@ -64,7 +64,9 @@
       />
     </section>
     <section v-else>
-      <TxDetails ref="txDetails" />
+      <!-- <section > -->
+
+      <TxDetails :tx="this.txnDetails" @goback="goback($event)" />
     </section>
   </q-page>
 </template>
@@ -84,7 +86,7 @@ export default {
     return {
       tx_type: "all",
       tx_filter: "",
-
+      txnDetails: "",
       tx_type_options: [
         {
           label: this.$t("strings.transactions.types.all"),
@@ -127,10 +129,16 @@ export default {
   },
   methods: {
     submitTxDetails(details) {
-      this.$ref.txDetails.tx = details;
+      // this.$ref.txDetails.tx = details;
+      this.txnDetails = details;
       console.log("submitTxDetails ::", this.tx_details);
+    },
+    goback(data) {
+      this.txnDetails = data;
+      console.log("submitTxDetails ::goback", data);
     }
   },
+
   computed: mapState({
     theme: state => state.gateway.app.config.appearance.theme,
     tx_list: state => state.gateway.wallet.transactions.tx_list

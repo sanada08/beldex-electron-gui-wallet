@@ -29,13 +29,14 @@
         </article>
 
         <div>
-          <q-btn
+          <WalletSettings />
+          <!-- <q-btn
             class="balance-button"
             label="Fetch Balance & Transaction"
             color="primary"
             @click="get_balance()"
           >
-          </q-btn>
+          </q-btn> -->
         </div>
       </div>
       <article class="decoration q-my-md">
@@ -128,13 +129,13 @@
 const { clipboard } = require("electron");
 import { mapState } from "vuex";
 import FormatOxen from "components/format_oxen";
-// import WalletSettings from "components/menus/wallet_settings";
+import WalletSettings from "components/menus/wallet_settings";
 // import CopyIcon from "components/icons/copy_icon";
 export default {
   name: "WalletDetails",
   components: {
-    FormatOxen
-    // WalletSettings,
+    FormatOxen,
+    WalletSettings
     // CopyIcon
   },
   computed: mapState({

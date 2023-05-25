@@ -3,7 +3,7 @@
     <template v-if="tx_list_paged.length === 0">
       <section
         class="flex column justify-center items-center"
-        style="height: 39vh;"
+        style="height: 39vh"
       >
         <div>
           <img src="../assets/images/No_transaction.svg" height="119px" />
@@ -12,8 +12,8 @@
           {{ $t("strings.noTransactionsFound") }}
         </p>
 
-        <div class="hint-txt ">After your first transaction,</div>
-        <div class="hint-txt ">you will be able to view it here.</div>
+        <div class="hint-txt">After your first transaction,</div>
+        <div class="hint-txt">you will be able to view it here.</div>
       </section>
     </template>
 
@@ -415,10 +415,15 @@ export default {
   .infoTxt {
     color: white;
   }
+  // .q-item__label {
+  //   line-height: 1.2em !important;
+  //   max-width: 60%;
+  // }
   .transaction {
     .main {
       margin: 0;
       padding: 8px 10px;
+      width: 60%;
       .amount {
         color: white;
         span {

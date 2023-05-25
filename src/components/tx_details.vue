@@ -6,7 +6,7 @@
     <q-header>
       <q-toolbar>
         <!-- <q-btn flat round dense icon="" @click="isVisible = false" /> -->
-        <q-btn flat round dense @click="isVisible = false">
+        <q-btn flat round dense @click="goback()">
           <svg
             width="26"
             height="26"
@@ -23,6 +23,47 @@
         <q-toolbar-title>
           {{ $t("titles.details") }}
         </q-toolbar-title>
+        <div class="row items-center q-mr-md txnDirection">
+          <!-- <div class="q-mr-sm">
+            <TxTypeIcon :type="tx.type" :tooltip="false" />
+          </div> -->
+
+          <div v-if="tx.type == 'in'" :class="'tx-' + tx.type">
+            {{
+              $t("strings.transactions.description", {
+                type: $t("strings.transactions.types.incoming")
+              })
+            }}
+          </div>
+          <div v-else-if="tx.type == 'out'" :class="'tx-' + tx.type">
+            {{
+              $t("strings.transactions.description", {
+                type: $t("strings.transactions.types.outgoing")
+              })
+            }}
+          </div>
+          <div v-else-if="tx.type == 'pool'" :class="'tx-' + tx.type">
+            {{
+              $t("strings.transactions.description", {
+                type: $t("strings.transactions.types.pendingIncoming")
+              })
+            }}
+          </div>
+          <div v-else-if="tx.type == 'pending'" :class="'tx-' + tx.type">
+            {{
+              $t("strings.transactions.description", {
+                type: $t("strings.transactions.types.pendingOutgoing")
+              })
+            }}
+          </div>
+          <div v-else-if="tx.type == 'failed'" :class="'tx-' + tx.type">
+            {{
+              $t("strings.transactions.description", {
+                type: $t("strings.transactions.types.failed")
+              })
+            }}
+          </div>
+        </div>
         <q-btn
           class="q-mr-sm"
           color="primary txnDetails"
@@ -39,7 +80,7 @@
     </q-header>
     <q-page class="detail-page" style="min-height: unset;">
       <div class="layout-padding">
-        <div class="row items-center non-selectable">
+        <!-- <div class="row items-center non-selectable">
           <div class="q-mr-sm">
             <TxTypeIcon :type="tx.type" :tooltip="false" />
           </div>
@@ -79,7 +120,7 @@
               })
             }}
           </div>
-        </div>
+        </div> -->
 
         <div class="justify-between" style="margin-top: 72px">
           <div class="infoBox">
@@ -270,17 +311,17 @@
 const { clipboard } = require("electron");
 import { mapState } from "vuex";
 import { date } from "quasar";
-import TxTypeIcon from "components/tx_type_icon";
+// import TxTypeIcon from "components/tx_type_icon";
 import FormatOxen from "components/format_oxen";
 import ContextMenu from "components/menus/contextmenu";
 export default {
   name: "TxDetails",
   components: {
-    TxTypeIcon,
+    // TxTypeIcon,
     FormatOxen,
     ContextMenu
   },
-  // props:['tx'],
+  props: ["tx"],
   data() {
     const menuItems = [
       { action: "copyAddress", i18n: "menuItems.copyAddress" }
@@ -288,21 +329,21 @@ export default {
     return {
       isVisible: false,
       txNotes: "",
-      tx: {
-        address: "",
-        amount: 0,
-        double_spend_seen: false,
-        fee: 0,
-        height: 0,
-        note: "",
-        // deprecated, but leave for older txs
-        payment_id: "",
-        subaddr_index: { major: 0, minor: 0 },
-        timestamp: 0,
-        txid: "",
-        type: "",
-        unlock_time: 0
-      },
+      // tx: {
+      //   address: "",
+      //   amount: 0,
+      //   double_spend_seen: false,
+      //   fee: 0,
+      //   height: 0,
+      //   note: "",
+      //   // deprecated, but leave for older txs
+      //   payment_id: "",
+      //   subaddr_index: { major: 0, minor: 0 },
+      //   timestamp: 0,
+      //   txid: "",
+      //   type: "",
+      //   unlock_time: 0
+      // },
       menuItems
     };
   },
@@ -365,6 +406,9 @@ export default {
     }
   }),
   methods: {
+    goback() {
+      this.$emit("goback", "");
+    },
     showTxDetails() {
       this.$q
         .dialog({
@@ -416,6 +460,10 @@ export default {
 <style lang="scss">
 .txn-details {
   background-color: unset;
+  .txnDirection {
+    font-size: 13px;
+    color: #d1d1d3;
+  }
   .q-toolbar {
     background-color: unset;
     padding: unset;

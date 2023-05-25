@@ -1,5 +1,5 @@
 <template>
-  <div class="oxen-field" :class="{ disable, 'disable-hover': disableHover }">
+  <div class="oxen-field " :class="{ disable, 'disable-hover': disableHover }">
     <div v-if="label" class="label row items-center" :disabled="disable">
       {{ label }}
       <span v-if="optional" class="optional"

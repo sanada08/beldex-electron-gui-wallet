@@ -1,7 +1,7 @@
 <template>
   <div class="check-transaction">
     <div class="q-pa-md">
-      <div class="q-mb-lg tab-desc">
+      <div class="q-mb-lg tab-desc ft-medium">
         {{ $t("strings.checkTransaction.description") }}
       </div>
       <div>
@@ -55,7 +55,7 @@
             dense
           />
         </OxenField>
-        <div class="submit-button">
+        <div class="submit-button flex row justify-center">
           <q-btn color="primary" :label="$t('buttons.check')" @click="check" />
           <q-btn
             v-if="canClear"

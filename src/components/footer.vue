@@ -1,13 +1,17 @@
 <template>
-  <q-footer class="status-footer">
+  <footer class="status-footer q-mt-md">
+    <div class="status-bars" :class="[status]">
+      <div :style="{ width: daemon_pct + '%' }"></div>
+      <div :style="{ width: wallet_pct + '%' }"></div>
+    </div>
     <div class="status-line row items-center">
       <div class="status row items-center">
-        <span>{{ $t("footer.status") }}:</span>
-        <span class="status-text" :class="[status]">{{
+        <span class="ft-medium">{{ $t("footer.status") }}:</span>
+        <span class="status-text ft-semibold" :class="[status]">{{
           $t(`footer.${status}`)
         }}</span>
       </div>
-      <div class="row">
+      <div class="row ft-medium">
         <template v-if="config_daemon.type !== 'remote'">
           <div>
             Daemon: {{ daemon.info.height_without_bootstrap }} /
@@ -25,11 +29,7 @@
         </div>
       </div>
     </div>
-    <div class="status-bars" :class="[status]">
-      <div :style="{ width: daemon_pct + '%' }"></div>
-      <div :style="{ width: wallet_pct + '%' }"></div>
-    </div>
-  </q-footer>
+  </footer>
 </template>
 
 <script>

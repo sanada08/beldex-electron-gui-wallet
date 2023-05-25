@@ -1,5 +1,5 @@
 <template>
-  <div class="sign-and-verify">
+  <div class="sign-and-verify ft-medium">
     <div class="q-pa-md">
       <div class="q-mb-lg tab-desc">
         {{ $t("strings.signAndVerifyDescription") }}
@@ -8,8 +8,10 @@
         {{ $t("strings.cannotSign") }}
       </div>
       <div v-else>
-        <div class="text-h6 header">{{ $t("titles.advanced.sign") }}</div>
-        <div class="row justify-between items-end">
+        <div class="text-h6 header ft-bold">
+          {{ $t("titles.advanced.sign") }}
+        </div>
+        <div class="row justify-between ">
           <OxenField :label="$t('fieldLabels.data')">
             <q-input
               v-model.trim="toSign"
@@ -19,18 +21,19 @@
               :placeholder="$t('placeholders.dataToSign')"
             />
           </OxenField>
-          <div class="btn-wrapper q-ml-md q-py-sm">
+          <div class="btn-wrapper q-ml-md  q-py-sm   flex items-end">
             <q-btn
               color="primary"
               :label="$t('buttons.sign')"
               :loading="sign_status.sending"
               :disable="!toSign"
+              class="btn-position"
               @click="sign()"
             />
           </div>
         </div>
       </div>
-      <div class="verify-heading text-h6 header">
+      <div class="verify-heading text-h6 header ft-bold">
         {{ $t("titles.advanced.verify") }}
       </div>
       <div class="justify-between items-end">
@@ -61,7 +64,7 @@
             :placeholder="$t('placeholders.addressOfSigner')"
           />
         </OxenField>
-        <div class="submit-button">
+        <div class="submit-button flex row justify-center">
           <q-btn
             color="primary"
             :label="$t('buttons.verify')"
@@ -242,5 +245,9 @@ export default {
     margin-left: 8px;
   }
   margin-bottom: 12px;
+}
+.btn-position {
+  position: relative;
+  bottom: -6px;
 }
 </style>
