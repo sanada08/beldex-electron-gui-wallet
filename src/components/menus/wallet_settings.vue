@@ -23,7 +23,7 @@
             <q-item-label header class="sub_menu_txt ft-medium">
               <img
                 src="../../assets/images/lock.svg"
-                class="menuIcon  q-mr-md"
+                class="menuIcon q-mr-md"
               />
               {{ $t("menuItems.changePassword") }}</q-item-label
             >
@@ -37,7 +37,7 @@
             <q-item-label header class="sub_menu_txt ft-medium">
               <img
                 src="../../assets/images/reload.svg"
-                class="menuIcon  q-mr-md"
+                class="menuIcon q-mr-md"
               />
               {{ $t("menuItems.rescanWallet") }}</q-item-label
             >
@@ -48,10 +48,10 @@
             :disabled="!is_ready"
             @click.native="showModal('key_image')"
           >
-            <q-item-label header class="sub_menu_txt ft-medium ">
+            <q-item-label header class="sub_menu_txt ft-medium">
               <img
                 src="../../assets/images/manage_key.svg"
-                class="menuIcon  q-mr-md"
+                class="menuIcon q-mr-md"
               />
               {{ $t("menuItems.manageKeyImages") }}</q-item-label
             >
@@ -62,7 +62,7 @@
             :disabled="!is_ready"
             @click.native="deleteWallet()"
           >
-            <q-item-label header class="sub_menu_txt  ft-medium">
+            <q-item-label header class="sub_menu_txt ft-medium">
               <img
                 src="../../assets/images/delete.svg"
                 class="menuIcon q-mr-md"
@@ -76,29 +76,29 @@
 
     <!-- Modals -->
     <!-- PRIVATE KEY MODAL -->
-    <q-dialog
-      v-model="modals.private_keys.visible"
-      minimized
-      @hide="closePrivateKeys()"
-    >
+    <q-dialog v-model="modals.private_keys.visible" @hide="closePrivateKeys()">
       <div class="modal private-key-modal">
-        <div class="modal-header">{{ $t("titles.privateKeys") }}</div>
+        <div class="modal-header ft-bold">{{ $t("titles.privateKeys") }}</div>
         <div class="q-ma-md">
           <template v-if="secret.mnemonic">
-            <h6 class="q-mb-xs q-mt-lg">
-              {{ $t("strings.seedWords") }}
+            <h6 class="q-mb-xs ft-semibold q-pl-md">
+              {{ $t("strings.seedWords") }} -
+              <span class="rSeed_hint"
+                >Please Copy and save these in a secure location!</span
+              >
             </h6>
-            <div class="row">
-              <div class="col">
+            <div class="row seed_box q-pa-md">
+              <div class="col ft-medium">
                 {{ secret.mnemonic }}
               </div>
               <div class="col-auto">
                 <q-btn
                   class="copy-btn"
-                  color="primary"
-                  padding="xs"
-                  size="sm"
-                  icon="file_copy"
+                  color="secondary"
+                  padding="10px 35px"
+                  size="md"
+                  icon-right="content_copy"
+                  label="copy"
                   @click="copyPrivateKey('mnemonic', $event)"
                 >
                   <q-tooltip
@@ -114,18 +114,21 @@
           </template>
 
           <template v-if="secret.view_key != secret.spend_key">
-            <h6 class="q-mb-xs">{{ $t("strings.viewKey") }}</h6>
-            <div class="row">
-              <div class="col" style="word-break:break-all;">
+            <h6 class="q-mb-xs ft-semibold q-pl-md">
+              {{ $t("strings.viewKey") }}
+            </h6>
+            <div class="row viewKey_box q-pa-md">
+              <div class="col ft-medium" style="word-break: break-all">
                 {{ secret.view_key }}
               </div>
               <div class="col-auto">
                 <q-btn
                   class="copy-btn"
-                  color="primary"
-                  padding="xs"
-                  size="sm"
-                  icon="file_copy"
+                  color="secondary"
+                  padding="10px 35px"
+                  size="md"
+                  icon-right="content_copy"
+                  label="copy"
                   @click="copyPrivateKey('view_key', $event)"
                 >
                   <q-tooltip
@@ -141,18 +144,21 @@
           </template>
 
           <template v-if="!/^0*$/.test(secret.spend_key)">
-            <h6 class="q-mb-xs">{{ $t("strings.spendKey") }}</h6>
-            <div class="row">
-              <div class="col" style="word-break:break-all;">
+            <h6 class="q-mb-xs ft-semibold q-pl-md">
+              {{ $t("strings.spendKey") }}
+            </h6>
+            <div class="row q-pa-md">
+              <div class="col ft-medium" style="word-break: break-all">
                 {{ secret.spend_key }}
               </div>
               <div class="col-auto">
                 <q-btn
                   class="copy-btn"
-                  color="primary"
-                  padding="xs"
-                  size="sm"
-                  icon="file_copy"
+                  color="secondary"
+                  padding="10px 35px"
+                  size="md"
+                  icon-right="content_copy"
+                  label="copy"
                   @click="copyPrivateKey('spend_key', $event)"
                 >
                   <q-tooltip
@@ -167,7 +173,7 @@
             </div>
           </template>
 
-          <div class="q-mt-lg">
+          <div class="q-mt-lg flex justify-center">
             <q-btn
               color="primary"
               :label="$t('buttons.close')"
@@ -181,18 +187,24 @@
     <!-- RESCAN MODAL -->
     <q-dialog v-model="modals.rescan.visible" minimized>
       <div class="modal rescan-modal">
-        <div class="a-ma-lg modal-header">{{ $t("titles.rescanWallet") }}</div>
-        <div class="q-ma-md">
-          <p>{{ $t("strings.rescanModalDescription") }}</p>
+        <div class="a-ma-lg modal-header ft-bold">
+          {{ $t("titles.rescanWallet") }}
+        </div>
+        <div class="q-ma-md ft-medium  ">
+          <p class="rmDesc">{{ $t("strings.rescanModalDescription") }}</p>
 
-          <div class="q-mt-lg">
+          <div
+            class="q-mt-lg radio-btn-box flex items-center ft-semibold q-pl-md"
+          >
             <q-radio
               v-model="modals.rescan.type"
               val="full"
               :label="$t('fieldLabels.rescanFullBlockchain')"
             />
           </div>
-          <div class="q-mt-sm">
+          <div
+            class="q-mt-lg radio-btn-box-non-select flex items-center ft-semibold q-pl-md"
+          >
             <q-radio
               v-model="modals.rescan.type"
               val="spent"
@@ -327,29 +339,41 @@
       @hide="clearChangePassword()"
     >
       <div class="modal password-modal">
-        <div class="modal-header">{{ $t("titles.changePassword") }}</div>
+        <div class="modal-header ft-semibold  text-center q-mt-sm">
+          {{ $t("titles.changePassword") }}
+        </div>
         <div class="q-ma-md">
-          <q-input
-            v-model="modals.change_password.old_password"
-            type="password"
-            :label="$t('fieldLabels.oldPassword')"
-          />
-          <q-input
-            v-model="modals.change_password.new_password"
-            type="password"
-            :label="$t('fieldLabels.newPassword')"
-          />
+          <OxenField :label="$t('fieldLabels.oldPassword')">
+            <q-input
+              v-model="modals.change_password.old_password"
+              type="password"
+              borderless
+              placeholder="Enter old Password"
+            />
+          </OxenField>
 
-          <q-input
-            v-model="modals.change_password.new_password_confirm"
-            type="password"
-            :label="$t('fieldLabels.confirmNewPassword')"
-          />
+          <OxenField :label="$t('fieldLabels.newPassword')">
+            <q-input
+              v-model="modals.change_password.new_password"
+              type="password"
+              borderless
+              placeholder="Enter New Password"
+            />
+          </OxenField>
 
-          <div class="q-mt-xl text-right">
+          <OxenField :label="$t('fieldLabels.confirmNewPassword')">
+            <q-input
+              v-model="modals.change_password.new_password_confirm"
+              type="password"
+              borderless
+              placeholder="Re-Enter Password"
+            />
+          </OxenField>
+
+          <div class="q-mt-xl text-center">
             <q-btn
-              flat
-              class="q-mr-sm"
+              class="q-mr-sm "
+              color="accent"
               :label="$t('buttons.close')"
               @click="hideModal('change_password')"
             />
@@ -724,6 +748,7 @@ export default {
   background: #2f2f40;
   color: #fff;
   border-radius: 10px !important;
+  width: 540px;
 
   > * {
     color: #fff;
@@ -734,7 +759,6 @@ export default {
 }
 
 .rescan-modal {
-  background: #2f2f40;
   color: #fff;
   border-radius: 10px !important;
 }

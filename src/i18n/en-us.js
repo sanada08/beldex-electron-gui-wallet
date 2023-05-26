@@ -6,10 +6,10 @@ export default {
     back: "BACK",
     browse: "BROWSE",
     cancel: "Cancel",
-    change: "CHANGE",
+    change: "Change",
     check: "Check",
     clear: "Clear",
-    close: "CLOSE",
+    close: "Close",
     contacts: "CONTACTS",
     copyAddress: "COPY ADDRESS",
     copyData: "COPY DATA",
@@ -545,7 +545,8 @@ export default {
       "Select full rescan or rescan of spent outputs only.",
     saveSeedWarning: "Please copy and save these in a secure location!",
     saveToAddressBook: "Save to address book",
-    seedWords: "Seed words",
+
+    seedWords: "Recovery Seed",
     selectLanguage: "Select language",
     masterNodeContributionDescription:
       "Staking contributes to the safety of the Beldex network. For your contribution, you earn BDX. Once staked, you will have to wait either 15 or 30 days to have your BDX unlocked, depending on if a stake was unlocked by a contributor or the node was deregistered. To learn more about staking, please visit the documentation on the",
