@@ -62,7 +62,7 @@ export default {
     margin: 6px 0;
     font-weight: bold;
     font-size: 12px;
-
+    font-family: "Poppins-Bold";
     // Disable text selection
     -webkit-user-select: none;
     user-select: none;

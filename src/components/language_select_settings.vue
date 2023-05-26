@@ -1,8 +1,7 @@
 <template>
   <div>
     <div
-      style="    
-             background: #32324A;
+      style="background: #32324A;
              width: 300px;
              height: 465px;
              display: flex;
@@ -12,9 +11,11 @@
       class="language-select column items-center justify-center"
     >
       <div>
-        <h6 class="q-my-md" style="font-weight: 300">
-          {{ $t("strings.selectLanguage") }}:
-        </h6>
+        <div class="selectLanguage">
+          <h6 class="q-my-md" style="font-weight: 300">
+            {{ $t("strings.selectLanguage") }}
+          </h6>
+        </div>
         <div class="column justify-center">
           <q-btn
             v-for="option in options"
@@ -40,6 +41,7 @@ import { languages } from "src/i18n";
 export default {
   name: "LanguageSelect",
   computed: {
+    pending_config: state => state.gateway.app.pending_config,
     lang() {
       return this.$i18n.locale;
     },
@@ -51,11 +53,18 @@ export default {
       }));
     }
   },
+  watch: {
+    isVisible: function() {
+      if (this.isVisible == false) {
+        this.$store.dispatch("gateway/resetPendingConfig");
+      }
+    }
+  },
   methods: {
     save() {
       console.log("nowfiiiiiilllll----langauge -");
-      // this.$gateway.send("core", "save_config", this.pending_config);
-      // this.isVisible = false;
+      this.$gateway.send("core", "save_config", this.pending_config);
+      this.isVisible = false;
     },
     setLanguage(lang) {
       this.$gateway.send("core", "set_language", { lang });
@@ -71,6 +80,12 @@ export default {
 
   .q-btn {
     margin: 2px;
+  }
+  .selectLanguage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Poppins-SemiBold";
   }
 
   .flag-icon {

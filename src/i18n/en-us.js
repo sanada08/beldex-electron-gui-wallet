@@ -34,7 +34,7 @@ export default {
     refresh: "Refresh",
     rescan: "RESCAN",
     restoreWallet: "Restore Wallet",
-    save: "SAVE",
+    save: "Save",
     saveTxNotes: "Save Notes",
     selectLocation: "SELECT LOCATION",
     selectWalletFile: "Select File",

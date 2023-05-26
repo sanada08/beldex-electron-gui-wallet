@@ -1,46 +1,50 @@
 <template>
   <div class="settings-general">
-    <div class="row justify-between q-mb-md">
-      <div>
-        <q-radio
-          v-model="config_daemon.type"
-          val="remote"
-          :label="$t('strings.daemon.remote.title')"
-        />
+    <div class="daemonType">
+      <div class="row justify-between q-mb-sm q-pb-sm daemonType">
+        <div>
+          <q-radio
+            v-model="config_daemon.type"
+            dense
+            size="sm"
+            val="remote"
+            :label="$t('strings.daemon.remote.title')"
+          />
+        </div>
+        <div>
+          <q-radio
+            v-model="config_daemon.type"
+            dense
+            size="sm"
+            val="local_remote"
+            :label="$t('strings.daemon.localRemote.title')"
+          />
+        </div>
+        <div>
+          <q-radio
+            v-model="config_daemon.type"
+            dense
+            size="sm"
+            val="local"
+            :label="$t('strings.daemon.local.title')"
+          />
+        </div>
       </div>
-      <div>
-        <q-radio
-          v-model="config_daemon.type"
-          val="local_remote"
-          :label="$t('strings.daemon.localRemote.title')"
-        />
-      </div>
-      <div>
-        <q-radio
-          v-model="config_daemon.type"
-          val="local"
-          :label="$t('strings.daemon.local.title')"
-        />
-      </div>
+
+      <p v-if="config_daemon.type == 'local_remote'" class="daemonDiscription">
+        {{ $t("strings.daemon.localRemote.description") }}
+      </p>
+      <p v-if="config_daemon.type == 'local'" class="daemonDiscription">
+        {{ $t("strings.daemon.local.description") }}
+      </p>
+      <p v-if="is_remote" class="daemonDiscription">
+        {{ $t("strings.daemon.remote.description") }}
+      </p>
     </div>
 
-    <p v-if="config_daemon.type == 'local_remote'" class="tab-desc">
-      {{ $t("strings.daemon.localRemote.description") }}
-    </p>
-    <p v-if="config_daemon.type == 'local'" class="tab-desc">
-      {{ $t("strings.daemon.local.description") }}
-    </p>
-    <p v-if="is_remote" class="tab-desc">
-      {{ $t("strings.daemon.remote.description") }}
-    </p>
-
     <template v-if="config_daemon.type != 'remote'">
-      <div class="row pl-sm">
-        <OxenField
-          class="col-8"
-          :label="$t('fieldLabels.localDaemonIP')"
-          disable
-        >
+      <div class="row pl-sm q-mt-md">
+        <OxenField class="col-6" :label="$t('fieldLabels.localDaemonIP')">
           <q-input
             v-model="config_daemon.rpc_bind_ip"
             :placeholder="daemon_defaults.rpc_bind_ip"
@@ -50,7 +54,7 @@
           />
         </OxenField>
         <OxenField
-          class="col-4"
+          class="col-6"
           :label="$t('fieldLabels.localDaemonPort') + '(RPC)'"
         >
           <q-input
@@ -70,7 +74,7 @@
 
     <template v-if="config_daemon.type != 'local'">
       <div class="row q-mt-md pl-sm">
-        <OxenField class="col-8" :label="$t('fieldLabels.remoteNodeHost')">
+        <OxenField class="col-6" :label="$t('fieldLabels.remoteNodeHost')">
           <q-input
             v-model="config_daemon.remote_host"
             :placeholder="daemon_defaults.remote_host"
@@ -81,7 +85,7 @@
           <q-btn-dropdown
             v-if="config.app.net_type === 'mainnet'"
             class="remote-dropdown"
-            flat
+            dropdown-icon="expand_more"
           >
             <q-list link no-border>
               <q-item
@@ -99,7 +103,7 @@
             </q-list>
           </q-btn-dropdown>
         </OxenField>
-        <OxenField class="col-4" :label="$t('fieldLabels.remoteNodePort')">
+        <OxenField class="col-6" :label="$t('fieldLabels.remoteNodePort')">
           <q-input
             v-model="config_daemon.remote_port"
             :placeholder="toString(daemon_defaults.remote_port)"
@@ -116,8 +120,12 @@
       </div>
     </template>
 
-    <div class="col q-mt-md pt-sm">
-      <OxenField :label="$t('fieldLabels.dataStoragePath')" disable-hover>
+    <div class="row q-mt-md pl-sm">
+      <OxenField
+        class="col-6"
+        :label="$t('fieldLabels.dataStoragePath')"
+        disable-hover
+      >
         <q-input
           v-model="config.app.data_dir"
           disable
@@ -135,13 +143,18 @@
           @change="setDataPath"
         />
         <q-btn
-          color="primary"
+          style="color:red;"
+          color="primary1"
           :text-color="theme == 'dark' ? 'white' : 'dark'"
           @click="selectPath('data')"
           >{{ $t("buttons.selectLocation") }}</q-btn
         >
       </OxenField>
-      <OxenField :label="$t('fieldLabels.walletStoragePath')" disable-hover>
+      <OxenField
+        class="col-6"
+        :label="$t('fieldLabels.walletStoragePath')"
+        disable-hover
+      >
         <q-input
           v-model="config.app.wallet_data_dir"
           disable
@@ -159,7 +172,7 @@
           @change="setWalletDataPath"
         />
         <q-btn
-          color="primary"
+          color="primary1"
           :text-color="theme == 'dark' ? 'white' : 'dark'"
           @click="selectPath('wallet')"
           >{{ $t("buttons.selectLocation") }}</q-btn
@@ -168,8 +181,9 @@
     </div>
 
     <q-expansion-item
+      expand-separator
+      header-class="q-mt-md non-selectable row advanced-options-label"
       :label="$t('strings.advancedOptions')"
-      header-class="q-mt-sm non-selectable row reverse advanced-options-label"
     >
       <div class="row pl-sm q-mt-sm">
         <OxenField
@@ -290,7 +304,7 @@
       </div>
       <div class="row pl-sm q-mt-md">
         <OxenField
-          class="col-3"
+          class="col-4"
           :label="$t('fieldLabels.daemonP2pPort')"
           :disable="is_remote"
         >
@@ -309,7 +323,7 @@
             dense
           />
         </OxenField>
-        <OxenField class="col-3" :label="$t('fieldLabels.internalWalletPort')">
+        <OxenField class="col-4" :label="$t('fieldLabels.internalWalletPort')">
           <q-input
             v-model="config.app.ws_bind_port"
             :placeholder="toString(defaults.app.ws_bind_port)"
@@ -325,7 +339,7 @@
           />
         </OxenField>
         <OxenField
-          class="col-3"
+          class="col-4"
           :label="$t('fieldLabels.walletRPCPort')"
           :disable="is_remote"
         >
@@ -345,22 +359,61 @@
           />
         </OxenField>
       </div>
-      <OxenField
-        :helper="$t('fieldLabels.chooseNetwork')"
-        :label="$t('fieldLabels.network')"
-        class="network-group-field"
-      >
-        <q-option-group
-          v-model="config.app.net_type"
-          type="radio"
-          :options="[
+      <!-- <OxenField
+          :helper="$t('fieldLabels.chooseNetwork')"
+          :label="$t('fieldLabels.network')"
+          class="network-group-field"
+        >
+          <q-option-group
+            v-model="config.app.net_type"
+            type="radio"
+            dense
+            inline
+            :options="[
             { label: 'Main Net', value: 'mainnet' },
             { label: 'Stage Net', value: 'stagenet' },
             { label: 'Test Net', value: 'testnet' }
           ]"
-        />
-      </OxenField>
+          />
+      </OxenField>-->
+
+      <div
+        class="row justify-between q-mb-sm q-pb-sm q-mt-md daemonType"
+        style="background-color: #32324A;"
+      >
+        <p style="margin:0px">{{ $t("fieldLabels.network") }}</p>
+        <div>
+          <q-radio
+            v-model="config.app.net_type"
+            dense
+            size="sm"
+            val="mainnet"
+            label="Main Net"
+          />
+        </div>
+        <div>
+          <q-radio
+            v-model="config.app.net_type"
+            dense
+            size="sm"
+            val="stagenet"
+            label="Stage Net"
+          />
+        </div>
+        <div>
+          <q-radio
+            v-model="config.app.net_type"
+            dense
+            size="sm"
+            val="testnet"
+            label="Test Net"
+          />
+        </div>
+      </div>
     </q-expansion-item>
+    <div class="flex row align-center justify-center a-center q-mt-lg">
+      <q-btn color="primary" :label="$t('buttons.save')" @click="save" />
+    </div>
   </div>
 </template>
 
@@ -381,11 +434,14 @@ export default {
   },
   data() {
     return {
-      select: 0
+      select: 0,
+      isVisible: false
     };
   },
   computed: mapState({
     theme: state => state.gateway.app.config.appearance.theme,
+    daemon: state => state.gateway.daemon,
+    pending_config: state => state.gateway.app.pending_config,
     remotes: state => state.gateway.app.remotes,
     config: state => state.gateway.app.pending_config,
     config_daemon() {
@@ -399,6 +455,15 @@ export default {
       return this.defaults.daemons[this.config.app.net_type];
     }
   }),
+  watch: {
+    isVisible: function() {
+      console.log("this.visibility", this.isVisible);
+      if (this.isVisible == false) {
+        console.log("visibility fallse");
+        this.$store.dispatch("gateway/resetPendingConfig");
+      }
+    }
+  },
   mounted() {
     if (
       this.randomiseRemote &&
@@ -410,6 +475,12 @@ export default {
     }
   },
   methods: {
+    save() {
+      console.log("nowfiiiiiilllll----save");
+      this.$gateway.send("core", "save_config", this.pending_config);
+      console.log("gateways status");
+      this.isVisible = false;
+    },
     selectPath(type) {
       const fileInput = type === "data" ? "fileInputData" : "fileInputWallet";
       this.$refs[fileInput].click();
@@ -444,7 +515,18 @@ export default {
   .q-field {
     margin: 20px 0;
   }
-
+  .daemonType {
+    border: 2px #484856 solid;
+    font-family: "Poppins-SemiBold";
+    border-radius: 12px;
+    padding-top: 10px;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  .daemonDiscription {
+    font-family: "Poppins-Regular";
+    color: #8787a8;
+  }
   .q-if-disabled {
     cursor: default !important;
     .q-input-target {
