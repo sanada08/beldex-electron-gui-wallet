@@ -29,8 +29,18 @@
               class="flex column align-center justify-between rectangleButton"
             >
               <routering class="routering" @click="page = 'general'">
+                <!-- <article
+                  class="flex row alignItem-center justify-between settingsMenuList  selected"
+                > -->
                 <article
-                  class="flex row alignItem-center justify-between settingsMenuList selected"
+                  :class="[
+                    page === 'general' ? 'selected' : '',
+                    'flex',
+                    'row',
+                    'alignItem-center',
+                    'justify-between',
+                    'settingsMenuList'
+                  ]"
                 >
                   <div class="flex row align-center justify-center a-center">
                     <svg
@@ -46,18 +56,28 @@
                       />
                     </svg>
                     <!-- <span class="divider"></span> -->
-                    <span>General</span>
+                    <span>General </span>
                   </div>
                   <q-icon name="chevron_right" size="24px" />
                 </article>
               </routering>
 
               <router
-                class="rectangleButton q-mt-md"
+                class="rectangleButton routering q-mt-md"
                 @click="page = 'language'"
               >
-                <article
+                <!-- <article
                   class="flex row alignItem-center justify-between settingsMenuList selected"
+                > -->
+                <article
+                  :class="[
+                    page === 'language' ? 'selected' : '',
+                    'flex',
+                    'row',
+                    'alignItem-center',
+                    'justify-between',
+                    'settingsMenuList'
+                  ]"
                 >
                   <div class="flex row align-center justify-center a-center">
                     <svg
@@ -87,10 +107,14 @@
 
           <div
             class="row"
-            style="margin:100px auto 0px 25px;color:white;align-items:center;"
+            style="
+              margin: 100px auto 0px 25px;
+              color: white;
+              align-items: center;
+            "
           >
             <q-btn
-              style="width:40px"
+              style="width: 40px"
               flat
               round
               dense
@@ -103,7 +127,12 @@
           </div>
           <section
             class="rectangleBox rightPane"
-            style="overflow:auto;margin:5px auto 0px;width:96%;height:79VH"
+            style="
+              overflow: auto;
+              margin: 5px auto 0px;
+              width: 96%;
+              height: 79vh;
+            "
           >
             <div v-if="page == 'general'">
               <div class="q-pa-lg">
@@ -293,4 +322,16 @@ export default {
 //      height: '88VH';
 
 // }
+
+.routering {
+  .selected {
+    // background-color: $beldex-disable-grey;
+    background-color: #32324a;
+    span {
+      font-family: "Poppins-SemiBold";
+      font-size: 20px;
+      color: #fff;
+    }
+  }
+}
 </style>

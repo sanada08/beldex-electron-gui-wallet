@@ -47,7 +47,7 @@ export default {
 
 <style lang="scss">
 .master-node-page {
-  height: 53vh;
+  height: 51vh;
   overflow: auto;
   background-color: #242433;
   padding: 15px;

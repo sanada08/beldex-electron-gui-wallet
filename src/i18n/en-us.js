@@ -4,7 +4,7 @@ export default {
     advanced: "ADVANCED",
     all: "ALL",
     back: "BACK",
-    browse: "BROWSE",
+    browse: "Browse",
     cancel: "Cancel",
     change: "Change",
     check: "Check",
@@ -18,9 +18,9 @@ export default {
     decrypt: "DECRYPT",
     delete: "DELETE",
     edit: "EDIT",
-    export: "EXPORT",
+    export: "Export",
     generate: "Generate",
-    import: "IMPORT",
+    import: "Import",
     importWallet: "Import Wallet | IMPORT WALLETS",
     bns: "BELDEX NAME SERVICE",
 
@@ -32,7 +32,7 @@ export default {
     registerMasterNode: "Register Master Node",
     renew: "RENEW",
     refresh: "Refresh",
-    rescan: "RESCAN",
+    rescan: "Rescan",
     restoreWallet: "Restore Wallet",
     save: "Save",
     saveTxNotes: "Save Notes",
@@ -96,7 +96,7 @@ export default {
       ok: "EXIT"
     },
     keyImages: {
-      title: "{type} key images",
+      title: "{type} Key Images",
       message: "Do you want to {type} key images?",
       export: "Export",
       import: "Import"
@@ -221,8 +221,8 @@ export default {
     filterTransactionType: "FILTER BY TRANSACTION TYPE",
     internalWalletPort: "INTERNAL WALLET PORT",
     keyImages: {
-      exportDirectory: "KEY IMAGE EXPORT DIRECTORY",
-      importFile: "KEY IMAGE IMPORT FILE"
+      exportDirectory: "Key Image Export Directory",
+      importFile: "Key Image Import File"
     },
     limitDownloadRate: "LIMIT DOWNLOAD RATE",
     limitUploadRate: "LIMIT UPLOAD RATE",

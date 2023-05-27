@@ -194,7 +194,16 @@
           <p class="rmDesc">{{ $t("strings.rescanModalDescription") }}</p>
 
           <div
-            class="q-mt-lg radio-btn-box flex items-center ft-semibold q-pl-md"
+            :class="[
+              modals.rescan.type === 'full'
+                ? 'radio-btn-box'
+                : 'radio-btn-box-non-select',
+              'q-mt-lg',
+              'flex',
+              'items-center',
+              'ft-semibold',
+              'q-pl-md'
+            ]"
           >
             <q-radio
               v-model="modals.rescan.type"
@@ -202,8 +211,18 @@
               :label="$t('fieldLabels.rescanFullBlockchain')"
             />
           </div>
+          <!-- <div class="q-mt-lg radio-btn-box-non-select flex items-center ft-semibold q-pl-md "   > -->
           <div
-            class="q-mt-lg radio-btn-box-non-select flex items-center ft-semibold q-pl-md"
+            :class="[
+              modals.rescan.type !== 'full'
+                ? 'radio-btn-box'
+                : 'radio-btn-box-non-select',
+              'q-mt-lg',
+              'flex',
+              'items-center',
+              'ft-semibold',
+              'q-pl-md'
+            ]"
           >
             <q-radio
               v-model="modals.rescan.type"
@@ -214,8 +233,8 @@
 
           <div class="q-mt-xl text-right">
             <q-btn
-              flat
               class="q-mr-sm"
+              color="accent"
               :label="$t('buttons.close')"
               @click="hideModal('rescan')"
             />
@@ -247,15 +266,40 @@
           }}
         </div>
         <div class="q-ma-md">
-          <div class="row q-mb-md">
-            <div class="q-mr-xl">
+          <div class="q-mb-md">
+            <!-- <div class="q-mr-xl"> -->
+            <div
+              :class="[
+                modals.key_image.type === 'Export'
+                  ? 'radio-btn-box'
+                  : 'radio-btn-box-non-select',
+                'q-mt-lg',
+                'flex',
+                'items-center',
+                'ft-semibold',
+                'q-pl-md'
+              ]"
+            >
               <q-radio
                 v-model="modals.key_image.type"
                 val="Export"
                 :label="$t('dialog.keyImages.export')"
+                class="ft-semibold"
               />
             </div>
-            <div>
+            <!-- <div> -->
+            <div
+              :class="[
+                modals.key_image.type !== 'Export'
+                  ? 'radio-btn-box'
+                  : 'radio-btn-box-non-select',
+                'q-mt-lg',
+                'flex',
+                'items-center',
+                'ft-semibold',
+                'q-pl-md'
+              ]"
+            >
               <q-radio
                 v-model="modals.key_image.type"
                 val="Import"
@@ -266,7 +310,7 @@
 
           <template v-if="modals.key_image.type == 'Export'">
             <OxenField
-              class="q-mt-lg"
+              class="q-mt-lg ex_oxen "
               :label="$t('fieldLabels.keyImages.exportDirectory')"
               disable-hover
             >
@@ -285,14 +329,14 @@
                 hidden
                 @change="setKeyImageExportPath"
               />
-              <q-btn color="primary" @click="selectKeyImageExportPath">{{
+              <q-btn color="secondary" @click="selectKeyImageExportPath">{{
                 $t("buttons.browse")
               }}</q-btn>
             </OxenField>
           </template>
           <template v-if="modals.key_image.type == 'Import'">
             <OxenField
-              class="q-mt-lg"
+              class="q-mt-lg ex_oxen"
               :label="$t('fieldLabels.keyImages.importFile')"
               disable-hover
             >
@@ -309,15 +353,15 @@
                 hidden
                 @change="setKeyImageImportPath"
               />
-              <q-btn color="primary" @click="selectKeyImageImportPath">{{
+              <q-btn color="secondary" @click="selectKeyImageImportPath">{{
                 $t("buttons.browse")
               }}</q-btn>
             </OxenField>
           </template>
 
-          <div class="q-mt-lg text-right">
+          <div class="q-mt-lg text-center">
             <q-btn
-              flat
+              color="accent"
               class="q-mr-sm"
               :label="$t('buttons.close')"
               @click="hideModal('key_image')"
@@ -688,15 +732,16 @@ export default {
       this.$q
         .dialog({
           title: this.$t("dialog.deleteWallet.title"),
-          message: this.$t("dialog.deleteWallet.message"),
+          // message: this.$t("dialog.deleteWallet.message"),
+          message: "Are you sure you want to delete the current wallet?",
           ok: {
             label: this.$t("dialog.deleteWallet.ok"),
             color: "red"
           },
           cancel: {
-            flat: true,
-            label: this.$t("dialog.buttons.cancel"),
-            color: this.theme == "dark" ? "white" : "dark"
+            color: "accent",
+            label: this.$t("dialog.buttons.cancel")
+            // color: this.theme == "dark" ? "white" : "dark"
           },
           color: "#010101"
         })
@@ -769,7 +814,7 @@ export default {
 }
 
 .key-image-modal {
-  background: #2f2f40;
+  // background: #2f2f40;
   color: #fff;
   border-radius: 10px !important;
 

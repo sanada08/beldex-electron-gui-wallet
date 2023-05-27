@@ -92,7 +92,7 @@ footer,
 
 // At bottom of forms
 .submit-button {
-    margin-top: 6px;
+    margin-top: 12px;
 }
 
 .layout-padding {
@@ -1011,7 +1011,7 @@ footer,
 .q-dialog-plugin
 {
     border-radius: 10px !important;
-    background: #2f2f40 !important;
+    background:$beldex-disable-grey !important;
     color: #fff !important;
 }
 .q-field--standard .q-field__control:before {
@@ -1474,7 +1474,7 @@ body
     border-radius: 20px;
     -webkit-box-shadow: 0px 6px 24px rgba(0,0,0,0.2);
     box-shadow: 0px 6px 24px rgba(0,0,0,0.2);
-    height: 53vh;
+    height: 51vh;
     overflow: auto;
     .oxen-list .oxen-list-item 
     {
@@ -1515,7 +1515,7 @@ body
   }
 
   .advanced-page{
-    height: 53vh;
+    height: 51vh;
     overflow: auto;
     background-color: $beldex-lightgray;
     padding: 15px;
@@ -1580,7 +1580,7 @@ body
    
 
 }
-.password-modal,.private-key-modal,.rescan-modal{
+.password-modal,.private-key-modal,.rescan-modal,.key-image-modal{
     .modal-header {
         margin-top: 20px;
          margin-left: unset; 
@@ -1605,7 +1605,7 @@ body
  }
    
 }
-.rescan-modal{
+.rescan-modal,.key-image-modal{
     background-color:$beldex-lightgray;
     .rmDesc{
         color:#B9B9B9;
@@ -1624,4 +1624,27 @@ body
     .radio-btn-box-non-select{
         background-color:$beldex-disable-grey;
     } 
+}
+
+.key-image-modal {
+   .ex_oxen {
+    margin: 10px 30px;
+   }
+
+.oxen-field .content{
+    border:1px solid $beldex-border-grey;
+    max-height: 55px;
+    min-height: 45px !important;
+    padding-left: 20px;
+    .q-placeholder {
+        color: #77778B !important;
+    }
+   }
+   .q-btn--rectangle {
+    border-radius: 7px;
+}
+.q-radio__label{
+    font-family:'Poppins-SemiBold';
+    font-size:16px;
+}
 }
