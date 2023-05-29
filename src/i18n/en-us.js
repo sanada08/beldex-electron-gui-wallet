@@ -16,8 +16,8 @@ export default {
     copySignature: "COPY SIGNATURE",
     createWallet: "Create Wallet",
     decrypt: "DECRYPT",
-    delete: "DELETE",
-    edit: "EDIT",
+    delete: "Delete",
+    edit: "Edit",
     export: "Export",
     generate: "Generate",
     import: "Import",
@@ -39,7 +39,7 @@ export default {
     selectLocation: "SELECT LOCATION",
     selectWalletFile: "Select File",
     send: "Send",
-    sendCoins: "SEND COINS",
+    sendCoins: "Send Coins",
     masterNode: "MASTER NODES",
     settings: "SETTINGS",
     showQRCode: "SHOW QR CODE",
@@ -540,7 +540,7 @@ export default {
     readingWalletList: "Reading wallet list",
     recentIncomingTransactionsToAddress:
       "Recent incoming transactions to this address",
-    recentTransactionsWithAddress: "Recent transactions with this address",
+    recentTransactionsWithAddress: "Recent transactions",
     rescanModalDescription:
       "Select full rescan or rescan of spent outputs only.",
     saveSeedWarning: "Please copy and save these in a secure location!",

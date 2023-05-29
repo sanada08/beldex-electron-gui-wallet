@@ -1,5 +1,5 @@
 <template>
-  <q-page class="address-book">
+  <q-page class="address-book" style="min-height: unset;">
     <section v-show="this.isvisible">
       <article class="flex row justify-between addbtn-box align-center">
         <div

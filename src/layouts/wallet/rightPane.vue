@@ -6,8 +6,11 @@
       <div class="balance">{{ info.balance }}<span>BDX</span></div>
     </article>
     <article class="flex justify-between q-mt-md">
+      <!-- <article class="flex  q-mt-md"> -->
+
       <!-- <router-link to="/wallet/send"> -->
       <div :class="[this.routes === 'send' ? 'active' : '']">
+        <!-- <q-btn class="large-btn send-btn" size="md" @click="router('send')"> -->
         <q-btn class="large-btn send-btn" size="md" @click="router('send')">
           <svg
             width="16"

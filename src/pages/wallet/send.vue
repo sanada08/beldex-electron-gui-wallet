@@ -438,7 +438,8 @@ export default {
 .send {
   .send-btn {
     margin-top: 6px;
-    width: 180px;
+    width: 9vw;
+    min-width: unset;
   }
 }
 

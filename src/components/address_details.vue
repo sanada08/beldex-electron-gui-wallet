@@ -1,6 +1,6 @@
 <template>
   <q-dialog v-model="isVisible" maximized>
-    <q-layout>
+    <q-layout style="min-height: unset;">
       <q-header>
         <q-toolbar color="dark" inverted>
           <q-btn flat round dense icon="reply" @click="isVisible = false" />
@@ -20,8 +20,10 @@
           />
         </q-toolbar>
       </q-header>
-      <q-page-container class="detail-page">
-        <div class="layout-padding">
+      <!-- <q-page-container class="detail-page"> -->
+      <q-page class="detail-page" style="min-height: unset;">
+        <!-- <div class="layout-padding"> -->
+        <div>
           <template v-if="address != null">
             <AddressHeader
               :address="address.address"
@@ -118,7 +120,7 @@
             </div>
           </template>
         </div>
-      </q-page-container>
+      </q-page>
     </q-layout>
     <template v-if="address != null">
       <q-dialog

@@ -1,10 +1,15 @@
 <template>
   <!-- <q-dialog v-model="isVisible" maximized class="address-book-details"> -->
   <section v-if="isVisible" class="address-book-details">
-    <q-layout v-if="mode == 'edit' || mode == 'new'">
+    <q-layout v-if="mode == 'edit' || mode == 'new'" style="min-height: unset;">
       <q-header>
         <q-toolbar inverted>
-          <q-btn flat round dense @click="close()">
+          <q-btn
+            flat
+            round
+            dense
+            @click="() => (mode == 'edit' ? cancelEdit() : close())"
+          >
             <svg
               width="26"
               height="26"
@@ -25,17 +30,17 @@
             {{ $t("strings.editAddressBookEntry") }}
           </q-toolbar-title>
 
-          <q-btn
+          <!-- <q-btn
             v-if="mode == 'edit'"
             flat
             no-ripple
             :label="$t('buttons.cancel')"
             @click="cancelEdit()"
-          />
+          /> -->
         </q-toolbar>
       </q-header>
-      <q-page class="detail-page" style="padding-top: 59px;">
-        <div class="address-book-modal ">
+      <q-page class="detail-page" style="padding-top: 59px;min-height: unset;">
+        <div class="address-book-modal">
           <OxenField
             :label="$t('fieldLabels.address')"
             :error="$v.newEntry.address.$error"
@@ -70,20 +75,20 @@
           </OxenField>
         </div>
 
-        <div class="flex justify-center align-center">
+        <div class="flex justify-between align-center q-mt-lg">
           <q-btn
-            class="q-ml-sm  add-btn "
+            class="q-ml-sm add-btn res_btn"
             color="primary"
             :label="$t('buttons.add')"
             icon-right="add"
             size="1.2em"
             @click="save()"
           />
-          <div class="divider"></div>
+          <!-- <div class="divider"></div> -->
 
           <q-btn
             v-if="mode == 'edit'"
-            class="q-ml-sm  add-btn"
+            class="q-ml-sm add-btn res_btn"
             color="red"
             :label="$t('buttons.delete')"
             @click="deleteEntry()"
@@ -92,31 +97,61 @@
       </q-page>
     </q-layout>
 
-    <q-layout v-else>
+    <q-layout v-else style="min-height: unset;">
       <q-header>
         <q-toolbar inverted>
-          <q-btn flat round dense icon="reply" @click="close()" />
+          <q-btn flat round dense @click="close()">
+            <svg
+              width="26"
+              height="26"
+              viewBox="0 0 26 26"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M13 -6.10352e-05C5.8201 -6.10352e-05 0 5.82008 0 13C0 20.18 5.8201 26.0001 13 26.0001C20.1799 26.0001 26 20.18 26 13C26 5.82008 20.1799 -6.10352e-05 13 -6.10352e-05ZM18.2 14.3H10.9382L13 16.3618C13.507 16.8688 13.507 17.6931 13 18.2001C12.493 18.7071 11.6688 18.7071 11.1618 18.2001L6.8809 13.9191C6.3726 13.4108 6.3726 12.5879 6.8809 12.0809L11.1618 7.79999C11.6688 7.29299 12.493 7.29299 13 7.79999C13.507 8.30699 13.507 9.1312 13 9.6382L10.9382 11.7H18.2C18.9176 11.7 19.5 12.2824 19.5 13C19.5 13.7176 18.9176 14.3 18.2 14.3Z"
+                fill="white"
+              />
+            </svg>
+          </q-btn>
+          <!-- <q-btn flat round dense icon="reply" @click="close()" /> -->
           <q-toolbar-title>
-            {{ $t("strings.addressBookDetails") }}
+            {{ $t("titles.addressBook") }}
           </q-toolbar-title>
-          <q-btn
+          <!-- <q-btn
             class="q-mr-sm"
-            flat
+            color="accent"
             no-ripple
+            icon=""
             :disable="!is_ready"
             :label="$t('buttons.edit')"
             @click="edit()"
+            size="lg"
+          /> -->
+
+          <q-btn
+            class="q-mr-sm edit_btn"
+            no-ripple
+            icon="create"
+            :disable="!is_ready"
+            :label="$t('buttons.edit')"
+            size="md"
+            @click="edit()"
           />
           <q-btn
-            color="primary"
+            color="primary send_btn"
             :disabled="view_only"
-            :label="$t('buttons.sendCoins')"
+            :label="$t('buttons.send')"
+            icon="north_east"
+            size="md"
             @click="sendToAddress"
           />
         </q-toolbar>
       </q-header>
-      <q-page-container>
-        <div class="layout-padding">
+      <!-- <q-page-container> -->
+      <q-page style="min-height: unset;">
+        <!-- <div class="layout-padding"> -->
+        <div class="layout">
           <template v-if="entry != null">
             <AddressHeader
               class="address-details"
@@ -130,9 +165,9 @@
             />
 
             <div class="q-mt-lg">
-              <div class="non-selectable">
-                <q-icon name="history" size="24px" />
-                <span class="vertical-middle q-ml-xs">{{
+              <div class="ft-semibold">
+                <!-- <q-icon name="history" size="24px" /> -->
+                <span class="vertical-middle q-ml-xs" style="color:white">{{
                   $t("strings.recentTransactionsWithAddress")
                 }}</span>
               </div>
@@ -145,7 +180,7 @@
             </div>
           </template>
         </div>
-      </q-page-container>
+      </q-page>
     </q-layout>
   </section>
   <!-- </q-dialog> -->
@@ -276,6 +311,7 @@ export default {
 <style lang="scss">
 .address-details {
   color: #010101;
+  padding-top: 70px;
 }
 .address-book-details {
   .address-book-modal {
@@ -290,6 +326,31 @@ export default {
   .q-header {
     background-color: #242433;
   }
+  .edit_btn {
+    background-color: #40405e;
+    height: 45px;
+    padding-right: 8px;
+    border-radius: 9px;
+    color: #fff;
+    .q-icon {
+      font-size: 1.2em;
+      color: #fff;
+    }
+    .on-left {
+      margin-right: 2px;
+    }
+  }
+  .send_btn {
+    min-width: unset;
+    height: 45px;
+    border-radius: 9px;
+    .q-icon {
+      font-size: 1.2em;
+    }
+    .on-left {
+      margin-right: 1px;
+    }
+  }
   .q-toolbar {
     padding: 0;
     background-color: #242433;
@@ -298,6 +359,10 @@ export default {
   .app-content {
     background: unset;
   }
+  .layout {
+    height: 67vh;
+    overflow: auto;
+  }
   .title {
     font-size: 12px;
     background-color: unset !important;
@@ -305,6 +370,11 @@ export default {
   .add-btn .q-icon {
     font-size: 1em;
     font-weight: bold;
+  }
+  .res_btn {
+    min-width: unset;
+    width: 9vw;
+    border-radius: 9px;
   }
   .on-right {
     margin-left: 1px;

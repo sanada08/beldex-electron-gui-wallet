@@ -183,7 +183,11 @@
               </q-list>
             </div>
 
-            <div v-if="page === 'language'">
+            <div
+              v-if="page === 'language'"
+              class="flex justify-center items-center "
+              style="height:100%"
+            >
               <LanguageSelect />
             </div>
           </section>
