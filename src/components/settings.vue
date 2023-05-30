@@ -31,7 +31,7 @@
               <routering class="routering" @click="page = 'general'">
                 <!-- <article
                   class="flex row alignItem-center justify-between settingsMenuList  selected"
-                > -->
+                >-->
                 <article
                   :class="[
                     page === 'general' ? 'selected' : '',
@@ -56,7 +56,7 @@
                       />
                     </svg>
                     <!-- <span class="divider"></span> -->
-                    <span>General </span>
+                    <span>General</span>
                   </div>
                   <q-icon name="chevron_right" size="24px" />
                 </article>
@@ -68,7 +68,7 @@
               >
                 <!-- <article
                   class="flex row alignItem-center justify-between settingsMenuList selected"
-                > -->
+                >-->
                 <article
                   :class="[
                     page === 'language' ? 'selected' : '',
@@ -113,17 +113,28 @@
               align-items: center;
             "
           >
-            <q-btn
-              style="width: 40px"
-              flat
-              round
-              dense
-              icon="reply"
-              @click="isVisible = false"
-            />
-            <q-toolbar-title shrink>{{
-              $t("titles.settings.title")
-            }}</q-toolbar-title>
+            <!-- <q-btn style="width: 40px" flat round dense icon="reply" @click="isVisible = false" /> -->
+            <q-btn flat round dense @click="isVisible = false">
+              <svg
+                width="28"
+                height="28"
+                viewBox="0 0 26 26"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M13 -6.10352e-05C5.8201 -6.10352e-05 0 5.82008 0 13C0 20.18 5.8201 26.0001 13 26.0001C20.1799 26.0001 26 20.18 26 13C26 5.82008 20.1799 -6.10352e-05 13 -6.10352e-05ZM18.2 14.3H10.9382L13 16.3618C13.507 16.8688 13.507 17.6931 13 18.2001C12.493 18.7071 11.6688 18.7071 11.1618 18.2001L6.8809 13.9191C6.3726 13.4108 6.3726 12.5879 6.8809 12.0809L11.1618 7.79999C11.6688 7.29299 12.493 7.29299 13 7.79999C13.507 8.30699 13.507 9.1312 13 9.6382L10.9382 11.7H18.2C18.9176 11.7 19.5 12.2824 19.5 13C19.5 13.7176 18.9176 14.3 18.2 14.3Z"
+                  fill="white"
+                />
+              </svg>
+            </q-btn>
+            <q-toolbar-title shrink style="font-family:Poppins-Bold;">
+              {{
+                page === "language"
+                  ? $t("titles.settings.tabs.language")
+                  : $t("titles.settings.title")
+              }}
+            </q-toolbar-title>
           </div>
           <section
             class="rectangleBox rightPane"
@@ -162,9 +173,9 @@
                 </q-item>
 
                 <template v-if="daemon.bans.length">
-                  <q-item-label header>{{
-                    $t("strings.bannedPeers.title")
-                  }}</q-item-label>
+                  <q-item-label header>
+                    {{ $t("strings.bannedPeers.title") }}
+                  </q-item-label>
                   <q-item v-for="entry in daemon.bans" :key="entry.host">
                     <q-item-section>
                       <q-item-label header>{{ entry.host }}</q-item-label>
@@ -185,10 +196,10 @@
 
             <div
               v-if="page === 'language'"
-              class="flex justify-center items-center "
+              class="flex justify-center items-center"
               style="height:100%"
             >
-              <LanguageSelect />
+              <LanguageSelect username="matt" />
             </div>
           </section>
         </div>
@@ -211,7 +222,9 @@ export default {
   data() {
     return {
       page: "general",
-      isVisible: false
+      isVisible: false,
+
+      username: "matt"
     };
   },
   computed: mapState({

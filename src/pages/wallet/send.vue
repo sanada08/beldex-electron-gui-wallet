@@ -6,7 +6,7 @@
       </div>
     </template>
     <template v-else>
-      <div class="q-pa-md">
+      <div style="padding:0px 2px;">
         <div class="row gutter-md">
           <!-- Amount -->
           <div class="col-8 amount">
@@ -87,12 +87,12 @@
           v-model="newTx.address_book.save"
           :label="$t('strings.saveToAddressBook')"
         /> -->
-        <div class="addAddress" @click="newTx.address_book.save">
+        <div class="addAddress q-py-sm" @click="newTx.address_book.save">
           + Add to Address book
         </div>
         <!-- Notes -->
         <div class="col q-mt-sm">
-          <OxenField :label="$t('fieldLabels.notes')" optional>
+          <OxenField :label="$t('fieldLabels.notes')">
             <q-input
               v-model="newTx.note"
               class="full-width text-area-oxen"

@@ -178,7 +178,7 @@ export default {
   .wallet-content {
     text-align: center;
     padding: 2em;
-    background: #2f2f40;
+    background: #242433;
     margin-bottom: 15px;
     // margin-top: 15px;
     border-radius: 10px;

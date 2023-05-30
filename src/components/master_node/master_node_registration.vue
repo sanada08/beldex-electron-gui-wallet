@@ -26,7 +26,7 @@
           @paste="onPaste"
         />
       </OxenField>
-      <div class="flex justify-center">
+      <div class="flex justify-center q-mt-md">
         <q-btn
           class="register-button"
           color="primary"

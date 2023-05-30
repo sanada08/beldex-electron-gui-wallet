@@ -24,7 +24,7 @@
     </template>
     <section v-else-if="this.tx_list.length !== 0 && !this.txnDetails">
       <div
-        class="row q-pt-sm q-mx-md q-mb-sm items-center flex color-white justify-between"
+        class="row q-pt-sm q-ml-md q-mb-sm items-center flex color-white justify-between"
       >
         <div class="col-2 ft-semibold txn-title">
           {{ $t("titles.transactions") }}
@@ -34,7 +34,7 @@
             <div class="col-1 filter-txt ft-semibold">
               {{ $t("fieldLabels.filter") }}
             </div>
-            <OxenField class="col-11 q-px-sm">
+            <OxenField class="col-11 q-px-sm q-pl-lg color=#77778B;">
               <q-input
                 v-model="tx_filter"
                 :placeholder="$t('placeholders.filterTx')"

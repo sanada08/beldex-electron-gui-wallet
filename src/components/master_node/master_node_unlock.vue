@@ -1,13 +1,24 @@
 <template>
   <div class="master-node-stake-tab">
     <div class="q-pa-md">
-      <div class="q-pb-sm header">
-        <span v-if="master_nodes.length">
-          {{ $t("titles.currentlyStakedNodes") }}
-        </span>
-        <span v-else>{{
-          $t("strings.masterNodeStartStakingDescription")
+      <div
+        class="q-pb-sm header"
+        style="font-family: Poppins-Regular;
+               font-size: 16px;
+               display: flex;
+              justify-content: center;"
+      >
+        <span v-if="master_nodes.length">{{
+          $t("titles.currentlyStakedNodes")
         }}</span>
+        <span v-else style="color: #77778B;"
+          >{{ $t("strings.masterNodeStartStakingDescription") }}
+          <span style="font-family: Poppins-SemiBold;">{{
+            $t("titles.masterNode.staking")
+          }}</span
+          >&nbsp;
+          <span>{{ $t("strings.masterNodeStartStakingDescription1") }}</span>
+        </span>
       </div>
       <div v-if="master_nodes">
         <MasterNodeList

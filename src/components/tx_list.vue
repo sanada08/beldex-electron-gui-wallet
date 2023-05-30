@@ -38,8 +38,8 @@
               <div>
                 <img
                   :src="txnTypeIndicate(tx.type)"
-                  width="25px"
-                  height="25px"
+                  width="20px"
+                  height="20px"
                 />
               </div>
               <!-- <div>{{ tx.type | typeToString }}</div> -->
@@ -49,16 +49,16 @@
                 {{ "out" === tx.type ? "-" : "" }}
                 <FormatOxen :amount="tx.amount || 0" />
               </q-item-label>
-              <q-item-label class="txn_id ft-Light" caption>{{
-                tx.txid
-              }}</q-item-label>
+              <q-item-label class="txn_id ft-Light" caption>
+                {{ tx.txid }}
+              </q-item-label>
             </q-item-label>
             <q-item-section class="meta">
-              <q-item-label class="ft-medium">
+              <q-item-label class="ft-small">
                 {{
                   `${
                     monthNames[new Date(tx.timestamp * 1000).getMonth()]
-                  }  ${new Date(tx.timestamp * 1000).getDate()},${new Date(
+                  } ${new Date(tx.timestamp * 1000).getDate()},${new Date(
                     tx.timestamp * 1000
                   ).getFullYear()}`
                 }}
@@ -66,11 +66,11 @@
                   :datetime="tx.timestamp * 1000"
                   :auto-update="60"
                   :locale="$i18n.locale"
-                /> -->
+                />-->
               </q-item-label>
-              <q-item-label caption class="blk-height-txt ft-Light">{{
-                formatHeight(tx)
-              }}</q-item-label>
+              <q-item-label caption class="blk-height-txt ft-Light">
+                {{ formatHeight(tx) }}
+              </q-item-label>
             </q-item-section>
             <ContextMenu
               :menu-items="menuItems"
@@ -425,13 +425,14 @@ export default {
       padding: 8px 10px;
       width: 60%;
       .amount {
-        color: white;
+        color: #d1d1d3;
         span {
-          color: white;
+          color: #d1d1d3;
         }
       }
       .txn_id {
-        font-size: 14px;
+        font-size: 12 px;
+        color: #d1d1d3;
       }
       div {
         overflow: hidden;
@@ -442,8 +443,8 @@ export default {
       color: #afafbe;
     }
     .type {
-      min-width: 71px;
-      max-width: 71px;
+      min-width: 45px;
+      max-width: 45px;
       div {
         margin-right: 8px;
       }

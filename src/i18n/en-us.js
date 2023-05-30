@@ -236,8 +236,8 @@ export default {
     mnemonicSeed: "Recovery Seed",
     name: "NAME",
     newWalletName: "Wallet Name",
-    notes: "NOTES",
-    optional: "OPTIONAL",
+    notes: "Notes",
+    optional: "optional",
     owner: "OWNER",
     password: "Password (optional)",
     paymentId: "PAYMENT ID",
@@ -552,8 +552,8 @@ export default {
       "Staking contributes to the safety of the Beldex network. For your contribution, you earn BDX. Once staked, you will have to wait either 15 or 30 days to have your BDX unlocked, depending on if a stake was unlocked by a contributor or the node was deregistered. To learn more about staking, please visit the documentation on the",
     masterNodeRegistrationDescription:
       'Enter the {registerCommand} command produced by the daemon that is registering to become a Master Node using the "{prepareCommand}" command',
-    masterNodeStartStakingDescription:
-      "To start staking, please visit the Staking tab",
+    masterNodeStartStakingDescription: "To start Staing, Please visit",
+    masterNodeStartStakingDescription1: "Tab -->",
     noMasterNodesCurrentlyAvailable:
       "There are currently no master nodes available for contribution",
     masterNodeDetails: {

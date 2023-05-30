@@ -2,26 +2,28 @@
   <div>
     <div
       style="background: #32324A;
-             width: 300px;
-             height: 465px;
+             width: 360px;
+             border-radius: 16px;
+             height: 540px;
              display: flex;
              align-items: center;
              justify-content: center;
              margin: 0 auto;"
       class="language-select column items-center justify-center"
     >
+      <div class="selectLanguage" style="color:#B9B9B9">
+        <p class style="font-family:Poppins-Medium;font-size:16px;">
+          {{ $t("strings.selectLanguage") }}
+        </p>
+      </div>
       <div>
-        <div class="selectLanguage">
-          <h6 class="q-my-md" style="font-weight: 300">
-            {{ $t("strings.selectLanguage") }}
-          </h6>
-        </div>
         <div class="column justify-center">
           <q-btn
             v-for="option in options"
             :key="option.value"
+            style
             class="row justify-center items-center"
-            :color="lang === option.value ? 'primary' : 'accent'"
+            :color="lang === option.value ? 'primary1' : 'accent'"
             size="md"
             @click="setLanguage(option.value)"
           >
@@ -30,7 +32,9 @@
           </q-btn>
         </div>
       </div>
-      <q-btn color="primary" :label="$t('buttons.save')" @click="save" />
+      <div class="q-mt-lg">
+        <q-btn color="primary" :label="$t('buttons.save')" @click="save" />
+      </div>
     </div>
   </div>
 </template>
