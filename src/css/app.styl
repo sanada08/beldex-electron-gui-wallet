@@ -7,6 +7,8 @@
     src: url(themes/RobotoMono-Light.ttf)
 }
 
+
+
 ::selection {
     background: #63c9f3;
 }
@@ -1003,17 +1005,19 @@ footer,
 }
 .bg-accent
 {
-    background: #2f2f40 !important;
+    // background: #2f2f40 !important; 
+    background: $beldex-disable-grey !important;
+
     min-width: 170px;
     height: 50px;
     border-radius: 8px;
 }
-.q-dialog-plugin
-{
-    border-radius: 10px !important;
-    background:$beldex-disable-grey !important;
-    color: #fff !important;
-}
+//.q-dialog-plugin
+//{
+ //   border-radius: 10px !important;
+ //   background:$beldex-disable-grey !important;
+ //   color: #fff !important;
+//}
 .q-field--standard .q-field__control:before {
     border-bottom: 1px solid #818184 !important;
 }
@@ -1446,6 +1450,7 @@ footer,
 body
 {
     line-height: unset;
+    font-family:"Poppins-Regular" !important;
 }
 
 .ft-medium {
@@ -1657,6 +1662,7 @@ body
     border: 1px solid $beldex-border-grey;
     border-radius: 10px;
     padding-left:15px;
+    font-weight:500;
 }
 .address-book-details .address_box
 
@@ -1668,17 +1674,47 @@ body
     border-radius: 10px;
     padding:15px;
     line-height: 21px;
+    font-family:"Poppins-Regular"
+    font-weight:400
 }
 
 //common style may affect all the dialog modal
 
 .q-dialog-plugin
 {
+    border-radius: 10px !important;
+    background:$beldex-lightgray!important;
+    color: #fff !important;
+    text-align:center;
+
     .q-dialog__title
     {
         text-align:center;
         font-family: "Poppins-SemiBold";
         font-size:1.5rem
+
+    }
+    .q-dialog__message {
+        color:$beldex-font-grey !important;
+       font-family:"Poppins-Regular";
+
+    }
+  
+    .q-field--standard .q-field__control:before {
+         border-bottom:unset !important;
+         border-bottom:unset;
+         transition: unset; 
+    }
+    .q-field--standard .q-field__control:after
+    {
+        background:unset;
+       transition: unset;
+    }
+    .q-field {
+        padding: 10px 15px;
+        border: 1px solid $beldex-border-grey;
+        border-radius:10px
+        margin:0
 
     }
 }

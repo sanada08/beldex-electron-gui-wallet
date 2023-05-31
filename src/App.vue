@@ -53,4 +53,8 @@ export default {
   src: local("Poppins-Light"),
     url(./assets/fonts/Poppins-Light.ttf) format("truetype");
 }
+
+#q-app {
+  font-family: "Poppins-Regular";
+}
 </style>

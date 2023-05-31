@@ -234,7 +234,7 @@ export default {
     maxOutgoingPeers: "MAX OUTGOING PEERS",
     message: "Message",
     mnemonicSeed: "Recovery Seed",
-    name: "NAME",
+    name: "Name",
     newWalletName: "Wallet Name",
     notes: "Notes",
     optional: "optional",

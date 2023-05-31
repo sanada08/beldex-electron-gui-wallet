@@ -221,21 +221,23 @@ export default {
       if (wallet.password_protected !== false) {
         this.$q
           .dialog({
-            title: this.$t("dialog.password.title"),
-            message: this.$t("dialog.password.message"),
+            // title: this.$t("dialog.password.title"),
+            title: "Enter your Wallet Password",
+            // message: this.$t("dialog.password.message"),
+            message: `Just click “Enter” if you haven’t set any password :)`,
             prompt: {
               model: "",
               type: "password"
             },
             ok: {
-              label: this.$t("dialog.buttons.open"),
+              label: "Enter",
               color: "primary"
             },
             cancel: {
-              flat: true,
+              // flat: true,
               label: this.$t("dialog.buttons.cancel")
             },
-            color: "#010101",
+            color: "accent",
             persistent: true
           })
           .onOk(password => {

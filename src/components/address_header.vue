@@ -1,14 +1,14 @@
 <template>
   <div class="address-header-div">
     <q-item-section class="self-start">
-      <div class="name ft-medium q-mb-sm">Name</div>
+      <div class="name  q-mb-sm">Name</div>
       <q-item-label
         class=" tittle-Box non-selectable flex items-center  q-mb-md"
         >{{ title }}</q-item-label
       >
 
       <div class="flex row items-center">
-        <div class="name ft-medium ">Address</div>
+        <div class="name  ">Address</div>
         <q-btn
           v-if="showCopy"
           side
@@ -117,11 +117,12 @@ export default {
     color: #fff;
   }
   .name {
-    font-weight: 500;
+    // font-weight: 500;
     font-weight: 500;
     font-size: 16px;
     // line-height: 24px;
     color: #ffffff;
+    font-family: "Poppins-Regular";
   }
 
   .extra {

@@ -1,10 +1,11 @@
 <template>
   <!-- <q-dialog v-model="isVisible" maximized class="address-book-details"> -->
   <section v-if="isVisible" class="address-book-details">
-    <q-layout v-if="mode == 'edit' || mode == 'new'" style="min-height: unset;">
+    <q-layout v-if="mode == 'edit' || mode == 'new'" style="min-height: unset">
       <q-header>
         <q-toolbar inverted>
           <q-btn
+            v-if="mode !== 'edit'"
             flat
             round
             dense
@@ -26,20 +27,22 @@
           <q-toolbar-title v-if="mode == 'new'" class="ft-semibold title">
             {{ $t("strings.addAddressBookEntry") }}
           </q-toolbar-title>
-          <q-toolbar-title v-else-if="mode == 'edit'">
-            {{ $t("strings.editAddressBookEntry") }}
+          <q-toolbar-title v-else-if="mode == 'edit'" class="ft-semibold">
+            {{ $t("titles.addressBook") }}
           </q-toolbar-title>
 
-          <!-- <q-btn
+          <q-btn
             v-if="mode == 'edit'"
-            flat
-            no-ripple
-            :label="$t('buttons.cancel')"
-            @click="cancelEdit()"
-          /> -->
+            class="q-ml-sm add-btn delete-btn"
+            color="accent"
+            icon="edit"
+            size="14"
+            :label="$t('buttons.delete')"
+            @click="openDeletePopUp()"
+          />
         </q-toolbar>
       </q-header>
-      <q-page class="detail-page" style="padding-top: 59px;min-height: unset;">
+      <q-page class="detail-page" style="padding-top: 59px; min-height: unset">
         <div class="address-book-modal">
           <OxenField
             :label="$t('fieldLabels.address')"
@@ -76,28 +79,33 @@
         </div>
 
         <div class="flex justify-between align-center q-mt-lg">
+          <!-- <q-btn
+            v-if="mode == 'edit'"
+            color="accent"
+            no-ripple
+            :label="$t('buttons.cancel')"
+            @click="cancelEdit()"
+          /> -->
+          <q-btn
+            v-if="mode == 'edit'"
+            color="accent"
+            no-ripple
+            :label="$t('buttons.cancel')"
+            @click="openCancelPopUp()"
+          />
           <q-btn
             class="q-ml-sm add-btn res_btn"
             color="primary"
-            :label="$t('buttons.add')"
-            icon-right="add"
+            :label="$t('buttons.save')"
             size="1.2em"
             @click="save()"
           />
           <!-- <div class="divider"></div> -->
-
-          <q-btn
-            v-if="mode == 'edit'"
-            class="q-ml-sm add-btn res_btn"
-            color="red"
-            :label="$t('buttons.delete')"
-            @click="deleteEntry()"
-          />
         </div>
       </q-page>
     </q-layout>
 
-    <q-layout v-else style="min-height: unset;">
+    <q-layout v-else style="min-height: unset">
       <q-header>
         <q-toolbar inverted>
           <q-btn flat round dense @click="close()">
@@ -115,7 +123,7 @@
             </svg>
           </q-btn>
           <!-- <q-btn flat round dense icon="reply" @click="close()" /> -->
-          <q-toolbar-title>
+          <q-toolbar-title class="ft-semibold">
             {{ $t("titles.addressBook") }}
           </q-toolbar-title>
           <!-- <q-btn
@@ -149,7 +157,7 @@
         </q-toolbar>
       </q-header>
       <!-- <q-page-container> -->
-      <q-page style="min-height: unset;">
+      <q-page style="min-height: unset">
         <!-- <div class="layout-padding"> -->
         <div class="layout">
           <template v-if="entry != null">
@@ -167,7 +175,7 @@
             <div class="q-mt-lg">
               <div class="ft-semibold">
                 <!-- <q-icon name="history" size="24px" /> -->
-                <span class="vertical-middle q-ml-xs" style="color:white">{{
+                <span class="vertical-middle q-ml-xs" style="color: white">{{
                   $t("strings.recentTransactionsWithAddress")
                 }}</span>
               </div>
@@ -303,6 +311,44 @@ export default {
         starred: false
       };
       this.$emit("isvisible");
+    },
+    openDeletePopUp() {
+      this.$q
+        .dialog({
+          title: "Delete Address",
+          message: "Are you sure you want to delete this address?",
+          ok: {
+            label: this.$t("buttons.delete"),
+            color: "red"
+          },
+          cancel: {
+            // flat: true,
+            color: "accent",
+            label: this.$t("dialog.buttons.cancel")
+          }
+        })
+        .onOk(() => this.deleteEntry())
+        .onDismiss(() => {})
+        .onCancel(() => {});
+    },
+    openCancelPopUp() {
+      this.$q
+        .dialog({
+          title: "Are you Sure?",
+          message: "Are you sure you want to Discard the editing?",
+          ok: {
+            label: "Continue",
+            color: "primary"
+          },
+          cancel: {
+            // flat: true,
+            color: "accent",
+            label: "Discard"
+          }
+        })
+        .onOk(() => {})
+        .onDismiss(() => {})
+        .onCancel(() => this.cancelEdit());
     }
   }
 };
@@ -371,10 +417,26 @@ export default {
     font-size: 1em;
     font-weight: bold;
   }
+  .delete-btn {
+    min-width: unset;
+    width: 6.5vw;
+    border-radius: 9px;
+    .on-left {
+      margin-right: 1px;
+    }
+  }
+  .oxen-field .label {
+    font-family: "Poppins-Regular";
+    font-weight: 400;
+    font-size: 16px;
+  }
   .res_btn {
     min-width: unset;
     width: 9vw;
     border-radius: 9px;
+    .on-left {
+      margin-right: 1px;
+    }
   }
   .on-right {
     margin-left: 1px;
