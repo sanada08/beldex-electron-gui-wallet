@@ -126,7 +126,7 @@
           </OxenField>
         </div>
         <!-- div required so the button falls below the checkbox -->
-        <div class="flex row justify-between btn-view q-mt-lg">
+        <div class="flex row justify-evenly btn-view q-mt-lg">
           <q-btn
             class="send-btn"
             :disable="!is_able_to_send"

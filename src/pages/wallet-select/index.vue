@@ -5,16 +5,18 @@
       no-border
       :dark="theme == 'dark'"
     >
-      <div class=" justify-center items-center registrationBox">
-        <div class="p-absolute">
-          <div class="coin-position-left">
-            <img src="../../assets/images/coin.svg" width="100px" />
+      <div class="justify-center items-center registrationBox">
+        <section v-if="!wallets.list.length">
+          <div class="p-absolute">
+            <div class="coin-position-left">
+              <img src="../../assets/images/coin.svg" width="100px" />
+            </div>
+            <div class="coin-position-right">
+              <img src="../../assets/images/blue_coin.svg" width="100px" />
+            </div>
           </div>
-          <div class="coin-position-right">
-            <img src="../../assets/images/blue_coin.svg" width="100px" />
-          </div>
-        </div>
-        <img src="../../assets/images/Home_screen_asset.svg" class="img" />
+          <img src="../../assets/images/Home_screen_asset.svg" class="img" />
+        </section>
 
         <template v-if="wallets.list.length">
           <div class="header row justify-between items-center">

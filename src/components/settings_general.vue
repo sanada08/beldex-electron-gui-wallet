@@ -378,11 +378,11 @@
       </OxenField>-->
 
       <div
-        class="row justify-between q-mb-sm q-pb-sm q-mt-md daemonType"
+        class="row  q-mb-sm q-pb-sm q-mt-md daemonType"
         style="background-color: #32324A;"
       >
-        <p style="margin:0px">{{ $t("fieldLabels.network") }}</p>
-        <div>
+        <p class="netType">{{ $t("fieldLabels.network") }}</p>
+        <div class="q-ml-lg q-pa-sm">
           <q-radio
             v-model="config.app.net_type"
             dense
@@ -391,7 +391,7 @@
             label="Main Net"
           />
         </div>
-        <div>
+        <div class="q-ml-lg q-pa-sm">
           <q-radio
             v-model="config.app.net_type"
             dense
@@ -400,7 +400,7 @@
             label="Stage Net"
           />
         </div>
-        <div>
+        <div class="q-ml-lg q-pa-sm">
           <q-radio
             v-model="config.app.net_type"
             dense
@@ -411,7 +411,10 @@
         </div>
       </div>
     </q-expansion-item>
-    <div class="flex row align-center justify-center a-center q-mt-lg">
+    <div
+      v-if="!welcome"
+      class="flex row align-center justify-center a-center q-mt-lg"
+    >
       <q-btn color="primary" :label="$t('buttons.save')" @click="save" />
     </div>
   </div>
@@ -427,6 +430,11 @@ export default {
   },
   props: {
     randomiseRemote: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    welcome: {
       type: Boolean,
       required: false,
       default: false
@@ -474,6 +482,7 @@ export default {
       this.setPreset(this.remotes[index]);
     }
   },
+
   methods: {
     save() {
       console.log("nowfiiiiiilllll----save");
@@ -522,6 +531,13 @@ export default {
     padding-top: 10px;
     padding-left: 16px;
     padding-right: 16px;
+
+    .netType {
+      padding: 10px;
+      padding-right: 30px;
+      margin: 0px;
+      border-right: 2px solid #3e3e5b;
+    }
   }
   .daemonDiscription {
     font-family: "Poppins-Regular";

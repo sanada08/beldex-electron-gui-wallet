@@ -1,5 +1,5 @@
 <template>
-  <q-page class="welcome">
+  <q-page class="welcome" style="min-height:unset;">
     <q-stepper ref="stepper" v-model="step" class="welcome-stepper" flat dark>
       <q-step
         :name="1"
@@ -8,15 +8,26 @@
         class="first-step"
       >
         <div class="welcome-container">
-          <img src="beldex.png" height="100" class="q-mb-md" />
-          <div>Wallet Version: v{{ version }}</div>
-          <div>Daemon Version: {{ daemonVersion }}</div>
+          <img src="../../assets/images/Logo.png" height="100" />
+          <h3 class="ft-bold q-my-md appName">
+            <span>Beldex</span> Electron Wallet
+          </h3>
+          <div class="ft-medium wallet-txt">
+            Wallet Version : <span>{{ version }}</span>
+          </div>
+          <div class="ft-medium wallet-txt">
+            Daemon Version : <span>{{ daemonVersion }}</span>
+          </div>
           <LanguageSelect class="q-mt-lg" @select="onLanguageSelected" />
         </div>
       </q-step>
 
-      <q-step :name="2" :title="$t('titles.configure')">
-        <SettingsGeneral ref="settingsGeneral" :randomise-remote="true" />
+      <q-step :name="2" :title="$t('titles.configure')" class="second-step">
+        <SettingsGeneral
+          ref="settingsGeneral"
+          :randomise-remote="true"
+          :welcome="true"
+        />
       </q-step>
     </q-stepper>
 
@@ -102,23 +113,69 @@ export default {
 <style lang="scss">
 .welcome {
   height: 100vh;
-
   .welcome-stepper {
-    height: 100%;
-    background: transparent;
+    .q-stepper__header {
+      width: 40%;
+      margin: 0 auto;
+    }
+    .q-stepper__title {
+      font-family: "poppins-SemiBold";
+      font-size: 20px;
+    }
   }
-
-  .welcome-container {
-    padding-top: 14vh;
+  .q-dark {
+    // background-color: #292929;
+    background: #1c1c26;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    height: 100%;
+  }
+  .first-step {
+    // .welcome-stepper {
+
+    width: 1001px;
+    height: 100%;
+    background: transparent;
+    margin: auto;
+  }
+
+  .welcome-container,
+  .second-step {
+    // padding-top: 14vh;
+    padding-top: 3vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #242433;
+
+    border: 1px solid #242433;
+    box-shadow: 0px 6px 24px rgba(0, 0, 0, 0.2);
+    border-radius: 25px;
+
+    .appName {
+      font-size: 2.75rem;
+      span {
+        color: #00ad07;
+      }
+    }
+    .wallet-txt {
+      font-size: 1.125rem;
+      span {
+        color: #00ad07;
+      }
+    }
   }
 
   .first-step .q-stepper-step-inner {
     min-height: 250px;
     height: calc(100vh - 102px);
+  }
+  .second-step {
+    display: block;
+    margin-bottom: 49px;
   }
 }
 
