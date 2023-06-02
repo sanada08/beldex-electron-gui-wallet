@@ -42,17 +42,17 @@
       <router-view ref="page" />
     </q-page-container>
 
-    <StatusFooter />
+    <!-- <StatusFooter /> -->
   </q-layout>
 </template>
 
 <script>
-import StatusFooter from "components/footer";
+// import StatusFooter from "components/footer";
 import MainMenu from "components/menus/mainmenu";
 
 export default {
   components: {
-    StatusFooter,
+    // StatusFooter,
     MainMenu
   },
   data() {

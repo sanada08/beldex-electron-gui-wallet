@@ -1,12 +1,35 @@
 <template>
-  <q-page>
+  <q-page style="min-height: unset; height: 800px;" class="registration-View">
     <q-list
-      class="wallet-list beldex-theme d-flex-center"
+      class="wallet-list beldex-theme d-flex-center column"
+      style="height:100%"
       no-border
       :dark="theme == 'dark'"
     >
+      <div
+        v-if="backbtn"
+        class="flex items-center back-btn-box "
+        @click="backbtn = false"
+      >
+        <qbtn flat>
+          <svg
+            width="26"
+            height="26"
+            viewBox="0 0 26 26"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M13 -6.10352e-05C5.8201 -6.10352e-05 0 5.82008 0 13C0 20.18 5.8201 26.0001 13 26.0001C20.1799 26.0001 26 20.18 26 13C26 5.82008 20.1799 -6.10352e-05 13 -6.10352e-05ZM18.2 14.3H10.9382L13 16.3618C13.507 16.8688 13.507 17.6931 13 18.2001C12.493 18.7071 11.6688 18.7071 11.1618 18.2001L6.8809 13.9191C6.3726 13.4108 6.3726 12.5879 6.8809 12.0809L11.1618 7.79999C11.6688 7.29299 12.493 7.29299 13 7.79999C13.507 8.30699 13.507 9.1312 13 9.6382L10.9382 11.7H18.2C18.9176 11.7 19.5 12.2824 19.5 13C19.5 13.7176 18.9176 14.3 18.2 14.3Z"
+              fill="white"
+            />
+          </svg>
+        </qbtn>
+        <span>Back</span>
+      </div>
+
       <div class="justify-center items-center registrationBox">
-        <section v-if="!wallets.list.length">
+        <section v-if="!wallets.list.length || backbtn">
           <div class="p-absolute">
             <div class="coin-position-left">
               <img src="../../assets/images/coin.svg" width="100px" />
@@ -18,42 +41,21 @@
           <img src="../../assets/images/Home_screen_asset.svg" class="img" />
         </section>
 
-        <template v-if="wallets.list.length">
-          <div class="header row justify-between items-center">
-            <div class="header-title">
+        <template v-if="wallets.list.length && !backbtn">
+          <div class="header flex justify-center items-center">
+            <div class="header-title ft-bold">
               {{ $t("titles.yourWallets") }}
             </div>
-            <q-btn
-              v-if="wallets.list.length"
-              class="add"
-              icon="add"
-              size="md"
-              color="primary"
-            >
-              <q-menu class="header-popover" :content-class="'header-popover'">
-                <q-list separator>
-                  <q-item
-                    v-for="action in actions"
-                    :key="action.name"
-                    clickable
-                    @click.native="action.handler"
-                  >
-                    <q-item-section>
-                      {{ action.name }}
-                    </q-item-section>
-                  </q-item>
-                </q-list>
-              </q-menu>
-            </q-btn>
           </div>
-          <div class="hr-separator" />
-          <q-item
-            v-for="wallet in wallets.list"
-            :key="`${wallet.address}-${wallet.name}`"
-            @click.native="openWallet(wallet)"
-          >
-            <q-item-section avatar>
-              <q-icon class="wallet-icon">
+          <!-- <div class="hr-separator" /> -->
+          <section class="content-box">
+            <q-item
+              v-for="wallet in wallets.list"
+              :key="`${wallet.address}-${wallet.name}`"
+              @click.native="openWallet(wallet)"
+            >
+              <!-- <q-item-section avatar> -->
+              <!-- <q-icon class="wallet-icon">
                 <svg
                   width="48"
                   viewBox="0 0 17 16"
@@ -85,23 +87,66 @@
                     </g>
                   </g>
                 </svg>
-              </q-icon>
-            </q-item-section>
-            <q-item-section>
-              <q-item-label class="wallet-name" caption>{{
+              </q-icon> -->
+              <!-- </q-item-section> -->
+              <!-- <q-item-section class="flex column">
+              <q-item-label class="wallet-name ft-bold" caption>{{
                 wallet.name
               }}</q-item-label>
               <q-item-label class="monospace ellipsis" caption>{{
                 wallet.address
               }}</q-item-label>
-            </q-item-section>
-            <ContextMenu
-              :menu-items="menuItems"
-              @openWallet="openWallet(wallet)"
-              @copyAddress="copyAddress(wallet.address)"
+            </q-item-section> -->
+              <article>
+                <div class="wallet-name ft-bold">{{ wallet.name }}</div>
+                <div class="address-txt ellipsis ft-regular q-mb-xs">
+                  {{ wallet.address }}
+                </div>
+              </article>
+
+              <ContextMenu
+                :menu-items="menuItems"
+                @openWallet="openWallet(wallet)"
+                @copyAddress="copyAddress(wallet.address)"
+              />
+            </q-item>
+          </section>
+          <!-- <q-separator /> -->
+          <!-- <q-btn
+              v-if="wallets.list.length"
+              class="add"
+              icon="add"
+              size="md"
+              color="primary"
+            >
+              <q-menu class="header-popover" :content-class="'header-popover'">
+                <q-list separator>
+                  <q-item
+                    v-for="action in actions"
+                    :key="action.name"
+                    clickable
+                    @click.native="action.handler"
+                  >
+                    <q-item-section>
+                      {{ action.name }}
+                    </q-item-section>
+                  </q-item>
+                </q-list>
+              </q-menu>
+            </q-btn> -->
+          <div
+            v-if="wallets.list.length && !backbtn"
+            class="flex justify-center "
+          >
+            <q-btn
+              class="add"
+              icon-right="add"
+              label="Add Wallet"
+              size="md"
+              color="primary"
+              @click="backbtn = true"
             />
-          </q-item>
-          <q-separator />
+          </div>
         </template>
         <template v-else>
           <div class="btn-spliter">
@@ -149,7 +194,8 @@ export default {
       { action: "copyAddress", i18n: "menuItems.copyAddress" }
     ];
     return {
-      menuItems
+      menuItems,
+      backbtn: false
     };
   },
   computed: mapState({
@@ -294,6 +340,19 @@ export default {
 </script>
 
 <style lang="scss">
+.registration-View {
+  .back-btn-box {
+    width: 832px;
+    cursor: pointer;
+    span {
+      font-family: "Poppins-Bold";
+      font-size: 26px;
+      padding-bottom: 5px;
+      margin-left: 10px;
+    }
+  }
+}
+
 .wallet-list {
   .wallet-icon {
     font-size: 3rem;
@@ -305,8 +364,7 @@ export default {
     min-height: 36px;
 
     .header-title {
-      font-size: 14px;
-      font-weight: 500;
+      font-size: 36px;
     }
 
     .add {
@@ -316,13 +374,26 @@ export default {
     }
   }
   .wallet-name {
-    font-size: 1.1rem;
+    font-size: 1.313rem;
+    color: white;
   }
   .q-item {
     margin: 10px 0px;
     margin-bottom: 0px;
     padding: 14px;
     border-radius: 3px;
+    width: 93%;
+    margin: 0 auto;
+    height: unset;
+  }
+  .address-txt {
+    width: 715px;
+    color: #afafbe;
+    font-size: 1.125 rem;
+  }
+  .content-box {
+    height: 419px;
+    overflow: auto;
   }
 }
 </style>

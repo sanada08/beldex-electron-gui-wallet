@@ -177,9 +177,10 @@ export default {
             label: this.$t("dialog.noPassword.ok")
           },
           cancel: {
-            flat: true,
+            // flat: true,
             label: this.$t("dialog.buttons.cancel"),
-            color: this.theme === "dark" ? "white" : "dark"
+            // color: this.theme === "dark" ? "white" : "dark"
+            color: "accent"
           },
           dark: this.theme == "dark",
           color: "positive"

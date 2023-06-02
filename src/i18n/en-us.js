@@ -59,7 +59,7 @@ export default {
     // Generic buttons
     buttons: {
       ok: "OK",
-      cancel: "CANCEL",
+      cancel: "Cancel",
       open: "OPEN"
     },
 
@@ -109,7 +109,7 @@ export default {
     noPassword: {
       title: "No password set",
       message: "Are you sure you want to create a wallet with no password?",
-      ok: "YES"
+      ok: "Yes"
     },
     password: {
       title: "Password",
