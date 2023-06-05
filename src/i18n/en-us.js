@@ -547,6 +547,7 @@ export default {
     saveToAddressBook: "Save to address book",
 
     seedWords: "Recovery Seed",
+    walletCreated: "Wallet Created",
     selectLanguage: "Select language",
     masterNodeContributionDescription:
       "Staking contributes to the safety of the Beldex network. For your contribution, you earn BDX. Once staked, you will have to wait either 15 or 30 days to have your BDX unlocked, depending on if a stake was unlocked by a contributor or the node was deregistered. To learn more about staking, please visit the documentation on the",
@@ -609,7 +610,7 @@ export default {
     unspentOutputs: "Unspent outputs",
     userNotUsedAddress: "You have not used this address",
     userUsedAddress: "You have used this address",
-    viewKey: "View key",
+    viewKey: "View Key",
     viewOnlyMode:
       "View only mode. Please load full wallet in order to send coins.",
     website: "website"
