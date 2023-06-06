@@ -143,7 +143,7 @@
           @change="setDataPath"
         />
         <q-btn
-          style="color:red;"
+          style="color: red"
           color="primary1"
           :text-color="theme == 'dark' ? 'white' : 'dark'"
           @click="selectPath('data')"
@@ -378,8 +378,8 @@
       </OxenField>-->
 
       <div
-        class="row  q-mb-sm q-pb-sm q-mt-md daemonType"
-        style="background-color: #32324A;"
+        class="row q-mb-sm q-pb-sm q-mt-md daemonType"
+        style="background-color: #32324a"
       >
         <p class="netType">{{ $t("fieldLabels.network") }}</p>
         <div class="q-ml-lg q-pa-sm">
@@ -465,9 +465,7 @@ export default {
   }),
   watch: {
     isVisible: function() {
-      console.log("this.visibility", this.isVisible);
       if (this.isVisible == false) {
-        console.log("visibility fallse");
         this.$store.dispatch("gateway/resetPendingConfig");
       }
     }
@@ -485,9 +483,7 @@ export default {
 
   methods: {
     save() {
-      console.log("nowfiiiiiilllll----save");
       this.$gateway.send("core", "save_config", this.pending_config);
-      console.log("gateways status");
       this.isVisible = false;
     },
     selectPath(type) {

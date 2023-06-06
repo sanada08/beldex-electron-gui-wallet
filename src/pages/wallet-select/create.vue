@@ -120,7 +120,10 @@ export default {
           case 0:
             this.$q.loading.hide();
             this.$router.replace({
-              path: "/wallet-select/created"
+              path: "/wallet-select/created",
+              query: {
+                title: "Wallet Created"
+              }
             });
             break;
           default:

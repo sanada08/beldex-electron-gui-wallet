@@ -52,7 +52,6 @@ export default {
       // this.$emit("select", lang);
     },
     submit() {
-      console.log("this.langData ::", this.langData);
       this.$emit("select", this.langData);
     }
   }

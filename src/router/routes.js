@@ -82,10 +82,10 @@ export default [
         path: "receive",
         component: () => import("pages/wallet/receive")
       },
-      {
-        path: "send",
-        component: () => import("pages/wallet/send")
-      },
+      // {
+      //   path: "send",
+      //   component: () => import("pages/wallet/send")
+      // },
       {
         path: "addressbook",
         component: () => import("pages/wallet/addressbook")
@@ -102,6 +102,10 @@ export default [
         path: "advanced",
         component: () => import("pages/wallet/advanced")
       }
+      // {
+      //   path: "rightPane",
+      //   component: () => import("app/src/layouts/wallet/rightPane")
+      // }
     ]
   },
 

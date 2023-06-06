@@ -447,6 +447,23 @@ export class WalletRPC {
         this.getBalance("getbalance");
         break;
 
+      case "set_router_path_rightpane":
+        // this.getBalance("getbalance");
+        this.set_rightPane_value(params.data);
+        // this.$store.commit("gateway/set_router_path_rightpane", {
+        //   path: "receive"
+        // });
+        break;
+
+      case "set_sender_address":
+        // this.getBalance("getbalance");
+        this.set_sender_address(params.data);
+        //   console.log("munavver");
+        // this.$store.commit("gateway/set_router_path_rightpane", {
+        //   path: "receive"
+        // });
+        break;
+
       default:
     }
   }
@@ -468,13 +485,11 @@ export class WalletRPC {
       agent: this.agent
     };
     this.getTransactions().then(wallet => {
-      console.log("get transfer data", wallet);
       this.sendGateway("set_wallet_data", wallet);
     });
     let rq = new nodeQueue(1000);
     rq.push(options);
     rq.on("resolved", response => {
-      // console.log("response method", response, method)
       if (method == "getbalance") {
         let walletData = {
           info: {
@@ -2392,6 +2407,12 @@ export class WalletRPC {
     });
   }
 
+  set_rightPane_value(val) {
+    this.sendGateway("set_router_path_rightpane", val);
+  }
+  set_sender_address(val) {
+    this.sendGateway("set_sender_address", val);
+  }
   exportKeyImages(password, filename = null) {
     crypto.pbkdf2(
       password,

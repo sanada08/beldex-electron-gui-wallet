@@ -87,6 +87,7 @@ import { mapState } from "vuex";
 import Send from "pages/wallet/send";
 import Receive from "pages/wallet/receive";
 import Adressbook from "pages/wallet/addressbook.vue";
+import { Gateway } from "../../gateway/gateway";
 
 export default {
   name: "RightPane",
@@ -96,17 +97,19 @@ export default {
     Adressbook
   },
   computed: mapState({
-    info: state => state.gateway.wallet.info
+    info: state => state.gateway.wallet.info,
+    routes: state => state.gateway.router_path_rightpane
   }),
   data() {
     return {
-      routes: "send"
+      // routes: "send",
+      gateway: new Gateway()
     };
   },
+
   methods: {
     router: function(e) {
-      this.routes = e;
-      console.log(this.routes);
+      this.$gateway.send("wallet", "set_router_path_rightpane", { data: e });
     }
   }
 };

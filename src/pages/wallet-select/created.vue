@@ -2,35 +2,41 @@
   <q-page
     padding
     class="created"
-    style="    min-height: 730px;
-    background-color: #242433;
-    margin-top: 20px;
-    border-radius: 15px;
-    font-family:Poppins-Bold;"
+    style="
+      min-height: 730px;
+      background-color: #242433;
+      margin-top: 20px;
+      border-radius: 15px;
+      font-family: Poppins-Bold;
+    "
   >
     <div class="col wallet q-mb-lg">
       <h4
-        style="color: white;
-        display: flex;
-        justify-content: center;
-        font-size: 28px;
-        margin-top: 0px;"
+        style="
+          color: white;
+          display: flex;
+          justify-content: center;
+          font-size: 28px;
+          margin-top: 0px;
+        "
       >
-        {{ $t("strings.walletCreated") }}
+        <!-- {{ $t("strings.walletCreated") }} -->
+        {{ this.$route.query.title }}
       </h4>
-      <h6 style="color: white;font-size: 16px;margin-left: 12px;">
-        <span style="font-family:Poppins-Regular;">Wallet:</span>
+      <h6 style="color: white; font-size: 16px; margin-left: 12px">
+        <span style="font-family: Poppins-Regular">Wallet:</span>
         {{ walletName }}
       </h6>
       <div
         class="row items-center"
-        style="border: 1px #484856 solid;border-radius: 12px;font-family:Poppins-Regular;padding:10px 20px;"
+        style="
+          border: 1px #484856 solid;
+          border-radius: 12px;
+          font-family: Poppins-Regular;
+          padding: 10px 20px;
+        "
       >
-        <div
-          class="col"
-          style="    color: white;
-    padding: 0px 10px 0px 0px;"
-        >
+        <div class="col" style="color: white; padding: 0px 10px 0px 0px">
           {{ info.address }}
         </div>
         <div class="q-item-side">
@@ -54,12 +60,17 @@
     </div>
 
     <div class="col wallet q-mb-lg">
-      <h6 style="font-family:Poppins-Regular;">
+      <h6 style="font-family: Poppins-Regular">
         <span
-          style="color: white;font-size: 16px;margin-left: 12px;font-family:Poppins-Medium;"
+          style="
+            color: white;
+            font-size: 16px;
+            margin-left: 12px;
+            font-family: Poppins-Medium;
+          "
           >Recovery Seed</span
         >
-        <span style="color: #00E509;"
+        <span style="color: #00e509"
           >- {{ $t("strings.saveSeedWarning") }}</span
         >
       </h6>
@@ -67,9 +78,14 @@
 
     <div
       class="row items-center"
-      style="border: 1px #484856 solid;border-radius: 12px;font-family:Poppins-Regular;padding:10px 20px;"
+      style="
+        border: 1px #484856 solid;
+        border-radius: 12px;
+        font-family: Poppins-Regular;
+        padding: 10px 20px;
+      "
     >
-      <div class="col" style="color: white;padding: 0px 10px 0px 0px;">
+      <div class="col" style="color: white; padding: 0px 10px 0px 0px">
         {{ secret.mnemonic }}
       </div>
       <div class="q-item-side">
@@ -90,16 +106,16 @@
       </div>
     </div>
 
-    <div style="margin-top: 18px;padding: 10px 12px;">
+    <div style="margin-top: 18px; padding: 10px 12px">
       <template v-if="secret.view_key != secret.spend_key">
         <div class="row">
-          <div class="col-10" style="word-break:break-all; color: #fff;">
+          <div class="col-10" style="word-break: break-all; color: #fff">
             <h6 class="q-mb-xs title">{{ $t("strings.viewKey") }}</h6>
-            <p style="font-family:Poppins-Regular;">{{ secret.view_key }}</p>
+            <p style="font-family: Poppins-Regular">{{ secret.view_key }}</p>
           </div>
           <div
             class="q-item-side"
-            style="    align-items: center; display: flex;justify-content: center;"
+            style="align-items: center; display: flex; justify-content: center"
           >
             <q-btn
               color="primary1"
@@ -123,13 +139,13 @@
 
       <template v-if="!/^0*$/.test(secret.spend_key)">
         <div class="row">
-          <div class="col-10" style="word-break:break-all; color: #fff;">
+          <div class="col-10" style="word-break: break-all; color: #fff">
             <h6 class="q-mb-xs title">{{ $t("strings.spendKey") }}</h6>
-            <p style="font-family:Poppins-Regular;">{{ secret.spend_key }}</p>
+            <p style="font-family: Poppins-Regular">{{ secret.spend_key }}</p>
           </div>
           <div
             class="q-item-side"
-            style="    align-items: center; display: flex;justify-content: center;"
+            style="align-items: center; display: flex; justify-content: center"
           >
             <q-btn
               color="primary1"
@@ -151,11 +167,7 @@
       </template>
     </div>
     <!-- </q-expansion-item>  -->
-    <div
-      style="    display: flex;
-    justify-content: center;
-"
-    >
+    <div style="display: flex; justify-content: center">
       <q-btn
         class="q-mt-lg"
         color="primary"
@@ -193,6 +205,7 @@ export default {
     },
     copyPrivateKey(type, event) {
       event.stopPropagation();
+
       for (let i = 0; i < event.path.length; i++) {
         if (event.path[i].tagName == "BUTTON") {
           event.path[i].blur();

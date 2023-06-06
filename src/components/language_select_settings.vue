@@ -1,18 +1,20 @@
 <template>
   <div>
     <div
-      style="background: #32324A;
-             width: 360px;
-             border-radius: 16px;
-             height: 540px;
-             display: flex;
-             align-items: center;
-             justify-content: center;
-             margin: 0 auto;"
+      style="
+        background: #32324a;
+        width: 360px;
+        border-radius: 16px;
+        height: 540px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+      "
       class="language-select column items-center justify-center"
     >
-      <div class="selectLanguage" style="color:#B9B9B9">
-        <p class style="font-family:Poppins-Medium;font-size:16px;">
+      <div class="selectLanguage" style="color: #b9b9b9">
+        <p class style="font-family: Poppins-Medium; font-size: 16px">
           {{ $t("strings.selectLanguage") }}
         </p>
       </div>
@@ -66,7 +68,6 @@ export default {
   },
   methods: {
     save() {
-      console.log("nowfiiiiiilllll----langauge -");
       this.$gateway.send("core", "save_config", this.pending_config);
       this.isVisible = false;
     },

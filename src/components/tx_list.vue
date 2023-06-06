@@ -350,7 +350,6 @@ export default {
         0,
         this.limit !== -1 ? this.limit : this.page * 24 + 24
       );
-      // console.log("this.tx_list_paged ::", this.tx_list_paged);
     },
     loadMore: function(index, done) {
       this.page = index;

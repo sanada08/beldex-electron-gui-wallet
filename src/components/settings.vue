@@ -128,7 +128,7 @@
                 />
               </svg>
             </q-btn>
-            <q-toolbar-title shrink style="font-family:Poppins-Bold;">
+            <q-toolbar-title shrink style="font-family: Poppins-Bold">
               {{
                 page === "language"
                   ? $t("titles.settings.tabs.language")
@@ -197,7 +197,7 @@
             <div
               v-if="page === 'language'"
               class="flex justify-center items-center"
-              style="height:100%"
+              style="height: 100%"
             >
               <LanguageSelect username="matt" />
             </div>
@@ -258,18 +258,14 @@ export default {
   }),
   watch: {
     isVisible: function() {
-      console.log("this.visibility", this.isVisible);
       if (this.isVisible == false) {
-        console.log("visibility fallse");
         this.$store.dispatch("gateway/resetPendingConfig");
       }
     }
   },
   methods: {
     save() {
-      console.log("nowfiiiiiilllll----save--- settings");
       this.$gateway.send("core", "save_config", this.pending_config);
-      console.log("gateway ");
       this.isVisible = false;
     },
     showPeerDetails(entry) {

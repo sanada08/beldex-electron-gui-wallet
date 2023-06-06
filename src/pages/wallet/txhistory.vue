@@ -3,7 +3,7 @@
     <template v-if="this.tx_list.length === 0">
       <div
         class="col-2 ft-semibold txn-title q-ml-sm q-mt-sm"
-        style="color:white"
+        style="color: white"
       >
         {{ $t("titles.transactions") }}
       </div>
@@ -131,11 +131,9 @@ export default {
     submitTxDetails(details) {
       // this.$ref.txDetails.tx = details;
       this.txnDetails = details;
-      console.log("submitTxDetails ::", this.tx_details);
     },
     goback(data) {
       this.txnDetails = data;
-      console.log("submitTxDetails ::goback", data);
     }
   },
 

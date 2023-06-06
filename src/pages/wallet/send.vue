@@ -1,12 +1,12 @@
 <template>
-  <q-page class="send" style="min-height: unset;">
+  <q-page class="send" style="min-height: unset">
     <template v-if="view_only">
       <div class="q-pa-md">
         {{ $t("strings.viewOnlyMode") }}
       </div>
     </template>
     <template v-else>
-      <div style="padding:0px 2px;">
+      <div v-if="!contact" style="padding: 0px 2px">
         <div class="row gutter-md">
           <!-- Amount -->
           <div class="col-8 amount">
@@ -34,7 +34,7 @@
           </div>
 
           <!-- Priority -->
-          <div class="col-4 priority ">
+          <div class="col-4 priority">
             <OxenField :label="$t('fieldLabels.priority')">
               <q-select
                 v-model="newTx.priority"
@@ -54,7 +54,7 @@
             <div class="label-txt">
               {{ $t("fieldLabels.to") }}
             </div>
-            <q-btn to="addressbook">
+            <q-btn @click="navigator">
               <svg
                 width="18"
                 height="18"
@@ -144,6 +144,12 @@
           />
         </div>
       </div>
+      <section v-else>
+        <Adressbook
+          from="send"
+          @setContactAddress="setContactAddress($event)"
+        />
+      </section>
       <ConfirmTransactionDialog
         :show="confirmTransaction"
         :amount="confirmFields.totalAmount"
@@ -168,6 +174,7 @@ import OxenField from "components/oxen_field";
 import WalletPassword from "src/mixins/wallet_password";
 import ConfirmDialogMixin from "src/mixins/confirm_dialog_mixin";
 import ConfirmTransactionDialog from "components/confirm_tx_dialog";
+import Adressbook from "../../pages/wallet/addressbook.vue";
 const objectAssignDeep = require("object-assign-deep");
 
 // the case for doing nothing on a tx_status update
@@ -176,7 +183,8 @@ const DO_NOTHING = 10;
 export default {
   components: {
     OxenField,
-    ConfirmTransactionDialog
+    ConfirmTransactionDialog,
+    Adressbook
   },
   mixins: [WalletPassword, ConfirmDialogMixin],
   data() {
@@ -185,6 +193,7 @@ export default {
       { label: this.$t("strings.priorityOptions.slow"), value: 1 } // Slow
     ];
     return {
+      contact: false,
       newTx: {
         amount: 0,
         address: "",
@@ -220,7 +229,8 @@ export default {
       const prefix = (wallet && wallet.address && wallet.address[0]) || "L";
       return `${prefix}..`;
     },
-    confirmTransaction: state => state.gateway.tx_status.code === 1
+    confirmTransaction: state => state.gateway.tx_status.code === 1,
+    senderAddress: state => state.gateway.sender_address
   }),
   validations: {
     newTx: {
@@ -285,24 +295,29 @@ export default {
         }
       },
       deep: true
-    },
-    $route(to) {
-      if (to.path == "/wallet/send" && to.query.hasOwnProperty("address")) {
-        this.autoFill(to.query);
-      }
     }
+    // $route(to) {
+    //   if (to.path == "/wallet/send" && to.query.hasOwnProperty("address")) {
+    //     this.autoFill(to.query);
+    //   }
+    // }
   },
   mounted() {
-    if (
-      this.$route.path == "/wallet/send" &&
-      this.$route.query.hasOwnProperty("address")
-    ) {
-      this.autoFill(this.$route.query);
-    }
+    // if (
+    //   this.$route.path == "/wallet/send" &&
+    //   this.$route.query.hasOwnProperty("address")
+    // ) {
+    //   this.autoFill(this.$route.query);
+    // }
+
+    // if(this.senderAddress)
+    // {
+    this.autoFill(this.senderAddress);
+    // }
   },
   methods: {
     autoFill: function(info) {
-      this.newTx.address = info.address;
+      this.newTx.address = info;
     },
     buildDialogFieldsSend(txData) {
       // build using mixin method
@@ -361,7 +376,14 @@ export default {
         note: ""
       };
     },
-
+    navigator() {
+      // this.$gateway.send("wallet", "set_router_path_rightpane", { data: "" });
+      this.contact = true;
+    },
+    setContactAddress(address) {
+      this.contact = false;
+      this.autoFill(address.address);
+    },
     async send() {
       this.$v.newTx.$touch();
 

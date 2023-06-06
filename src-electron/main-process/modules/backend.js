@@ -152,12 +152,10 @@ export class Backend {
       event,
       data
     };
-
     let encrypted_data = this.scee.encryptString(
       JSON.stringify(message),
       this.token
     );
-
     this.wss.clients.forEach(function each(client) {
       if (client.readyState === WebSocket.OPEN) {
         client.send(encrypted_data);

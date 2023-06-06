@@ -1,13 +1,41 @@
 <template>
-  <q-page class="address-book" style="min-height: unset;">
+  <q-page class="address-book" style="min-height: unset">
     <section v-show="this.isvisible">
       <article class="flex row justify-between addbtn-box align-center">
         <div
-          class="header row q-pt-md q-pb-xs q-mx-md q-mb-none items-center non-selectable ft-semibold "
+          class="header row q-pt-md q-pb-xs q-mx-md q-mb-none items-center non-selectable ft-semibold"
         >
-          {{ $t("titles.addressBook") }}
+          <q-btn
+            v-if="from === 'send'"
+            flat
+            round
+            dense
+            class="q-mr-sm"
+            @click="setAddress({ address: '' })"
+          >
+            <svg
+              width="26"
+              height="26"
+              viewBox="0 0 26 26"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M13 -6.10352e-05C5.8201 -6.10352e-05 0 5.82008 0 13C0 20.18 5.8201 26.0001 13 26.0001C20.1799 26.0001 26 20.18 26 13C26 5.82008 20.1799 -6.10352e-05 13 -6.10352e-05ZM18.2 14.3H10.9382L13 16.3618C13.507 16.8688 13.507 17.6931 13 18.2001C12.493 18.7071 11.6688 18.7071 11.1618 18.2001L6.8809 13.9191C6.3726 13.4108 6.3726 12.5879 6.8809 12.0809L11.1618 7.79999C11.6688 7.29299 12.493 7.29299 13 7.79999C13.507 8.30699 13.507 9.1312 13 9.6382L10.9382 11.7H18.2C18.9176 11.7 19.5 12.2824 19.5 13C19.5 13.7176 18.9176 14.3 18.2 14.3Z"
+                fill="white"
+              />
+            </svg>
+          </q-btn>
+
+          {{ from === "send" ? "Contact Book" : $t("titles.addressBook") }}
         </div>
-        <q-btn round color="primary" icon="add" @click="addEntry" />
+        <q-btn
+          v-if="from !== 'send'"
+          round
+          color="primary"
+          icon="add"
+          @click="addEntry"
+        />
       </article>
       <template v-if="address_book_combined.length">
         <q-list link no-border :dark="theme == 'dark'" class="oxen-list">
@@ -15,11 +43,10 @@
             v-for="(entry, index) in address_book_combined"
             :key="`${entry.address}-${entry.name}-${index}`"
             class="oxen-list-item"
-            @click.native="details(entry)"
           >
             <q-item-section side>
               <article class="flex row">
-                <q-item-label class=" flex justify-center star-icon">
+                <q-item-label class="flex justify-center star-icon">
                   <q-icon
                     size="24px"
                     :name="entry.starred ? 'star' : 'star_border'"
@@ -40,7 +67,7 @@
               /> -->
                 </q-item-label>
 
-                <div class="copy-icon q-ml-sm">
+                <div v-if="from !== 'send'" class="copy-icon q-ml-sm">
                   <q-btn
                     flat
                     padding="sm"
@@ -61,8 +88,12 @@
                 </div>
               </article>
             </q-item-section>
-            <q-item-section @click.native="details(entry)">
-              <q-item-label class="ellipsis address-label ">{{
+            <q-item-section
+              @click.native="
+                from === 'send' ? setAddress(entry) : details(entry)
+              "
+            >
+              <q-item-label class="ellipsis address-label">{{
                 entry.address
               }}</q-item-label>
               <q-item-label class="non-selectable address-sub-label" caption>{{
@@ -70,6 +101,7 @@
               }}</q-item-label>
             </q-item-section>
             <ContextMenu
+              v-if="from !== 'send'"
               :menu-items="menuItems"
               @showDetails="details(entry)"
               @sendToAddress="sendToAddress(entry, $event)"
@@ -105,6 +137,13 @@ export default {
     AddressBookDetails,
     ContextMenu
   },
+  props: {
+    from: {
+      type: String,
+      required: false,
+      default: undefined
+    }
+  },
   data() {
     const menuItems = [
       { action: "showDetails", i18n: "menuItems.showDetails" },
@@ -138,6 +177,9 @@ export default {
       this.$refs.addressBookDetails.isVisible = true;
       this.isvisible = false;
     },
+    setAddress: function(entry) {
+      this.$emit("setContactAddress", entry);
+    },
     addEntry: function() {
       this.$refs.addressBookDetails.entry = null;
       this.$refs.addressBookDetails.mode = "new";
@@ -146,18 +188,24 @@ export default {
     },
     sendToAddress(address, event) {
       event.stopPropagation();
-      this.$router.replace({
-        path: "send",
-        query: {
-          address: address.address
-        }
+      // this.$router.replace({
+      //   path: "send",
+      //   query: {
+      //     address: address.address
+      //   }
+      // });
+      this.$gateway.send("wallet", "set_sender_address", {
+        data: address.address
+      });
+
+      this.$gateway.send("wallet", "set_router_path_rightpane", {
+        data: "send"
       });
     },
     displayAddressList() {
       this.isvisible = true;
     },
     copyAddress(entry) {
-      console.log("copy address", entry);
       clipboard.writeText(entry.address);
       this.$q.notify({
         type: "positive",

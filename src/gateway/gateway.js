@@ -293,6 +293,20 @@ export class Gateway extends EventEmitter {
           decrypted_data.data
         );
         break;
+
+      case "set_router_path_rightpane":
+        this.app.store.commit(
+          "gateway/set_router_path_rightpane",
+          decrypted_data.data
+        );
+        break;
+
+      case "set_sender_address":
+        this.app.store.commit(
+          "gateway/set_sender_address",
+          decrypted_data.data
+        );
+        break;
     }
   }
 

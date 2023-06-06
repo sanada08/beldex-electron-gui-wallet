@@ -144,5 +144,7 @@ export default {
       fetching: true
     }
   },
-  update_required: false
+  update_required: false,
+  router_path_rightpane: "send",
+  sender_address: ""
 };

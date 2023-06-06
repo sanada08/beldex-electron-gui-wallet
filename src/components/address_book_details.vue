@@ -272,7 +272,16 @@ export default {
       this.close();
     },
     sendToAddress() {
-      this.close();
+      // this.close();
+      this.$gateway.send("wallet", "set_sender_address", {
+        data: this.entry.address
+      });
+
+      this.$gateway.send("wallet", "set_router_path_rightpane", {
+        data: "send"
+      });
+
+      // set_router_path_rightpane
       // this.$router.replace({
       //   path: "/wallet/rightpane",
       //   query: {
