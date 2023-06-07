@@ -6,7 +6,7 @@
           <img src="../../assets/images/Logo.png" />
         </div>
         <div class="main-title">
-          <span class="green">Beldex </span>
+          <span class="green q-mr-xs">Beldex </span>
           <span>Electron Wallet</span>
         </div>
         <!-- <template v-if="show_menu">

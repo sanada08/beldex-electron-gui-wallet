@@ -1,39 +1,81 @@
 <template>
-  <q-dialog v-model="isVisible" maximized>
-    <q-layout style="min-height: unset;">
+  <!-- <q-dialog v-model="isVisible" maximized> -->
+  <div class="address_details q-px-md">
+    <q-layout style="min-height: unset">
       <q-header>
         <q-toolbar color="dark" inverted>
-          <q-btn flat round dense icon="reply" @click="isVisible = false" />
+          <q-btn flat round dense @click="() => this.$emit('details', '')">
+            <svg
+              width="26"
+              height="26"
+              viewBox="0 0 26 26"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M13 -6.10352e-05C5.8201 -6.10352e-05 0 5.82008 0 13C0 20.18 5.8201 26.0001 13 26.0001C20.1799 26.0001 26 20.18 26 13C26 5.82008 20.1799 -6.10352e-05 13 -6.10352e-05ZM18.2 14.3H10.9382L13 16.3618C13.507 16.8688 13.507 17.6931 13 18.2001C12.493 18.7071 11.6688 18.7071 11.1618 18.2001L6.8809 13.9191C6.3726 13.4108 6.3726 12.5879 6.8809 12.0809L11.1618 7.79999C11.6688 7.29299 12.493 7.29299 13 7.79999C13.507 8.30699 13.507 9.1312 13 9.6382L10.9382 11.7H18.2C18.9176 11.7 19.5 12.2824 19.5 13C19.5 13.7176 18.9176 14.3 18.2 14.3Z"
+                fill="white"
+              />
+            </svg>
+          </q-btn>
           <q-toolbar-title>
             {{ $t("titles.addressDetails") }}
           </q-toolbar-title>
           <q-btn
             flat
-            :label="$t('buttons.showQRCode')"
+            style="margin-right: 4px"
+            icon="qr_code_scanner"
+            padding="sm"
+            size="sm"
+            class="copy-icon"
             @click="isQRCodeVisible = true"
           />
           <q-btn
-            class="q-ml-sm"
-            color="primary"
-            :label="$t('buttons.copyAddress')"
+            class="q-ml-sm copy-icon"
+            flat
+            padding="sm"
+            size="sm"
+            icon="content_copy"
+            color="green"
             @click="copyAddress()"
           />
         </q-toolbar>
       </q-header>
       <!-- <q-page-container class="detail-page"> -->
-      <q-page class="detail-page" style="min-height: unset;">
+      <q-page class="detail-page" style="min-height: unset">
         <!-- <div class="layout-padding"> -->
         <div>
           <template v-if="address != null">
-            <AddressHeader
+            <!-- <AddressHeader
+            class="address-details"
               :address="address.address"
               :title="addressHeaderInfo.title"
               :extra="addressHeaderInfo.extra"
               :show-copy="false"
-            />
+            /> -->
+            <div class="address-section">
+              <div class="ft-medium label">
+                Address
+                <q-btn
+                  class="q-ml-sm"
+                  flat
+                  padding="sm"
+                  size="sm"
+                  icon="content_copy"
+                  color="green"
+                  @click="copyAddress()"
+                />
+              </div>
+              <div class="address-box">
+                {{ address.address }}
+              </div>
+              <div class="hint-txt ft-medium">
+                {{ addressHeaderInfo.extra }}
+              </div>
+            </div>
 
             <template v-if="address.used">
-              <div class="row justify-between" style="max-width: 768px">
+              <div class="" style="max-width: 768px">
                 <div class="infoBox">
                   <div class="infoBoxContent">
                     <div class="text">
@@ -71,45 +113,55 @@
               </div>
             </template>
             <template v-else>
-              <div class="row justify-between" style="max-width: 768px">
-                <div class="infoBox">
-                  <div class="infoBoxContent">
-                    <div class="text">
-                      <span>{{ $t("strings.oxenBalance") }}</span>
-                    </div>
-                    <div class="value"><span>N/A</span></div>
-                  </div>
+              <div style="max-width: 768px">
+                <!-- <div class="infoBox">
+                  <div class="infoBoxContent"> -->
+                <div class="ft-medium label q-mt-sm">
+                  {{ $t("strings.oxenBalance") }}
                 </div>
-
-                <div class="infoBox">
-                  <div class="infoBoxContent">
-                    <div class="text">
+                <div class="value balance-box">N/A</div>
+                <!-- </div>
+                </div> -->
+                <div class="flex row justify-between q-mt-md">
+                  <!-- <div class="infoBox">
+                    <div class="infoBoxContent"> -->
+                  <div>
+                    <div class="ft-medium label">
                       <span>{{ $t("strings.oxenUnlockedBalance") }}</span>
                     </div>
+
                     <div class="value"><span>N/A</span></div>
                   </div>
-                </div>
+                  <!-- </div>
+                  </div> -->
 
-                <div class="infoBox">
-                  <div class="infoBoxContent">
-                    <div class="text">
-                      <span>{{ $t("strings.numberOfUnspentOutputs") }}</span>
+                  <!-- <div class="infoBox">
+                    <div class="infoBoxContent"> -->
+                  <div>
+                    <div class="ft-medium label">
+                      <!-- <span>{{ $t("strings.numberOfUnspentOutputs") }}</span> -->
+                      <span>Unspent Outputs</span>
                     </div>
                     <div class="value"><span>N/A</span></div>
                   </div>
+                  <!-- </div>
+                  </div> -->
                 </div>
               </div>
             </template>
 
             <div class="q-mt-sm">
-              <div class="non-selectable recent-transactions-wrapper">
+              <div class="ft-medium recent-transactions-wrapper">
                 <q-icon name="history" size="24px" />
-                <span class="vertical-middle q-ml-xs">{{
+                <!-- <span class="vertical-middle q-ml-xs">{{
                   $t("strings.recentIncomingTransactionsToAddress")
-                }}</span>
+                }}</span> -->
+                <span class="vertical-middle q-ml-xs"
+                  >Recent incoming Transactions</span
+                >
               </div>
 
-              <div style="margin: 12px -16px;">
+              <div style="margin: 12px -16px">
                 <TxList
                   :key="address.address"
                   type="all_in"
@@ -129,14 +181,14 @@
         :content-class="'qr-code-modal'"
       >
         <q-card class="qr-code-card">
-          <div class="text-center q-mb-sm q-pa-md" style="background: white;">
+          <div class="text-center q-mb-sm q-pa-md" style="background: white">
             <QrcodeVue ref="qr" :value="address.address" size="240">
             </QrcodeVue>
             <q-menu content-menu>
               <q-list
                 link
                 separator
-                style="min-width: 150px; max-height: 300px;"
+                style="min-width: 150px; max-height: 300px"
               >
                 <q-item v-close-popup @click.native="copyQR()">
                   <q-item-label :label="$t('menuItems.copyQR')" />
@@ -157,29 +209,33 @@
         </q-card>
       </q-dialog>
     </template>
-  </q-dialog>
+  </div>
 </template>
 
 <script>
 import { mapState } from "vuex";
 const { clipboard, nativeImage } = require("electron");
-import AddressHeader from "components/address_header";
+// import AddressHeader from "components/address_header";
 import FormatOxen from "components/format_oxen";
 import QrcodeVue from "qrcode.vue";
 import TxList from "components/tx_list";
 export default {
   name: "AddressDetails",
   components: {
-    AddressHeader,
+    // AddressHeader,
     TxList,
     FormatOxen,
     QrcodeVue
   },
+  props: {
+    address: {
+      required: false
+    }
+  },
   data() {
     return {
       isVisible: false,
-      isQRCodeVisible: false,
-      address: null
+      isQRCodeVisible: false
     };
   },
   computed: mapState({
@@ -234,4 +290,44 @@ export default {
 };
 </script>
 
-<style></style>
+<style lang="scss">
+.address_details {
+  .q-toolbar {
+    padding: 0;
+    background-color: #242433;
+  }
+
+  .copy-icon {
+    background-color: #40405d;
+    height: 35px;
+    width: 35px;
+    border-radius: 10px;
+  }
+  .address-section {
+    color: white;
+    padding-top: 70px;
+  }
+  .hint-txt {
+    color: #9393b1;
+  }
+  .label {
+    color: white;
+    font-size: 1rem;
+  }
+  .value,
+  .balance-box {
+    color: white;
+    // width: 181px;
+    font-size: 1rem !important;
+    padding: 15px;
+    border-radius: 10px;
+  }
+  .balance-box {
+    width: unset;
+  }
+  .recent-transactions-wrapper {
+    color: white;
+    font-size: 1rem;
+  }
+}
+</style>

@@ -3,7 +3,9 @@
     <article>
       <div class="userName">{{ info.name }}</div>
       <div class="sub-txt">Total Balance</div>
-      <div class="balance">{{ info.balance }}<span>BDX</span></div>
+      <div class="balance">
+        {{ (info.balance / 1e9).toFixed(3) }}<span>BDX</span>
+      </div>
     </article>
     <article class="flex justify-between q-mt-md">
       <!-- <article class="flex  q-mt-md"> -->

@@ -1,6 +1,12 @@
 <template>
   <q-page class="receive" style="min-height: unset;">
-    <q-list link no-border :dark="theme == 'dark'" class="oxen-list">
+    <q-list
+      v-if="!address"
+      link
+      no-border
+      :dark="theme == 'dark'"
+      class="oxen-list"
+    >
       <q-item-label header class="list-header text-center ft-medium ">{{
         $t("strings.addresses.primaryAccount")
       }}</q-item-label>
@@ -61,9 +67,9 @@
       </template>
 
       <template v-if="address_list.unused.length">
-        <q-item-label header class="list-header">{{
-          $t("strings.addresses.myUnusedAddresses")
-        }}</q-item-label>
+        <q-item-label header class="list-header"
+          >{{ $t("strings.addresses.myUnusedAddresses") }}
+        </q-item-label>
         <ReceiveItem
           v-for="address in address_list.unused"
           :key="address.address"
@@ -83,7 +89,11 @@
         />
       </template>
     </q-list>
-    <AddressDetails ref="addressDetails" />
+    <AddressDetails
+      v-else-if="address"
+      :address="address"
+      @details="details($event)"
+    />
 
     <!-- QR Code -->
     <template v-if="QR.address != null">
@@ -142,12 +152,15 @@ export default {
       { action: "copyQR", i18n: "menuItems.copyQR" },
       { action: "saveQR", i18n: "menuItems.saveQR" }
     ];
+
     return {
       QR: {
         visible: false,
         address: null
       },
-      menuItems
+      menuItems,
+      subAddressList: false,
+      address: ""
     };
   },
   computed: mapState({
@@ -156,8 +169,9 @@ export default {
   }),
   methods: {
     details(address) {
-      this.$refs.addressDetails.address = address;
-      this.$refs.addressDetails.isVisible = true;
+      this.address = address;
+      // this.$refs.addressDetails.address = address;
+      // this.$refs.addressDetails.isVisible = true;
     },
     showQR(address, event) {
       event.stopPropagation();

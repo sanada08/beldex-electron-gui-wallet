@@ -40,22 +40,32 @@
         </div>
       </div>
       <article class="decoration q-my-md">
-        <div class="wallet-address row justify-center items-center">
-          <div class="ft-semibold title col-md-1">Address</div>
-          <div class="address ft-Light col-md-9">{{ info.address }}</div>
-          <q-btn
-            flat
-            padding="sm"
-            size="md"
-            icon="content_copy"
-            class="q-mr-sm col-md-1"
-            color="green"
-            @click="copyAddress(info.address)"
-          >
-            <q-tooltip anchor="bottom right" self="top right" :offset="[0, 5]">
-              {{ $t("menuItems.copyAddress") }}
-            </q-tooltip>
-          </q-btn>
+        <div
+          class="wallet-address row justify-between items-center q-pl-md q-pr-sm"
+        >
+          <div class="col-md-9 flex row items-center">
+            <div class="ft-semibold title q-mr-xs">Address</div>
+            <div class="address ft-regular col-md-10">{{ info.address }}</div>
+          </div>
+          <div class="col-md-2 flex justify-end">
+            <q-btn
+              flat
+              size="sm"
+              icon="content_copy"
+              class="copy-btn"
+              color="green"
+              @click="copyAddress(info.address)"
+            >
+              <q-tooltip
+                anchor="bottom right"
+                self="top right"
+                :offset="[0, 5]"
+              >
+                {{ $t("menuItems.copyAddress") }}
+              </q-tooltip>
+            </q-btn>
+          </div>
+
           <!-- <CopyIcon :content="info.address" /> -->
         </div>
 
@@ -92,7 +102,7 @@
               <div class="row unlocked ft-semibold">
                 <span
                   >{{ $t("strings.oxenUnlockedBalance") }}:
-                  {{ info.unlocked_balance }}
+                  {{ (info.unlocked_balance / 1e9).toFixed(3) }}
                   <!-- <FormatOxen :amount="info.unlocked_balance" -->
                 </span>
 
@@ -193,6 +203,10 @@ export default {
         margin-left: 10px;
       }
     }
+    .copy-btn {
+      width: 30px;
+      height: 30px;
+    }
     .decoration {
       border: 2px solid #41415b;
       border-radius: 20px;
@@ -209,7 +223,7 @@ export default {
         text-overflow: ellipsis;
         margin: 4px 0;
         // background: #45455a;
-        padding: 15px;
+        padding: 15px 5px;
         // width: 83%;
         color: #afafbe;
       }

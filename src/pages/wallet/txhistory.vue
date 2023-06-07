@@ -9,7 +9,7 @@
       </div>
       <section
         class="flex column justify-center items-center"
-        style="height: 45vh"
+        style="height: 43vh"
       >
         <div>
           <img src="../../assets/images/No_transaction.svg" height="119px" />

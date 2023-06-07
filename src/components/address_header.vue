@@ -1,16 +1,15 @@
 <template>
   <div class="address-header-div">
     <q-item-section class="self-start">
-      <div class="name  q-mb-sm">Name</div>
+      <div class="name q-mb-sm">Name</div>
       <q-item-label
-        class=" tittle-Box non-selectable flex items-center  q-mb-md"
+        class="tittle-Box non-selectable flex items-center q-mb-md"
         >{{ title }}</q-item-label
       >
 
       <div class="flex row items-center">
-        <div class="name  ">Address</div>
+        <div class="name">Address</div>
         <q-btn
-          v-if="showCopy"
           side
           flat
           padding="sm"
