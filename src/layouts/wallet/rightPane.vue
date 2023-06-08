@@ -2,7 +2,10 @@
   <section>
     <article>
       <div class="userName">{{ info.name }}</div>
-      <div class="sub-txt">Total Balance</div>
+
+      <div class="sub-txt">
+        Total Balance <q-icon name="o_info" size="14px" color="#A9A9CD" />
+      </div>
       <div class="balance">
         {{ (info.balance / 1e9).toFixed(3) }}<span>BDX</span>
       </div>

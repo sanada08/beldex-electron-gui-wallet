@@ -258,7 +258,7 @@ export default {
     width: 35px;
     background-color: #1f1f28;
     height: 35px;
-    border-radius: 8px;
+    border-radius: 10px;
     display: flex;
     align-items: center;
     color: #2879fb;
@@ -269,6 +269,7 @@ export default {
       background-color: #1f1f28;
       height: 35px;
       width: 35px;
+      border-radius: 10px;
     }
   }
   .address-label {

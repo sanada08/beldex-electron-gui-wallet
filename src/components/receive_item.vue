@@ -35,7 +35,7 @@
       </q-item-section>
 
       <q-item-section class="flex">
-        <q-item-label class="ellipsis ft-Light address-label">{{
+        <q-item-label class="ellipsis ft-regular address-label">{{
           address.address
         }}</q-item-label>
         <q-item-label

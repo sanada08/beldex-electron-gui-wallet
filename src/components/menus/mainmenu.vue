@@ -34,28 +34,29 @@
             <img src="beldex.svg" height="50" />
           </div>
           <p class="text">
-            Beldex <span style="color: #FFFFFF;">Electron Wallet</span>
+            Beldex <span style="color: #ffffff">Electron Wallet</span>
           </p>
-          <hr style="width: 70%; border:1px solid #4D4D6D;" />
+          <hr style="width: 70%; border: 1px solid #4d4d6d" />
           <p class="q-my-sm">
-            Wallet Version: <span style="color:#00AD07">{{ version }}</span>
+            Wallet Version: <span style="color: #00ad07">{{ version }}</span>
           </p>
           <p class="q-my-sm">
             Deaemon Version:
-            <span style="color:#00AD07">{{ daemonVersion }}</span>
+            <span style="color: #00ad07">{{ daemonVersion }}</span>
           </p>
           <p class="q-my-sm">
-            Copyright (c) - <span style="color:#00AD07">2018-2021, Beldex</span>
+            Copyright (c) -
+            <span style="color: #00ad07">2018-2021, Beldex</span>
           </p>
           <p
             class="q-my-sm"
-            style="font-family:Poppins-Regular;font-size: 13px;"
+            style="font-family: Poppins-Regular; font-size: 13px"
           >
             All rights reserved.
           </p>
 
           <div class="q-mt-md external-links">
-            <p style="margin: 0 0 20px;">
+            <p style="margin: 0 0 20px">
               <img src="telegram.svg" height="12" />
               <a href="#" @click="openExternal('t.me/official_beldex')"
                 >Telegram</a
@@ -88,24 +89,21 @@
             </p>
           </div>
           <div
-            style="    
-                      display: flex;
-                      align-items: center;
-                      justify-content: center;"
+            style="display: flex; align-items: center; justify-content: center"
           >
             <p>
               <img src="www.svg" height="12" />
               <a
-                style="color:#FFFFFF;"
+                style="color: #ffffff"
                 href="#"
                 @click="openExternal('https://beldex.io')"
                 >beldex.io</a
               >
             </p>
           </div>
-          <div style="display:flex; justify-content: center;">
+          <div style="display: flex; justify-content: center">
             <q-btn
-              style="min-width: 100px;height: 45px;"
+              style="min-width: 100px; height: 45px"
               color="primary"
               label="OK"
               @click="showAbout(false)"
@@ -213,6 +211,10 @@ export default {
 </script>
 
 <style lang="scss">
+.q-menu {
+  max-width: unset !important;
+}
+
 .about-modal {
   font-family: Poppins-Medium;
 

@@ -14,24 +14,25 @@
       class="language-select column items-center justify-center"
     >
       <div class="selectLanguage" style="color: #b9b9b9">
-        <p class style="font-family: Poppins-Medium; font-size: 16px">
+        <p class style="font-family: Poppins-Medium; font-size: 1.25rem">
           {{ $t("strings.selectLanguage") }}
         </p>
       </div>
       <div>
         <div class="column justify-center">
-          <q-btn
+          <div
             v-for="option in options"
             :key="option.value"
-            style
-            class="row justify-center items-center"
-            :color="lang === option.value ? 'primary1' : 'accent'"
-            size="md"
+            :class="
+              `row justify-start items-center lang-btn ft-medium ${
+                lang === option.value ? 'selected-btn' : 'unselected-btn'
+              }`
+            "
             @click="setLanguage(option.value)"
           >
             <span :class="`flag-icon flag-icon-${option.flag}`" />
-            <span>{{ option.label }}</span>
-          </q-btn>
+            <span class="q-ml-xs">{{ option.label }}</span>
+          </div>
         </div>
       </div>
       <div class="q-mt-lg">
@@ -86,11 +87,29 @@ export default {
   .q-btn {
     margin: 2px;
   }
+  .q-btn__wrapper:before {
+    box-shadow: unset;
+  }
   .selectLanguage {
     display: flex;
     align-items: center;
     justify-content: center;
     font-family: "Poppins-SemiBold";
+  }
+  .lang-btn,
+  .selected-btn,
+  .unselected-btn {
+    width: 259px;
+    height: 60px;
+    box-shadow: none;
+    margin-top: 5px;
+    border-radius: 10px;
+    padding-left: 4.688rem;
+    font-size: 1.125rem;
+  }
+  .unselected-btn:hover {
+    cursor: pointer;
+    background-color: #484866;
   }
 
   .flag-icon {

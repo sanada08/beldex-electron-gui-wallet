@@ -1,7 +1,7 @@
 <template>
-  <q-dialog v-model="isVisible" maximized class="settings-modal">
-    <q-layout>
-      <q-header>
+  <q-dialog v-model="isVisible" maximized>
+    <q-layout class="settings-modal">
+      <!-- <q-header>
         <q-toolbar color="dark" inverted>
           <q-btn flat round dense icon="reply" @click="isVisible = false" />
           <q-toolbar-title shrink>{{
@@ -20,7 +20,7 @@
 
           <q-btn color="primary" :label="$t('buttons.save')" @click="save" />
         </q-toolbar>
-      </q-header>
+      </q-header> -->
       <q-page class="flex row justify-around">
         <!-- <q-page-container> -->
         <div class="col-md-3">
@@ -58,7 +58,11 @@
                     <!-- <span class="divider"></span> -->
                     <span>General</span>
                   </div>
-                  <q-icon name="chevron_right" size="24px" />
+                  <q-icon
+                    v-if="page === 'general'"
+                    name="chevron_right"
+                    size="24px"
+                  />
                 </article>
               </routering>
 
@@ -96,23 +100,61 @@
                     <!-- <span class="divider"></span> -->
                     <span>Language</span>
                   </div>
-                  <q-icon name="chevron_right" size="24px" />
+                  <q-icon
+                    v-if="page === 'language'"
+                    name="chevron_right"
+                    size="24px"
+                  />
                 </article>
               </router>
+              <routering
+                v-if="tabs[tabs.length - 1].value === 'peers'"
+                class="routering"
+                @click="page = 'peers'"
+              >
+                <!-- <article
+                  class="flex row alignItem-center justify-between settingsMenuList  selected"
+                >-->
+                <article
+                  :class="[
+                    page === 'peers' ? 'selected' : '',
+                    'flex',
+                    'row',
+                    'alignItem-center',
+                    'justify-between',
+                    'settingsMenuList'
+                  ]"
+                >
+                  <div class="flex row align-center justify-center a-center">
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 26 25"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M21.0222 0C20.2442 0.000758949 19.4819 0.21915 18.8215 0.630486C18.1611 1.04182 17.629 1.6297 17.2852 2.32766C16.9414 3.02561 16.7998 3.80582 16.8762 4.58008C16.9527 5.35434 17.2442 6.09177 17.7179 6.70901L14.1403 11.2276H9.04025C8.82364 10.3143 8.30524 9.50079 7.56892 8.91864C6.8326 8.3365 5.92141 8.01978 4.98276 8.01974C3.87674 8.01974 2.81602 8.4591 2.03394 9.24118C1.25187 10.0233 0.8125 11.084 0.8125 12.19C0.8125 13.296 1.25187 14.3567 2.03394 15.1388C2.81602 15.9209 3.87674 16.3603 4.98276 16.3603C5.92055 16.3591 6.83057 16.0419 7.56587 15.4598C8.30117 14.8777 8.81882 14.0648 9.03524 13.1524H14.1403L17.7179 17.671C17.2442 18.2882 16.9527 19.0257 16.8762 19.7999C16.7998 20.5742 16.9414 21.3544 17.2852 22.0523C17.629 22.7503 18.1611 23.3382 18.8215 23.7495C19.4819 24.1608 20.2442 24.3792 21.0222 24.38C22.1283 24.38 23.189 23.9406 23.9711 23.1586C24.7531 22.3765 25.1925 21.3158 25.1925 20.2097C25.1925 19.1037 24.7531 18.043 23.9711 17.2609C23.189 16.4788 22.1283 16.0395 21.0222 16.0395C20.3949 16.041 19.7759 16.1841 19.2115 16.458L15.8345 12.19L19.2103 7.9245C19.7753 8.19775 20.3946 8.33996 21.0222 8.34053C22.1283 8.34053 23.189 7.90116 23.9711 7.11908C24.7531 6.33701 25.1925 5.27629 25.1925 4.17026C25.1925 3.06424 24.7531 2.00352 23.9711 1.22144C23.189 0.439366 22.1283 0 21.0222 0Z"
+                        fill="#00AD07"
+                      />
+                    </svg>
+                    <!-- <span class="divider"></span> -->
+                    <span>Peers</span>
+                  </div>
+                  <q-icon
+                    v-if="page === 'peers'"
+                    name="chevron_right"
+                    size="24px"
+                  />
+                </article>
+              </routering>
             </div>
           </section>
         </div>
         <div class="col-md-9">
           <!-- <q-btn class="rectangleBoxex" to="/list" label="Login" /> -->
 
-          <div
-            class="row"
-            style="
-              margin: 100px auto 0px 25px;
-              color: white;
-              align-items: center;
-            "
-          >
+          <div class="row right-header">
             <!-- <q-btn style="width: 40px" flat round dense icon="reply" @click="isVisible = false" /> -->
             <q-btn flat round dense @click="isVisible = false">
               <svg
@@ -136,15 +178,7 @@
               }}
             </q-toolbar-title>
           </div>
-          <section
-            class="rectangleBox rightPane"
-            style="
-              overflow: auto;
-              margin: 5px auto 0px;
-              width: 96%;
-              height: 79vh;
-            "
-          >
+          <section class="rectangleBox rightPane">
             <div v-if="page == 'general'">
               <div class="q-pa-lg">
                 <SettingsGeneral
@@ -154,19 +188,27 @@
               </div>
             </div>
 
-            <div v-if="page == 'peers'">
-              <q-list no-border>
-                <q-item-label header>{{ $t("strings.peerList") }}</q-item-label>
+            <div
+              v-if="page == 'peers'"
+              class="flex column justify-center items-center peerDetails"
+            >
+              <q-list no-border class="peerlist-wrapper">
+                <q-item-label class="title ft-medium" header>{{
+                  $t("strings.peerList")
+                }}</q-item-label>
                 <q-item
                   v-for="entry in daemon.connections"
                   :key="entry.address"
                   clickable
+                  class="items-center deamonConDetails-Wrapper q-mx-md"
                   @click.native="showPeerDetails(entry)"
                 >
-                  <q-item-label>
+                  <q-item-label class="greenIcon"> </q-item-label>
+                  <q-item-label class="deamonConDetails ft-medium">
                     <q-item-label>{{ entry.address }}</q-item-label>
                     <q-item-label>
-                      {{ $t("strings.blockHeight") }}:
+                      <!-- {{ $t("strings.blockHeight") }} -->
+                      Height :
                       {{ entry.height }}
                     </q-item-label>
                   </q-item-label>
@@ -278,9 +320,9 @@ export default {
             color: "negative"
           },
           cancel: {
-            flat: true,
             label: "Close",
-            color: this.theme == "dark" ? "white" : "dark"
+            // color: this.theme == "dark" ? "white" : "dark"
+            color: "accent"
           },
           dark: this.theme === "dark"
         })
@@ -322,28 +364,48 @@ export default {
 </script>
 
 <style lang="scss">
-// .rectangleButton {
-//    // width: 832px;
-//     // height: 600px;
-//      background-color:#242433;
-//     // margin-top: 90px;
-//      padding:'15px';
-//      border-radius: '20px';
-//      box-shadow: '0px 6px 24px rgba(0, 0, 0, 0.2)';
-//      width: '90%';
-//      margin: '90PX AUTO 0';
-//      height: '88VH';
+.settings-modal {
+  // .rectangleButton {
+  //    // width: 832px;
+  //     // height: 600px;
+  //      background-color:#242433;
+  //     // margin-top: 90px;
+  //      padding:'15px';
+  //      border-radius: '20px';
+  //      box-shadow: '0px 6px 24px rgba(0, 0, 0, 0.2)';
+  //      width: '90%';
+  //          MARGIN: 23PX AUTO 0;
 
-// }
+  //      height: '88VH';
 
-.routering {
-  .selected {
-    // background-color: $beldex-disable-grey;
-    background-color: #32324a;
-    span {
-      font-family: "Poppins-SemiBold";
-      font-size: 20px;
-      color: #fff;
+  // }
+  .rectangleBox {
+    margin: 23px AUTO 0;
+    height: 95vh;
+  }
+  .right-header {
+    margin: 22px auto 0px 25px;
+    color: white;
+    align-items: center;
+  }
+  .rightPane {
+    overflow: auto;
+    margin: 5px auto 0px;
+    width: 96%;
+    height: 89.3vh;
+  }
+  .routering {
+    .selected {
+      // background-color: $beldex-disable-grey;
+      background-color: #32324a;
+      span {
+        font-family: "Poppins-SemiBold";
+        font-size: 20px;
+        color: #fff;
+      }
+    }
+    :hover {
+      background-color: #2b2b41;
     }
   }
 }

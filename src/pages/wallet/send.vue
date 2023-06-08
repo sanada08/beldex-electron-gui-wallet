@@ -19,7 +19,7 @@
                 type="number"
                 min="0"
                 :max="unlocked_balance / 1e9"
-                placeholder="0"
+                placeholder="00.00"
                 borderless
                 dense
                 @blur="$v.newTx.amount.$touch"
@@ -53,6 +53,7 @@
           <article class="flex justify-between align-center labelBox">
             <div class="label-txt">
               {{ $t("fieldLabels.to") }}
+              <q-icon name="o_info" size="12px" color="#A9A9CD" />
             </div>
             <q-btn @click="navigator">
               <svg
@@ -91,13 +92,15 @@
           + Add to Address book
         </div>
         <!-- Notes -->
+        <!-- placeholder="$t('placeholders.transactionNotes')" -->
+
         <div class="col q-mt-sm">
           <OxenField :label="$t('fieldLabels.notes')">
             <q-input
               v-model="newTx.note"
               class="full-width text-area-oxen"
               type="textarea"
-              :placeholder="$t('placeholders.transactionNotes')"
+              placeholder="Add notes (optional)"
               borderless
               dense
             />
@@ -224,10 +227,12 @@ export default {
     is_able_to_send() {
       return this.$store.getters["gateway/isAbleToSend"];
     },
-    address_placeholder(state) {
-      const wallet = state.gateway.wallet.info;
-      const prefix = (wallet && wallet.address && wallet.address[0]) || "L";
-      return `${prefix}..`;
+    // address_placeholder(state) {
+    address_placeholder() {
+      // const wallet = state.gateway.wallet.info;
+      // const prefix = (wallet && wallet.address && wallet.address[0]) || "L";
+      // return `${prefix}..`;
+      return "Beldex Address";
     },
     confirmTransaction: state => state.gateway.tx_status.code === 1,
     senderAddress: state => state.gateway.sender_address

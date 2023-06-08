@@ -8,7 +8,7 @@
         <div>
           <img src="../assets/images/No_transaction.svg" height="119px" />
         </div>
-        <p class="q-pa-md q-mb-none qtab-desc ft-semibold infoTxt">
+        <p class="q-pb-md q-pt-sm q-mb-none qtab-desc ft-semibold infoTxt">
           {{ $t("strings.noTransactionsFound") }}
         </p>
 

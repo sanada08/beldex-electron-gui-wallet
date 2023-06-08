@@ -8,7 +8,8 @@ module.exports = function() {
     css: ["app.styl"],
     extras: [
       // ctx.theme.mat ? "roboto-font" : null,
-      "material-icons" // optional, you are not bound to it
+      "material-icons", // optional, you are not bound to it
+      "material-icons-outlined"
       // "ionicons-v4",
       // "mdi-v5",
       // "fontawesome-v5"

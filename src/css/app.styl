@@ -1021,7 +1021,7 @@ footer,
 }
 .q-placeholder
 {
-    color: #fff;
+    color:$beldex-placeholder-grey;
 }
 
 @media only screen and (max-width: 600px)
@@ -1261,7 +1261,7 @@ footer,
 }
 
 .q-btn--rectangle {
-    border-radius: 14px;
+    border-radius: 10px;
 }
 .rectangleBox {
    // width: 832px;
@@ -1370,6 +1370,7 @@ footer,
             padding: 26px 23px;
             color: #fff;
             align-items: center;
+            cursor:pointer;
             .a-center
             {
               align-items: center;
@@ -1723,6 +1724,43 @@ body
     .value{
         border: 1px solid $beldex-border-grey;
     }                
+}
+
+.language-select {
+    .selected-btn{
+      background-color:$beldex-std-blue
+    font-family: Poppins-Bold;
+    
+    }
+}
+.peerDetails{
+    height:100%;
+    .peerlist-wrapper{
+        width: 420px;
+        background-color: #32324A;
+        padding: 20px 0;
+        border-radius: 16px;
+        .title{
+            color:#B9B9B9;
+            font-size: 1.25rem
+            text-align:center;
+        }
+        .deamonConDetails-Wrapper
+        {
+            padding-left:85px;
+            border-radius:10px;
+        }
+        .deamonConDetails{
+            font-size:1.125rem;
+        }
+        .greenIcon{
+            width: 10px;
+            height: 10px;
+            background-color: $beldex-std-green;
+            border-radius: 10px;
+            margin-right: 20px;
+        }
+    }
 }
 
 //common style may affect all the dialog modal

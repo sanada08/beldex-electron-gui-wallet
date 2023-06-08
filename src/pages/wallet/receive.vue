@@ -7,7 +7,7 @@
       :dark="theme == 'dark'"
       class="oxen-list"
     >
-      <q-item-label header class="list-header text-center ft-medium ">{{
+      <q-item-label header class="list-header text-center ft-semibold ">{{
         $t("strings.addresses.primaryAccount")
       }}</q-item-label>
       <!-- <ReceiveItem
@@ -31,22 +31,23 @@
         </div>
       </article>
       <article
-        class="copy-btn flex justify-center align-center q-mt-sm q-mb-lg"
+        class="copy-btn flex justify-center align-center q-mt-sm q-mb-lg "
       >
         <q-btn
           color="primary"
           :label="$t('dialog.copyAddress.title')"
           icon="content_copy"
           padding="sm"
+          class="q-px-md"
           @click="copyAddress"
         />
       </article>
       <div class="hr-separator" />
 
       <template v-if="address_list.used.length">
-        <q-item-label header class="list-header">{{
-          $t("strings.addresses.myUsedAddresses")
-        }}</q-item-label>
+        <q-item-label header class="list-header ft-medium">
+          {{ $t("strings.addresses.myUsedAddresses") }}
+        </q-item-label>
 
         <ReceiveItem
           v-for="address in address_list.used"
@@ -67,8 +68,9 @@
       </template>
 
       <template v-if="address_list.unused.length">
-        <q-item-label header class="list-header"
-          >{{ $t("strings.addresses.myUnusedAddresses") }}
+        <q-item-label header class="list-header ft-medium">
+          <!-- {{ $t("strings.addresses.myUnusedAddresses") }} -->
+          Unused Address
         </q-item-label>
         <ReceiveItem
           v-for="address in address_list.unused"
@@ -257,7 +259,7 @@ export default {
   }
   .bg-primary {
     min-width: unset;
-    height: 35px;
+    // height: 35px;
     font-size: 14px;
   }
 }
