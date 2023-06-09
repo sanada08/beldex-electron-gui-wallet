@@ -113,10 +113,10 @@
           </router-link>
 
           <article class="p-relative">
-            <div class="version">
+            <div class="version ft-regular">
               <svg
-                width="18"
-                height="18"
+                width="22"
+                height="22"
                 viewBox="0 0 26 26"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -338,11 +338,12 @@ export default {
   width: 276px;
   display: flex;
   align-items: center;
+  margin-left: 20px;
 
   span {
     color: #77778b;
     font-family: "Poppins-Medium";
-    font-size: 18px;
+    font-size: 22px;
     margin-left: 10px;
   }
 }

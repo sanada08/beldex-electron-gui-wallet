@@ -60,9 +60,9 @@ export default {
 .oxen-field {
   .label {
     margin: 6px 0;
-    font-weight: bold;
-    font-size: 12px;
-    font-family: "Poppins-Bold";
+    // font-weight: bold;
+    font-size: 16px;
+    // font-family: "Poppins-Medium";
     // Disable text selection
     -webkit-user-select: none;
     user-select: none;
@@ -93,7 +93,7 @@ export default {
 
       * {
         // Oxen navy, can't use vars here :(
-        color: #fff;
+        color: #77778b;
       }
     }
 

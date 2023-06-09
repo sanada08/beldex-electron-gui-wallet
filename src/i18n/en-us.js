@@ -3,7 +3,7 @@ export default {
     // All button text is uppercased in the gui
     advanced: "ADVANCED",
     all: "ALL",
-    back: "BACK",
+    back: "Back",
     browse: "Browse",
     cancel: "Cancel",
     change: "Change",
@@ -25,7 +25,7 @@ export default {
     bns: "BELDEX NAME SERVICE",
 
     min: "MIN",
-    next: "NEXT",
+    next: "Next",
     openWallet: "OPEN WALLET",
     purchase: "PURCHASE",
     receive: "Receive",
@@ -88,7 +88,7 @@ export default {
       title: "Delete wallet",
       message:
         "Are you absolutely sure you want to delete your wallet?\nMake sure you have your private keys backed up.\nTHIS PROCESS IS NOT REVERSIBLE!",
-      ok: "DELETE"
+      ok: "Delete"
     },
     exit: {
       title: "Exit",
@@ -139,7 +139,7 @@ export default {
     restart: {
       title: "Restart",
       message: "Changes require restart. Would you like to restart now?",
-      ok: "RESTART"
+      ok: "Restart"
     },
     showPrivateKeys: {
       title: "Show private keys",
@@ -173,7 +173,7 @@ export default {
       restartMessage:
         "The wallet RPC is currently syncing. \nIf you wish to switch wallets then you must restart the application. \nYou will lose your syncing progress and have to rescan the blockchain again.",
       restartWalletMessage:
-        "If you wish to switch wallets then you must restart the application. Are you sure you want to close the current wallet and restart?"
+        "Are you sure you want to close and Restart the wallet?"
     },
     transactionDetails: {
       title: "Transaction details",
@@ -616,8 +616,8 @@ export default {
     website: "website"
   },
   titles: {
-    addressBook: "Address book",
-    addressDetails: "Address details",
+    addressBook: "Address Book",
+    addressDetails: "Address Details",
     advanced: {
       checkTransaction: "Check Transaction",
       prove: "Prove",

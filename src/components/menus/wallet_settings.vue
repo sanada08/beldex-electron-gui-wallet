@@ -235,7 +235,7 @@
             <q-btn
               class="q-mr-sm"
               color="accent"
-              :label="$t('buttons.close')"
+              :label="$t('buttons.cancel')"
               @click="hideModal('rescan')"
             />
             <q-btn
@@ -363,7 +363,7 @@
             <q-btn
               color="accent"
               class="q-mr-sm"
-              :label="$t('buttons.close')"
+              :label="$t('buttons.cancel')"
               @click="hideModal('key_image')"
             />
             <q-btn
@@ -387,7 +387,7 @@
           {{ $t("titles.changePassword") }}
         </div>
         <div class="q-ma-md">
-          <OxenField :label="$t('fieldLabels.oldPassword')">
+          <OxenField :label="$t('fieldLabels.oldPassword')" class="ft-medium">
             <q-input
               v-model="modals.change_password.old_password"
               type="password"
@@ -396,7 +396,7 @@
             />
           </OxenField>
 
-          <OxenField :label="$t('fieldLabels.newPassword')">
+          <OxenField :label="$t('fieldLabels.newPassword')" class="ft-medium">
             <q-input
               v-model="modals.change_password.new_password"
               type="password"
@@ -405,7 +405,10 @@
             />
           </OxenField>
 
-          <OxenField :label="$t('fieldLabels.confirmNewPassword')">
+          <OxenField
+            :label="$t('fieldLabels.confirmNewPassword')"
+            class="ft-medium"
+          >
             <q-input
               v-model="modals.change_password.new_password_confirm"
               type="password"
@@ -418,7 +421,7 @@
             <q-btn
               class="q-mr-sm "
               color="accent"
-              :label="$t('buttons.close')"
+              :label="$t('buttons.cancel')"
               @click="hideModal('change_password')"
             />
             <q-btn
@@ -790,7 +793,7 @@ export default {
 
 <style lang="scss">
 .password-modal {
-  background: #2f2f40;
+  background: #242433;
   color: #fff;
   border-radius: 10px !important;
   width: 540px;

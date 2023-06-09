@@ -72,6 +72,22 @@
                 {{ formatHeight(tx) }}
               </q-item-label>
             </q-item-section>
+
+            <q-btn flat class="q-pl-lg flex items-center">
+              <svg
+                width="9"
+                height="13"
+                viewBox="0 0 9 13"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M0.148438 1.87727V11.9944C0.148438 12.7651 0.855307 13.232 1.39581 12.8188L7.99948 7.76076C8.50103 7.37686 8.50103 6.49673 7.99948 6.11283L1.39581 1.05282C0.855307 0.638642 0.148438 1.10655 0.148438 1.87727Z"
+                  fill="#8787A8"
+                />
+              </svg>
+            </q-btn>
+
             <ContextMenu
               :menu-items="menuItems"
               @copyTxId="copyTxId(tx.txid)"
@@ -410,6 +426,7 @@ export default {
   .oxen-list-item {
     padding-top: 0;
     padding-bottom: 0;
+    padding-right: 0;
   }
   .infoTxt {
     color: white;

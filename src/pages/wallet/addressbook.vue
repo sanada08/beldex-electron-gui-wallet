@@ -220,15 +220,16 @@ export default {
 <style lang="scss">
 .address-book {
   .header {
-    font-size: 14px;
+    font-size: 18px;
     font-weight: 500;
     color: #fff;
   }
 
   .oxen-list-item {
     cursor: pointer;
-    padding-top: 12px;
-    padding-bottom: 12px;
+    padding: 12px;
+    background-color: unset;
+    border: none;
 
     .q-item-sublabel {
       font-size: 14px;

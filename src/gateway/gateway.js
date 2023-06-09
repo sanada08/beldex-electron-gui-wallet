@@ -92,9 +92,8 @@ export class Gateway extends EventEmitter {
         color: "primary"
       },
       cancel: {
-        flat: true,
         label: i18n.t("dialog.buttons.cancel"),
-        color: "grey"
+        color: "accent"
       }
     })
       .onOk(() => {

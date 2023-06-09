@@ -13,6 +13,7 @@
             <OxenField
               :label="$t('fieldLabels.amount')"
               :error="$v.newTx.amount.$error"
+              class="ft-medium"
             >
               <q-input
                 v-model="newTx.amount"
@@ -35,7 +36,7 @@
 
           <!-- Priority -->
           <div class="col-4 priority">
-            <OxenField :label="$t('fieldLabels.priority')">
+            <OxenField :label="$t('fieldLabels.priority')" class="ft-medium">
               <q-select
                 v-model="newTx.priority"
                 emit-value
@@ -51,7 +52,7 @@
         <!-- Address -->
         <div class="col q-mt-sm address">
           <article class="flex justify-between align-center labelBox">
-            <div class="label-txt">
+            <div class="label-txt  ft-medium">
               {{ $t("fieldLabels.to") }}
               <q-icon name="o_info" size="12px" color="#A9A9CD" />
             </div>
@@ -95,7 +96,7 @@
         <!-- placeholder="$t('placeholders.transactionNotes')" -->
 
         <div class="col q-mt-sm">
-          <OxenField :label="$t('fieldLabels.notes')">
+          <OxenField :label="$t('fieldLabels.notes')" class="ft-medium">
             <q-input
               v-model="newTx.note"
               class="full-width text-area-oxen"

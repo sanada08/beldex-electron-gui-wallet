@@ -417,6 +417,22 @@
     >
       <q-btn color="primary" :label="$t('buttons.save')" @click="save" />
     </div>
+    <div v-if="welcome" class="flex row align-center justify-center q-mt-lg">
+      <div class="a-center q-mr-lg">
+        <q-btn
+          color="accent"
+          :label="$t('buttons.back')"
+          @click="() => this.$emit('clickPrev')"
+        />
+      </div>
+      <div class="a-center">
+        <q-btn
+          color="primary"
+          :label="$t('buttons.next')"
+          @click="() => this.$emit('clickNext')"
+        />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -517,6 +533,7 @@ export default {
 
 <style lang="scss">
 .settings-general {
+  width: 65vw;
   .q-field {
     margin: 20px 0;
   }

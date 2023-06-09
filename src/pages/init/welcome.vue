@@ -27,11 +27,13 @@
           ref="settingsGeneral"
           :randomise-remote="true"
           :welcome="true"
+          @clickPrev="clickPrev"
+          @clickNext="clickNext"
         />
       </q-step>
     </q-stepper>
 
-    <q-footer v-if="!(step === 1)" class="no-shadow q-pa-sm">
+    <!-- <q-footer v-if="!(step === 1)" class="no-shadow q-pa-sm">
       <div class="row justify-end">
         <div>
           <q-btn flat :label="$t('buttons.back')" @click="clickPrev()" />
@@ -45,7 +47,7 @@
           />
         </div>
       </div>
-    </q-footer>
+    </q-footer> -->
   </q-page>
 </template>
 

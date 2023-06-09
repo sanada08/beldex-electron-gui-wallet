@@ -10,7 +10,7 @@
         {{ (info.balance / 1e9).toFixed(3) }}<span>BDX</span>
       </div>
     </article>
-    <article class="flex justify-between q-mt-md">
+    <article class="flex justify-evenly q-mt-md">
       <!-- <article class="flex  q-mt-md"> -->
 
       <!-- <router-link to="/wallet/send"> -->

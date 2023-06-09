@@ -1,18 +1,18 @@
 <template>
-  <div class="sign-and-verify ft-medium">
+  <div class="sign-and-verify ">
     <div class="q-pa-md">
-      <div class="q-mb-lg tab-desc">
+      <div class="q-mb-lg tab-desc ft-regular ">
         {{ $t("strings.signAndVerifyDescription") }}
       </div>
       <div v-if="is_view_only">
         {{ $t("strings.cannotSign") }}
       </div>
       <div v-else>
-        <div class="text-h6 header ft-bold">
+        <div class=" header ft-bold " style="font-size:1.25rem">
           {{ $t("titles.advanced.sign") }}
         </div>
         <div class="row justify-between ">
-          <OxenField :label="$t('fieldLabels.data')">
+          <OxenField :label="$t('fieldLabels.data')" class="ft-regular">
             <q-input
               v-model.trim="toSign"
               :dark="theme == 'dark'"
@@ -21,7 +21,7 @@
               :placeholder="$t('placeholders.dataToSign')"
             />
           </OxenField>
-          <div class="btn-wrapper q-ml-md  q-py-sm   flex items-end">
+          <div class="btn-wrapper q-ml-md flex items-end">
             <q-btn
               color="primary"
               :label="$t('buttons.sign')"
@@ -33,11 +33,14 @@
           </div>
         </div>
       </div>
-      <div class="verify-heading text-h6 header ft-bold">
+      <div class="verify-heading  header ft-bold " style="font-size:1.25rem">
         {{ $t("titles.advanced.verify") }}
       </div>
       <div class="justify-between items-end">
-        <OxenField class="q-mt-md" :label="$t('fieldLabels.signature')">
+        <OxenField
+          class="q-mt-md ft-regular"
+          :label="$t('fieldLabels.signature')"
+        >
           <q-input
             v-model.trim="signatureToVerify"
             :dark="theme == 'dark'"
@@ -46,7 +49,7 @@
             :placeholder="$t('placeholders.signature')"
           />
         </OxenField>
-        <OxenField class="q-mt-md" :label="$t('fieldLabels.data')">
+        <OxenField class="q-mt-md ft-regular" :label="$t('fieldLabels.data')">
           <q-input
             v-model.trim="unsignedData"
             :dark="theme == 'dark'"
@@ -55,7 +58,10 @@
             :placeholder="$t('placeholders.unsignedData')"
           />
         </OxenField>
-        <OxenField class="q-mt-md" :label="$t('fieldLabels.address')">
+        <OxenField
+          class="q-mt-md ft-regular"
+          :label="$t('fieldLabels.address')"
+        >
           <q-input
             v-model.trim="address"
             :dark="theme == 'dark'"
@@ -66,7 +72,7 @@
         </OxenField>
         <div class="submit-button flex row justify-center">
           <q-btn
-            color="primary"
+            color="primary "
             :label="$t('buttons.verify')"
             :disable="!signatureToVerify || !unsignedData || !address"
             @click="verify()"
@@ -233,6 +239,10 @@ export default {
 
   .oxen-field {
     flex: 1;
+  }
+  .bg-primary {
+    max-width: unset;
+    width: 137px;
   }
 }
 

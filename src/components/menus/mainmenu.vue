@@ -92,7 +92,7 @@
             style="display: flex; align-items: center; justify-content: center"
           >
             <p>
-              <img src="www.svg" height="12" />
+              <img src="www.svg" height="15" />
               <a
                 style="color: #ffffff"
                 href="#"
