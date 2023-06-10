@@ -94,7 +94,8 @@ footer,
 
 // At bottom of forms
 .submit-button {
-    margin-top: 12px;
+    // margin-top: 12px;
+    margin-top: 35px;
 }
 
 .layout-padding {
@@ -411,25 +412,26 @@ footer,
 }
 
 .q-menu {
-    background: #1c1c26;
+    background: $beldex-disable-grey    ;
     color: $oxen-navy !important;
     border-radius: 10px;
-
+   
     * {
         color: $color-white;
     }
 
     .q-list-separator > .q-item-division + .q-item-division, .q-item-division + .q-separator {
         border-top: 1px solid #333;
+       
     }
 }
 
 .menu-list {
 
-    background: $beldex-bgcol;
-
+    background: $beldex-disable-grey; 
     .q-item * {
         color: $color-white;
+    
     }
 }
 
@@ -976,7 +978,7 @@ footer,
 
 .bg-primary:hover
 {
-    background: #35af3b !important;
+    background:#00D409 !important;
 }
 .q-btn--flat
 {
@@ -1010,6 +1012,12 @@ footer,
     height: 50px;
     border-radius: 8px;
 }
+
+.bg-accent:hover{
+    background-color: #484866 !important ;
+
+}
+
 //.q-dialog-plugin
 //{
  //   border-radius: 10px !important;
@@ -1257,7 +1265,13 @@ footer,
 .bg-secondary
 {
     background-color:$beldex-std-blue !important; 
+    
 }
+.bg-secondary:hover{
+    background-color:#478EFF !important; 
+
+   }
+
 
 .q-btn--rectangle {
     border-radius: 10px;
@@ -1408,7 +1422,7 @@ footer,
 
     .send-btn{
         //width: 168px;
-        width: 7.5vw;
+        width: 8vw;
         height: 45px;
         background-color:$beldex-disable-grey;
         border-radius:10px;
@@ -1425,6 +1439,9 @@ footer,
         background-color:$beldex-disable-grey;
 
     }
+    .send-btn:hover, .contact-btn:hover{
+        background-color:#484866;
+    }
    
     .active > .send-btn {
         background-color:$beldex-std-blue;
@@ -1433,6 +1450,9 @@ footer,
             margin-left:5px;
         }
        
+     }
+     .active > .send-btn:hover ,.active >.contact-btn:hover{
+        background-color:#478EFF;
      }
 
      .active >.contact-btn

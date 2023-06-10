@@ -597,8 +597,7 @@ export default {
           color: "primary"
         },
         cancel: {
-          color: "tertiary",
-          flat: true
+          color: "accent"
         },
         color: "white"
       });

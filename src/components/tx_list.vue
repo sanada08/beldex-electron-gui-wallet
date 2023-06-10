@@ -73,7 +73,7 @@
               </q-item-label>
             </q-item-section>
 
-            <q-btn flat class="q-pl-lg flex items-center">
+            <q-btn flat class="q-ml-lg flex items-center">
               <svg
                 width="9"
                 height="13"

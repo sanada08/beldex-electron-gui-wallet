@@ -2,7 +2,7 @@
   <!-- <q-dialog v-model="isVisible" maximized> -->
   <!-- <q-dialog v-model="isVisible" maximized> -->
 
-  <q-layout class="txn-details" style="min-height: unset;">
+  <q-layout class="txn-details" style="min-height: unset">
     <q-header>
       <q-toolbar>
         <!-- <q-btn flat round dense icon="" @click="isVisible = false" /> -->
@@ -20,7 +20,7 @@
             />
           </svg>
         </q-btn>
-        <q-toolbar-title>
+        <q-toolbar-title class="ft-semibold">
           {{ $t("titles.details") }}
         </q-toolbar-title>
         <div class="row items-center q-mr-md txnDirection">
@@ -65,20 +65,21 @@
           </div>
         </div>
         <q-btn
-          class="q-mr-sm"
-          color="primary txnDetails"
+          class="q-mr-sm txnDetails"
+          color="primary"
           :label="$t('buttons.showTxDetails')"
           @click="showTxDetails"
         />
         <q-btn
           v-if="can_open"
+          color="accent"
           class="explorebtn"
           :label="$t('buttons.viewOnExplorer')"
           @click="openExplorer"
         />
       </q-toolbar>
     </q-header>
-    <q-page class="detail-page" style="min-height: unset;">
+    <q-page class="detail-page" style="min-height: unset">
       <div class="layout-padding">
         <!-- <div class="row items-center non-selectable">
           <div class="q-mr-sm">
@@ -123,7 +124,7 @@
         </div> -->
 
         <div class="justify-between" style="margin-top: 72px">
-          <div class="infoBox">
+          <div class="infoBox tx_details_wrapper ft-regular">
             <div class="flex row justify-between">
               <div class="text">
                 <span>{{ $t("strings.transactions.date") }}</span>
@@ -135,9 +136,9 @@
           </div>
           <div class="hr-separator" />
 
-          <div class="infoBox">
+          <div class="infoBox tx_details_wrapper ft-regular">
             <div class="flex row justify-between">
-              <div class="text ft-Medium">
+              <div class="text">
                 <span>{{ $t("strings.transactions.amount") }}</span>
               </div>
               <div class="value">
@@ -148,8 +149,8 @@
           <div class="hr-separator" />
 
           <div class="infoBox">
-            <div class="flex row justify-between">
-              <div class="text ft-Medium">
+            <div class="flex row justify-between tx_details_wrapper ft-regular">
+              <div class="text">
                 <span>
                   {{ $t("strings.transactions.fee") }}
                   <template v-if="tx.type == 'in' || tx.type == 'pool'">
@@ -164,7 +165,7 @@
           </div>
           <div class="hr-separator" />
           <div class="infoBox">
-            <div class="flex row justify-between">
+            <div class="flex row justify-between tx_details_wrapper ft-regular">
               <div class="text">
                 <span>{{ $t("strings.blockHeight") }}</span>
               </div>
@@ -177,11 +178,13 @@
         </div>
 
         <div class="infoBox">
-          <div class="flex row justify-between">
+          <div class="flex row justify-between tx_details_wrapper ft-regular">
             <div class="text">
               <span>{{ $t("strings.transactionID") }}</span>
               <!-- <span>{{ tx.txid }}</span> -->
-              <div class="ft-Light q-mt-xs">{{ tx.txid }}</div>
+              <div class="q-mt-xs value" style="color: #afafbe">
+                {{ tx.txid }}
+              </div>
             </div>
             <div class="value">
               <q-btn
@@ -220,21 +223,24 @@
           {{ tx.payment_id ? tx.payment_id : "N/A" }}
         </p> -->
 
-        <div v-if="tx.type == 'in' || tx.type == 'pool'">
+        <div
+          v-if="tx.type == 'in' || tx.type == 'pool'"
+          class="tx_details_wrapper ft-regular"
+        >
           <q-list no-border>
-            <q-item header class="q-px-none">
+            <q-item header class="q-px-none text">
               {{
                 $t("strings.transactions.sentTo", {
                   type: $t("strings.transactions.types.incoming")
                 })
               }}:
             </q-item>
-            <q-item class="q-px-none">
+            <q-item class="q-px-none value ft-regular">
               <q-item-label>
                 <q-item-label class="non-selectable">{{
                   in_tx_address_used.address_index_text
                 }}</q-item-label>
-                <q-item-label class="monospace ellipsis">{{
+                <q-item-label class="ellipsis" style="color: #afafbe">{{
                   in_tx_address_used.address
                 }}</q-item-label>
               </q-item-label>
@@ -263,7 +269,7 @@
               >
                 <q-item-label>
                   <q-item-label>{{ destination.name }}</q-item-label>
-                  <q-item-label class="monospace ellipsis">{{
+                  <q-item-label class="ellipsis">{{
                     destination.address
                   }}</q-item-label>
                   <q-item-label
@@ -287,10 +293,42 @@
             </template>
           </q-list>
         </div>
-        <div class="label-txnNotes">
+
+        <div class="hr-separator" />
+
+        <div class="label-txnNotes ft-regular" style="font-size: 18px">
           {{ $t("fieldLabels.transactionNotes") }}
         </div>
-        <q-input v-model="txNotes" type="textarea" rows="2" dense />
+        <div
+          v-if="editNotes"
+          class="txnoteInput-Wrapper q-mt-sm q-mb-xl q-px-md"
+        >
+          <q-input
+            v-model="txNotes"
+            type="textarea"
+            rows="2"
+            dense
+            borderless
+          />
+        </div>
+
+        <div v-else class="flex row justify-between q-mt-sm q-mb-xl">
+          <div class="col-md-8 txn-notes">
+            {{
+              txNotes
+                ? txNotes
+                : `The notes are saved to remark the details about the transaction.
+                 You can change this by hitting edit note.`
+            }}
+          </div>
+          <div class="col-md-2">
+            <q-btn
+              color="secondary"
+              label="Edit Notes"
+              @click="() => (this.editNotes = true)"
+            />
+          </div>
+        </div>
 
         <div class="flex row justify-center">
           <q-btn
@@ -329,6 +367,7 @@ export default {
     return {
       isVisible: false,
       txNotes: "",
+      editNotes: false,
       // tx: {
       //   address: "",
       //   amount: 0,
@@ -441,6 +480,7 @@ export default {
         txid: this.tx.txid,
         note: this.txNotes
       });
+      this.editNotes = false;
     },
     formatDate(timestamp) {
       return date.formatDate(timestamp, "YYYY-MM-DD hh:mm a");
@@ -460,6 +500,14 @@ export default {
 <style lang="scss">
 .txn-details {
   background-color: unset;
+  .tx_details_wrapper {
+    .text {
+      font-size: 18px;
+    }
+    .value {
+      font-size: 16px;
+    }
+  }
   .txnDirection {
     font-size: 13px;
     color: #d1d1d3;
@@ -469,12 +517,19 @@ export default {
     padding: unset;
   }
   .txnDetails {
-    height: 45px;
+    min-width: unset;
+    width: 130px;
+    height: 43px;
+    font-size: 1rem;
+  }
+  .txn-notes {
+    color: #afafbe;
   }
   .explorebtn {
-    height: 45px;
-    background-color: #32324a;
+    height: 43px;
+    font-size: 1rem;
   }
+
   .q-header {
     background-color: transparent;
     border: none;
@@ -482,19 +537,9 @@ export default {
   .q-header .q-toolbar__title {
     background: unset !important;
   }
-
-  .q-field--standard .q-field__control:before {
-    border-bottom: unset;
-    transition: unset;
-    border-top: 1px solid #484856;
-    border-left: 1px solid #484856;
-    border-right: 1px solid #484856;
-  }
-  .q-field--focused,
-  .q-field--highlighted {
-    border-bottom: unset;
-    transition: unset;
-    border-radius: 20px;
+  .txnoteInput-Wrapper {
+    border: 1px solid #484856;
+    border-radius: 10px;
   }
 
   .label-txnNotes {

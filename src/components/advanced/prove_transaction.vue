@@ -47,7 +47,7 @@
             dense
           />
         </OxenField>
-        <div class="buttons submit-button flex justify-center">
+        <div class="buttons submit-button flex justify-center q-mt-lg">
           <q-btn
             color="primary"
             :label="$t('buttons.generate')"
