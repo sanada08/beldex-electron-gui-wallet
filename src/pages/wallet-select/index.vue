@@ -8,7 +8,7 @@
     >
       <div
         v-if="backbtn"
-        class="flex items-center back-btn-box "
+        class="flex items-center back-btn-box"
         @click="backbtn = false"
       >
         <qbtn flat>
@@ -28,7 +28,10 @@
         <span>Back</span>
       </div>
 
-      <div class="justify-center items-center registrationBox">
+      <div
+        class="justify-center items-center registrationBox"
+        :style="!wallets.list.length || backbtn ? '' : 'width:85%;height:80%'"
+      >
         <section v-if="!wallets.list.length || backbtn">
           <div class="p-absolute">
             <div class="coin-position-left">
@@ -48,7 +51,10 @@
             </div>
           </div>
           <!-- <div class="hr-separator" /> -->
-          <section class="content-box">
+          <section
+            class="content-box"
+            :style="!wallets.list.length || backbtn ? '' : 'height:75%'"
+          >
             <q-item
               v-for="wallet in wallets.list"
               :key="`${wallet.address}-${wallet.name}`"
@@ -87,7 +93,7 @@
                     </g>
                   </g>
                 </svg>
-              </q-icon> -->
+              </q-icon>-->
               <!-- </q-item-section> -->
               <!-- <q-item-section class="flex column">
               <q-item-label class="wallet-name ft-bold" caption>{{
@@ -96,7 +102,7 @@
               <q-item-label class="monospace ellipsis" caption>{{
                 wallet.address
               }}</q-item-label>
-            </q-item-section> -->
+              </q-item-section>-->
               <article>
                 <div class="wallet-name ft-bold">{{ wallet.name }}</div>
                 <div class="address-txt ellipsis ft-regular q-mb-xs">
@@ -133,10 +139,10 @@
                   </q-item>
                 </q-list>
               </q-menu>
-            </q-btn> -->
+          </q-btn>-->
           <div
             v-if="wallets.list.length && !backbtn"
-            class="flex justify-center "
+            class="flex justify-center q-mt-lg"
           >
             <q-btn
               class="add"
@@ -172,7 +178,7 @@
            
             {{ action.name }}
           </q-item-section>
-        </q-item> -->
+          </q-item>-->
         </template>
       </div>
     </q-list>
@@ -364,7 +370,7 @@ export default {
     min-height: 36px;
 
     .header-title {
-      font-size: 36px;
+      font-size: 33px;
     }
 
     .add {

@@ -7,9 +7,9 @@
       :dark="theme == 'dark'"
       class="oxen-list"
     >
-      <q-item-label header class="list-header text-center ft-semibold ">{{
-        $t("strings.addresses.primaryAccount")
-      }}</q-item-label>
+      <q-item-label header class="list-header text-center ft-semibold "
+        >{{ $t("strings.addresses.primaryAccount") }}
+      </q-item-label>
       <!-- <ReceiveItem
         v-for="address in address_list.primary"
         :key="address.address"
@@ -20,24 +20,25 @@
         :copy-address="copyAddress"
         :details="details"
         white-q-r-icon
-      /> -->
-      <article class="flex  justify-center align-center">
+      />-->
+      <article class="flex justify-center align-center">
         <div
           style="border: 11px solid #1F1F28;display:inline-block;border-radius: 20px; "
         >
           <div class="text-center qr-card">
-            <QrcodeVue ref="qr" :value="address" size="100"> </QrcodeVue>
+            <QrcodeVue ref="qr" :value="address" size="100"></QrcodeVue>
           </div>
         </div>
       </article>
       <article
-        class="copy-btn flex justify-center align-center q-mt-sm q-mb-lg "
+        class="copy-btn flex justify-center align-center q-mt-sm q-mb-lg"
       >
         <q-btn
+          style="border-radius:6px;"
           color="primary"
           :label="$t('dialog.copyAddress.title')"
           icon="content_copy"
-          padding="sm"
+          padding="md"
           class="q-px-md"
           @click="copyAddress"
         />
@@ -45,7 +46,7 @@
       <div class="hr-separator" />
 
       <template v-if="address_list.used.length">
-        <q-item-label header class="list-header ft-medium">
+        <q-item-label header class="list-header">
           {{ $t("strings.addresses.myUsedAddresses") }}
         </q-item-label>
 
@@ -68,10 +69,9 @@
       </template>
 
       <template v-if="address_list.unused.length">
-        <q-item-label header class="list-header ft-medium">
-          <!-- {{ $t("strings.addresses.myUnusedAddresses") }} -->
-          Unused Address
-        </q-item-label>
+        <q-item-label header class="list-header">{{
+          $t("strings.addresses.myUnusedAddresses")
+        }}</q-item-label>
         <ReceiveItem
           v-for="address in address_list.unused"
           :key="address.address"
@@ -102,7 +102,7 @@
       <q-dialog v-model="QR.visible" :content-class="'qr-code-modal'">
         <q-card class="qr-code-card">
           <div class="text-center q-mb-sm q-pa-md" style="background: white;">
-            <QrcodeVue ref="qr" :value="QR.address" size="240"> </QrcodeVue>
+            <QrcodeVue ref="qr" :value="QR.address" size="240"></QrcodeVue>
             <ContextMenu
               :menu-items="menuItems"
               @copyQR="copyQR()"

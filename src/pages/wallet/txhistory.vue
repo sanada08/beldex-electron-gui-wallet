@@ -30,7 +30,7 @@
           {{ $t("titles.transactions") }}
         </div>
         <section class="searchBox flex row col-8">
-          <article class="flex row items-center col-9">
+          <article class="flex row items-center col-10">
             <div class="col-1 filter-txt ft-semibold">
               {{ $t("fieldLabels.filter") }}
             </div>
@@ -44,7 +44,7 @@
             </OxenField>
           </article>
 
-          <OxenField class="col-3">
+          <OxenField class="col-2">
             <q-select
               v-model="tx_type"
               :options="tx_type_options"

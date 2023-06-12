@@ -52,9 +52,18 @@
         <!-- Address -->
         <div class="col q-mt-sm address">
           <article class="flex justify-between align-center labelBox">
-            <div class="label-txt  ft-medium">
+            <div
+              class="label-txt ft-medium"
+              style="display: flex;
+    align-items: center;"
+            >
               {{ $t("fieldLabels.to") }}
-              <q-icon name="o_info" size="12px" color="#A9A9CD" />
+              <q-icon
+                style="margin-left: 4px;"
+                name="o_info"
+                size="12px"
+                color="#A9A9CD"
+              />
             </div>
             <q-btn @click="navigator">
               <svg
