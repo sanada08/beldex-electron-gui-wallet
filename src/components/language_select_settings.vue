@@ -47,6 +47,7 @@ import { languages } from "src/i18n";
 
 export default {
   name: "LanguageSelect",
+
   computed: {
     pending_config: state => state.gateway.app.pending_config,
     lang() {

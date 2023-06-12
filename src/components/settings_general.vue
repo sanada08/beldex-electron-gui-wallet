@@ -182,7 +182,7 @@
 
     <q-expansion-item
       expand-separator
-      header-class="q-mt-md non-selectable row advanced-options-label"
+      header-class="q-mt-md q-px-md non-selectable row advanced-options-label"
       :label="$t('strings.advancedOptions')"
     >
       <div class="row pl-sm q-mt-sm">
@@ -533,7 +533,9 @@ export default {
 
 <style lang="scss">
 .settings-general {
-  width: 65vw;
+  width: 69vw;
+  max-height: 695px;
+  overflow-y: auto;
   .q-field {
     margin: 20px 0;
   }
@@ -568,11 +570,6 @@ export default {
     display: inline-block;
   }
 
-  .q-item,
-  .q-collapsible-sub-item {
-    padding: 0;
-  }
-
   .row.pl-sm {
     > * + * {
       padding-left: 16px;
@@ -587,6 +584,10 @@ export default {
 
   .remote-dropdown {
     padding: 0 !important;
+  }
+  .q-item {
+    background-color: #32324a;
+    border-radius: 10px;
   }
 }
 </style>

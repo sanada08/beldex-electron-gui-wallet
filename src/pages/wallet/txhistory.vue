@@ -52,7 +52,8 @@
               dense
               emit-value
               map-options
-              class="ft-semibold"
+              class="ft-semibold "
+              popup-content-class="txn-option"
             />
           </OxenField>
         </section>
@@ -166,5 +167,9 @@ export default {
 }
 .hint-txt {
   color: #82828d;
+}
+.txn-option {
+  width: 175px;
+  font-family: "Poppins-Regular";
 }
 </style>

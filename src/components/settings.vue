@@ -1,6 +1,24 @@
 <template>
   <q-dialog v-model="isVisible" maximized>
     <q-layout class="settings-modal">
+      <q-header>
+        <!-- <MainMenu /> -->
+        <q-toolbar>
+          <div>
+            <img src="../assets/images/Logo.png" />
+          </div>
+          <div class="main-title">
+            <span class="green q-mr-xs">Beldex </span>
+            <span>Electron Wallet</span>
+          </div>
+          <!-- <div class="flex items-center justify-center" style="margin:9px">
+          <img src="beldex.png" height="32" />
+          welcome
+        </div>-->
+
+          <MainMenu disable-settings="true" />
+        </q-toolbar>
+      </q-header>
       <!-- <q-header>
         <q-toolbar color="dark" inverted>
           <q-btn flat round dense icon="reply" @click="isVisible = false" />
@@ -255,11 +273,14 @@
 import { mapState } from "vuex";
 import SettingsGeneral from "components/settings_general";
 import LanguageSelect from "components/language_select_settings";
+import MainMenu from "components/menus/mainmenu";
+
 export default {
   name: "SettingsModal",
   components: {
     LanguageSelect,
-    SettingsGeneral
+    SettingsGeneral,
+    MainMenu
   },
   data() {
     return {
@@ -320,11 +341,12 @@ export default {
             color: "negative"
           },
           cancel: {
-            label: "Close",
+            label: "cancel",
             // color: this.theme == "dark" ? "white" : "dark"
             color: "accent"
           },
-          dark: this.theme === "dark"
+          dark: this.theme === "dark",
+          style: "width: 657px;padding:20px;"
         })
         .onOk(() => {
           this.$q
@@ -380,11 +402,11 @@ export default {
 
   // }
   .rectangleBox {
-    margin: 23px AUTO 0;
-    height: 95vh;
+    margin: 90px AUTO 0;
   }
+
   .right-header {
-    margin: 22px auto 0px 25px;
+    margin: 90px auto 0px 25px;
     color: white;
     align-items: center;
   }
@@ -392,7 +414,8 @@ export default {
     overflow: auto;
     margin: 5px auto 0px;
     width: 96%;
-    height: 89.3vh;
+    height: 82vh;
+    overflow-y: hidden;
   }
   .routering {
     .selected {

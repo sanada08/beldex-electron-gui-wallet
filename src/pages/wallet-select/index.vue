@@ -1,8 +1,8 @@
 <template>
-  <q-page style="min-height: unset; height: 800px;" class="registration-View">
+  <q-page style="min-height: unset; height: 800px" class="registration-View">
     <q-list
       class="wallet-list beldex-theme d-flex-center column"
-      style="height:100%"
+      style="height: 100%"
       no-border
       :dark="theme == 'dark'"
     >
@@ -142,7 +142,7 @@
           </q-btn>-->
           <div
             v-if="wallets.list.length && !backbtn"
-            class="flex justify-center q-mt-lg"
+            class="flex justify-center"
           >
             <q-btn
               class="add"
@@ -292,7 +292,8 @@ export default {
               label: this.$t("dialog.buttons.cancel")
             },
             color: "accent",
-            persistent: true
+            persistent: true,
+            style: "min-width: 500px; padding:30px;"
           })
           .onOk(password => {
             this.$q.loading.show({
@@ -364,6 +365,19 @@ export default {
     font-size: 3rem;
   }
 
+  .add {
+    width: 38px;
+    padding: 0;
+    margin-top: 10px;
+
+    .on-right {
+      margin-left: 3px;
+    }
+    .q-icon,
+    .q-btn .q-spinner {
+      font-size: 1.4em;
+    }
+  }
   .header {
     margin: 0 16px;
     padding: 6px;
@@ -371,12 +385,6 @@ export default {
 
     .header-title {
       font-size: 33px;
-    }
-
-    .add {
-      width: 38px;
-      padding: 0;
-      margin-top: 20px;
     }
   }
   .wallet-name {

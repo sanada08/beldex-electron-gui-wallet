@@ -24,7 +24,7 @@ export default {
     importWallet: "Import Wallet | IMPORT WALLETS",
     bns: "BELDEX NAME SERVICE",
 
-    min: "MIN",
+    min: "Min",
     next: "Next",
     openWallet: "OPEN WALLET",
     purchase: "PURCHASE",
@@ -144,7 +144,7 @@ export default {
     showPrivateKeys: {
       title: "Show private keys",
       message: "Do you want to view your private keys?",
-      ok: "SHOW"
+      ok: "Show"
     },
     signature: {
       title: "Signature",
@@ -177,12 +177,12 @@ export default {
     },
     transactionDetails: {
       title: "Transaction details",
-      ok: "CLOSE"
+      ok: "Close"
     },
     transfer: {
       title: "Transfer",
       message: "Do you want to send the transaction?",
-      ok: "SEND"
+      ok: "Send"
     },
     confirmTransaction: {
       title: "Confirm transaction",
@@ -191,19 +191,19 @@ export default {
     },
     unlockConfirm: {
       title: "Confirm unlock",
-      ok: "UNLOCK"
+      ok: "Unlock"
     },
     unlockMasterNode: {
       title: "Unlock master node",
       confirmTitle: "Confirm unlock",
       message: "Do you want to unlock the master node?",
-      ok: "UNLOCK"
+      ok: "Unlock"
     },
     unlockMasterNodeWarning: {
       title: "Unlock master node warning",
       message:
         "Unlocking a partial stake in a node will also unstake for any other participants, if staking in a shared node its best to let the operator and other participants know you are unstaking.",
-      ok: "CONTINUE"
+      ok: "Continue"
     }
   },
   fieldLabels: {
@@ -247,8 +247,8 @@ export default {
     restoreFromBlockHeight: "RESTORE FROM BLOCK HEIGHT",
     restoreFromDate: "Restore from Date",
     seedLanguage: "Seed Language",
-    masterNodeCommand: "MASTER NODE COMMAND",
-    masterNodeKey: "MASTER NODE KEY",
+    masterNodeCommand: "Master node command",
+    masterNodeKey: "Master node Key",
     bchatId: "BCHAT ID",
     signature: "Signature",
     transactionId: "Transaction Id",

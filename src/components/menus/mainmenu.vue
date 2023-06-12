@@ -13,7 +13,12 @@
               $t("menuItems.switchWallet")
             }}</q-item-label>
           </q-item>
-          <q-item v-close-popup clickable @click.native="openSettings">
+          <q-item
+            v-if="!disableSettings"
+            v-close-popup
+            clickable
+            @click.native="openSettings"
+          >
             <q-item-label header>{{ $t("menuItems.settings") }}</q-item-label>
           </q-item>
           <q-item v-close-popup clickable @click.native="showAbout(true)">
@@ -126,6 +131,11 @@ export default {
   },
   props: {
     disableSwitchWallet: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    disableSettings: {
       type: Boolean,
       required: false,
       default: false
