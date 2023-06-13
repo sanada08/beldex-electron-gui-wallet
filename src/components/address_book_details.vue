@@ -91,6 +91,7 @@
             color="accent"
             no-ripple
             :label="$t('buttons.cancel')"
+            class="res_btn"
             @click="openCancelPopUp()"
           />
           <q-btn

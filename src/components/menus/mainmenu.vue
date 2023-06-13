@@ -93,18 +93,14 @@
               >
             </p>
           </div>
-          <div
-            style="display: flex; align-items: center; justify-content: center"
-          >
-            <p>
-              <img src="www.svg" height="15" />
-              <a
-                style="color: #ffffff"
-                href="#"
-                @click="openExternal('https://beldex.io')"
-                >beldex.io</a
-              >
-            </p>
+          <div class="flex row justify-center items-center q-mb-md">
+            <img src="www.svg" height="15" />
+            <a
+              style="color: #ffffff"
+              href="#"
+              @click="openExternal('https://beldex.io')"
+              >beldex.io</a
+            >
           </div>
           <div style="display: flex; justify-content: center">
             <q-btn
@@ -230,6 +226,7 @@ export default {
 
   a {
     margin-right: 10px;
+    text-decoration: none;
   }
   img {
     margin-right: 5px;

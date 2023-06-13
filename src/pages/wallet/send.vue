@@ -7,7 +7,7 @@
     </template>
     <template v-else>
       <div v-if="!contact" style="padding: 0px 2px">
-        <div class="row gutter-md">
+        <div class="row gutter-md q-mt-lg">
           <!-- Amount -->
           <div class="col-8 amount">
             <OxenField
@@ -50,12 +50,12 @@
         </div>
 
         <!-- Address -->
-        <div class="col q-mt-sm address">
+        <div class="col q-mt-lg address">
           <article class="flex justify-between align-center labelBox">
             <div
               class="label-txt ft-medium"
               style="display: flex;
-    align-items: center;"
+             align-items: center;"
             >
               {{ $t("fieldLabels.to") }}
               <q-icon
@@ -98,13 +98,13 @@
           v-model="newTx.address_book.save"
           :label="$t('strings.saveToAddressBook')"
         /> -->
-        <div class="addAddress q-py-sm" @click="newTx.address_book.save">
+        <div class="addAddress q-pt-sm" @click="newTx.address_book.save">
           + Add to Address book
         </div>
         <!-- Notes -->
         <!-- placeholder="$t('placeholders.transactionNotes')" -->
 
-        <div class="col q-mt-sm">
+        <div class="col q-mt-lg">
           <OxenField :label="$t('fieldLabels.notes')" class="ft-medium">
             <q-input
               v-model="newTx.note"
@@ -126,7 +126,7 @@
               dense
             />
           </OxenField>
-          <OxenField class="q-mt-sm" :label="$t('fieldLabels.notes')" optional>
+          <OxenField class="q-mt-lg" :label="$t('fieldLabels.notes')" optional>
             <q-input
               v-model="newTx.address_book.description"
               type="textarea"
@@ -504,6 +504,9 @@ export default {
   }
   .q-btn__wrapper {
     min-height: unset;
+  }
+  .oxen-field .content {
+    min-height: 90px;
   }
 }
 .addAddress {

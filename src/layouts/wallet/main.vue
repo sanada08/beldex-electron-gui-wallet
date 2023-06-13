@@ -114,8 +114,8 @@
           <article class="p-relative">
             <div class="version ft-regular">
               <svg
-                width="22"
-                height="22"
+                width="18"
+                height="18"
                 viewBox="0 0 26 26"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -342,7 +342,7 @@ export default {
   span {
     color: #77778b;
     font-family: "Poppins-Medium";
-    font-size: 22px;
+    font-size: 18px;
     margin-left: 10px;
   }
 }

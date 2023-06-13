@@ -224,7 +224,7 @@ export default {
 
   .oxen-list-item {
     cursor: pointer;
-
+    border: none;
     .q-item-section {
       display: flex;
       justify-content: center;

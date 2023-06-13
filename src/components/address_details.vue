@@ -125,7 +125,7 @@
                 <div class="flex row justify-between q-mt-md">
                   <!-- <div class="infoBox">
                     <div class="infoBoxContent"> -->
-                  <div>
+                  <div class="col-sm-5">
                     <div class="ft-medium label">
                       <span>{{ $t("strings.oxenUnlockedBalance") }}</span>
                     </div>
@@ -137,7 +137,7 @@
 
                   <!-- <div class="infoBox">
                     <div class="infoBoxContent"> -->
-                  <div>
+                  <div class="col-sm-5">
                     <div class="ft-medium label">
                       <!-- <span>{{ $t("strings.numberOfUnspentOutputs") }}</span> -->
                       <span>Unspent Outputs</span>

@@ -24,13 +24,15 @@
     </template>
     <section v-else-if="this.tx_list.length !== 0 && !this.txnDetails">
       <div
-        class="row q-pt-sm q-ml-md q-mb-sm items-center flex color-white justify-between"
+        class="row q-pt-sm q-ml-md q-mb-lg items-center flex color-white justify-between"
       >
-        <div class="col-2 ft-semibold txn-title">
+        <div class="ft-semibold txn-title">
           {{ $t("titles.transactions") }}
         </div>
-        <section class="searchBox flex row col-8">
-          <article class="flex row items-center col-10">
+        <!-- <section class="searchBox flex row col-8">
+          <article class="flex row items-center col-10"> -->
+        <section class="searchBox flex row">
+          <article class="flex row items-center">
             <div class="col-1 filter-txt ft-semibold">
               {{ $t("fieldLabels.filter") }}
             </div>
@@ -44,7 +46,8 @@
             </OxenField>
           </article>
 
-          <OxenField class="col-2">
+          <!-- <OxenField class="col-2"> -->
+          <OxenField>
             <q-select
               v-model="tx_type"
               :options="tx_type_options"
@@ -52,12 +55,14 @@
               dense
               emit-value
               map-options
-              class="ft-semibold "
+              class="ft-semibold q-pl-sm"
               popup-content-class="txn-option"
+              dropdown-icon="tune"
             />
           </OxenField>
         </section>
       </div>
+
       <TxList
         :type="tx_type"
         :filter="tx_filter"
@@ -146,6 +151,11 @@ export default {
 </script>
 
 <style lang="scss">
+.transactionBox {
+  .q-select__dropdown-icon {
+    font-size: 20px;
+  }
+}
 .color-white {
   color: white;
 }
