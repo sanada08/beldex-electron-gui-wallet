@@ -231,7 +231,7 @@
             />
           </div>
 
-          <div class="q-mt-xl text-right">
+          <div class="q-my-lg text-right">
             <q-btn
               class="q-mr-sm"
               color="accent"
