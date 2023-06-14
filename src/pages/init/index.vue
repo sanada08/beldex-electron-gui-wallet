@@ -4,9 +4,9 @@
       <div class="absolute-center">
         <img src="beldex.png" width="400" class="q-mb-md" />
 
-        <div class="startup-icons q-mt-xl q-mb-lg">
+        <div class="startup-icon flex justify-center items-center ">
           <div ref="backend">
-            <svg
+            <!-- <svg
               width="64"
               viewBox="0 0 17 16"
               version="1.1"
@@ -21,9 +21,11 @@
                   class="si-glyph-fill"
                 ></path>
               </g>
-            </svg>
+            </svg> -->
+            <!-- <img :src="`../../assets/images/${this.imageName}.gif`"  width="400px"/> -->
+            <img :src="this.imageName" width="250px" />
           </div>
-          <div ref="settings">
+          <!-- <div ref="settings">
             <svg
               width="64"
               viewBox="0 0 17 17"
@@ -129,12 +131,12 @@
                 </g>
               </g>
             </svg>
-          </div>
+          </div> -->
         </div>
 
-        <div class="message">
+        <!-- <div class="message">
           {{ message }}
-        </div>
+        </div> -->
 
         <div v-if="daemonStatus" class="q-mt-xs">
           {{ $t("strings.syncingDaemon") }}: {{ daemonStatus }}
@@ -154,7 +156,8 @@ export default {
   data() {
     return {
       message: "",
-      version: ""
+      version: "",
+      imageName: require("../../assets/images/Reading_wallet_list.gif")
     };
   },
   computed: mapState({
@@ -202,25 +205,30 @@ export default {
           this.$router.replace({ path: "wallet-select" });
           break;
         case 1:
-          this.message = this.$t("strings.connectingToBackend");
-          this.$refs.backend.className = "pulse";
-          this.$refs.settings.className = "grey";
-          this.$refs.daemon.className = "grey";
-          this.$refs.wallet.className = "grey";
+          // this.message = this.$t("strings.connectingToBackend");
+          this.imageName = require("../../assets/images/Connecting_to_backend.gif");
+          // this.$refs.backend.className = "pulse";
+          // this.$refs.settings.className = "grey";
+          // this.$refs.daemon.className = "grey";
+          // this.$refs.wallet.className = "grey";
           break;
         case 2:
-          this.message = this.$t("strings.loadingSettings");
-          this.$refs.backend.className = "solid";
-          this.$refs.settings.className = "pulse";
-          this.$refs.daemon.className = "grey";
-          this.$refs.wallet.className = "grey";
+          // this.message = this.$t("strings.loadingSettings");
+          this.imageName = require("../../assets/images/Starting_daemon.gif");
+
+          // this.$refs.backend.className = "solid";
+          // this.$refs.settings.className = "pulse";
+          // this.$refs.daemon.className = "grey";
+          // this.$refs.wallet.className = "grey";
           break;
         case 3:
-          this.message = this.$t("strings.startingDaemon");
-          this.$refs.backend.className = "solid";
-          this.$refs.settings.className = "solid";
-          this.$refs.daemon.className = "pulse";
-          this.$refs.wallet.className = "grey";
+          // this.message = this.$t("strings.startingDaemon");
+          this.imageName = require("../../assets/images/Starting_daemon.gif");
+
+          // this.$refs.backend.className = "solid";
+          // this.$refs.settings.className = "solid";
+          // this.$refs.daemon.className = "pulse";
+          // this.$refs.wallet.className = "grey";
           break;
         case 4:
           this.version = this.status.message;
@@ -234,18 +242,22 @@ export default {
           });
           break;
         case 6:
-          this.message = this.$t("strings.startingWallet");
-          this.$refs.backend.className = "solid";
-          this.$refs.settings.className = "solid";
-          this.$refs.daemon.className = "solid";
-          this.$refs.wallet.className = "pulse";
+          // this.message = this.$t("strings.startingWallet");
+          this.imageName = require("../../assets/images/starting_wallet.gif");
+
+          // this.$refs.backend.className = "solid";
+          // this.$refs.settings.className = "solid";
+          // this.$refs.daemon.className = "solid";
+          // this.$refs.wallet.className = "pulse";
           break;
         case 7:
-          this.message = this.$t("strings.readingWalletList");
-          this.$refs.backend.className = "solid";
-          this.$refs.settings.className = "solid";
-          this.$refs.daemon.className = "solid";
-          this.$refs.wallet.className = "solid";
+          // this.message = this.$t("strings.readingWalletList");
+          this.imageName = require("../../assets/images/Reading_wallet_list.gif");
+
+          // this.$refs.backend.className = "solid";
+          // this.$refs.settings.className = "solid";
+          // this.$refs.daemon.className = "solid";
+          // this.$refs.wallet.className = "solid";
           break;
       }
     }

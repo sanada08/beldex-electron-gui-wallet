@@ -25,7 +25,7 @@
             :key="option.value"
             :class="
               `row justify-start items-center lang-btn ft-medium ${
-                lang === option.value ? 'selected-btn' : 'unselected-btn'
+                langSelect === option.value ? 'selected-btn' : 'unselected-btn'
               }`
             "
             @click="setLanguage(option.value)"
@@ -47,7 +47,11 @@ import { languages } from "src/i18n";
 
 export default {
   name: "LanguageSelect",
-
+  data() {
+    return {
+      langSelect: this.$i18n.locale
+    };
+  },
   computed: {
     pending_config: state => state.gateway.app.pending_config,
     lang() {
@@ -70,12 +74,18 @@ export default {
   },
   methods: {
     save() {
+      const lang = this.langSelect;
+
+      this.$gateway.send("core", "set_language", { lang });
+      this.$emit("select", lang);
+
       this.$gateway.send("core", "save_config", this.pending_config);
       this.isVisible = false;
     },
     setLanguage(lang) {
-      this.$gateway.send("core", "set_language", { lang });
-      this.$emit("select", lang);
+      this.langSelect = lang;
+      // this.$gateway.send("core", "set_language", { lang });
+      // this.$emit("select", lang);
     }
   }
 };

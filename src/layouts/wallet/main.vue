@@ -111,7 +111,7 @@
             </article>
           </router-link>
 
-          <article class="p-relative">
+          <article class="version-wrapper ">
             <div class="version ft-regular">
               <svg
                 width="18"
@@ -127,7 +127,7 @@
                 />
               </svg>
 
-              <span>Version {{ this.version }}</span>
+              <span>Version {{ version }}</span>
             </div>
           </article>
         </section>
@@ -145,7 +145,7 @@
               <p>
                 <a
                   href="#"
-                  style="text-decoration:none"
+                  style="text-decoration: none"
                   @click="
                     openExternal('https://beldex.io/index.html#beldex-wallets')
                   "
@@ -157,7 +157,7 @@
                   padding="xs"
                   size="sm"
                   icon="file_copy"
-                  style="margin-left:8px;"
+                  style="margin-left: 8px"
                   @click="copyAddress"
                 />
               </p>
@@ -224,7 +224,7 @@
             <router-view />
           </keep-alive>
         </div>
-        <div class="footer ">
+        <div class="footer">
           <StatusFooter />
         </div>
       </div>
@@ -257,6 +257,9 @@ export default {
     WalletDetails,
     RightPane
   },
+  data() {
+    return { version };
+  },
   computed: mapState({
     theme: state => state.gateway.app.config.appearance.theme,
     info: state => state.gateway.wallet.info,
@@ -267,7 +270,6 @@ export default {
   }),
   mounted() {
     this.update_required == true ? this.showAbout() : "";
-    this.version = version;
   },
 
   methods: {
@@ -328,24 +330,26 @@ export default {
     }
   }
 }
-.p-relative {
-  position: relative;
-}
-.version {
-  position: absolute;
-  bottom: -458px;
-  width: 276px;
-  display: flex;
-  align-items: center;
-  margin-left: 20px;
 
-  span {
-    color: #77778b;
-    font-family: "Poppins-Medium";
-    font-size: 18px;
-    margin-left: 10px;
+.version-wrapper {
+  height: 58%;
+  /* background-color: aliceblue; */
+  display: flex;
+  align-items: flex-end;
+  .version {
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
+
+    span {
+      color: #77778b;
+      font-family: "Poppins-Medium";
+      font-size: 18px;
+      margin-left: 10px;
+    }
   }
 }
+
 .footer {
   .fixed-bottom,
   .absolute-bottom {
