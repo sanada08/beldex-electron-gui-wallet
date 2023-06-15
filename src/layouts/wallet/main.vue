@@ -71,7 +71,7 @@
             </article>
           </router-link>
 
-          <article
+          <!-- <article
             class="flex row alignItem-center justify-between menuList selected"
           >
             <div class="flex row align-center justify-center a-center">
@@ -89,7 +89,7 @@
               <span>Swap</span>
             </div>
             <q-icon name="chevron_right" size="24px" />
-          </article>
+          </article> -->
           <router-link to="/wallet/advanced">
             <article
               class="flex row alignItem-center justify-between menuList selected"

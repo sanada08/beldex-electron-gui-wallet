@@ -523,6 +523,7 @@ export default {
       createNew: "Criar nova carteira",
       createdOrRestored: "Carteira criada/restaurada",
       importFromFile: "Importar carteira a partir de ficheiro",
+      useExistingWallet: "Use Existing Wallet",
       importFromLegacyGUI:
         "Importar carteira a partir da antiga carteira GUI (legado)",
       importFromOldGUI: "Importar carteira a partir da antiga carteira GUI",

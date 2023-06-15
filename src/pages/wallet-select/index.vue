@@ -156,11 +156,11 @@
         </template>
         <template v-else>
           <div class="btn-spliter">
-            <button class="btn create-btn" @click="this.createNewWallet">
-              {{ this.$t("titles.wallet.createNew") }}
-            </button>
             <button class="btn login-btn" @click="this.restoreWallet">
               {{ this.$t("titles.wallet.restoreFromSeed") }}
+            </button>
+            <button class="btn create-btn" @click="this.createNewWallet">
+              {{ this.$t("titles.wallet.createNewWallet") }}
             </button>
           </div>
           <div class="import-btn-box">
