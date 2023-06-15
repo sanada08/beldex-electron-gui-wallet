@@ -2,30 +2,37 @@ export default {
   buttons: {
     // All button text is uppercased in the gui
     advanced: "ADVANCED",
+    addAddressBook: "Ajouter au carnet d'adresses",
     all: "TOUT",
     back: "RETOUR",
     browse: "NAVIGUER",
     cancel: "ANNULER",
     change: "CHANGER",
-    check: "CHECK",
-    clear: "CLEAR",
+    check: "Vérifier",
+    clear: "clear",
     close: "FERMER",
     contacts: "CONTACTS",
+    copy: "copie",
     copyAddress: "ADRESSE DE COPIE",
     copySignature: "COPY SIGNATURE",
     createWallet: "CRÉER UN PORTEFEUILLE",
     delete: "SUPPRIMER",
     edit: "MODIFIER",
+    editNotes: "Modifier les notes",
+
     export: "EXPORTER",
-    generate: "GENERATE",
+    generate: "Générer",
     import: "IMPORTER",
     importWallet: "IMPORTER UN PORTEFEUILLE | IMPORTER DES PORTEFEUILLE",
+    min: "min",
+    max: "Max",
     next: "SUIVANT",
     openWallet: "OUVRIR LE PORTEFEUILLE",
     receive: "RECEVOIR",
     registerMasterNode: "ENREGISTRER UN NOEUD DE MASTER",
     rescan: "RÉANALYSER",
     restoreWallet: "RESTAURER LE PORTEFEUILLE",
+    refresh: "Rafraîchir",
     save: "SAUVEGARDER",
     saveTxNotes: "SAUVEGARDER LES NOTES DE TRANSACTION",
     selectLocation: "SÉLECTIONNEZ L'EMPLACEMENT",
@@ -35,7 +42,7 @@ export default {
     masterNode: "NOEUD DE MASTER",
     settings: "RÉGLAGES",
     showQRCode: "AFFICHER LE QR CODE",
-    showTxDetails: "AFFICHER LES DETAILS DE TRANSACTION",
+    showTxDetails: "Détails TXN",
     stake: "STAKE",
     sweepAll: "TOUT BALAYER",
     unlock: "UNLOCK",
@@ -177,7 +184,8 @@ export default {
     daemonLogLevel: "NIVEAU D'IMPORTANCE DU DÉMON",
     daemonP2pPort: "PORT P2P DU DÉMON",
     dataStoragePath: "CHEMIN DE STOCKAGE DE DONNÉES",
-    filter: "FILTER",
+    data: "Data",
+    filter: "Filter",
     filterTransactionType: "FILTRER PAR TYPE DE TRANSACTION",
     internalWalletPort: "PORT DE PORTEFEUILLE INTERNE",
     keyImages: {
@@ -190,7 +198,7 @@ export default {
     localDaemonPort: "PORT DU DÉMON LOCAL",
     maxIncomingPeers: "MAXIMUM DE PAIRS ENTRANTS",
     maxOutgoingPeers: "NOMBRE MAXIMUM DE PAIRS SORTANTS",
-    message: "MESSAGE",
+    message: "Message",
     mnemonicSeed: "MOT MNÉMONIQUE",
     name: "NOM",
     newWalletName: "NOUVEAU NOM DU PORTEFEUILLE",
@@ -204,10 +212,12 @@ export default {
     restoreFromBlockHeight: "RESTAURATION DE LA HAUTEUR DU BLOC",
     restoreFromDate: "RESTAURATION A PARTIR DE LA DATE",
     seedLanguage: "LANGAGE SEED",
+    totalBalance: "Balance total",
+    to: "Pour",
     masterNodeCommand: "COMMANDE DE NŒUD DE MASTER",
     masterNodeKey: "CLÉ DE MASTER NODE",
-    signature: "SIGNATURE",
-    transactionId: "TRANSACTION ID",
+    signature: "Signature",
+    transactionId: "Identifiant de transaction",
     walletFile: "DOSSIER DU PORTEFEUILLE",
     walletLogLevel: "NIVEAU D'IMPORTANCE DU PORTEFEUILLE",
     walletName: "NOM DU PORTEFEUILLE",
@@ -339,16 +349,23 @@ export default {
   },
   placeholders: {
     additionalNotes: "Notes supplémentaires",
+    addNotesOptional: "Ajouter des notes (facultatif)",
     addressBookName: "Nom rattaché à cette adresse",
-    filterTx: "Enter an ID, name, address or amount",
+    addressOfSigner: "Adresse du portefeuille public du signataire",
+    beldexAddress: "Adresse Beldex",
+    filterTx: "Saisissez un identifiant, un nom, une adresse ou un montant",
     hexCharacters: "{count} caractères hexadécimaux",
     mnemonicSeed: "25 (ou 24) mot mnémonique",
-    pasteTransactionId: "Paste transaction ID",
-    pasteTransactionProof: "Paste transaction proof",
+    pasteTransactionId: "Coller l'ID de transaction",
+    pasteTransactionProof: "Coller la preuve de transaction",
     proveOptionalMessage:
-      "Optional message against which the signature is signed",
-    recipientWalletAddress: "Recipient's wallet address",
+      "Message facultatif contre lequel la signature est signée",
+    dataToSign: "Data you want to sign with your primary address's private key",
+
+    recipientWalletAddress: "Adresse du portefeuille du destinataire",
     selectAFile: "Veuillez sélectionner un fichier",
+    signature: "Signature à vérifier",
+
     transactionNotes: "Notes additionnelles attachées à la transaction",
     walletName: "Un nom pour votre portefeuille",
     walletPassword: "Un mot de passe optionnel pour votre portefeuille"
@@ -362,9 +379,10 @@ export default {
       myUnusedAddresses: "Mes adresses non utilisées",
       myUsedAddresses: "Mes adresses utilisées",
       notYourAddress: "Ce n'est pas votre adresse !",
-      primaryAddress: "Adresse principale",
+      // primaryAddress: "Adresse principale",
       subAddress: "Sous adresse",
-      subAddressIndex: "Index {index}"
+      subAddressIndex: "Index {index}",
+      primaryAccount: "Compte principal"
     },
     advancedOptions: "Options avancées",
     bannedPeers: {
@@ -425,7 +443,8 @@ export default {
       slow: "Lent",
       normal: "Normal",
       fast: "Rapide",
-      fastest: "Le plus rapide"
+      fastest: "Le plus rapide",
+      flash: "éclair"
     },
     readingWalletList: "Liste des portefeuilles lisibles",
     recentIncomingTransactionsToAddress:
@@ -481,8 +500,12 @@ export default {
     addressBook: "Carnet d'adresses",
     addressDetails: "Détails de l'adresse",
     advanced: {
-      checkTransaction: "CHECK TRANSACTION",
-      prove: "PROVE"
+      checkTransaction: "Chèque Transaction",
+      prove: "Prouver",
+      signAndVerify: "Signer/Vérifier",
+
+      sign: "Signe",
+      verify: "Vérifier"
     },
     changePassword: "Changer de mot de passe",
     configure: "Configurer",
@@ -491,7 +514,8 @@ export default {
     rescanWallet: "Analysez de nouveau le portefeuille",
     masterNode: {
       registration: "ENREGISTREMENT",
-      staking: "STAKING"
+      staking: "STAKING",
+      myStakes: "Mes mises"
     },
     settings: {
       title: "Réglages",

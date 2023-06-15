@@ -99,7 +99,7 @@
           :label="$t('strings.saveToAddressBook')"
         /> -->
         <div class="addAddress q-pt-sm" @click="newTx.address_book.save">
-          + Add to Address book
+          + {{ this.$t("buttons.addAddressBook") }}
         </div>
         <!-- Notes -->
         <!-- placeholder="$t('placeholders.transactionNotes')" -->
@@ -110,7 +110,7 @@
               v-model="newTx.note"
               class="full-width text-area-oxen"
               type="textarea"
-              placeholder="Add notes (optional)"
+              :placeholder="this.$t('placeholders.addNotesOptional')"
               borderless
               dense
             />
@@ -242,7 +242,7 @@ export default {
       // const wallet = state.gateway.wallet.info;
       // const prefix = (wallet && wallet.address && wallet.address[0]) || "L";
       // return `${prefix}..`;
-      return "Beldex Address";
+      return this.$t("placeholders.beldexAddress");
     },
     confirmTransaction: state => state.gateway.tx_status.code === 1,
     senderAddress: state => state.gateway.sender_address

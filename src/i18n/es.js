@@ -2,6 +2,7 @@ export default {
   buttons: {
     // All button text is uppercased in the gui
     advanced: "AVANZADO",
+    addAddressBook: "Agregar a la libreta de direcciones",
     all: "TODO",
     back: "ATRÁS",
     browse: "EXAMINAR",
@@ -12,20 +13,26 @@ export default {
     close: "CERRAR",
     contacts: "CONTACTOS",
     copyAddress: "COPIAR DIRECCIÓN",
+    copy: "Copiar",
+
     copySignature: "COPIAR FIRMA",
     createWallet: "CREAR MONEDERO",
     delete: "ELIMINAR",
     edit: "EDITAR",
+    editNotes: "Editar notas",
     export: "EXPORTAR",
     generate: "GENERAR",
     import: "IMPORTAR",
     importWallet: "IMPORTAR MONEDERO | IMPORTAR MONEDEROS",
+    min: "mínimo",
+    max: "máx.",
     next: "SIGUIENTE",
     openWallet: "ABRIR MONEDERO",
     receive: "RECIBIR",
     registerMasterNode: "REGISTRAR NODO DE SERVICIO",
     rescan: "VOLVER A EXAMINAR",
     restoreWallet: "RESTAURAR MONEDERO",
+    refresh: "Actualizar",
     save: "GUARDAR",
     saveTxNotes: "GUARDAR NOTAS DE LA TRANSACCIÓN",
     selectLocation: "SELECCIONAR UBICACIÓN",
@@ -35,7 +42,7 @@ export default {
     masterNode: "NODO DE SERVICIO",
     settings: "CONFIGURACIÓN",
     showQRCode: "MOSTRAR CÓDIGO QR",
-    showTxDetails: "MOSTRAR DETALLES DE LA TRANSACCIÓN",
+    showTxDetails: "Detalles de TXN",
     stake: "RETENER PARTICIPACIÓN",
     sweepAll: "TRANSFERIR/BARRER TODO",
     unlock: "LIBERAR",
@@ -175,7 +182,9 @@ export default {
     daemonLogLevel: "NIVEL LOG PARA EL SERVICIO",
     daemonP2pPort: "PUERTO P2P SERVICIO",
     dataStoragePath: "RUTA DE ALMACENAMIENTO DE DATOS",
-    filter: "FILTRO",
+    data: "Datos",
+
+    filter: "Filtro",
     filterTransactionType: "FILTRAR POR TIPO DE TRANSACCIÓN",
     internalWalletPort: "PUERTO INTERNO MONEDERO",
     keyImages: {
@@ -188,7 +197,7 @@ export default {
     localDaemonPort: "PUERTO SERVICIO LOCAL",
     maxIncomingPeers: "NÚM. MÁX. PARES ENTRANTES",
     maxOutgoingPeers: "NÚM. MÁX. PARES SALIENTES",
-    message: "MENSAJE",
+    message: "Mensaje",
     mnemonicSeed: "SEMILLA MNEMÓNICA",
     name: "NOMBRE",
     newWalletName: "NUEVO NOMBRE PARA EL MONEDERO",
@@ -202,10 +211,12 @@ export default {
     restoreFromBlockHeight: "RESTAURAR DESDE EL BLOQUE NÚMERO",
     restoreFromDate: "RESTAURAR DESDE EL DÍA",
     seedLanguage: "IDIOMA SEMILLA",
+    totalBalance: "Balance total",
     masterNodeCommand: "ORDEN PARA REGISTRAR EL NODO DE SERVICIO",
     masterNodeKey: "CLAVE NODO DE SERVICIO",
     signature: "FIRMA",
     transactionId: "ID DE LA TRANSACCIÓN",
+    to: "A",
     walletFile: "ARCHIVO MONEDERO",
     walletLogLevel: "NIVEL LOG MONEDERO",
     walletName: "NOMBRE MONEDERO",
@@ -337,16 +348,24 @@ export default {
   },
   placeholders: {
     additionalNotes: "Notas adicionales",
+    addNotesOptional: "Añadir notas (opcional)",
     addressBookName: "Nombre asociado a esta dirección",
+    addressOfSigner: "Public wallet address of signer",
+    beldexAddress: "Dirección de Beldex",
     filterTx: "Introduzca un ID, nombre, dirección o cantidad",
     hexCharacters: "{count} caracteres hexadecimales",
     mnemonicSeed: "Semilla mnemónica de 25 (o 24) palabras",
+    dataToSign: "Data you want to sign with your primary address's private key",
+
     pasteTransactionId: "Pegar ID de la transacción",
     pasteTransactionProof: "Pegar prueba de la transacción",
     proveOptionalMessage: "Mensaje opcional contra el qué se firma la firma",
     recipientWalletAddress: "Dirección del monedero de destino",
     selectAFile: "Seleccione un archivo por favor",
     transactionNotes: "Notas adicionales para agregar a la transacción",
+    signature: "Signature to verify",
+    unsignedData: "Los datos como deberían verse antes de ser firmados",
+
     walletName: "Nombre para identificar su monedero",
     walletPassword: "Contraseña opcional para proteger su monedero"
   },
@@ -358,9 +377,10 @@ export default {
       myPrimaryAddress: "Mi dirección principal",
       myUnusedAddresses: "Mis direcciones no usadas",
       myUsedAddresses: "Mis direcciones usadas",
-      primaryAddress: "Dirección principal",
+      // primaryAddress: "Dirección principal",
       subAddress: "Dirección auxiliar",
-      subAddressIndex: "Índice {index}"
+      subAddressIndex: "Índice {index}",
+      primaryAccount: "Cuenta principal"
     },
     advancedOptions: "Opciones avanzadas",
     bannedPeers: {
@@ -417,7 +437,8 @@ export default {
       slow: "Lenta",
       normal: "Normal",
       fast: "Rápida",
-      fastest: "La más rápida"
+      fastest: "La más rápida",
+      flash: "destello"
     },
     peerList: "Lista de pares",
     proveTransactionDescription:
@@ -479,7 +500,11 @@ export default {
     addressDetails: "Detalles de la dirección",
     advanced: {
       checkTransaction: "COMPROBAR TRANSACCIÓN",
-      prove: "PRUEBA"
+      prove: "PRUEBA",
+      signAndVerify: "Firmar/Verificar",
+
+      sign: "firmar",
+      verify: "Verificar"
     },
     changePassword: "Modificar contraseña",
     configure: "Configurar",
@@ -488,7 +513,8 @@ export default {
     rescanWallet: "Volver a examinar monedero",
     masterNode: {
       registration: "REGISTRO",
-      staking: "PARTICIPACIÓN"
+      staking: "PARTICIPACIÓN",
+      myStakes: "Mis apuestas"
     },
     settings: {
       title: "Configuración",

@@ -44,7 +44,9 @@
           class="wallet-address row justify-between items-center q-pl-md q-pr-sm"
         >
           <div class="col-md-9 flex row items-center">
-            <div class="ft-semibold title q-mr-xs">Address</div>
+            <div class="ft-semibold title q-mr-xs">
+              {{ this.$t("fieldLabels.address") }}
+            </div>
             <div class="address ft-regular col-md-10">{{ info.address }}</div>
           </div>
           <div class="col-md-2 flex justify-end">

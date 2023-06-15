@@ -2,30 +2,36 @@ export default {
   buttons: {
     // All button text is uppercased in the gui
     advanced: "ADVANCED",
+    addAddressBook: "Zum Adressbuch hinzufügen",
     all: "ALLES",
     back: "ZURÜCK",
     browse: "DURCHSUCHEN",
     cancel: "ABBRECHEN",
     change: "ÄNDERN",
-    check: "CHECK",
-    clear: "CLEAR",
+    check: "Überprüfen",
+    clear: "klar",
     close: "SCHLIESSEN",
     contacts: "KONTAKTE",
+    copy: "Kopieren",
     copyAddress: "ADRESSE KOPIEREN",
     copySignature: "COPY SIGNATURE",
     createWallet: "WALLET ERSTELLEN",
     delete: "LÖSCHEN",
     edit: "BEARBEITEN",
+    editNotes: "Notizen bearbeiten",
     export: "EXPORTIEREN",
-    generate: "GENERATE",
+    generate: "Generieren",
     import: "IMPORTIEREN",
     importWallet: "WALLET IMPORTIEREN | WALLETS IMPORTIEREN",
+    min: "Mindest",
+    max: "Max",
     next: "WEITER",
     openWallet: "WALLET ÖFFNEN",
     receive: "EMPFANGEN",
     registerMasterNode: "MASTER NODE REGISTRIEREN",
     rescan: "ERNEUT SCANNEN",
     restoreWallet: "WALLET WIEDERHERSTELLEN",
+    refresh: "Aktualisierung",
     save: "SPEICHERN",
     saveTxNotes: "TX NOTES SPEICHERN",
     selectLocation: "STANDORT AUSWÄHLEN",
@@ -35,7 +41,7 @@ export default {
     masterNode: "MASTER NODE",
     settings: "EINSTELLUNGEN",
     showQRCode: "QR CODE ANZEIGEN",
-    showTxDetails: "TX DETAILS ANZEIGEN",
+    showTxDetails: "TXN Details",
     stake: "STAKE",
     sweepAll: "ALLES BEREINIGEN",
     unlock: "UNLOCK",
@@ -178,7 +184,8 @@ export default {
     daemonLogLevel: "DAEMON LOG LEVEL",
     daemonP2pPort: "DAEMON P2P PORT",
     dataStoragePath: "DATENSICHERUNGSPFAD",
-    filter: "FILTER",
+    data: "Daten",
+    filter: "Filter",
     filterTransactionType: "FILTERN NACH TRANSAKTIONSTYP",
     internalWalletPort: "INTERNER WALLET PORT",
     keyImages: {
@@ -191,9 +198,9 @@ export default {
     localDaemonPort: "LOKALER DAEMON PORT",
     maxIncomingPeers: "MAX EINGEHENDE PEERS",
     maxOutgoingPeers: "MAX AUSGEHENDE PEERS",
-    message: "MESSAGE",
+    message: "Nachricht",
     mnemonicSeed: "MNEMONIC SEED",
-    name: "NAME",
+    name: "Name",
     newWalletName: "NEUER WALLET NAME",
     network: "NETZWERK",
     notes: "NOTIZEN",
@@ -206,10 +213,12 @@ export default {
     restoreFromBlockHeight: "WIEDERHERSTELLUNG VON BLOCKHÖHE",
     restoreFromDate: "WIEDERHERSTELLUNG VON DATUM",
     seedLanguage: "SEED SPRACHE",
+    totalBalance: "Gesamtsaldo",
+    to: "Zu",
     masterNodeCommand: "MASTER NODE COMMAND",
     masterNodeKey: "MASTER NODE KEY",
-    signature: "SIGNATURE",
-    transactionId: "TRANSACTION ID",
+    signature: "Unterschrift",
+    transactionId: "Transaktions-ID",
     walletFile: "WALLET FILE",
     walletLogLevel: "WALLET LOG LEVEL",
     walletName: "WALLET NAME",
@@ -337,16 +346,25 @@ export default {
   },
   placeholders: {
     additionalNotes: "Zusätzliche Notizen",
+    addNotesOptional: "Notizen hinzufügen (optional)",
     addressBookName: "Zugehörige Namen zu dieser Adresse",
-    filterTx: "Enter an ID, name, address or amount",
+    addressOfSigner: "Öffentliche Wallet-Adresse des Unterzeichners",
+
+    beldexAddress: "Beldex-Adresse",
+    filterTx:
+      "Geben Sie eine ID, einen Namen, eine Adresse oder einen Betrag ein",
     hexCharacters: "{count} Hexadezimal Zeichen",
+    dataToSign: "Data you want to sign with your primary address's private key",
+
     mnemonicSeed: "25 (oder 24) mnemonic Seed Wörter",
-    pasteTransactionId: "Paste transaction ID",
-    pasteTransactionProof: "Paste transaction proof",
+    pasteTransactionId: "Transaktions-ID einfügen",
+    pasteTransactionProof: "Transaktionsnachweis einfügen",
     proveOptionalMessage:
-      "Optional message against which the signature is signed",
-    recipientWalletAddress: "Recipient's wallet address",
+      "Optionale Nachricht, gegen die die Signatur signiert wird",
+    recipientWalletAddress: "Wallet-Adresse des Empfängers",
     selectAFile: "Bitte Datei auswählen",
+    signature: "Unterschrift zur Überprüfung",
+    unsignedData: "Die Daten, wie sie vor dem Signieren aussehen sollten",
     transactionNotes:
       "Zusätzliche Notizen die an die Transaktions gehängt werden sollen",
     walletName: "Ein Name für deine Wallet",
@@ -360,9 +378,10 @@ export default {
       myPrimaryAddress: "Meine primäre Adresse",
       myUnusedAddresses: "Meine ungenutzten Adressen",
       myUsedAddresses: "Meine benutzen Adressen",
-      primaryAddress: "Primäre Adresse",
+      // primaryAddress: "Primäre Adresse",
       subAddress: "Sub-Adresse",
-      subAddressIndex: "Index {index}"
+      subAddressIndex: "Index {index}",
+      primaryAccount: "Hauptkonto"
     },
     advancedOptions: "Erweiterte Optionen",
     bannedPeers: {
@@ -421,7 +440,8 @@ export default {
       fast: "Schnell",
       fastest: "Am schnellsten",
       normal: "Normal",
-      slow: "Langsam"
+      slow: "Langsam",
+      flash: "blinken"
     },
     proveTransactionDescription:
       "Generate a proof of your incoming/outgoing payment by supplying the transaction ID, the recipient address and an optional message.\nFor the case of outgoing payments, you can get a 'Spend Proof' that proves the authorship of a transaction. In this case, you don't need to specify the recipient address.",
@@ -479,8 +499,11 @@ export default {
     addressBook: "Adressbuch",
     addressDetails: "Adressdetails",
     advanced: {
-      checkTransaction: "CHECK TRANSACTION",
-      prove: "PROVE"
+      checkTransaction: "Überprüfen Sie die Transaktion",
+      prove: "Beweisen",
+      signAndVerify: "Unterschreiben/bestätigen",
+      sign: "Zeichen",
+      verify: "Verifizieren"
     },
     changePassword: "Passwort ändern",
     configure: "Konfiguaration",
@@ -489,7 +512,8 @@ export default {
     rescanWallet: "Wallet erneut scannen",
     masterNode: {
       registration: "REGISTRIERUNG",
-      staking: "STAKING"
+      staking: "STAKING",
+      myStakes: "Meine Einsätze"
     },
     settings: {
       title: "Einstellungen",

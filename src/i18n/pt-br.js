@@ -2,30 +2,37 @@ export default {
   buttons: {
     // All button text is uppercased in the gui
     advanced: "ADVANCED",
+    addAddressBook: "Adicionar ao catálogo de endereços",
     all: "TUDO",
     back: "ATRÁS",
     browse: "PESQUISAR",
     cancel: "CANCELAR",
     change: "MUDAR",
-    check: "CHECK",
-    clear: "CLEAR",
+    check: "Verificar",
+    clear: "clear",
     close: "FECHAR",
     contacts: "CONTACTOS",
+    copy: "cópia de",
     copyAddress: "COPIAR ENDEREÇO",
     copySignature: "COPY SIGNATURE",
     createWallet: "CRIAR CARTEIRA",
     delete: "APAGAR",
     edit: "EDITAR",
+    editNotes: "Editar notas",
+
     export: "EXPORTAR",
-    generate: "GENERATE",
+    generate: "Gerar",
     import: "IMPORTAR",
     importWallet: "IMPORTAR CARTEIRA | IMPORTAR CARTEIRAS",
+    min: "mín",
+    max: "máx.",
     next: "PRÓXIMO",
     openWallet: "ABRIR CARTEIRA",
     receive: "RECEBER",
     registerMasterNode: "REGISTAR NÓDULO DE SERVIÇO",
     rescan: "REEXAMINAR",
     restoreWallet: "RESTAURAR CARTEIRA",
+    refresh: "Atualizar",
     save: "SALVAR",
     saveTxNotes: "SALVAR NOTAS DE TX",
     selectLocation: "SELECIONAR LOCAL",
@@ -35,7 +42,7 @@ export default {
     masterNode: "NÓDULO DE SERVIÇO",
     settings: "CONFIGURAÇÕES",
     showQRCode: "MOSTRAR CÓDIGO QR",
-    showTxDetails: "MOSTRAR DETALHES DA TX",
+    showTxDetails: "Detalhes TXN",
     stake: "PARTICIPAÇÃO",
     sweepAll: "VARRER TUDO",
     unlock: "UNLOCK",
@@ -174,7 +181,8 @@ export default {
     daemonLogLevel: "NÍVEL DE LOG PARA O SERVIÇO",
     daemonP2pPort: "PORTA P2P DO SERVIÇO",
     dataStoragePath: "DIRECTÓRIO DE ARMAZENAMENTO DOS DADOS",
-    filter: "FILTER",
+    data: "Data",
+    filter: "Filter",
     filterTransactionType: "FILTRAR POR TIPO DE TRANSAÇÃO",
     internalWalletPort: "PORTA INTERNA DA CARTEIRA",
     keyImages: {
@@ -187,7 +195,7 @@ export default {
     localDaemonPort: "PORTA LOCAL DO SERVIÇO",
     maxIncomingPeers: "NÚM. MAX DE PARES DE ENTRADA",
     maxOutgoingPeers: "NUM. MAX DE PARES DE SAÍDA",
-    message: "MESSAGE",
+    message: "Mensagem",
     mnemonicSeed: "SEMENTE MNEMÓNICA",
     name: "NOME",
     newWalletName: "NOME DA NOVA CARTEIRA",
@@ -203,8 +211,10 @@ export default {
     seedLanguage: "LINGUA DA SEMENTE",
     masterNodeCommand: "COMANDO DO NÓDULO DE SERVIÇO",
     masterNodeKey: "CHAVE DO NÓDULO DE SERVIÇO",
-    signature: "SIGNATURE",
-    transactionId: "TRANSACTION ID",
+    signature: "Assinatura",
+    totalBalance: "Balanço total",
+    to: "Para",
+    transactionId: "ID da transação",
     walletFile: "FICHEIRO DA CARTEIRA",
     walletLogLevel: "NIVEL DE LOG DA CARTEIRA",
     walletName: "NOME DA CARTEIRA",
@@ -335,16 +345,23 @@ export default {
   },
   placeholders: {
     additionalNotes: "Notas adicionais",
+    addNotesOptional: "Adicionar notas (opcional)",
     addressBookName: "Nome que pertence a este endereço",
-    filterTx: "Enter an ID, name, address or amount",
+    addressOfSigner: "Endereço público da carteira do signatário",
+    beldexAddress: "Endereço Beldex",
+    filterTx: "Digite um ID, nome, endereço ou valor",
     hexCharacters: "{count} caracteres hexadecimais",
     mnemonicSeed: "25 (or 24) palavras semente mnemónicas",
     pasteTransactionId: "Paste transaction ID",
-    pasteTransactionProof: "Paste transaction proof",
+    pasteTransactionProof: "Colar prova de transação",
+    dataToSign: "Data you want to sign with your primary address's private key",
+
     proveOptionalMessage:
-      "Optional message against which the signature is signed",
-    recipientWalletAddress: "Recipient's wallet address",
+      "Mensagem opcional contra a qual a assinatura é assinada",
+    recipientWalletAddress: "Endereço da carteira do destinatário",
     selectAFile: "Por favor selecione um ficheiro",
+    signature: "Assinatura para verificar",
+
     transactionNotes: "Notas adicionais para anexar à transação",
     walletName: "Um nome para a sua carteira",
     walletPassword: "Uma palavra-passe opcional para a carteira"
@@ -357,9 +374,10 @@ export default {
       myPrimaryAddress: "Meu endereço primario",
       myUnusedAddresses: "Meus endereços não utilizados",
       myUsedAddresses: "Meus endereços utilizados",
-      primaryAddress: "Endereço primario",
+      // primaryAddress: "Endereço primario",
       subAddress: "Sub-endereço",
-      subAddressIndex: "Índice {index}"
+      subAddressIndex: "Índice {index}",
+      primaryAccount: "Conta primária"
     },
     advancedOptions: "Opções Avançadas",
     bannedPeers: {
@@ -417,7 +435,8 @@ export default {
       slow: "Lento",
       normal: "Normal",
       fast: "Rápido",
-      fastest: "O Mais Rápido"
+      fastest: "O Mais Rápido",
+      flash: "clarão"
     },
     proveTransactionDescription:
       "Generate a proof of your incoming/outgoing payment by supplying the transaction ID, the recipient address and an optional message.\nFor the case of outgoing payments, you can get a 'Spend Proof' that proves the authorship of a transaction. In this case, you don't need to specify the recipient address.",
@@ -473,8 +492,12 @@ export default {
     addressBook: "Livro de endereços",
     addressDetails: "Detalhes do endereço",
     advanced: {
-      checkTransaction: "CHECK TRANSACTION",
-      prove: "PROVE"
+      checkTransaction: "Verificar Transação",
+      prove: "provar",
+      signAndVerify: "Assinar/Verificar",
+
+      sign: "Sinal",
+      verify: "Verificar"
     },
     changePassword: "Mudar palavra-passe",
     configure: "Configure",
@@ -483,7 +506,8 @@ export default {
     rescanWallet: "Reexaminar carteira",
     masterNode: {
       registration: "REGISTO",
-      staking: "PARTICIPAÇÃO"
+      staking: "PARTICIPAÇÃO",
+      myStakes: "Minhas apostas"
     },
     settings: {
       title: "Configurações",

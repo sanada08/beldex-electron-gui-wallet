@@ -324,7 +324,7 @@
           <div class="col-md-2">
             <q-btn
               color="secondary"
-              label="Edit Notes"
+              :label="this.$t('buttons.editNotes')"
               @click="() => (this.editNotes = true)"
             />
           </div>

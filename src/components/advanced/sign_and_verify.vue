@@ -24,7 +24,7 @@
           <div class="btn-wrapper q-ml-md flex items-end">
             <q-btn
               color="primary"
-              :label="$t('buttons.sign')"
+              :label="$t('titles.advanced.sign')"
               :loading="sign_status.sending"
               :disable="!toSign"
               class="btn-position"
@@ -73,7 +73,7 @@
         <div class="submit-button flex row justify-center">
           <q-btn
             color="primary "
-            :label="$t('buttons.verify')"
+            :label="$t('titles.advanced.verify')"
             :disable="!signatureToVerify || !unsignedData || !address"
             @click="verify()"
           />

@@ -1,31 +1,38 @@
 export default {
   buttons: {
     // All button text is uppercased in the gui
-    advanced: "ADVANCED",
+    advanced: "Передовой",
+    addAddressBook: "Добавить в адресную книгу",
+
     all: "ВСЕ",
     back: "НАЗАД",
     browse: "ОБЗОР",
     cancel: "ОТМЕНА",
     change: "ИЗМЕНИТЬ",
-    check: "CHECK",
-    clear: "CLEAR",
+    check: "Проверять",
+    clear: "прозрачный",
     close: "ЗАКРЫТЬ",
     contacts: "КОНТАКТЫ",
+    copy: "копировать",
     copyAddress: "КОПИРОВАТЬ АДРЕС",
     copySignature: "COPY SIGNATURE",
     createWallet: "СОЗДАТЬ КОШЕЛЕК",
     delete: "УДАЛИТЬ",
     edit: "РЕДАКТИРОВАТЬ",
+    editNotes: "Редактировать примечания",
     export: "ЭКСПОРТИРОВАТЬ",
-    generate: "GENERATE",
+    generate: "Создать",
     import: "ИМПОРТИРОВАТЬ",
     importWallet: "ИМПОРТИРОВАТЬ КОШЕЛЕК | ИМПОРТИРОВАТЬ КОШЕЛЬКИ",
     next: "ДАЛЕЕ",
+    min: "Мин.",
+    max: "Макс",
     openWallet: "ОТКРЫТЬ КОШЕЛЕК",
     receive: "ПОЛУЧИТЬ",
     registerMasterNode: "ЗАРЕГИСТРИРОВАТЬ СЕРВИСНУЮ НОДУ",
     rescan: "ПЕРЕСКАНИРОВАТЬ",
     restoreWallet: "ВОССТАНОВИТЬ КОШЕЛЕК",
+    refresh: "Обновить",
     save: "СОХРАНИТЬ",
     saveTxNotes: "СОХРАНИТЬ ТРАНЗ. ЗАМЕТКИ",
     selectLocation: "ВЫБРАТЬ ПАПКУ",
@@ -35,9 +42,9 @@ export default {
     masterNode: "СЕРВИСНАЯ НОДА",
     settings: "НАСТРОЙКИ",
     showQRCode: "ПОКАЗАТЬ QR КОД",
-    showTxDetails: "ПОКАЗАТЬ ДЕТАЛИ ТРАНЗАКЦИИ",
+    showTxDetails: "Детали TXN",
     stake: "СТЕЙК",
-    sweepAll: "SWEEP ALL",
+    sweepAll: "Sweep All",
     unlock: "UNLOCK",
     viewOnExplorer: "ПОСМОТРЕТЬ В ЭКСПЛОРЕРЕ"
   },
@@ -174,7 +181,8 @@ export default {
     daemonLogLevel: "УРОВЕНЬ ЛОГА ДЕМОНА",
     daemonP2pPort: "P2P ПОРТ ДЕМОНА",
     dataStoragePath: "ПАПКА ХРАНИЛИЩА ДАННЫХ",
-    filter: "FILTER",
+    data: "Данные",
+    filter: "Фильтр",
     filterTransactionType: "ТИП ТРАНЗАКЦИИ",
     internalWalletPort: "ВНУТРЕННЫЙ ПОРТ КОШЕЛЬКА",
     keyImages: {
@@ -187,7 +195,7 @@ export default {
     localDaemonPort: "ПОРТ ЛОКАЛЬНОГО ДЕМОНА",
     maxIncomingPeers: "МАКСИМУМ ВХОДЯЩИХ ПИРОВ",
     maxOutgoingPeers: "МАКСИМУМ ИСХОДЯЩИХ ПИРОВ",
-    message: "MESSAGE",
+    message: "Сообщение",
     mnemonicSeed: "МНЕМОНИЧЕСКАЯ SEED-ФРАЗА",
     name: "ИМЯ",
     newWalletName: "ИМЯ НОВОГО КОШЕЛЬКА",
@@ -203,8 +211,10 @@ export default {
     seedLanguage: "ЯЗЫК SEED-ФРАЗЫ",
     masterNodeCommand: "КОМАНДА РЕГИСТРАЦИИ СЕРВИСНОЙ НОДЫ",
     masterNodeKey: "КЛЮЧ СЕРВИСНОЙ НОДЫ",
-    signature: "SIGNATURE",
-    transactionId: "TRANSACTION ID",
+    signature: "Подпись",
+    totalBalance: "Итоговый баланс",
+    transactionId: "ID транзакции",
+    to: "К",
     walletFile: "ФАЙЛ КОШЕЛЬКА",
     walletLogLevel: "УРОВЕНЬ ЛОГА КОШЕЛЬКА",
     walletName: "ИМЯ КОШЕЛЬКА",
@@ -334,16 +344,26 @@ export default {
   },
   placeholders: {
     additionalNotes: "Дополнительные заметки",
+    addNotesOptional: "Добавьте примечания (необязательно)",
     addressBookName: "Имя для этого адреса",
-    filterTx: "Enter an ID, name, address or amount",
+    addressOfSigner: "Публичный адрес кошелька подписавшего",
+    beldexAddress: "Белдекс Адрес",
+    filterTx: "Введите идентификатор, имя, адрес или сумму",
     hexCharacters: "Шестнадцатеричных символов: {count}",
     mnemonicSeed: "Seed-фраза, состоящая из 25 или 24 слов",
-    pasteTransactionId: "Paste transaction ID",
-    pasteTransactionProof: "Paste transaction proof",
+    pasteTransactionId: "Вставить идентификатор транзакции",
+    pasteTransactionProof: "Вставить подтверждение транзакции",
+    dataToSign:
+      "Данные, которые вы хотите подписать закрытым ключом вашего основного адреса",
+
     proveOptionalMessage:
-      "Optional message against which the signature is signed",
-    recipientWalletAddress: "Recipient's wallet address",
+      "Необязательное сообщение, против которого подписывается подпись",
+    recipientWalletAddress: "Адрес кошелька получателя",
     selectAFile: "Пожалуйста, выберите файл",
+    signature: "Подпись для проверки",
+    unsignedData:
+      "Данные, как они должны выглядеть до того, как они были подписаны",
+
     transactionNotes: "Дополнительные заметки для приосединения к транзакции",
     walletName: "Имя вашего кошелька",
     walletPassword: "Пароль кошелька (необязательно)"
@@ -356,9 +376,10 @@ export default {
       myPrimaryAddress: "Мой основной адрес",
       myUnusedAddresses: "Мои неиспользованные адреса",
       myUsedAddresses: "Мои использованные адреса",
-      primaryAddress: "Основной адрес",
+      // primaryAddress: "Основной адрес",
       subAddress: "Суб-адрес",
-      subAddressIndex: "Индекс {index}"
+      subAddressIndex: "Индекс {index}",
+      primaryAccount: "Основная учетная запись"
     },
     advancedOptions: "Расширенные настройки",
     bannedPeers: {
@@ -418,7 +439,8 @@ export default {
       slow: "Медленно",
       normal: "Нормально",
       fast: "Быстро",
-      fastest: "Очень быстро"
+      fastest: "Очень быстро",
+      flash: "вспышка"
     },
     readingWalletList: "Получение списка кошельков",
     recentIncomingTransactionsToAddress:
@@ -474,8 +496,11 @@ export default {
     addressBook: "Адресная книга",
     addressDetails: "Данные адреса",
     advanced: {
-      checkTransaction: "CHECK TRANSACTION",
-      prove: "PROVE"
+      checkTransaction: "Проверить транзакцию",
+      prove: "Доказывать",
+      signAndVerify: "Подписать/Подтвердить",
+      sign: "знак",
+      verify: "Проверять"
     },
     changePassword: "Сменить пароль",
     configure: "Настройки",
@@ -484,7 +509,8 @@ export default {
     rescanWallet: "Пересканировать кошелек",
     masterNode: {
       registration: "РЕГИСТРАЦИЯ",
-      staking: "СТЕЙК"
+      staking: "СТЕЙК",
+      myStakes: "Мои ставки"
     },
     settings: {
       title: "Настройки",

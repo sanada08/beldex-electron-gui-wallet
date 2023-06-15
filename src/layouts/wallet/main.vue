@@ -39,7 +39,7 @@
                   />
                 </svg>
                 <!-- <span class="divider"></span> -->
-                <span>Transactions</span>
+                <span>{{ this.$t("titles.transactions") }}</span>
               </div>
               <q-icon name="chevron_right" size="24px" />
             </article>
@@ -63,7 +63,9 @@
                   />
                 </svg>
                 <!-- <span class="divider"></span> -->
-                <span>Master Node</span>
+                <span>{{
+                  this.$t("strings.transactions.types.masterNode")
+                }}</span>
               </div>
               <q-icon name="chevron_right" size="24px" />
             </article>
@@ -105,7 +107,7 @@
                   />
                 </svg>
                 <!-- <span class="divider"></span> -->
-                <span>Advanced</span>
+                <span> {{ this.$t("buttons.advanced") }}</span>
               </div>
               <q-icon name="chevron_right" size="24px" />
             </article>

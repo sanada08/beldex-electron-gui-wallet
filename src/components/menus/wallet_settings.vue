@@ -98,7 +98,7 @@
                   padding="10px 35px"
                   size="md"
                   icon-right="content_copy"
-                  label="copy"
+                  :label="this.$t('buttons.copy')"
                   @click="copyPrivateKey('mnemonic', $event)"
                 >
                   <q-tooltip
@@ -128,7 +128,7 @@
                   padding="10px 35px"
                   size="md"
                   icon-right="content_copy"
-                  label="copy"
+                  :label="this.$t('buttons.copy')"
                   @click="copyPrivateKey('view_key', $event)"
                 >
                   <q-tooltip
@@ -158,7 +158,7 @@
                   padding="10px 35px"
                   size="md"
                   icon-right="content_copy"
-                  label="copy"
+                  :label="this.$t('buttons.copy')"
                   @click="copyPrivateKey('spend_key', $event)"
                 >
                   <q-tooltip
@@ -231,7 +231,7 @@
             />
           </div>
 
-          <div class="q-my-lg text-right">
+          <div class="q-my-lg text-center">
             <q-btn
               class="q-mr-sm"
               color="accent"

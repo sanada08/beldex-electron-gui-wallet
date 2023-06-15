@@ -1,7 +1,8 @@
 export default {
   buttons: {
     // All button text is uppercased in the gui
-    advanced: "ADVANCED",
+    advanced: "Advanced",
+    addAddressBook: "Add to Address book",
     all: "ALL",
     back: "Back",
     browse: "Browse",
@@ -13,11 +14,13 @@ export default {
     contacts: "CONTACTS",
     copyAddress: "COPY ADDRESS",
     copyData: "COPY DATA",
+    copy: "Copy",
     copySignature: "COPY SIGNATURE",
     createWallet: "Create Wallet",
     decrypt: "DECRYPT",
     delete: "Delete",
     edit: "Edit",
+    editNotes: "Edit Notes",
     export: "Export",
     generate: "Generate",
     import: "Import",
@@ -418,8 +421,10 @@ export default {
   },
   placeholders: {
     additionalNotes: "Additional notes",
+    addNotesOptional: "Add notes (optional)",
     addressBookName: "Name that belongs to this address",
     addressOfSigner: "Public wallet address of signer",
+    beldexAddress: "Beldex Address",
     dataToSign: "Data you want to sign with your primary address's private key",
     filterTx: "Enter an ID, name, address or amount",
     hexCharacters: "{count} hexadecimal characters",
@@ -450,7 +455,7 @@ export default {
       myPrimaryAddress: "My primary address",
       myUnusedAddresses: "My unused addresses",
       myUsedAddresses: "My used addresses",
-      primaryAddress: "Primary address",
+      // primaryAddress: "Primary address",
       subAddress: "Sub-address",
       subAddressIndex: "Index {index}",
       //new design vamp
