@@ -27,7 +27,11 @@
             </svg>
           </q-btn>
 
-          {{ from === "send" ? "Contact Book" : $t("titles.addressBook") }}
+          {{
+            from === "send"
+              ? $t("titles.contactBook")
+              : $t("titles.addressBook")
+          }}
         </div>
         <q-btn
           v-if="from !== 'send'"

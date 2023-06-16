@@ -2,7 +2,7 @@
   <q-page class="create-wallet beldex-wallet">
     <section class="flex justify-center align-center">
       <div class="fields">
-        <div class="createTitle">Create New Wallet</div>
+        <div class="createTitle">{{ this.$t("titles.wallet.createNew") }}</div>
         <OxenField
           :label="$t('fieldLabels.walletName')"
           :error="$v.wallet.name.$error"
@@ -122,7 +122,7 @@ export default {
             this.$router.replace({
               path: "/wallet-select/created",
               query: {
-                title: "Wallet Created"
+                title: this.$t("titles.wallet.walletCreated")
               }
             });
             break;

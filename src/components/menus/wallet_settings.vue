@@ -734,8 +734,8 @@ export default {
       this.$q
         .dialog({
           title: this.$t("dialog.deleteWallet.title"),
-          // message: this.$t("dialog.deleteWallet.message"),
-          message: "Are you sure you want to delete the current wallet?",
+          message: this.$t("dialog.deleteWallet.message"),
+          // message: "Are you sure you want to delete the current wallet?",
           ok: {
             label: this.$t("dialog.deleteWallet.ok"),
             color: "red"

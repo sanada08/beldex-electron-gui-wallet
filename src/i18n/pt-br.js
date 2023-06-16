@@ -3,6 +3,8 @@ export default {
     // All button text is uppercased in the gui
     advanced: "ADVANCED",
     addAddressBook: "Adicionar ao catálogo de endereços",
+    addWallet: "Adicionar Carteira",
+
     all: "TUDO",
     back: "ATRÁS",
     browse: "PESQUISAR",
@@ -21,6 +23,8 @@ export default {
     editNotes: "Editar notas",
 
     export: "EXPORTAR",
+    fromBlockheight: "Da altura do bloco",
+
     generate: "Gerar",
     import: "IMPORTAR",
     importWallet: "IMPORTAR CARTEIRA | IMPORTAR CARTEIRAS",
@@ -144,6 +148,8 @@ export default {
     switchWallet: {
       title: "Mudar de carteira",
       closeMessage: "Tem a certeza que deseja fechar a carteira actual?",
+      restartWalletMessage:
+        "Tem certeza de que deseja fechar e reiniciar a carteira?",
       restartMessage:
         "A carteira RPC está correntemente em sincronização. \nISe deseja mudar de carteira terá de reiniciar a aplicação. \nPerderá o progresso da sincronização e terá de reexaminar o blockchain."
     },
@@ -491,6 +497,8 @@ export default {
   titles: {
     addressBook: "Livro de endereços",
     addressDetails: "Detalhes do endereço",
+    contactBook: "Agenda de contatos",
+
     advanced: {
       checkTransaction: "Verificar Transação",
       prove: "provar",
@@ -502,8 +510,11 @@ export default {
     changePassword: "Mudar palavra-passe",
     configure: "Configure",
     currentlyStakedNodes: "Currently staked nodes",
+    importFromFile: "Importar do arquivo",
     privateKeys: "Chaves privadas",
     rescanWallet: "Reexaminar carteira",
+    restoreFromSeed: "Restaurar da semente",
+
     masterNode: {
       registration: "REGISTO",
       staking: "PARTICIPAÇÃO",
@@ -522,6 +533,9 @@ export default {
     wallet: {
       createNew: "Criar nova carteira",
       createdOrRestored: "Carteira criada/restaurada",
+      walletRestored: "Carteira Restaurada",
+      walletCreated: "Carteira criada",
+      walletImported: "Carteira importada",
       importFromFile: "Importar carteira a partir de ficheiro",
       useExistingWallet: "Use Existing Wallet",
       importFromLegacyGUI:

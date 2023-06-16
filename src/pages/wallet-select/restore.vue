@@ -2,7 +2,9 @@
   <q-page class="create-wallet beldex-wallet">
     <section class="flex justify-center align-center">
       <div class="fields">
-        <div class="createTitle">Restore from Seed</div>
+        <div class="createTitle">
+          {{ this.$t("menuItems.restoreWalletSeed") }}
+        </div>
         <div class="q-mx-md">
           <OxenField
             class="q-mt-md"
@@ -100,7 +102,7 @@
                   @click="wallet.refresh_type = 'height'"
                 >
                   <div class="row justify-center items-center">
-                    {{ "From Blockheight" }}
+                    {{ this.$t("buttons.fromBlockheight") }}
                     <span class="divider"></span>
 
                     <q-icon name="arrow_forward" />
@@ -210,7 +212,7 @@ export default {
             this.$router.replace({
               path: "/wallet-select/created",
               query: {
-                title: "Wallet Restored"
+                title: this.$t("titles.wallet.walletRestored")
               }
             });
             break;

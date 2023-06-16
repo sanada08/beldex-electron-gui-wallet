@@ -3,6 +3,7 @@ export default {
     // All button text is uppercased in the gui
     advanced: "Advanced",
     addAddressBook: "Add to Address book",
+    addWallet: "Add Wallet",
     all: "ALL",
     back: "Back",
     browse: "Browse",
@@ -22,6 +23,7 @@ export default {
     edit: "Edit",
     editNotes: "Edit Notes",
     export: "Export",
+    fromBlockheight: "From Blockheight",
     generate: "Generate",
     import: "Import",
     importWallet: "Import Wallet | IMPORT WALLETS",
@@ -95,8 +97,8 @@ export default {
     },
     exit: {
       title: "Exit",
-      message: "Are you sure you want to exit?",
-      ok: "EXIT"
+      message: "Are you sure you want to delete the current wallet?",
+      ok: "Exit"
     },
     keyImages: {
       title: "{type} Key Images",
@@ -470,6 +472,7 @@ export default {
     blockHeight: "Blockheight",
     height: "Height",
     cannotSign: "You cannot sign with a view only wallet.",
+
     checkTransaction: {
       description:
         "Verify that funds were paid to an address by supplying the transaction ID, the recipient address, the message used for signing and the signature.\nFor a 'Spend Proof' you dont need to provide the recipient address.",
@@ -623,6 +626,7 @@ export default {
   titles: {
     addressBook: "Address Book",
     addressDetails: "Address Details",
+    contactBook: "Contact Book",
     advanced: {
       checkTransaction: "Check Transaction",
       prove: "Prove",
@@ -637,8 +641,11 @@ export default {
     bnsRecordDetails: "BNS record details",
     bnsBchatRecords: "Bchat records",
     bnsBelnetRecords: "Belnet records",
+    importFromFile: "Import from File",
     privateKeys: "Private keys",
     rescanWallet: "Rescan wallet",
+    restoreFromSeed: "Restore from Seed",
+
     bns: {
       purchase: "PURCHASE",
       myBns: "MY BNS"
@@ -664,6 +671,9 @@ export default {
     wallet: {
       createNew: "Create new wallet",
       createdOrRestored: "Wallet created/restored",
+      walletRestored: "Wallet Restored",
+      walletCreated: "Wallet Created",
+      walletImported: "Wallet Imported",
       importFromFile: "Import wallet from file",
       useExistingWallet: "Use Existing Wallet",
       importFromLegacyGUI: "Import wallet from legacy GUI",

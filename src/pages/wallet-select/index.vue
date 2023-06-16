@@ -25,7 +25,7 @@
             />
           </svg>
         </qbtn>
-        <span>Back</span>
+        <span>{{ this.$t("buttons.back") }}</span>
       </div>
 
       <div
@@ -147,7 +147,7 @@
             <q-btn
               class="add"
               icon-right="add"
-              label="Add Wallet"
+              :label="this.$t('buttons.addWallet')"
               size="md"
               color="primary"
               @click="backbtn = true"
@@ -160,7 +160,7 @@
               {{ this.$t("titles.wallet.restoreFromSeed") }}
             </button>
             <button class="btn create-btn" @click="this.createNewWallet">
-              {{ this.$t("titles.wallet.createNewWallet") }}
+              {{ this.$t("titles.wallet.createNew") }}
             </button>
           </div>
           <div class="import-btn-box">

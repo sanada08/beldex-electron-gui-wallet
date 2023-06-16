@@ -24,7 +24,9 @@
         {{ this.$route.query.title }}
       </h4>
       <h6 style="color: white; font-size: 16px; margin-left: 12px">
-        <span style="font-family: Poppins-Regular">Wallet:</span>
+        <span style="font-family: Poppins-Regular"
+          >{{ this.$t("footer.wallet") }}:</span
+        >
         {{ walletName }}
       </h6>
       <div
@@ -43,7 +45,7 @@
           <q-btn
             color="primary1"
             size="md"
-            label="copy"
+            :label="this.$t('buttons.copy')"
             font-size="20px;"
             icon-right="file_copy"
             @click="copyAddress"
@@ -92,7 +94,7 @@
         <q-btn
           color="primary1"
           size="md"
-          label="copy"
+          :label="this.$t('buttons.copy')"
           icon-right="file_copy"
           @click="copyPrivateKey('mnemonic', $event)"
         >
@@ -121,7 +123,7 @@
               color="primary1"
               padding="xs"
               size="md"
-              label="Copy"
+              :label="this.$t('buttons.copy')"
               icon-right="file_copy"
               @click="copyPrivateKey('view_key', $event)"
             >
@@ -151,7 +153,7 @@
               color="primary1"
               padding="xs"
               size="md"
-              label="Copy"
+              :label="this.$t('buttons.copy')"
               icon-right="file_copy"
               @click="copyPrivateKey('spend_key', $event)"
             >

@@ -3,7 +3,7 @@ export default {
     // All button text is uppercased in the gui
     advanced: "Передовой",
     addAddressBook: "Добавить в адресную книгу",
-
+    addWallet: "Добавить кошелек",
     all: "ВСЕ",
     back: "НАЗАД",
     browse: "ОБЗОР",
@@ -21,6 +21,7 @@ export default {
     edit: "РЕДАКТИРОВАТЬ",
     editNotes: "Редактировать примечания",
     export: "ЭКСПОРТИРОВАТЬ",
+    fromBlockheight: "Из Блокхайта",
     generate: "Создать",
     import: "ИМПОРТИРОВАТЬ",
     importWallet: "ИМПОРТИРОВАТЬ КОШЕЛЕК | ИМПОРТИРОВАТЬ КОШЕЛЬКИ",
@@ -144,6 +145,8 @@ export default {
     switchWallet: {
       title: "Переключить кошельки",
       closeMessage: "Вы уверены, что хотите закрыть текущий кошелек?",
+      restartWalletMessage:
+        "Вы уверены, что хотите закрыть и перезапустить кошелек?",
       restartMessage:
         "Запущен RPC кошелька.\nЕсли вы хотите переключить кошельки, перезапустите приложение. \nПрогресс синхронизации будет потерян и вам придется пересканировать блокчейн."
     },
@@ -495,6 +498,8 @@ export default {
   titles: {
     addressBook: "Адресная книга",
     addressDetails: "Данные адреса",
+    contactBook: "Контактная книга",
+
     advanced: {
       checkTransaction: "Проверить транзакцию",
       prove: "Доказывать",
@@ -506,7 +511,10 @@ export default {
     configure: "Настройки",
     currentlyStakedNodes: "Currently staked nodes",
     privateKeys: "Приватные ключи",
+    importFromFile: "Импорт из файла",
     rescanWallet: "Пересканировать кошелек",
+    restoreFromSeed: "Восстановить из семян",
+
     masterNode: {
       registration: "РЕГИСТРАЦИЯ",
       staking: "СТЕЙК",
@@ -525,6 +533,9 @@ export default {
     wallet: {
       createNew: "Создать новый кошелек",
       createdOrRestored: "Кошелек создан/восстановлен",
+      walletRestored: "Кошелек восстановлен",
+      walletCreated: "Кошелек создан",
+      walletImported: "Кошелек импортирован",
       importFromFile: "Импортировать кошелек из файла",
       useExistingWallet: "Use Existing Wallet",
       importFromLegacyGUI: "Импортировать кошелек из предыдущего GUI",

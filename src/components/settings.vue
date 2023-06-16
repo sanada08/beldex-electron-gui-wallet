@@ -74,7 +74,7 @@
                       />
                     </svg>
                     <!-- <span class="divider"></span> -->
-                    <span>General</span>
+                    <span>{{ this.$t("titles.settings.tabs.general") }}</span>
                   </div>
                   <q-icon
                     v-if="page === 'general'"
@@ -116,7 +116,7 @@
                       />
                     </svg>
                     <!-- <span class="divider"></span> -->
-                    <span>Language</span>
+                    <span>{{ this.$t("titles.settings.tabs.language") }}</span>
                   </div>
                   <q-icon
                     v-if="page === 'language'"
@@ -157,7 +157,7 @@
                       />
                     </svg>
                     <!-- <span class="divider"></span> -->
-                    <span>Peers</span>
+                    <span>{{ this.$t("titles.settings.tabs.peers") }}</span>
                   </div>
                   <q-icon
                     v-if="page === 'peers'"

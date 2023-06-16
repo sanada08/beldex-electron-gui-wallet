@@ -3,6 +3,8 @@ export default {
     // All button text is uppercased in the gui
     advanced: "AVANZADO",
     addAddressBook: "Agregar a la libreta de direcciones",
+    addWallet: "Agregar billetera",
+
     all: "TODO",
     back: "ATRÁS",
     browse: "EXAMINAR",
@@ -21,6 +23,8 @@ export default {
     edit: "EDITAR",
     editNotes: "Editar notas",
     export: "EXPORTAR",
+    fromBlockheight: "Desde altura de bloque",
+
     generate: "GENERAR",
     import: "IMPORTAR",
     importWallet: "IMPORTAR MONEDERO | IMPORTAR MONEDEROS",
@@ -145,6 +149,8 @@ export default {
     switchWallet: {
       title: "Cambiar de monedero",
       closeMessage: "¿Confirma que desea cerrar el monedero actual?",
+      restartWalletMessage:
+        "Are you sure you want to close and Restart the wallet?",
       restartMessage:
         "El monedero se está sincronizando. \nSi desea cambiar de monedero, tendrá que reiniciar la aplicación. \nEl progreso de la sincronización no se guardará y será necesario volver a examinar la cadena de bloques."
     },
@@ -498,6 +504,8 @@ export default {
   titles: {
     addressBook: "Libreta de direcciones",
     addressDetails: "Detalles de la dirección",
+    contactBook: "Libreta de contactos",
+
     advanced: {
       checkTransaction: "COMPROBAR TRANSACCIÓN",
       prove: "PRUEBA",
@@ -509,8 +517,11 @@ export default {
     changePassword: "Modificar contraseña",
     configure: "Configurar",
     currentlyStakedNodes: "Nodos en los que actualmente participa",
+    importFromFile: "Importar desde archivo",
     privateKeys: "Claves privadas",
     rescanWallet: "Volver a examinar monedero",
+    restoreFromSeed: "Restaurar desde semilla",
+
     masterNode: {
       registration: "REGISTRO",
       staking: "PARTICIPACIÓN",
@@ -529,6 +540,9 @@ export default {
     wallet: {
       createNew: "Crear un monedero nuevo",
       createdOrRestored: "Monedero creado/restaurado",
+      walletRestored: "Monedero restaurado",
+      walletCreated: "Monedero creado",
+      walletImported: "Cartera importada",
       importFromFile: "Importar monedero de un archivo",
       useExistingWallet: "Use Existing Wallet",
       importFromLegacyGUI: "Importar monedero de una interfaz gráfica heredada",

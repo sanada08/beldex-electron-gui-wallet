@@ -2,7 +2,7 @@
   <q-page>
     <section class="flex justify-center align-center">
       <div class="fields">
-        <div class="createTitle">Import from File</div>
+        <div class="createTitle">{{ this.$t("titles.importFromFile") }}</div>
 
         <div class="q-mx-md import-wallet">
           <OxenField
@@ -130,7 +130,7 @@ export default {
             this.$router.replace({
               path: "/wallet-select/created",
               query: {
-                title: "Wallet Imported"
+                title: this.$t("titles.wallet.walletImported")
               }
             });
             break;

@@ -3,6 +3,8 @@ export default {
     // All button text is uppercased in the gui
     advanced: "ADVANCED",
     addAddressBook: "Zum Adressbuch hinzufügen",
+    addWallet: "Geldbörse hinzufügen",
+
     all: "ALLES",
     back: "ZURÜCK",
     browse: "DURCHSUCHEN",
@@ -20,6 +22,8 @@ export default {
     edit: "BEARBEITEN",
     editNotes: "Notizen bearbeiten",
     export: "EXPORTIEREN",
+    fromBlockheight: "Von Blockhöhe",
+
     generate: "Generieren",
     import: "IMPORTIEREN",
     importWallet: "WALLET IMPORTIEREN | WALLETS IMPORTIEREN",
@@ -145,6 +149,8 @@ export default {
       title: "Wallet wechseln",
       closeMessage:
         "Bist du sicher, dass du die aktuelle Wallet schliessen möchtest?",
+      restartWalletMessage:
+        "Sind Sie sicher, dass Sie das Wallet schließen und neu starten möchten?",
       restartMessage:
         "Die Wallet RPC synchronisiert sich gerade\n Wenn du deine Wallet wechseln möchtest, musst du die Anwendung erneut starten. \n Die Synchronisation wird abgebrochen und du musst die Blockchain erneut scannen. "
     },
@@ -498,6 +504,8 @@ export default {
   titles: {
     addressBook: "Adressbuch",
     addressDetails: "Adressdetails",
+    contactBook: "Kontaktbuch",
+
     advanced: {
       checkTransaction: "Überprüfen Sie die Transaktion",
       prove: "Beweisen",
@@ -508,8 +516,11 @@ export default {
     changePassword: "Passwort ändern",
     configure: "Konfiguaration",
     currentlyStakedNodes: "Currently staked nodes",
+    importFromFile: "Aus Datei importieren",
     privateKeys: "Private Keys",
     rescanWallet: "Wallet erneut scannen",
+    restoreFromSeed: "Aus Seed wiederherstellen",
+
     masterNode: {
       registration: "REGISTRIERUNG",
       staking: "STAKING",
@@ -523,11 +534,16 @@ export default {
         peers: "Peers"
       }
     },
+
     transactionDetails: "Transaktionsdetails",
     transactions: "Transaktionen",
+
     wallet: {
       createNew: "Neue Wallet erstellen",
       createdOrRestored: "Wallet erstellt/wiederhergestellt",
+      walletRestored: "Brieftasche restauriert",
+      walletCreated: "Wallet erstellt",
+      walletImported: "Wallet Imported",
       importFromFile: "Importieren der Wallet aus Datei",
       useExistingWallet: "Use Existing Wallet",
       importFromLegacyGUI: "Wiederherstellung der Wallet von legacy GUI",

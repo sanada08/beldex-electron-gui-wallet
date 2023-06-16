@@ -3,6 +3,8 @@ export default {
     // All button text is uppercased in the gui
     advanced: "ADVANCED",
     addAddressBook: "Ajouter au carnet d'adresses",
+    addWallet: "Ajouter un portefeuille",
+
     all: "TOUT",
     back: "RETOUR",
     browse: "NAVIGUER",
@@ -21,6 +23,8 @@ export default {
     editNotes: "Modifier les notes",
 
     export: "EXPORTER",
+    fromBlockheight: "De la hauteur du bloc",
+
     generate: "Générer",
     import: "IMPORTER",
     importWallet: "IMPORTER UN PORTEFEUILLE | IMPORTER DES PORTEFEUILLE",
@@ -146,6 +150,8 @@ export default {
     switchWallet: {
       title: "CHANGER DE PORTEFEUILLE",
       closeMessage: "Êtes-vous sûr de vouloir fermer le portefeuille actuel ?",
+      restartWalletMessage:
+        "Êtes-vous sûr de vouloir fermer et redémarrer le portefeuille ?",
       restartMessage:
         "Le portefeuille RPC est en cours de synchronisation. \nSi vous souhaitez changer de portefeuille, vous devez redémarrer l'application. \nVous allez perdre votre progression concernant la  synchronisation, vous devrez à nouveau analyser la blockchain."
     },
@@ -499,6 +505,8 @@ export default {
   titles: {
     addressBook: "Carnet d'adresses",
     addressDetails: "Détails de l'adresse",
+    contactBook: "Contacter Réserver",
+
     advanced: {
       checkTransaction: "Chèque Transaction",
       prove: "Prouver",
@@ -511,7 +519,10 @@ export default {
     configure: "Configurer",
     currentlyStakedNodes: "Currently staked nodes",
     privateKeys: "Clés privées",
+    importFromFile: "Importer depuis un fichier",
     rescanWallet: "Analysez de nouveau le portefeuille",
+    restoreFromSeed: "Restaurer à partir de la graine",
+
     masterNode: {
       registration: "ENREGISTREMENT",
       staking: "STAKING",
@@ -530,6 +541,9 @@ export default {
     wallet: {
       createNew: "Créer un nouveau portefeuille",
       createdOrRestored: "Créer ou restaurer un portefeuille",
+      walletRestored: "Portefeuille restauré",
+      walletCreated: "Portefeuille créé",
+      walletImported: "Portefeuille importé",
       importFromFile: "Importer un portefeuille à partir d'un fichier",
       useExistingWallet: "Use Existing Wallet",
       importFromLegacyGUI:
