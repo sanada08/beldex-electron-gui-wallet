@@ -533,9 +533,9 @@ export default {
 
 <style lang="scss">
 .settings-general {
-  width: 69vw;
-  max-height: 695px;
-  overflow-y: auto;
+  // width: 69vw;
+  // max-height: 695px;
+  // overflow-y: auto;
   .q-field {
     margin: 20px 0;
   }

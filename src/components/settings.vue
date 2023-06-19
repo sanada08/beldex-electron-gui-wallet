@@ -411,11 +411,15 @@ export default {
     align-items: center;
   }
   .rightPane {
-    overflow: auto;
     margin: 5px auto 0px;
     width: 96%;
     height: 82vh;
-    overflow-y: hidden;
+    overflow-y: auto;
+  }
+  @media only screen and (max-height: 780px) {
+    .rightPane {
+      height: 78vh;
+    }
   }
   .routering {
     .selected {

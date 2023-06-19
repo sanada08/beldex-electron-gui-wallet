@@ -71,7 +71,7 @@
       </div>
     </article>
     <div class="hr-separator" />
-    <article>
+    <article class="nav-view">
       <keep-alive>
         <div v-if="this.routes === 'send'">
           <Send />
@@ -121,4 +121,9 @@ export default {
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.nav-view {
+  height: 61vh;
+  overflow: auto;
+}
+</style>

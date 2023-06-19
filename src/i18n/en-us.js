@@ -270,6 +270,7 @@ export default {
     rescanFullBlockchain: "Rescan full blockchain",
     rescanSpentOutputs: "Rescan spent outputs",
     transactionNotes: "Transaction Notes",
+    totalBalance: "Total Balance",
     chooseNetwork: "Choose a Network",
     network: "Network",
 

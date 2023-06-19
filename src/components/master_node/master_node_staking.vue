@@ -512,15 +512,22 @@ export default {
   border: 1px solid #484856;
   border-radius: 10px;
 }
+
 .master-node-stake-tab {
   margin-top: 4px;
   user-select: none;
+  min-height: 41vh;
   .header {
     font-weight: 450;
   }
   .q-item-sublabel,
   .q-list-header {
     font-size: 14px;
+  }
+}
+@media only screen and (max-height: 780px) {
+  .master-node-stake-tab {
+    min-height: 30vh;
   }
 }
 </style>

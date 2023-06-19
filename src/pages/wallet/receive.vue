@@ -215,8 +215,8 @@ export default {
 }
 
 .receive {
-  height: 599px;
-  overflow: auto;
+  // height: 599px;
+  // overflow: auto;
   min-height: unset;
   .q-item-label {
     font-weight: 400;

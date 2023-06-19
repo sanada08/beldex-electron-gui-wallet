@@ -1,6 +1,9 @@
 <template>
-  <q-page class="create-wallet beldex-wallet">
-    <section class="flex justify-center align-center">
+  <q-page
+    class="create-wallet beldex-wallet"
+    style="min-height: unset; height:calc(100vh - 70px)"
+  >
+    <section class="flex justify-center items-center">
       <div class="fields">
         <div class="createTitle">{{ this.$t("titles.wallet.createNew") }}</div>
         <OxenField

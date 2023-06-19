@@ -1,5 +1,8 @@
 <template>
-  <q-page style="min-height: unset; height: 800px" class="registration-View">
+  <q-page
+    style="min-height: unset; height:calc(100vh - 70px)"
+    class="registration-View"
+  >
     <q-list
       class="wallet-list beldex-theme d-flex-center column"
       style="height: 100%"

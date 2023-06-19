@@ -167,7 +167,7 @@
             <q-btn color="primary" label="Close" @click="showAbout(false)" />
           </div>
         </q-dialog>
-        <div v-if="!is_able_to_send" class="app-content">
+        <div v-if="!is_able_to_send" class="app-content router-view-wrapper">
           <!-- <div class="navigation row items-end"> -->
           <!-- <router-link to="/wallet">
               <q-btn class="single-icon" size="md" icon="swap_horiz" />
@@ -334,7 +334,7 @@ export default {
 }
 
 .version-wrapper {
-  height: 58%;
+  height: 69%;
   /* background-color: aliceblue; */
   display: flex;
   align-items: flex-end;
@@ -352,6 +352,11 @@ export default {
   }
 }
 
+@media only screen and (max-height: 780px) {
+  .version-wrapper {
+    height: 62%;
+  }
+}
 .footer {
   .fixed-bottom,
   .absolute-bottom {

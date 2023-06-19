@@ -1241,7 +1241,7 @@ footer,
     width: 832px;
    // height: 600px;
     background-color:$beldex-lightgray;
-    margin-top:100px;
+    margin-top:50px;
     margin-bottom:50px;
     padding:20px 68px 68px;
     border-radius: 20px;
@@ -1505,15 +1505,29 @@ body
 
 }
 
-.transactionBox
+.router-view-wrapper
+{
+    height:51vh;
+    overflow-y:auto;
+}
+
+ 
+
+.transactionBox,.master-node-page,.advanced-page
 {
     background-color:$beldex-lightgray;
     padding: 15px;
     border-radius: 20px;
     -webkit-box-shadow: 0px 6px 24px rgba(0,0,0,0.2);
     box-shadow: 0px 6px 24px rgba(0,0,0,0.2);
-    height: 51vh;
-    overflow: auto;
+    
+    // height: 51vh;
+    // overflow: auto;
+}
+
+.transactionBox
+{
+    
     .oxen-list .oxen-list-item 
     {
         background-color:unset;
@@ -1552,20 +1566,13 @@ body
     }
   }
 
-  .advanced-page{
-    height: 51vh;
-    overflow: auto;
-    background-color: $beldex-lightgray;
-    padding: 15px;
-    border-radius: 20px;
-    -webkit-box-shadow: 0px 6px 24px rgba(0, 0, 0, 0.2);
-    box-shadow: 0px 6px 24px rgba(0, 0, 0, 0.2);
-    width: 100%;
-
-    
+  .advanced-page{    
       .oxen-field .content {
         min-height:45px !important;
       }
+  }
+  .master-node-registration{
+    min-height: 41vh;
   }
 
  
@@ -1794,6 +1801,20 @@ body
     }
     
 }
+
+@media only screen and (max-height: 780px) {
+    .router-view-wrapper
+    {
+        height:41vh;
+        overflow-y:auto;
+    }
+    .rectangleBox{
+        height:85vh;
+    }
+    .master-node-stake-tab,.master-node-registration{
+        min-height: 30vh;
+    }
+  }
 
 //common style may affect all the dialog modal
 

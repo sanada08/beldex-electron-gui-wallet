@@ -2,16 +2,21 @@
   <div>
     <q-btn class="menu" icon="settings" size="md" flat>
       <q-menu>
-        <q-list separator class="menu-list">
+        <q-list separator class="menu-list settings-sub-menu">
           <q-item
             v-if="!disableSwitchWallet"
             v-close-popup
             clickable
             @click.native="switchWallet"
           >
-            <q-item-label header>{{
-              $t("menuItems.switchWallet")
-            }}</q-item-label>
+            <q-item-label header class="flex items-center">
+              <img
+                src="../../assets/images/switch_wallet.svg"
+                alt="exitWallet"
+                class="icon"
+              />
+              {{ $t("menuItems.switchWallet") }}</q-item-label
+            >
           </q-item>
           <q-item
             v-if="!disableSettings"
@@ -19,13 +24,30 @@
             clickable
             @click.native="openSettings"
           >
-            <q-item-label header>{{ $t("menuItems.settings") }}</q-item-label>
+            <q-item-label header class="flex items-center">
+              <img
+                src="../../assets/images/settings-sub-icon.svg"
+                class="icon"
+                alt="exitWallet"
+              />
+              {{ $t("menuItems.settings") }}</q-item-label
+            >
           </q-item>
           <q-item v-close-popup clickable @click.native="showAbout(true)">
-            <q-item-label header>{{ $t("menuItems.about") }}</q-item-label>
+            <q-item-label header class="flex items-center">
+              <q-icon name="o_info" size="xs" class="icon" />
+              {{ $t("menuItems.about") }}</q-item-label
+            >
           </q-item>
           <q-item v-close-popup clickable @click.native="exit">
-            <q-item-label header>{{ $t("menuItems.exit") }}</q-item-label>
+            <q-item-label header class="flex items-center">
+              <img
+                src="../../assets/images/exitWallet.svg"
+                alt="exitWallet"
+                class="icon"
+              />
+              {{ $t("menuItems.exit") }}
+            </q-item-label>
           </q-item>
         </q-list>
       </q-menu>
@@ -221,6 +243,14 @@ export default {
   max-width: unset !important;
 }
 
+.settings-sub-menu {
+  .icon {
+    color: #a9a9cd !important;
+    margin-right: 10px;
+    width: 16px;
+    height: 16px;
+  }
+}
 .about-modal {
   font-family: Poppins-Medium;
 
