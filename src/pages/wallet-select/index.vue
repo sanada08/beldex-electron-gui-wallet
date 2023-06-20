@@ -160,7 +160,7 @@
         <template v-else>
           <div class="btn-spliter">
             <button class="btn login-btn" @click="this.restoreWallet">
-              {{ this.$t("titles.wallet.restoreFromSeed") }}
+              {{ this.$t("titles.wallet.useExistingWallet") }}
             </button>
             <button class="btn create-btn" @click="this.createNewWallet">
               {{ this.$t("titles.wallet.createNew") }}

@@ -72,15 +72,16 @@
             <span style="color: #00ad07">{{ daemonVersion }}</span>
           </p>
           <p class="q-my-sm">
-            Copyright (c) -
+            Copyright <span style="font-weight: bold;"> ⓒ </span>
+            -
             <span style="color: #00ad07">2018-2021, Beldex</span>
           </p>
-          <p
+          <!-- <p
             class="q-my-sm"
             style="font-family: Poppins-Regular; font-size: 13px"
           >
             All rights reserved.
-          </p>
+          </p> -->
 
           <div class="q-mt-md external-links">
             <p style="margin: 0 0 20px">
