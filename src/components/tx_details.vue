@@ -28,39 +28,50 @@
             <TxTypeIcon :type="tx.type" :tooltip="false" />
           </div> -->
 
-          <div v-if="tx.type == 'in'" :class="'tx-' + tx.type">
+          <div v-if="tx.type == 'in'" :class="`tx-${tx.type} txn-type`">
             {{
-              $t("strings.transactions.description", {
-                type: $t("strings.transactions.types.incoming")
-              })
+              // $t("strings.transactions.description", {
+              // type: $t("strings.transactions.types.incoming")
+              // })
+              $t("strings.transactions.types.incoming")
             }}
           </div>
-          <div v-else-if="tx.type == 'out'" :class="'tx-' + tx.type">
+          <div v-else-if="tx.type == 'out'" :class="`tx-${tx.type} txn-type`">
             {{
-              $t("strings.transactions.description", {
-                type: $t("strings.transactions.types.outgoing")
-              })
+              // $t("strings.transactions.description", {
+              //   type: $t("strings.transactions.types.outgoing")
+              // })
+              $t("strings.transactions.types.outgoing")
             }}
           </div>
-          <div v-else-if="tx.type == 'pool'" :class="'tx-' + tx.type">
+          <div v-else-if="tx.type == 'pool'" :class="`tx-${tx.type} txn-type`">
             {{
-              $t("strings.transactions.description", {
-                type: $t("strings.transactions.types.pendingIncoming")
-              })
+              // $t("strings.transactions.description", {
+              //   type: $t("strings.transactions.types.pendingIncoming")
+              // })
+              $t("strings.transactions.types.pendingIncoming")
             }}
           </div>
-          <div v-else-if="tx.type == 'pending'" :class="'tx-' + tx.type">
+          <div
+            v-else-if="tx.type == 'pending'"
+            :class="`tx-${tx.type} txn-type`"
+          >
             {{
-              $t("strings.transactions.description", {
-                type: $t("strings.transactions.types.pendingOutgoing")
-              })
+              // $t("strings.transactions.description", {
+              //   type: $t("strings.transactions.types.pendingOutgoing")
+              // })
+              $t("strings.transactions.types.pendingOutgoing")
             }}
           </div>
-          <div v-else-if="tx.type == 'failed'" :class="'tx-' + tx.type">
+          <div
+            v-else-if="tx.type == 'failed'"
+            :class="`tx-${tx.type} txn-type`"
+          >
             {{
-              $t("strings.transactions.description", {
-                type: $t("strings.transactions.types.failed")
-              })
+              // $t("strings.transactions.description", {
+              //   type: $t("strings.transactions.types.failed")
+              // })
+              $t("strings.transactions.types.failed")
             }}
           </div>
         </div>
@@ -521,6 +532,11 @@ export default {
     width: 130px;
     height: 43px;
     font-size: 1rem;
+  }
+  .txn-type {
+    color: #d1d1d3;
+    font-size: 22px;
+    margin-right: 50px;
   }
   .txn-notes {
     color: #afafbe;

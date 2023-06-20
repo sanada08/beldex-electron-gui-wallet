@@ -2,40 +2,54 @@
   <q-dialog v-model="show" persistent>
     <q-card class="confirm-tx-card">
       <q-card-section>
-        <div class="text-h6">{{ $t("dialog.confirmTransaction.title") }}</div>
+        <div class="text-h6 text-center ft-semibold">
+          {{ $t("dialog.confirmTransaction.title") }}
+        </div>
       </q-card-section>
       <q-card-section>
-        <div class="confirm-list">
+        <div class="confirm-list ">
           <div>
-            <span class="label"
+            <span class="label ft-semibold "
               >{{ $t("dialog.confirmTransaction.sendTo") }}:
             </span>
             <br />
-            <span class="address-value">{{ sendTo }}</span>
+            <span class="address-value ft-regular">{{ sendTo }}</span>
           </div>
+
+          <div class="hr-separator " />
+
+          <span class="label ft-semibold"
+            >{{ $t("strings.transactions.amount") }}:
+          </span>
+          <span class="address-value ft-medium"> {{ amount }} BDX</span>
+
           <br />
-          <span class="label">{{ $t("strings.transactions.amount") }}: </span>
-          {{ amount }} BDX
+          <div class="hr-separator" />
+
+          <span class="label ft-semibold"
+            >{{ $t("strings.transactions.fee") }}:
+          </span>
+          <span class="address-value ft-medium">{{ fee }} BDX</span>
+
           <br />
-          <span class="label">{{ $t("strings.transactions.fee") }}: </span>
-          {{ fee }} BDX
-          <br />
-          <span class="label"
+          <div class="hr-separator" />
+
+          <span class="label ft-semibold"
             >{{ $t("dialog.confirmTransaction.priority") }}:
           </span>
-          {{ isflashToTranslatedLabel(isflash) }}
+          <span class="address-value ft-medium">{{
+            isflashToTranslatedLabel(isflash)
+          }}</span>
         </div>
       </q-card-section>
       <q-card-actions align="right">
         <q-btn
-          flat
           :label="$t('dialog.buttons.cancel')"
-          color="negative"
+          color="accent"
           @click="onCancelTransaction"
         />
         <q-btn
-          class="confirm-send-btn"
-          flat
+          color="primary"
           :label="$t('buttons.send')"
           @click="onConfirmTransaction"
         />

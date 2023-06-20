@@ -89,7 +89,7 @@ export class Gateway extends EventEmitter {
       message: msg,
       ok: {
         label: i18n.t(`dialog.${key}.ok`),
-        color: "primary"
+        color: key !== "exit" ? "primary" : "red"
       },
       cancel: {
         label: i18n.t("dialog.buttons.cancel"),

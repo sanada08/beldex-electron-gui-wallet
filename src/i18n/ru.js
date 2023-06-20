@@ -87,7 +87,7 @@ export default {
     },
     exit: {
       title: "Выйти",
-      message: "Уверены, что хотите выйти?",
+      message: "Вы уверены, что хотите выйти из кошелька?",
       ok: "ВЫЙТИ"
     },
     keyImages: {
@@ -351,6 +351,9 @@ export default {
     addressBookName: "Имя для этого адреса",
     addressOfSigner: "Публичный адрес кошелька подписавшего",
     beldexAddress: "Белдекс Адрес",
+    enterName: "Введите имя",
+    enterAddress: "Введите адрес",
+
     filterTx: "Введите идентификатор, имя, адрес или сумму",
     hexCharacters: "Шестнадцатеричных символов: {count}",
     mnemonicSeed: "Seed-фраза, состоящая из 25 или 24 слов",
@@ -476,8 +479,8 @@ export default {
       timestamp: "Отметка времени",
       types: {
         all: "Все",
-        incoming: "Входящие",
-        outgoing: "Исходящие",
+        incoming: "Получать",
+        outgoing: "Отправил",
         pending: "Ожидающие",
         pendingIncoming: "Ожидающие входящие",
         pendingOutgoing: "Ожидающие исходящие",

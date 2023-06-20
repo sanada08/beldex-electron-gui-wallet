@@ -90,7 +90,7 @@ export default {
     },
     exit: {
       title: "Quitter",
-      message: "Êtes-vous sûr de vouloir quitter?",
+      message: "Êtes-vous sûr de vouloir quitter le portefeuille ?",
       ok: "Quitter"
     },
     keyImages: {
@@ -359,6 +359,8 @@ export default {
     addressBookName: "Nom rattaché à cette adresse",
     addressOfSigner: "Adresse du portefeuille public du signataire",
     beldexAddress: "Adresse Beldex",
+    enterName: "Entrez le nom",
+    enterAddress: "Entrer l'adresse",
     filterTx: "Saisissez un identifiant, un nom, une adresse ou un montant",
     hexCharacters: "{count} caractères hexadécimaux",
     mnemonicSeed: "25 (ou 24) mot mnémonique",
@@ -483,11 +485,11 @@ export default {
       timestamp: "Horodatage",
       types: {
         all: "Toutes",
-        incoming: "Entrantes",
-        outgoing: "Sortantes",
+        incoming: "Recevoir",
+        outgoing: "Envoyé",
         pending: "En attente",
-        pendingIncoming: "Entrantes en attente",
-        pendingOutgoing: "Sortantes en attente",
+        pendingIncoming: "Envoyé",
+        pendingOutgoing: "Recevoir",
         miner: "Miner",
         masterNode: "Noeud de master",
         governance: "Gouvernance",

@@ -90,7 +90,7 @@ export default {
     },
     exit: {
       title: "Sair",
-      message: "Tem a certeza que deseja sair?",
+      message: "Tem certeza de que deseja sair da carteira?",
       ok: "SAIR"
     },
     keyImages: {
@@ -355,6 +355,8 @@ export default {
     addressBookName: "Nome que pertence a este endereço",
     addressOfSigner: "Endereço público da carteira do signatário",
     beldexAddress: "Endereço Beldex",
+    enterAddress: "Insira o endereço",
+    enterName: "Insira o nome",
     filterTx: "Digite um ID, nome, endereço ou valor",
     hexCharacters: "{count} caracteres hexadecimais",
     mnemonicSeed: "25 (or 24) palavras semente mnemónicas",
@@ -475,8 +477,8 @@ export default {
       timestamp: "Data e hora",
       types: {
         all: "Todos",
-        incoming: "Entradas",
-        outgoing: "Saídas",
+        incoming: "Receber",
+        outgoing: "Enviado",
         pending: "Pendentes",
         pendingIncoming: "Entradas pendentes",
         pendingOutgoing: "Saídas pendentes",

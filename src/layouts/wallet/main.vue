@@ -20,7 +20,8 @@
     </q-header>
 
     <q-page class="flex row justify-around">
-      <div class="col-md-3">
+      <!-- <div class="col-md-3"> -->
+      <div style="width: 23%;height: auto;">
         <section class="rectangleBox">
           <router-link to="/wallet">
             <article
@@ -134,7 +135,8 @@
           </article>
         </section>
       </div>
-      <div class="col-md-6">
+      <!-- <div class="col-md-6"> -->
+      <div style="width: 50% ;height: auto;">
         <WalletDetails />
         <q-dialog ref="aboutModal" minimized>
           <div class="about-modal">
@@ -231,7 +233,8 @@
         </div>
       </div>
 
-      <div class="col-md-3">
+      <!-- <div class="col-md-3"> -->
+      <div style="width: 27% ;height: auto;">
         <section class="rectangleBox rightPane">
           <!-- <router-view class="view right-sidebar" name="RightSidebar"></router-view> -->
           <RightPane />

@@ -44,6 +44,7 @@
                 :options="priorityOptions"
                 borderless
                 dense
+                dropdown-icon="expand_more"
               />
             </OxenField>
           </div>
@@ -448,6 +449,9 @@ export default {
         ok: {
           label: this.$t("dialog.transfer.ok"),
           color: "primary"
+        },
+        cancel: {
+          color: "accent"
         }
       });
       passwordDialog

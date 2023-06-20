@@ -86,6 +86,7 @@ footer,
 
 .q-inner-loading {
     z-index: 2;
+    background-color:rgba(28, 28, 38, 0.7);
 }
 
 .q-btn {
@@ -197,8 +198,7 @@ footer,
         {
             i
             {
-
-                color: #fff;
+               color: #fff;
                //background: #3773f7;
                 padding: 5px;
                 border-radius: 5px;
@@ -444,10 +444,20 @@ footer,
 .confirm-tx-card {
   width: 450px;
   max-width: 450x;
+  color:white;
+  background-color:$beldex-bgcol;
+  border-radius: 16px !important;
 
-  color: $oxen-navy !important;
 
+  .hr-separator{
+    background-color:#41415B;
+    opacity:unset;
+  }
+  
   .confirm-list {
+    background-color:$beldex-disable-grey
+    padding: 30px;
+    border-radius: 16px;
     .q-item {
       max-height: 100%;
       margin-top: 0;
@@ -458,17 +468,14 @@ footer,
   }
 
   .label {
-    color: $oxen-purple;
+    
     padding-right: 6px;
   }
   .address-value {
     word-break: break-word;
+    color:$beldex-font-grey;
   }
 
-  .confirm-send-btn {
-    color: white;
-    background: $primary;
-  }
 }
 
 
@@ -643,6 +650,7 @@ footer,
   .q-btn {
     color: #fff;
   }
+  
 }
 
 .receive {
@@ -837,7 +845,9 @@ footer,
 
     &:not(.disable):not(.disable-hover) {
         .content:hover {
-            background: #1c1c26;
+            // background: #1c1c26;
+            background:#242433;
+            border:1px solid #9F9FAF
         }
     }
 
@@ -992,7 +1002,8 @@ footer,
 }
 .q-btn--flat:hover
 {
- background: #3773f7 !important;
+ background:rgba(119, 119, 151, 0.3) !important;
+ border-radius:300px !important;
 }
 .q-card__actions
 {
@@ -1437,7 +1448,11 @@ footer,
         height: 45px;
         background-color:$beldex-disable-grey;
         border-radius:10px;
-
+         
+        .icon{
+          width:20px;
+          height:20px;
+        }
         .btn-txt {
             color:#fff;
             margin-left:5px;
@@ -1802,6 +1817,15 @@ body
     
 }
 
+@media only screen and (max-width: 1380px) {
+    .rightPane{
+
+        .send-btn{
+            
+            width: unset;
+        }
+    }
+}
 @media only screen and (max-height: 780px) {
     .router-view-wrapper
     {

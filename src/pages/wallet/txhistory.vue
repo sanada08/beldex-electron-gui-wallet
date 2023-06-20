@@ -47,7 +47,7 @@
           </article>
 
           <!-- <OxenField class="col-2"> -->
-          <OxenField>
+          <OxenField class="grp-filter">
             <q-select
               v-model="tx_type"
               :options="tx_type_options"
@@ -154,6 +154,15 @@ export default {
 .transactionBox {
   .q-select__dropdown-icon {
     font-size: 20px;
+  }
+  .grp-filter {
+    &:not(.disable):not(.disable-hover) {
+      .content:hover {
+        // background: #1c1c26;
+        background: #41415b;
+        border: unset;
+      }
+    }
   }
 }
 .color-white {

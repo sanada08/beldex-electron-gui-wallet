@@ -1,7 +1,7 @@
 <template>
   <q-page
     class="create-wallet beldex-wallet"
-    style="min-height: unset; height:calc(100vh - 70px)"
+    style="min-height: unset; height: calc(100vh - 70px)"
   >
     <section class="flex justify-center items-center">
       <div class="fields">
@@ -21,7 +21,7 @@
           />
         </OxenField>
 
-        <OxenField :label="$t('fieldLabels.seedLanguage')">
+        <OxenField :label="$t('fieldLabels.seedLanguage')" class="dropdown">
           <q-select
             v-model="wallet.language"
             :options="languageOptions"
@@ -29,6 +29,7 @@
             dense
             emit-value
             map-options
+            dropdown-icon="expand_more"
           />
         </OxenField>
 
@@ -209,6 +210,14 @@ export default {
 </script>
 
 <style lang="scss">
+.create-wallet {
+  .dropdown {
+    .content:hover {
+      background-color: #41415b !important;
+      border: unset !important;
+    }
+  }
+}
 .submit {
   .q-btn {
     width: 251px;

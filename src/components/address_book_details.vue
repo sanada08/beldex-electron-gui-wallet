@@ -64,7 +64,12 @@
             />
           </OxenField>
           <OxenField :label="$t('fieldLabels.name')">
-            <q-input v-model.trim="newEntry.name" borderless dense />
+            <q-input
+              v-model.trim="newEntry.name"
+              :placeholder="$t('placeholders.enterName')"
+              borderless
+              dense
+            />
           </OxenField>
           <OxenField :label="$t('fieldLabels.notes')" optional>
             <q-input
@@ -230,10 +235,13 @@ export default {
     is_ready() {
       return this.$store.getters["gateway/isReady"];
     },
-    address_placeholder(state) {
-      const wallet = state.gateway.wallet.info;
-      const prefix = (wallet && wallet.address && wallet.address[0]) || "L";
-      return `${prefix}..`;
+    address_placeholder() {
+      // address_placeholder(state) {
+      // const wallet = state.gateway.wallet.info;
+      // const prefix = (wallet && wallet.address && wallet.address[0]) || "L";
+      // return `${prefix}..`;
+
+      return this.$t("placeholders.enterAddress");
     }
   }),
   validations: {
@@ -420,7 +428,7 @@ export default {
     overflow: auto;
   }
   .title {
-    font-size: 12px;
+    font-size: 18px;
     background-color: unset !important;
   }
   .add-btn .q-icon {

@@ -73,7 +73,7 @@
               </q-item-label>
             </q-item-section>
 
-            <q-btn flat class="q-ml-lg flex items-center">
+            <div class="q-ml-lg q-mr-xs flex items-center">
               <svg
                 width="9"
                 height="13"
@@ -86,7 +86,7 @@
                   fill="#8787A8"
                 />
               </svg>
-            </q-btn>
+            </div>
 
             <ContextMenu
               :menu-items="menuItems"
@@ -424,10 +424,14 @@ export default {
 <style lang="scss">
 .tx-list {
   .oxen-list-item {
-    padding-top: 0;
-    padding-bottom: 0;
+    padding-top: 5px;
+    padding-bottom: 5px;
     padding-right: 0;
   }
+  .oxen-list-item:hover {
+    background-color: #2c2c43;
+  }
+
   .infoTxt {
     color: white;
   }

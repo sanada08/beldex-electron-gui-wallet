@@ -88,7 +88,7 @@ export default {
     },
     exit: {
       title: "Beenden",
-      message: "Bist du sicher, dass du das Programm beenden möchtest?",
+      message: "Sind Sie sicher, dass Sie das Wallet verlassen möchten?",
       ok: "Beenden"
     },
     keyImages: {
@@ -357,6 +357,8 @@ export default {
     addressOfSigner: "Öffentliche Wallet-Adresse des Unterzeichners",
 
     beldexAddress: "Beldex-Adresse",
+    enterName: "Name eingeben",
+    enterAddress: "Adresse eingeben",
     filterTx:
       "Geben Sie eine ID, einen Namen, eine Adresse oder einen Betrag ein",
     hexCharacters: "{count} Hexadezimal Zeichen",
@@ -482,8 +484,8 @@ export default {
       timestamp: "Zeitstempel",
       types: {
         all: "Alles",
-        incoming: "Eingehend",
-        outgoing: "Ausgehend",
+        incoming: "Erhalten",
+        outgoing: "Gesendet",
         pending: "Ausstehend",
         pendingIncoming: "Ausstehend eingehend",
         pendingOutgoing: "Ausstehend ausgehend",

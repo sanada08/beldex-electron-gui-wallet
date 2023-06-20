@@ -17,10 +17,11 @@
       <!-- <router-link to="/wallet/send"> -->
       <div :class="[this.routes === 'send' ? 'active' : '']">
         <!-- <q-btn class="large-btn send-btn" size="md" @click="router('send')"> -->
-        <q-btn class="large-btn send-btn" size="md" @click="router('send')">
+        <q-btn class="large-btn send-btn" @click="router('send')">
+          <!-- width="16"
+            height="20" -->
           <svg
-            width="16"
-            height="20"
+            class="icon"
             viewBox="0 0 16 20"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -36,12 +37,11 @@
       <!-- </router-link> -->
       <!-- <router-link to="/wallet/receive"> -->
       <div :class="[this.routes === 'receive' ? 'active' : '']">
-        <q-btn class="large-btn send-btn" size="md" @click="router('receive')">
+        <q-btn class="large-btn send-btn" @click="router('receive')">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            height="22"
             viewBox="0 96 960 960"
-            width="25"
+            class="icon"
           >
             <path
               d="M220 896q-24 0-42-18t-18-42V693h60v143h520V693h60v143q0 24-18 42t-42 18H220Zm260-153L287 550l43-43 120 120V256h60v371l120-120 43 43-193 193Z"

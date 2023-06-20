@@ -97,7 +97,7 @@ export default {
     },
     exit: {
       title: "Exit",
-      message: "Are you sure you want to delete the current wallet?",
+      message: "Are you sure you want to Exit the wallet?",
       ok: "Exit"
     },
     keyImages: {
@@ -435,6 +435,8 @@ export default {
     bnsBackupOwner: "The wallet address of the backup owner",
     bnsDecryptName: "A BNS name that belongs to you",
     belnetFullAddress: "Full belnet address to map BNS name to (without .bdx)",
+    enterName: "Enter Name",
+    enterAddress: "Enter Address",
     mnemonicSeed: "Enter your Recovery seed",
     pasteTransactionId: "Paste transaction ID",
     pasteTransactionProof: "Paste transaction proof",
@@ -603,8 +605,8 @@ export default {
       date: "Date",
       types: {
         all: "All",
-        incoming: "Incoming",
-        outgoing: "Outgoing",
+        incoming: "Receive",
+        outgoing: "Sent",
         pending: "Pending",
         pendingIncoming: "Pending incoming",
         pendingOutgoing: "Pending outgoing",
