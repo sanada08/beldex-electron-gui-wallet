@@ -754,8 +754,10 @@ export default {
               .dialog({
                 title: this.$t("dialog.deleteWallet.title"),
                 message: this.$t("dialog.password.message"),
+
                 prompt: {
                   model: "",
+                  placeholder: "nowfil",
                   type: "password"
                 },
                 ok: {

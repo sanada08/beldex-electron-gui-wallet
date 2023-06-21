@@ -44,9 +44,13 @@
 
     <template v-if="config_daemon.type != 'remote'">
       <div class="row pl-sm q-mt-md">
-        <OxenField class="col-6" :label="$t('fieldLabels.localDaemonIP')">
+        <OxenField
+          class="col-6 box-header"
+          :label="$t('fieldLabels.localDaemonIP')"
+        >
           <q-input
             v-model="config_daemon.rpc_bind_ip"
+            class="box-input"
             :placeholder="daemon_defaults.rpc_bind_ip"
             disable
             borderless
@@ -54,11 +58,12 @@
           />
         </OxenField>
         <OxenField
-          class="col-6"
+          class="col-6 box-header"
           :label="$t('fieldLabels.localDaemonPort') + '(RPC)'"
         >
           <q-input
             v-model="config_daemon.rpc_bind_port"
+            class="box-input"
             :placeholder="toString(daemon_defaults.rpc_bind_port)"
             type="number"
             :decimals="0"
@@ -74,9 +79,13 @@
 
     <template v-if="config_daemon.type != 'local'">
       <div class="row q-mt-md pl-sm">
-        <OxenField class="col-6" :label="$t('fieldLabels.remoteNodeHost')">
+        <OxenField
+          class="col-6 box-header"
+          :label="$t('fieldLabels.remoteNodeHost')"
+        >
           <q-input
             v-model="config_daemon.remote_host"
+            class="box-input"
             :placeholder="daemon_defaults.remote_host"
             borderless
             dense
@@ -103,9 +112,13 @@
             </q-list>
           </q-btn-dropdown>
         </OxenField>
-        <OxenField class="col-6" :label="$t('fieldLabels.remoteNodePort')">
+        <OxenField
+          class="col-6 box-header"
+          :label="$t('fieldLabels.remoteNodePort')"
+        >
           <q-input
             v-model="config_daemon.remote_port"
+            class="box-input"
             :placeholder="toString(daemon_defaults.remote_port)"
             type="number"
             :decimals="0"
@@ -122,12 +135,13 @@
 
     <div class="row q-mt-md pl-sm">
       <OxenField
-        class="col-6"
+        class="col-6 box-header"
         :label="$t('fieldLabels.dataStoragePath')"
         disable-hover
       >
         <q-input
           v-model="config.app.data_dir"
+          class="box-input"
           disable
           :dark="theme == 'dark'"
           borderless
@@ -151,12 +165,13 @@
         >
       </OxenField>
       <OxenField
-        class="col-6"
+        class="col-6 box-header"
         :label="$t('fieldLabels.walletStoragePath')"
         disable-hover
       >
         <q-input
           v-model="config.app.wallet_data_dir"
+          class="box-input"
           disable
           :dark="theme == 'dark'"
           borderless
@@ -187,12 +202,13 @@
     >
       <div class="row pl-sm q-mt-sm">
         <OxenField
-          class="col-6"
+          class="col-6 box-header"
           :label="$t('fieldLabels.daemonLogLevel')"
           :disable="is_remote"
         >
           <q-input
             v-model="config_daemon.log_level"
+            class="box-input"
             :placeholder="toString(daemon_defaults.log_level)"
             :disable="is_remote"
             :dark="theme == 'dark'"
@@ -205,9 +221,13 @@
             dense
           />
         </OxenField>
-        <OxenField class="col-6" :label="$t('fieldLabels.walletLogLevel')">
+        <OxenField
+          class="col-6 box-header"
+          :label="$t('fieldLabels.walletLogLevel')"
+        >
           <q-input
             v-model="config.wallet.log_level"
+            class="box-input"
             :placeholder="toString(defaults.wallet.log_level)"
             :dark="theme == 'dark'"
             type="number"
@@ -224,12 +244,13 @@
       <div class="row pl-sm q-mt-md">
         <!-- TODO: Can be generalised to a "port" (or similar) field -->
         <OxenField
-          class="col-3"
+          class="col-3 box-header"
           :label="$t('fieldLabels.maxIncomingPeers')"
           :disable="is_remote"
         >
           <q-input
             v-model="config_daemon.in_peers"
+            class="box-input"
             :placeholder="toString(daemon_defaults.in_peers)"
             :disable="is_remote"
             :dark="theme == 'dark'"
@@ -243,12 +264,13 @@
           />
         </OxenField>
         <OxenField
-          class="col-3"
+          class="col-3 box-header"
           :label="$t('fieldLabels.maxOutgoingPeers')"
           :disable="is_remote"
         >
           <q-input
             v-model="config_daemon.out_peers"
+            class="box-input"
             :placeholder="toString(daemon_defaults.out_peers)"
             :disable="is_remote"
             :dark="theme == 'dark'"
@@ -262,12 +284,13 @@
           />
         </OxenField>
         <OxenField
-          class="col-3"
+          class="col-3 box-header"
           :label="$t('fieldLabels.limitUploadRate')"
           :disable="is_remote"
         >
           <q-input
             v-model="config_daemon.limit_rate_up"
+            class="box-input"
             :placeholder="toString(daemon_defaults.limit_rate_up)"
             :disable="is_remote"
             :dark="theme == 'dark'"
@@ -282,12 +305,13 @@
           />
         </OxenField>
         <OxenField
-          class="col-3"
+          class="col-3 box-header"
           :label="$t('fieldLabels.limitDownloadRate')"
           :disable="is_remote"
         >
           <q-input
             v-model="config_daemon.limit_rate_down"
+            class="box-input"
             :placeholder="toString(daemon_defaults.limit_rate_down)"
             :disable="is_remote"
             :dark="theme == 'dark'"
@@ -304,12 +328,13 @@
       </div>
       <div class="row pl-sm q-mt-md">
         <OxenField
-          class="col-4"
+          class="col-4 box-header"
           :label="$t('fieldLabels.daemonP2pPort')"
           :disable="is_remote"
         >
           <q-input
             v-model="config_daemon.p2p_bind_port"
+            class="box-input"
             :placeholder="toString(daemon_defaults.p2p_bind_port)"
             :disable="is_remote"
             :dark="theme == 'dark'"
@@ -323,9 +348,13 @@
             dense
           />
         </OxenField>
-        <OxenField class="col-4" :label="$t('fieldLabels.internalWalletPort')">
+        <OxenField
+          class="col-4 box-header"
+          :label="$t('fieldLabels.internalWalletPort')"
+        >
           <q-input
             v-model="config.app.ws_bind_port"
+            class="box-input"
             :placeholder="toString(defaults.app.ws_bind_port)"
             :dark="theme == 'dark'"
             float-
@@ -339,12 +368,13 @@
           />
         </OxenField>
         <OxenField
-          class="col-4"
+          class="col-4 box-header"
           :label="$t('fieldLabels.walletRPCPort')"
           :disable="is_remote"
         >
           <q-input
             v-model="config.wallet.rpc_bind_port"
+            class="box-input"
             :placeholder="toString(defaults.wallet.rpc_bind_port)"
             :disable="is_remote"
             :dark="theme == 'dark'"
@@ -588,6 +618,12 @@ export default {
   .q-item {
     background-color: #32324a;
     border-radius: 10px;
+  }
+  .box-header {
+    font-family: "Poppins-Bold";
+  }
+  .box-input {
+    font-family: "Poppins-Regular";
   }
 }
 </style>

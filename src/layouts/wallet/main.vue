@@ -23,7 +23,7 @@
       <!-- <div class="col-md-3"> -->
       <div style="width: 23%;height: auto;">
         <section class="rectangleBox">
-          <router-link to="/wallet">
+          <router-link to="/wallet" class="box">
             <article
               class="flex row alignItem-center justify-between menuList selected"
             >
@@ -46,9 +46,9 @@
             </article>
           </router-link>
 
-          <router-link to="/wallet/masternode">
+          <router-link to="/wallet/masternode" class="box">
             <article
-              class="flex row alignItem-center justify-between menuList selected"
+              class="flex row alignItem-center justify-between menuList selected q-mt-md"
             >
               <div class="flex row align-center justify-center a-center">
                 <svg
@@ -73,7 +73,7 @@
           </router-link>
 
           <!-- <article
-            class="flex row alignItem-center justify-between menuList selected"
+            class="flex row alignItem-center justify-between menuList selected box"
           >
             <div class="flex row align-center justify-center a-center">
               <svg
@@ -91,9 +91,9 @@
             </div>
             <q-icon name="chevron_right" size="24px" />
           </article> -->
-          <router-link to="/wallet/advanced">
+          <router-link to="/wallet/advanced" class="box">
             <article
-              class="flex row alignItem-center justify-between menuList selected"
+              class="flex row alignItem-center justify-between menuList selected q-mt-md"
             >
               <div class="flex row align-center justify-center a-center">
                 <svg

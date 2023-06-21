@@ -15,6 +15,7 @@
               :dark="theme == 'dark'"
               borderless
               dense
+              maxlength="26"
               @keyup.enter="import_wallet"
               @blur="$v.wallet.name.$touch"
             />

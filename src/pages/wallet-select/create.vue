@@ -16,6 +16,7 @@
             :placeholder="$t('placeholders.walletName')"
             borderless
             dense
+            maxlength="26"
             @keyup.enter="create"
             @blur="$v.wallet.name.$touch"
           />
