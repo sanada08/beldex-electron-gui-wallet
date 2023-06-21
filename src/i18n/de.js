@@ -250,6 +250,7 @@ export default {
     about: "Über ",
     changePassword: "Passwort ändern",
     copyAddress: "Adresse kopieren",
+    copySeed: "Samen kopieren",
     copyQR: "QR Code kopieren",
     copySeedWords: "Seed Wörter kopieren",
     copySpendKey: "Spend Key kopieren",

@@ -286,6 +286,7 @@ export default {
               model: "",
               type: "password"
             },
+
             ok: {
               label: "Enter",
               color: "primary"

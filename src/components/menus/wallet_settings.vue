@@ -632,11 +632,11 @@ export default {
             title: this.$t("dialog.rescan.title"),
             message: this.$t("dialog.rescan.message"),
             ok: {
-              label: this.$t("dialog.rescan.ok"),
+              label: this.$t("buttons.rescan"),
               color: "primary"
             },
             cancel: {
-              flat: true,
+              color: "accent",
               label: this.$t("dialog.buttons.cancel")
             }
           })
@@ -674,8 +674,11 @@ export default {
           type: type.toLocaleLowerCase(this.locale)
         }),
         ok: {
-          label: type.toLocaleUpperCase(this.locale),
+          label: type.toLocaleLowerCase(this.locale),
           color: "primary"
+        },
+        cancel: {
+          color: "accent"
         },
         dark: this.theme == "dark",
         color: this.theme == "dark" ? "white" : "dark"
@@ -704,7 +707,19 @@ export default {
       let new_password_confirm = this.modals.change_password
         .new_password_confirm;
 
-      if (new_password == old_password) {
+      if (!old_password) {
+        this.$q.notify({
+          type: "negative",
+          timeout: 1000,
+          message: "Enter old password"
+        });
+      } else if (!new_password) {
+        this.$q.notify({
+          type: "negative",
+          timeout: 1000,
+          message: "Enter New Password"
+        });
+      } else if (new_password == old_password) {
         this.$q.notify({
           type: "negative",
           timeout: 1000,
@@ -830,6 +845,9 @@ export default {
   input {
     overflow: ellipsis;
   }
+}
+.q-radio__inner:before {
+  background: transparent !important;
 }
 
 .private-key-modal {

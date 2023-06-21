@@ -337,7 +337,7 @@ export default {
 }
 
 .version-wrapper {
-  height: 69%;
+  height: 65%;
   /* background-color: aliceblue; */
   display: flex;
   align-items: flex-end;

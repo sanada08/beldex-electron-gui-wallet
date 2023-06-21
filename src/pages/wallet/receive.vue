@@ -1,5 +1,5 @@
 <template>
-  <q-page class="receive" style="min-height: unset;">
+  <q-page class="receive" style="min-height: unset">
     <q-list
       v-if="!address"
       link
@@ -7,7 +7,7 @@
       :dark="theme == 'dark'"
       class="oxen-list"
     >
-      <q-item-label header class="list-header text-center ft-semibold "
+      <q-item-label header class="list-header text-center ft-semibold"
         >{{ $t("strings.addresses.primaryAccount") }}
       </q-item-label>
       <!-- <ReceiveItem
@@ -23,10 +23,14 @@
       />-->
       <article class="flex justify-center align-center">
         <div
-          style="border: 11px solid #1F1F28;display:inline-block;border-radius: 20px; "
+          style="
+            border: 11px solid #1f1f28;
+            display: inline-block;
+            border-radius: 20px;
+          "
         >
           <div class="text-center qr-card">
-            <QrcodeVue ref="qr" :value="address" size="100"></QrcodeVue>
+            <QrcodeVue ref="qr" :value="info.address" size="100"></QrcodeVue>
           </div>
         </div>
       </article>
@@ -34,7 +38,7 @@
         class="copy-btn flex justify-center align-center q-mt-sm q-mb-lg"
       >
         <q-btn
-          style="border-radius:6px;"
+          style="border-radius: 6px"
           color="primary"
           :label="$t('dialog.copyAddress.title')"
           icon="content_copy"
@@ -101,7 +105,7 @@
     <template v-if="QR.address != null">
       <q-dialog v-model="QR.visible" :content-class="'qr-code-modal'">
         <q-card class="qr-code-card">
-          <div class="text-center q-mb-sm q-pa-md" style="background: white;">
+          <div class="text-center q-mb-sm q-pa-md" style="background: white">
             <QrcodeVue ref="qr" :value="QR.address" size="240"></QrcodeVue>
             <ContextMenu
               :menu-items="menuItems"
@@ -167,7 +171,8 @@ export default {
   },
   computed: mapState({
     theme: state => state.gateway.app.config.appearance.theme,
-    address_list: state => state.gateway.wallet.address_list
+    address_list: state => state.gateway.wallet.address_list,
+    info: state => state.gateway.wallet.info
   }),
   methods: {
     details(address) {
@@ -194,9 +199,8 @@ export default {
       let img = this.$refs.qr.$el.childNodes[0].toDataURL();
       this.$gateway.send("core", "save_png", { img, type: "QR Code" });
     },
-    copyAddress(address, event) {
-      event.stopPropagation();
-      clipboard.writeText(address);
+    copyAddress() {
+      clipboard.writeText(this.info.address);
       this.$q.notify({
         type: "positive",
         timeout: 1000,

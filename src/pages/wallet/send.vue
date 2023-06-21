@@ -24,6 +24,7 @@
                 borderless
                 dense
                 @blur="$v.newTx.amount.$touch"
+                @keydown="keyHandler"
               />
               <q-btn
                 color="secondary"
@@ -145,7 +146,7 @@
             class="send-btn"
             :disable="!is_able_to_send"
             icon="replay"
-            :label="$t('buttons.clear')"
+            :label="$t('buttons.clear') + ' All'"
             @click="clearStateValues()"
           />
           <q-btn
@@ -338,6 +339,11 @@ export default {
     buildDialogFieldsSend(txData) {
       // build using mixin method
       this.confirmFields = this.buildDialogFields(txData);
+    },
+    keyHandler(evt) {
+      if (evt.key === "-" || evt.key === "+" || evt.key === "e") {
+        evt.preventDefault();
+      }
     },
     onConfirmTransaction() {
       // put the loading spinner up

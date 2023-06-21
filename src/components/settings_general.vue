@@ -61,17 +61,19 @@
           class="col-6 box-header"
           :label="$t('fieldLabels.localDaemonPort') + '(RPC)'"
         >
+          <!-- v-model="config_daemon.rpc_bind_port" -->
           <q-input
             v-model="config_daemon.rpc_bind_port"
             class="box-input"
             :placeholder="toString(daemon_defaults.rpc_bind_port)"
-            type="number"
             :decimals="0"
             :step="1"
             min="1024"
             max="65535"
             borderless
             dense
+            mask="######"
+            unmasked-value
           />
         </OxenField>
       </div>
@@ -120,7 +122,6 @@
             v-model="config_daemon.remote_port"
             class="box-input"
             :placeholder="toString(daemon_defaults.remote_port)"
-            type="number"
             :decimals="0"
             :step="1"
             min="1024"
@@ -128,6 +129,8 @@
             :dark="theme == 'dark'"
             borderless
             dense
+            mask="######"
+            unmasked-value
           />
         </OxenField>
       </div>
@@ -230,13 +233,14 @@
             class="box-input"
             :placeholder="toString(defaults.wallet.log_level)"
             :dark="theme == 'dark'"
-            type="number"
             :decimals="0"
             :step="1"
             min="0"
             max="4"
             borderless
             dense
+            mask="######"
+            unmasked-value
           />
         </OxenField>
       </div>
@@ -358,13 +362,14 @@
             :placeholder="toString(defaults.app.ws_bind_port)"
             :dark="theme == 'dark'"
             float-
-            type="number"
             :decimals="0"
             :step="1"
             min="1024"
             max="65535"
             borderless
             dense
+            mask="######"
+            unmasked-value
           />
         </OxenField>
         <OxenField
@@ -529,6 +534,7 @@ export default {
 
   methods: {
     save() {
+      // console.log('local deamon ::',this.config_daemon)
       this.$gateway.send("core", "save_config", this.pending_config);
       this.isVisible = false;
     },

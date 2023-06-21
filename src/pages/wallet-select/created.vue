@@ -102,15 +102,15 @@
             anchor="center left"
             self="center right"
             :offset="[5, 10]"
-            >{{ $t("menuItems.copyAddress") }}</q-tooltip
+            >{{ $t("menuItems.copySeed") }}</q-tooltip
           >
         </q-btn>
       </div>
     </div>
 
-    <div style="margin-top: 18px; padding: 10px 12px">
+    <div style="margin-top: 18px; padding: 10px 20px">
       <template v-if="secret.view_key != secret.spend_key">
-        <div class="row">
+        <div class="row justify-between">
           <div class="col-10" style="word-break: break-all; color: #fff">
             <h6 class="q-mb-xs title">{{ $t("strings.viewKey") }}</h6>
             <p style="font-family: Poppins-Regular">{{ secret.view_key }}</p>
@@ -140,7 +140,7 @@
       <hr color="#3E3E5B" width="98%" />
 
       <template v-if="!/^0*$/.test(secret.spend_key)">
-        <div class="row">
+        <div class="row justify-between">
           <div class="col-10" style="word-break: break-all; color: #fff">
             <h6 class="q-mb-xs title">{{ $t("strings.spendKey") }}</h6>
             <p style="font-family: Poppins-Regular">{{ secret.spend_key }}</p>

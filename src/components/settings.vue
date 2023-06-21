@@ -167,6 +167,26 @@
                 </article>
               </routering>
             </div>
+
+            <article class="version-wrapper ">
+              <div class="version ft-regular">
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 26 26"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M13 1C6.38702 1 1 6.38702 1 13C1 19.613 6.38702 25 13 25C19.613 25 25 19.613 25 13C25 6.38702 19.613 1 13 1ZM13 2.84615C18.6178 2.84615 23.1538 7.38221 23.1538 13C23.1538 18.6178 18.6178 23.1538 13 23.1538C7.38221 23.1538 2.84615 18.6178 2.84615 13C2.84615 7.38221 7.38221 2.84615 13 2.84615ZM12.0769 6.53846V8.38462H13.9231V6.53846H12.0769ZM12.0769 10.2308V19.4615H13.9231V10.2308H12.0769Z"
+                    fill="#8787A8"
+                    stroke="#8787A8"
+                  />
+                </svg>
+
+                <span>Version {{ version }}</span>
+              </div>
+            </article>
           </section>
         </div>
         <div class="col-md-9">
@@ -274,6 +294,7 @@ import { mapState } from "vuex";
 import SettingsGeneral from "components/settings_general";
 import LanguageSelect from "components/language_select_settings";
 import MainMenu from "components/menus/mainmenu";
+import { version } from "../../package.json";
 
 export default {
   name: "SettingsModal",
@@ -286,7 +307,7 @@ export default {
     return {
       page: "general",
       isVisible: false,
-
+      version,
       username: "matt"
     };
   },
@@ -404,7 +425,9 @@ export default {
   .rectangleBox {
     margin: 90px AUTO 0;
   }
-
+  .version-wrapper {
+    height: 75%;
+  }
   .right-header {
     margin: 90px auto 0px 25px;
     color: white;

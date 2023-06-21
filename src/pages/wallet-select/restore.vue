@@ -38,8 +38,8 @@
             />
           </OxenField>
 
-          <div class="row items-end q-mt-md">
-            <div class="col-md-7 col-sm-8">
+          <div class="row items-end justify-between q-mt-md">
+            <div class="col-md-6">
               <OxenField
                 v-if="wallet.refresh_type == 'date'"
                 :label="$t('fieldLabels.restoreFromDate')"
@@ -86,43 +86,44 @@
               >
                 <q-input
                   v-model="wallet.refresh_start_height"
-                  type="number"
                   min="0"
                   :dark="theme == 'dark'"
                   borderless
                   dense
+                  mask="################"
+                  unmasked-value
                   @blur="$v.wallet.refresh_start_height.$touch"
                 />
               </OxenField>
             </div>
-            <div class="col-sm-4 col-md-5">
-              <template v-if="wallet.refresh_type == 'date'">
-                <q-btn
-                  class="restore-from-button"
-                  flat
-                  @click="wallet.refresh_type = 'height'"
-                >
-                  <div class="row justify-center items-center">
-                    {{ this.$t("buttons.fromBlockheight") }}
-                    <span class="divider"></span>
+            <!-- <div class=""> -->
+            <template v-if="wallet.refresh_type == 'date'">
+              <q-btn
+                color="secondary "
+                class="restore-from-button"
+                @click="wallet.refresh_type = 'height'"
+              >
+                <div class="row justify-center items-center">
+                  {{ this.$t("buttons.fromBlockheight") }}
+                  <span class="divider"></span>
 
-                    <q-icon name="arrow_forward" />
-                  </div>
-                </q-btn>
-              </template>
-              <template v-else-if="wallet.refresh_type == 'height'">
-                <q-btn
-                  class="restore-from-button"
-                  flat
-                  @click="wallet.refresh_type = 'date'"
-                >
-                  <div class="column justify-center items-center">
-                    <q-icon name="today" />
-                    {{ $t("strings.switchToDateSelect") }}
-                  </div>
-                </q-btn>
-              </template>
-            </div>
+                  <q-icon name="arrow_forward" />
+                </div>
+              </q-btn>
+            </template>
+            <template v-else-if="wallet.refresh_type == 'height'">
+              <q-btn
+                color="secondary"
+                class="restore-from-button"
+                @click="wallet.refresh_type = 'date'"
+              >
+                <div class="row justify-center items-center">
+                  <q-icon name="today" class="q-mr-xs" />
+                  {{ $t("strings.switchToDateSelect") }}
+                </div>
+              </q-btn>
+            </template>
+            <!-- </div> -->
           </div>
 
           <OxenField class="q-mt-md" :label="$t('fieldLabels.password')">
@@ -326,12 +327,12 @@ export default {
 
 <style lang="scss">
 .restore-from-button {
-  width: 100%;
-  height: 60px;
-  transform: translate(10px, -20px);
-  border-radius: 10px;
-  background: #2879fb;
-  color: #fff;
+  // width: 100%;
+  height: 55px;
+  // transform: translate(10px, -20px);
+  // border-radius: 10px;
+  // background: #2879fb;
+  // color: #fff;
 }
 .submit {
   .q-btn {

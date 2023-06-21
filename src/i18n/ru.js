@@ -246,6 +246,7 @@ export default {
     about: "Информация",
     changePassword: "Сменить Пароль",
     copyAddress: "Копировать адрес",
+    copySeed: "Копировать семя",
     copyQR: "Копировать QR код",
     copySeedWords: "Копировать seed-фразу",
     copySpendKey: "Копировать Ключ Отправки",

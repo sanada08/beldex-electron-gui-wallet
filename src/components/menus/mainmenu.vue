@@ -86,7 +86,7 @@
           <div class="q-mt-md external-links">
             <p style="margin: 0 0 20px">
               <img src="telegram.svg" height="12" />
-              <a href="#" @click="openExternal('t.me/official_beldex')"
+              <a href="#" @click="openExternal('https://t.me/official_beldex')"
                 >Telegram</a
               >
 

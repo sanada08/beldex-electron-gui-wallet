@@ -252,6 +252,7 @@ export default {
     about: "A propos",
     changePassword: "Changer le mot de passe",
     copyAddress: "Copier l’adresse",
+    copySeed: "Copier la graine",
     copyQR: "Copier le QR code",
     copySeedWords: "Copier les mots clés",
     copySpendKey: "Copier la clé de dépense",
