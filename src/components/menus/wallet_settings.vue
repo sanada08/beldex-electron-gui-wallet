@@ -11,8 +11,8 @@
           >
             <q-item-label header class="sub_menu_txt ft-medium">
               <img src="../../assets/images/key.svg" class="menuIcon q-mr-md" />
-              {{ $t("menuItems.showPrivateKeys") }}</q-item-label
-            >
+              {{ $t("menuItems.showPrivateKeys") }}
+            </q-item-label>
           </q-item>
           <q-item
             v-close-popup
@@ -25,8 +25,8 @@
                 src="../../assets/images/lock.svg"
                 class="menuIcon q-mr-md"
               />
-              {{ $t("menuItems.changePassword") }}</q-item-label
-            >
+              {{ $t("menuItems.changePassword") }}
+            </q-item-label>
           </q-item>
           <q-item
             v-close-popup
@@ -39,8 +39,8 @@
                 src="../../assets/images/reload.svg"
                 class="menuIcon q-mr-md"
               />
-              {{ $t("menuItems.rescanWallet") }}</q-item-label
-            >
+              {{ $t("menuItems.rescanWallet") }}
+            </q-item-label>
           </q-item>
           <q-item
             v-close-popup
@@ -53,8 +53,8 @@
                 src="../../assets/images/manage_key.svg"
                 class="menuIcon q-mr-md"
               />
-              {{ $t("menuItems.manageKeyImages") }}</q-item-label
-            >
+              {{ $t("menuItems.manageKeyImages") }}
+            </q-item-label>
           </q-item>
           <q-item
             v-close-popup
@@ -67,8 +67,8 @@
                 src="../../assets/images/delete.svg"
                 class="menuIcon q-mr-md"
               />
-              {{ $t("menuItems.deleteWallet") }}</q-item-label
-            >
+              {{ $t("menuItems.deleteWallet") }}
+            </q-item-label>
           </q-item>
         </q-list>
       </q-menu>
@@ -88,9 +88,7 @@
               >
             </h6>
             <div class="row seed_box q-pa-md">
-              <div class="col ft-medium">
-                {{ secret.mnemonic }}
-              </div>
+              <div class="col ft-medium">{{ secret.mnemonic }}</div>
               <div class="col-auto">
                 <q-btn
                   class="copy-btn"
@@ -105,9 +103,8 @@
                     anchor="center left"
                     self="center right"
                     :offset="[5, 10]"
+                    >{{ $t("menuItems.copySeedWords") }}</q-tooltip
                   >
-                    {{ $t("menuItems.copySeedWords") }}
-                  </q-tooltip>
                 </q-btn>
               </div>
             </div>
@@ -135,9 +132,8 @@
                     anchor="center left"
                     self="center right"
                     :offset="[5, 10]"
+                    >{{ $t("menuItems.copyViewKey") }}</q-tooltip
                   >
-                    {{ $t("menuItems.copyViewKey") }}
-                  </q-tooltip>
                 </q-btn>
               </div>
             </div>
@@ -165,9 +161,8 @@
                     anchor="center left"
                     self="center right"
                     :offset="[5, 10]"
+                    >{{ $t("menuItems.copySpendKey") }}</q-tooltip
                   >
-                    {{ $t("menuItems.copySpendKey") }}
-                  </q-tooltip>
                 </q-btn>
               </div>
             </div>
@@ -190,7 +185,7 @@
         <div class="a-ma-lg modal-header ft-bold">
           {{ $t("titles.rescanWallet") }}
         </div>
-        <div class="q-ma-md ft-medium  ">
+        <div class="q-ma-md ft-medium">
           <p class="rmDesc">{{ $t("strings.rescanModalDescription") }}</p>
 
           <div
@@ -310,7 +305,7 @@
 
           <template v-if="modals.key_image.type == 'Export'">
             <OxenField
-              class="q-mt-lg ex_oxen "
+              class="q-mt-lg ex_oxen"
               :label="$t('fieldLabels.keyImages.exportDirectory')"
               disable-hover
             >
@@ -329,9 +324,9 @@
                 hidden
                 @change="setKeyImageExportPath"
               />
-              <q-btn color="secondary" @click="selectKeyImageExportPath">{{
-                $t("buttons.browse")
-              }}</q-btn>
+              <q-btn color="secondary" @click="selectKeyImageExportPath">
+                {{ $t("buttons.browse") }}
+              </q-btn>
             </OxenField>
           </template>
           <template v-if="modals.key_image.type == 'Import'">
@@ -353,9 +348,9 @@
                 hidden
                 @change="setKeyImageImportPath"
               />
-              <q-btn color="secondary" @click="selectKeyImageImportPath">{{
-                $t("buttons.browse")
-              }}</q-btn>
+              <q-btn color="secondary" @click="selectKeyImageImportPath">
+                {{ $t("buttons.browse") }}
+              </q-btn>
             </OxenField>
           </template>
 
@@ -383,7 +378,7 @@
       @hide="clearChangePassword()"
     >
       <div class="modal password-modal">
-        <div class="modal-header ft-semibold  text-center q-mt-sm">
+        <div class="modal-header ft-semibold text-center q-mt-sm">
           {{ $t("titles.changePassword") }}
         </div>
         <div class="q-ma-md">
@@ -419,7 +414,7 @@
 
           <div class="q-mt-xl text-center">
             <q-btn
-              class="q-mr-sm "
+              class="q-mr-sm"
               color="accent"
               :label="$t('buttons.cancel')"
               @click="hideModal('change_password')"
@@ -707,19 +702,14 @@ export default {
       let new_password_confirm = this.modals.change_password
         .new_password_confirm;
 
-      if (!old_password) {
+      if (!old_password || !new_password || !new_password_confirm) {
         this.$q.notify({
           type: "negative",
           timeout: 1000,
-          message: "Enter old password"
+          message: this.$t("notification.errors.passwordFieldEmpty")
         });
-      } else if (!new_password) {
-        this.$q.notify({
-          type: "negative",
-          timeout: 1000,
-          message: "Enter New Password"
-        });
-      } else if (new_password == old_password) {
+      }
+      if (new_password == old_password) {
         this.$q.notify({
           type: "negative",
           timeout: 1000,
@@ -808,6 +798,9 @@ export default {
 </script>
 
 <style lang="scss">
+.q-placeholder {
+  color: #fff;
+}
 .password-modal {
   background: #242433;
   color: #fff;

@@ -12,6 +12,7 @@ export default {
     change: "CHANGER",
     check: "Vérifier",
     clear: "clear",
+    clearAll: "Tout effacer",
     close: "FERMER",
     contacts: "CONTACTS",
     copy: "copie",
@@ -183,7 +184,7 @@ export default {
   },
   fieldLabels: {
     // Field labels are also all uppercased
-    address: "ADRESSE",
+    address: "Adresse du destinataire",
     amount: "MONTANT",
     awardRecepientAddress: "ADRESSE DU BÉNÉFICIAIRE POUR LA RÉCOMPENSE",
     confirmPassword: "CONFIRMER LE MOT DE PASSE",
@@ -336,7 +337,9 @@ export default {
       },
       negativeAmount: "Le montant ne peut être négatif",
       newPasswordNoMatch: "Les nouveaux mots de passe ne correspondent pas",
-      newPasswordSame: "Le nouveau mot de passe doit être différent",
+      newPasswordSame:
+        "Impossible d'utiliser l'ancien mot de passe. Définissez un mot de passe différent",
+      passwordFieldEmpty: "s'il vous plait entrez votre mot de passe",
       notEnoughBalance: "Pas assez de solde débloqué",
       passwordNoMatch: "Les mots de passe ne correspondent pas",
       remoteCannotBeReached: "La démon distant ne peut pas être atteint",
@@ -519,7 +522,7 @@ export default {
       verify: "Vérifier"
     },
     changePassword: "Changer de mot de passe",
-    configure: "Configurer",
+    configure: "Paramètres de configuration",
     currentlyStakedNodes: "Currently staked nodes",
     privateKeys: "Clés privées",
     importFromFile: "Importer depuis un fichier",
@@ -555,7 +558,7 @@ export default {
       restoreFromSeed: "Restaurer un portefeuille à partir de mots clés",
       restoreViewOnly: "Restaurer un portefeuille en mode d'affichage seulement"
     },
-    welcome: "Bienvenue",
+    chooseLanguage: "Choisissez la langue",
     yourWallets: "Vos portefeuilles"
   }
 };

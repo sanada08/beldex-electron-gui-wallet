@@ -11,6 +11,7 @@ export default {
     change: "Change",
     check: "Check",
     clear: "Clear",
+    clearAll: "",
     close: "Close",
     contacts: "CONTACTS",
     copyAddress: "COPY ADDRESS",
@@ -213,7 +214,7 @@ export default {
   },
   fieldLabels: {
     // Field labels are also all uppercased
-    address: "Address",
+    address: "Recipient Address",
     amount: "Amount",
     backupOwner: "BACKUP OWNER",
     confirmPassword: "Confirm Password (optional)",
@@ -408,7 +409,8 @@ export default {
       },
       negativeAmount: "Amount cannot be negative",
       newPasswordNoMatch: "New passwords do not match",
-      newPasswordSame: "New password must be different",
+      newPasswordSame: "Cannot use old password. Set a different password.",
+      passwordFieldEmpty: "Please enter your password!",
       notEnoughBalance: "Not enough unlocked balance",
       passwordNoMatch: "Passwords do not match",
       remoteCannotBeReached: "Remote daemon cannot be reached",
@@ -641,7 +643,7 @@ export default {
     },
     availableForContribution: "Master nodes available for contribution",
     changePassword: "Change password",
-    configure: "Configure",
+    configure: "Configuration Settings",
     currentlyStakedNodes: "Currently staked nodes",
     bnsRecordDetails: "BNS record details",
     bnsBchatRecords: "Bchat records",
@@ -686,7 +688,7 @@ export default {
       restoreFromSeed: "Restore wallet from seed",
       restoreViewOnly: "Restore view-only wallet"
     },
-    welcome: "Welcome",
+    chooseLanguage: "Choose Language",
     yourWallets: "Your Wallets"
   }
 };

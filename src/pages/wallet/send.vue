@@ -1,9 +1,7 @@
 <template>
   <q-page class="send" style="min-height: unset">
     <template v-if="view_only">
-      <div class="q-pa-md">
-        {{ $t("strings.viewOnlyMode") }}
-      </div>
+      <div class="q-pa-md">{{ $t("strings.viewOnlyMode") }}</div>
     </template>
     <template v-else>
       <div v-if="!contact" style="padding: 0px 2px">
@@ -29,9 +27,8 @@
               <q-btn
                 color="secondary"
                 @click="newTx.amount = unlocked_balance / 1e9"
+                >{{ $t("buttons.max") }}</q-btn
               >
-                {{ $t("buttons.max") }}
-              </q-btn>
             </OxenField>
           </div>
 
@@ -92,14 +89,14 @@
             />
             <!-- <q-btn color="secondary"  to="addressbook">
               {{ $t("buttons.contacts") }}
-            </q-btn> -->
+            </q-btn>-->
           </OxenField>
         </div>
 
         <!-- <q-checkbox
           v-model="newTx.address_book.save"
           :label="$t('strings.saveToAddressBook')"
-        /> -->
+        />-->
         <div class="addAddress q-pt-sm" @click="newTx.address_book.save">
           + {{ this.$t("buttons.addAddressBook") }}
         </div>
@@ -521,6 +518,10 @@ export default {
 }
 .addAddress {
   color: #289afb;
+  &:hover {
+    text-decoration: underline;
+    text-decoration-color: #289afb;
+  }
 }
 
 .btn-view {

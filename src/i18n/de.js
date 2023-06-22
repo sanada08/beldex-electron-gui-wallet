@@ -12,6 +12,7 @@ export default {
     change: "ÄNDERN",
     check: "Überprüfen",
     clear: "klar",
+    clearAll: "Alles löschen",
     close: "SCHLIESSEN",
     contacts: "KONTAKTE",
     copy: "Kopieren",
@@ -182,7 +183,7 @@ export default {
   },
   fieldLabels: {
     // Field labels are also all uppercased
-    address: "ADRESSE",
+    address: "Empfängeradresse",
     amount: "BETRAG",
     awardRecepientAddress: "EMPFÄNGER ADRESSE FÜR DIE VERGÜTUNG",
     confirmPassword: "PASSWORT BESTÄTIGEN",
@@ -334,7 +335,9 @@ export default {
       },
       negativeAmount: "Betrag kann nicht negativ sein ",
       newPasswordNoMatch: "Neue Passwörter stimmen nicht überein",
-      newPasswordSame: "Neues Passwort darf nicht identisch sein",
+      newPasswordSame:
+        "Das alte Passwort kann nicht verwendet werden. Legen Sie ein anderes Passwort fest",
+      passwordFieldEmpty: "Bitte geben Sie Ihr Passwort ein",
       notEnoughBalance: "Nicht genug frei verfügbares Guthaben",
       passwordNoMatch: "Passwörter stimmen nicht überein",
       remoteCannotBeReached: "Remote daemon ist nicht erreichbar",
@@ -517,7 +520,7 @@ export default {
       verify: "Verifizieren"
     },
     changePassword: "Passwort ändern",
-    configure: "Konfiguaration",
+    configure: "Konfigurationseinstellungen",
     currentlyStakedNodes: "Currently staked nodes",
     importFromFile: "Aus Datei importieren",
     privateKeys: "Private Keys",
@@ -554,7 +557,7 @@ export default {
       restoreFromSeed: "Wiederherstellung Wallet von Seed Wörtern",
       restoreViewOnly: "Wiederherstellung Anzeige Wallet"
     },
-    welcome: "Willkommen",
+    chooseLanguage: "Sprache wählen",
     yourWallets: "Deine Wallets"
   }
 };

@@ -12,6 +12,7 @@ export default {
     change: "MUDAR",
     check: "Verificar",
     clear: "clear",
+    clearAll: "Limpar tudo",
     close: "FECHAR",
     contacts: "CONTACTOS",
     copy: "cópia de",
@@ -181,7 +182,7 @@ export default {
   },
   fieldLabels: {
     // Field labels are also all uppercased
-    address: "ENDEREÇO",
+    address: "Endereço do destinatário",
     amount: "QUANTIDADE",
     confirmPassword: "CONFIRMAR PALAVRA-PASSE",
     daemonLogLevel: "NÍVEL DE LOG PARA O SERVIÇO",
@@ -332,7 +333,9 @@ export default {
       },
       negativeAmount: "Quantidade não pode ser negativa",
       newPasswordNoMatch: "Nova palavra-passe não coincide",
-      newPasswordSame: "Nova palavra-passe tem de ser diferente",
+      newPasswordSame:
+        "Não é possível usar a senha antiga. Defina uma senha diferente",
+      passwordFieldEmpty: "Por favor, insira sua senha!",
       notEnoughBalance: "Não existe saldo desbloqueado suficiente",
       passwordNoMatch: "Palavra-passe não coincidem",
       remoteCannotBeReached: "Não é possivel contactar o nódulo Remoto",
@@ -511,7 +514,7 @@ export default {
       verify: "Verificar"
     },
     changePassword: "Mudar palavra-passe",
-    configure: "Configure",
+    configure: "Definições de configuração",
     currentlyStakedNodes: "Currently staked nodes",
     importFromFile: "Importar do arquivo",
     privateKeys: "Chaves privadas",
@@ -547,7 +550,7 @@ export default {
       restoreFromSeed: "Restaurar carteira a partir de semente",
       restoreViewOnly: "Restaurar carteira visualização-apenas"
     },
-    welcome: "Bem-vindo",
+    chooseLanguage: "Escolha o seu idioma",
     yourWallets: "Suas carteiras"
   }
 };

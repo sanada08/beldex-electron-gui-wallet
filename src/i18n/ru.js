@@ -11,6 +11,7 @@ export default {
     change: "ИЗМЕНИТЬ",
     check: "Проверять",
     clear: "прозрачный",
+    clearAll: "Очистить все",
     close: "ЗАКРЫТЬ",
     contacts: "КОНТАКТЫ",
     copy: "копировать",
@@ -178,7 +179,7 @@ export default {
   },
   fieldLabels: {
     // Field labels are also all uppercased
-    address: "АДРЕС",
+    address: "Адрес получателя",
     amount: "СУММА",
     confirmPassword: "ПОДТВЕРЖДЕНИЕ ПАРОЛЯ",
     daemonLogLevel: "УРОВЕНЬ ЛОГА ДЕМОНА",
@@ -329,7 +330,9 @@ export default {
       },
       negativeAmount: "Сумма не может быть отрицательной",
       newPasswordNoMatch: "Новые пароли не совпадают",
-      newPasswordSame: "Новый пароль должен отличаться от старого",
+      newPasswordSame:
+        "Нельзя использовать старый пароль. Установите другой пароль",
+      passwordFieldEmpty: "Пожалуйста введите ваш пароль",
       notEnoughBalance: "Разблокированный баланс недостаточен",
       passwordNoMatch: "Пароли не совпадают",
       remoteCannotBeReached: "Не удалось связаться с удаленным демоном",
@@ -512,7 +515,7 @@ export default {
       verify: "Проверять"
     },
     changePassword: "Сменить пароль",
-    configure: "Настройки",
+    configure: "Параметры конфигурации",
     currentlyStakedNodes: "Currently staked nodes",
     privateKeys: "Приватные ключи",
     importFromFile: "Импорт из файла",
@@ -547,7 +550,7 @@ export default {
       restoreFromSeed: "Восстановить кошелек из seed-фразы",
       restoreViewOnly: "Восстановить кошелек только-для-чтения"
     },
-    welcome: "Добро пожаловать",
+    chooseLanguage: "Выберите язык",
     yourWallets: "Ваши Кошельки"
   }
 };

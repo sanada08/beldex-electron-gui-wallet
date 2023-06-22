@@ -12,6 +12,7 @@ export default {
     change: "MODIFICAR",
     check: "COMPROBAR",
     clear: "RESTABLECER",
+    clearAll: "Limpiar todo",
     close: "CERRAR",
     contacts: "CONTACTOS",
     copyAddress: "COPIAR DIRECCIÓN",
@@ -182,7 +183,7 @@ export default {
   },
   fieldLabels: {
     // Field labels are also all uppercased
-    address: "DIRECCIÓN",
+    address: "Dirección de la destinataria",
     amount: "CANTIDAD",
     confirmPassword: "CONFIRMAR CONTRASEÑA",
     daemonLogLevel: "NIVEL LOG PARA EL SERVICIO",
@@ -336,7 +337,9 @@ export default {
       },
       negativeAmount: "La cantidad no puede ser negativa",
       newPasswordNoMatch: "Las contraseñas nuevas no coinciden",
-      newPasswordSame: "La nueva contraseña debe ser diferente",
+      newPasswordSame:
+        "No se puede usar la contraseña anterior. Establezca una contraseña diferente",
+      passwordFieldEmpty: "Por favor, introduzca su contraseña",
       notEnoughBalance: "No hay suficiente saldo libre",
       passwordNoMatch: "Las contraseñas no coinciden",
       remoteCannotBeReached: "No se puede conectar con el servicio remoto",
@@ -518,7 +521,7 @@ export default {
       verify: "Verificar"
     },
     changePassword: "Modificar contraseña",
-    configure: "Configurar",
+    configure: "Ajustes de configuración",
     currentlyStakedNodes: "Nodos en los que actualmente participa",
     importFromFile: "Importar desde archivo",
     privateKeys: "Claves privadas",
@@ -553,7 +556,7 @@ export default {
       restoreFromSeed: "Restaurar monedero mediante semilla",
       restoreViewOnly: "Restaurar monedero de solo visualización"
     },
-    welcome: "Bienvenido/a",
+    chooseLanguage: "Elige lengua",
     yourWallets: "Sus Monederos"
   }
 };

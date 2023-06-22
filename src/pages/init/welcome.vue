@@ -1,11 +1,19 @@
 <template>
   <q-page class="welcome" style="min-height:unset;">
-    <q-stepper ref="stepper" v-model="step" class="welcome-stepper" flat dark>
+    <q-stepper
+      ref="stepper"
+      v-model="step"
+      class="welcome-stepper"
+      active-color="#00AD07;"
+      flat
+      dark
+    >
       <q-step
         :name="1"
-        :title="$t('titles.welcome')"
+        :title="$t('titles.chooseLanguage')"
         :done="step > 1"
         class="first-step"
+        icon="settings"
       >
         <div class="welcome-container">
           <img src="../../assets/images/Logo.png" height="100" />
@@ -22,7 +30,12 @@
         </div>
       </q-step>
 
-      <q-step :name="2" :title="$t('titles.configure')" class="second-step">
+      <q-step
+        :name="2"
+        :title="$t('titles.configure')"
+        icon="settings"
+        class="second-step"
+      >
         <SettingsGeneral
           ref="settingsGeneral"
           :randomise-remote="true"
@@ -117,12 +130,12 @@ export default {
   height: 100vh;
   .welcome-stepper {
     .q-stepper__header {
-      width: 40%;
+      width: 50%;
       margin: 0 auto;
     }
     .q-stepper__title {
       font-family: "poppins-SemiBold";
-      font-size: 20px;
+      font-size: 16px;
     }
   }
   .q-dark {
@@ -141,6 +154,7 @@ export default {
     height: 100%;
     background: transparent;
     margin: auto;
+    font-size: 5px;
   }
 
   .welcome-container,
