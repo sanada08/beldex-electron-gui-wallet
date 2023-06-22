@@ -1,5 +1,5 @@
 <template>
-  <q-page>
+  <q-page style="min-height: unset;">
     <section class="flex justify-center align-center">
       <div class="fields">
         <div class="createTitle">{{ this.$t("titles.importFromFile") }}</div>

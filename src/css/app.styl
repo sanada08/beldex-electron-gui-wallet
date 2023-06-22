@@ -212,6 +212,10 @@ footer,
     min-width: 170px;
     border-radius: 8px;
 }
+.bg-red:hover{
+    background-color:#FF5454 !important;
+}
+
 
 .q-layout-page {
     min-height: 0 !important;
@@ -1262,7 +1266,7 @@ footer,
    // height: 600px;
     background-color:$beldex-lightgray;
     margin-top:50px;
-    margin-bottom:50px;
+    margin-bottom:20px;
     padding:20px 68px 68px;
     border-radius: 20px;
     box-shadow: 0px 6px 24px rgba(0, 0, 0, 0.2);
@@ -1537,7 +1541,7 @@ body
 
 .router-view-wrapper
 {
-    height:51vh;
+    height:46vh;
     overflow-y:auto;
 }
 
@@ -1803,6 +1807,7 @@ body
         background-color: #32324A;
         padding: 20px 0;
         border-radius: 16px;
+        overflow: auto;
         .title{
             color:#B9B9B9;
             font-size: 1.25rem
@@ -1844,7 +1849,7 @@ body
 @media only screen and (max-height: 780px) {
     .router-view-wrapper
     {
-        height:41vh;
+        height:40.5vh;
         overflow-y:auto;
     }
     .rectangleBox{
@@ -1853,6 +1858,13 @@ body
     .master-node-stake-tab,.master-node-registration{
         min-height: 30vh;
     }
+    .rectangleBox .menuList {
+        padding: 26px 12px;
+    }
+    .q-btn{
+        font-size:16px;
+    }
+   
   }
 
 //common style may affect all the dialog modal

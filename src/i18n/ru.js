@@ -510,7 +510,7 @@ export default {
     advanced: {
       checkTransaction: "Проверить транзакцию",
       prove: "Доказывать",
-      signAndVerify: "Подписать/Подтвердить",
+      signAndVerify: "Подписать/ Подтвердить",
       sign: "знак",
       verify: "Проверять"
     },

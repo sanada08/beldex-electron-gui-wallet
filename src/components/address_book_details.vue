@@ -142,20 +142,22 @@
             @click="edit()"
             size="lg"
           /> -->
-
+          <!-- :label="$t('buttons.edit')" -->
           <q-btn
             class="q-mr-sm edit_btn"
             no-ripple
             icon="create"
             :disable="!is_ready"
-            :label="$t('buttons.edit')"
+            label="Edit"
             size="md"
             @click="edit()"
           />
+          <!-- :label="$t('buttons.send')" -->
+
           <q-btn
             color="primary send_btn"
             :disabled="view_only"
-            :label="$t('buttons.send')"
+            label="Send"
             icon="north_east"
             size="md"
             @click="sendToAddress"
@@ -423,10 +425,10 @@ export default {
   .app-content {
     background: unset;
   }
-  .layout {
-    height: 67vh;
-    overflow: auto;
-  }
+  // .layout {
+  //   height: 67vh;
+  //   overflow: auto;
+  // }
   .title {
     font-size: 18px;
     background-color: unset !important;
@@ -462,6 +464,11 @@ export default {
 
   .q-header .q-toolbar__title {
     background: unset !important;
+  }
+}
+@media only screen and (max-height: 780px) {
+  .address-book-details .delete-btn {
+    width: unset;
   }
 }
 </style>

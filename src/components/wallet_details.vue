@@ -43,8 +43,8 @@
         <div
           class="wallet-address row justify-between items-center q-pl-md q-pr-sm"
         >
-          <div class="col-md-9 flex row items-center">
-            <div class="ft-semibold title q-mr-xs">
+          <div class="col-md-9 flex row items-center q-pt-md">
+            <div class="ft-semibold title q-mr-xs " style="padding: 0 10px;">
               {{ this.$t("fieldLabels.address") }}
             </div>
             <div class="address ft-regular col-md-10">{{ info.address }}</div>
@@ -247,6 +247,11 @@ export default {
       font-size: 16px;
       font-weight: 500;
       color: #afafbe;
+    }
+  }
+  @media only screen and (max-height: 780px) {
+    .wallet-content {
+      padding: 0.5em 2em;
     }
   }
 }

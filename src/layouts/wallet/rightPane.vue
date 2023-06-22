@@ -3,9 +3,9 @@
     <article>
       <div class="userName">{{ info.name }}</div>
 
-      <div class="sub-txt">
+      <div class="sub-txt ">
         {{ this.$t("fieldLabels.totalBalance")
-        }}<q-icon name="o_info" size="14px" color="#A9A9CD" />
+        }}<q-icon class="q-ml-xs" name="o_info" size="14px" color="#A9A9CD" />
       </div>
       <div class="balance">
         {{ (info.balance / 1e9).toFixed(3) }}<span>BDX</span>
@@ -31,7 +31,8 @@
               fill="white"
             />
           </svg>
-          <span class="btn-txt">{{ $t("buttons.send") }}</span>
+          <!-- <span class="btn-txt">{{ $t("buttons.send") }}</span> -->
+          <span class="btn-txt">Send</span>
         </q-btn>
       </div>
       <!-- </router-link> -->
@@ -48,7 +49,8 @@
               fill="white"
             />
           </svg>
-          <span class="btn-txt">{{ $t("buttons.receive") }}</span>
+          <!-- <span class="btn-txt">{{ $t("buttons.receive") }}</span> -->
+          <span class="btn-txt">Receive</span>
         </q-btn>
       </div>
       <div :class="[this.routes === '' ? 'active' : '']">
@@ -71,7 +73,7 @@
       </div>
     </article>
     <div class="hr-separator" />
-    <article class="nav-view">
+    <article class="rightpane-nav-view">
       <keep-alive>
         <div v-if="this.routes === 'send'">
           <Send />
@@ -122,8 +124,13 @@ export default {
 </script>
 
 <style lang="scss">
-.nav-view {
-  height: 61vh;
+.rightpane-nav-view {
+  height: 65vh;
   overflow: auto;
+}
+@media only screen and (max-height: 780px) {
+  .rightpane-nav-view {
+    height: 59vh;
+  }
 }
 </style>

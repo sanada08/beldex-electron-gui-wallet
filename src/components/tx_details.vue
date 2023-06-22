@@ -23,7 +23,7 @@
         <q-toolbar-title class="ft-semibold">
           {{ $t("titles.details") }}
         </q-toolbar-title>
-        <div class="row items-center q-mr-md txnDirection">
+        <div class="row items-center txnDirection">
           <!-- <div class="q-mr-sm">
             <TxTypeIcon :type="tx.type" :tooltip="false" />
           </div> -->
@@ -190,7 +190,7 @@
 
         <div class="infoBox">
           <div class="flex row justify-between tx_details_wrapper ft-regular">
-            <div class="text">
+            <div class="text txn-id">
               <span>{{ $t("strings.transactionID") }}</span>
               <!-- <span>{{ tx.txid }}</span> -->
               <div class="q-mt-xs value" style="color: #afafbe">
@@ -332,7 +332,7 @@
                  You can change this by hitting edit note.`
             }}
           </div>
-          <div class="col-md-2">
+          <div class="col-md-3 flex justify-end">
             <q-btn
               color="secondary"
               :label="this.$t('buttons.editNotes')"
@@ -523,13 +523,16 @@ export default {
     font-size: 13px;
     color: #d1d1d3;
   }
+  .txn-id {
+    width: 80%;
+  }
   .q-toolbar {
     background-color: unset;
     padding: unset;
   }
   .txnDetails {
     min-width: unset;
-    width: 130px;
+    // width: 130px;
     height: 43px;
     font-size: 1rem;
   }
@@ -537,6 +540,11 @@ export default {
     color: #d1d1d3;
     font-size: 22px;
     margin-right: 50px;
+  }
+  @media only screen and (max-height: 780px) {
+    .txn-type {
+      margin-right: 15px;
+    }
   }
   .txn-notes {
     color: #afafbe;

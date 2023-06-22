@@ -351,9 +351,8 @@ export default {
             color: "primary"
           },
           cancel: {
-            flat: true,
             label: this.$t("dialog.buttons.cancel"),
-            color: "negative"
+            color: "accent"
           }
         })
         .onOk(() => {

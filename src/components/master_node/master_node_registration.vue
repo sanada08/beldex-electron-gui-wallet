@@ -114,6 +114,10 @@ export default {
           label: this.$t("dialog.registerMasterNode.ok"),
           color: "primary"
         },
+        cancel: {
+          color: "accent",
+          label: this.$t("buttons.clear")
+        },
         dark: this.theme == "dark",
         color: this.theme == "dark" ? "white" : "dark"
       });

@@ -171,7 +171,7 @@ export default {
       title: "Sweep all warning",
       message:
         "You are about to combine all of your unspent funds by sending a transaction to yourself, your wallet may show a balance of 0 temporarily, after 10 blocks your funds will unlock and you may stake normally.",
-      ok: "CONTINUE"
+      ok: "Continue"
     },
     switchWallet: {
       title: "Switch wallet",

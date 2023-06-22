@@ -168,7 +168,15 @@
               </routering>
             </div>
 
-            <article class="version-wrapper ">
+            <article
+              :class="
+                `${
+                  page !== 'peers'
+                    ? 'version-wrapper'
+                    : 'version-wrapperwithpeer'
+                } flex items-end`
+              "
+            >
               <div class="version ft-regular">
                 <svg
                   width="18"
@@ -383,9 +391,8 @@ export default {
                 color: "negative"
               },
               cancel: {
-                flat: true,
                 label: this.$t("dialog.buttons.cancel"),
-                color: this.theme == "dark" ? "white" : "dark"
+                color: "accent"
               },
               dark: this.theme === "dark",
               color: this.theme === "dark" ? "white" : "dark"
@@ -425,8 +432,24 @@ export default {
   .rectangleBox {
     margin: 90px AUTO 0;
   }
-  .version-wrapper {
+  .version-wrapper,
+  .version-wrapperwithpeer {
     height: 75%;
+    .version {
+      display: flex;
+      align-items: center;
+      margin-left: 20px;
+
+      span {
+        color: #77778b;
+        font-family: "Poppins-Medium";
+        font-size: 18px;
+        margin-left: 10px;
+      }
+    }
+  }
+  .version-wrapperwithpeer {
+    height: 67%;
   }
   .right-header {
     margin: 90px auto 0px 25px;
@@ -442,6 +465,12 @@ export default {
   @media only screen and (max-height: 780px) {
     .rightPane {
       height: 78vh;
+    }
+    .version-wrapper {
+      height: 71%;
+    }
+    .version-wrapperwithpeer {
+      height: 58%;
     }
   }
   .routering {

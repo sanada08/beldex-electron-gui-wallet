@@ -357,7 +357,7 @@ export default {
 
 @media only screen and (max-height: 780px) {
   .version-wrapper {
-    height: 62%;
+    height: 56%;
   }
 }
 .footer {

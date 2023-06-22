@@ -53,12 +53,11 @@
           <article class="flex justify-between align-center labelBox">
             <div
               class="label-txt ft-medium"
-              style="display: flex;
-             align-items: center;"
+              style="display: flex; align-items: center"
             >
               {{ $t("fieldLabels.to") }}
               <q-icon
-                style="margin-left: 4px;"
+                style="margin-left: 4px"
                 name="o_info"
                 size="12px"
                 color="#A9A9CD"
@@ -96,8 +95,8 @@
         <!-- <q-checkbox
           v-model="newTx.address_book.save"
           :label="$t('strings.saveToAddressBook')"
-        />-->
-        <div class="addAddress q-pt-sm" @click="newTx.address_book.save">
+        /> -->
+        <div class="addAddress q-pt-sm" @click="addAddress">
           + {{ this.$t("buttons.addAddressBook") }}
         </div>
         <!-- Notes -->
@@ -139,19 +138,23 @@
         </div>
         <!-- div required so the button falls below the checkbox -->
         <div class="flex row justify-evenly btn-view q-mt-lg">
+          <!-- :label="$t('buttons.clear')" -->
+
           <q-btn
             class="send-btn"
             :disable="!is_able_to_send"
             icon="replay"
-            :label="$t('buttons.clear') + ' All'"
+            label="clear"
             @click="clearStateValues()"
           />
+          <!-- :label="$t('buttons.send')" -->
+
           <q-btn
             class="send-btn"
             :disable="!is_able_to_send"
             color="primary"
             icon="north_east"
-            :label="$t('buttons.send')"
+            label="Send"
             @click="send()"
           />
         </div>
@@ -342,6 +345,9 @@ export default {
         evt.preventDefault();
       }
     },
+    addAddress() {
+      this.newTx.address_book.save = !this.newTx.address_book.save;
+    },
     onConfirmTransaction() {
       // put the loading spinner up
       this.$store.commit("gateway/set_tx_status", {
@@ -517,6 +523,7 @@ export default {
   }
 }
 .addAddress {
+  cursor: pointer;
   color: #289afb;
   &:hover {
     text-decoration: underline;
@@ -531,6 +538,11 @@ export default {
   }
   .on-left {
     margin-right: unset;
+  }
+}
+@media only screen and (max-height: 780px) {
+  .priority {
+    padding-left: unset;
   }
 }
 </style>

@@ -370,7 +370,7 @@ export default {
   }
 
   .add {
-    width: 38px;
+    // width: 38px;
     padding: 0;
     margin-top: 10px;
 
