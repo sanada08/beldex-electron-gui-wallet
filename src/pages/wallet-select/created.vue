@@ -111,7 +111,7 @@
     <div style="margin-top: 18px; padding: 10px 20px">
       <template v-if="secret.view_key != secret.spend_key">
         <div class="row justify-between">
-          <div class="col-10" style="word-break: break-all; color: #fff">
+          <div class="col-7" style="word-break: break-all; color: #fff">
             <h6 class="q-mb-xs title">{{ $t("strings.viewKey") }}</h6>
             <p style="font-family: Poppins-Regular">{{ secret.view_key }}</p>
           </div>
@@ -141,7 +141,7 @@
 
       <template v-if="!/^0*$/.test(secret.spend_key)">
         <div class="row justify-between">
-          <div class="col-10" style="word-break: break-all; color: #fff">
+          <div class="col-7" style="word-break: break-all; color: #fff">
             <h6 class="q-mb-xs title">{{ $t("strings.spendKey") }}</h6>
             <p style="font-family: Poppins-Regular">{{ secret.spend_key }}</p>
           </div>

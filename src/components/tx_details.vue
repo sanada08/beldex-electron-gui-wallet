@@ -212,7 +212,7 @@
                   self="top right"
                   :offset="[0, 5]"
                 >
-                  {{ $t("menuItems.copyAddress") }}
+                  Copy Transaction ID
                 </q-tooltip>
               </q-btn>
             </div>
@@ -501,7 +501,9 @@ export default {
       this.$q.notify({
         type: "positive",
         timeout: 1000,
-        message: this.$t("notification.positive.addressCopied")
+        message: this.$t("notification.positive.copied", {
+          item: "Transaction Id"
+        })
       });
     }
   }

@@ -405,6 +405,7 @@ export default {
     width: 93%;
     margin: 0 auto;
     height: unset;
+    cursor: pointer;
   }
   .address-txt {
     width: 715px;

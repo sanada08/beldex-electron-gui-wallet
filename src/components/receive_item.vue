@@ -1,5 +1,6 @@
 <template>
-  <q-list class="oxen-list-item" no-border @click.native="details(address)">
+  <!-- <q-list class="oxen-list-item" no-border @click.native="details(address)"> -->
+  <q-list class="oxen-list-item" no-border>
     <q-item>
       <q-item-section side>
         <div class="row icon-btn ">
@@ -34,7 +35,7 @@
         </div>
       </q-item-section>
 
-      <q-item-section class="flex">
+      <q-item-section class="flex" @click.native="details(address)">
         <q-item-label class="ellipsis ft-regular address-label">{{
           address.address
         }}</q-item-label>

@@ -18,7 +18,7 @@
         </q-btn>
       </div>
     </div>
-    <div class="flex justify-center">
+    <div class="flex justify-center ">
       <q-btn color="primary" label="Next" @click="submit()" />
     </div>
   </section>
