@@ -770,9 +770,8 @@ export default {
                   color: "negative"
                 },
                 cancel: {
-                  flat: true,
                   label: this.$t("dialog.buttons.cancel"),
-                  color: this.theme == "dark" ? "white" : "dark"
+                  color: "accent"
                 },
                 dark: this.theme == "dark",
                 color: this.theme == "dark" ? "white" : "dark"

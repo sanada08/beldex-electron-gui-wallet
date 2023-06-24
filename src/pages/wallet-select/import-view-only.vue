@@ -234,7 +234,8 @@ export default {
       }
 
       this.$q.loading.show({
-        delay: 0
+        delay: 0,
+        spinnerColor: "positive"
       });
 
       this.$gateway.send("wallet", "restore_view_wallet", this.wallet);

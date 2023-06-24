@@ -16,7 +16,9 @@
         icon="settings"
       >
         <div class="welcome-container">
-          <img src="../../assets/images/Logo.png" height="100" />
+          <div>
+            <img src="../../assets/images/Logo.png" class="logo" />
+          </div>
           <h3 class="ft-bold q-my-md appName">
             <span>Beldex</span> Electron Wallet
           </h3>
@@ -138,6 +140,10 @@ export default {
       font-size: 16px;
     }
   }
+  .logo {
+    height: 100px;
+    width: 100px;
+  }
   .q-dark {
     // background-color: #292929;
     background: #1c1c26;
@@ -150,8 +156,9 @@ export default {
   .first-step {
     // .welcome-stepper {
 
-    width: 1001px;
+    // width: 1001px;
     height: 100%;
+
     background: transparent;
     margin: auto;
     font-size: 5px;
@@ -160,6 +167,9 @@ export default {
   .welcome-container,
   .second-step {
     // padding-top: 14vh;
+    width: 1001px;
+    padding-bottom: 25px;
+
     padding-top: 3vh;
     display: flex;
     flex-direction: column;
@@ -192,6 +202,8 @@ export default {
   .second-step {
     display: block;
     margin-bottom: 49px;
+    max-height: 70vh;
+    overflow: auto;
   }
 }
 
@@ -215,5 +227,23 @@ export default {
 
 .q-stepper-header {
   min-height: 10vh;
+}
+
+@media only screen and (max-height: 780px) {
+  .welcome {
+    .first-step {
+      height: 70vh;
+    }
+    .welcome-container {
+      padding: 35px 0;
+    }
+    .logo {
+      height: 50px;
+      width: 50px;
+    }
+    .second-step {
+      padding-bottom: 0;
+    }
+  }
 }
 </style>

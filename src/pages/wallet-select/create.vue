@@ -1,6 +1,6 @@
 <template>
   <q-page
-    class="create-wallet beldex-wallet"
+    class="create-wallet beldex-wallet flex justify-center items-center"
     style="min-height: unset; height: calc(100vh - 70px)"
   >
     <section class="flex justify-center items-center">
@@ -45,7 +45,7 @@
             @keyup.enter="create"
           />
         </OxenField>
-
+        <!-- :placeholder="$t('placeholders.reEnterWalletPassword')" -->
         <OxenField :label="$t('fieldLabels.confirmPassword')">
           <q-input
             v-model="wallet.password_confirm"
@@ -152,7 +152,8 @@ export default {
   methods: {
     createWallet() {
       this.$q.loading.show({
-        delay: 0
+        delay: 0,
+        spinnerColor: "positive"
       });
       this.$gateway.send("wallet", "create_wallet", this.wallet);
     },
@@ -182,7 +183,8 @@ export default {
           title: this.$t("dialog.noPassword.title"),
           message: this.$t("dialog.noPassword.message"),
           ok: {
-            label: this.$t("dialog.noPassword.ok")
+            label: this.$t("dialog.noPassword.ok"),
+            color: "primary"
           },
           cancel: {
             // flat: true,
@@ -190,8 +192,8 @@ export default {
             // color: this.theme === "dark" ? "white" : "dark"
             color: "accent"
           },
-          dark: this.theme == "dark",
-          color: "positive"
+          dark: this.theme == "dark"
+          // color: "positive"
         });
         passwordPromise
           .onOk(() => {
@@ -215,7 +217,8 @@ export default {
   .dropdown {
     .content:hover {
       background-color: #41415b !important;
-      border: unset !important;
+      border-color: #41415b !important;
+      // transition: none;
     }
   }
 }

@@ -233,6 +233,16 @@ export default {
     view_only: state => state.gateway.wallet.info.view_only,
     unlocked_balance: state => state.gateway.wallet.info.unlocked_balance,
     tx_status: state => state.gateway.tx_status,
+    address_book: state => state.gateway.wallet.address_list.address_book,
+    address_book_starred: state =>
+      state.gateway.wallet.address_list.address_book_starred,
+    address_book_combined() {
+      const starred = this.address_book_starred.map(a => ({
+        ...a,
+        starred: true
+      }));
+      return [...starred, ...this.address_book];
+    },
     is_ready() {
       return this.$store.getters["gateway/isReady"];
     },
@@ -411,7 +421,7 @@ export default {
     },
     async send() {
       this.$v.newTx.$touch();
-
+      console.log("address_book_combined", this.address_book_combined);
       if (this.newTx.amount < 0) {
         this.$q.notify({
           type: "negative",
@@ -440,6 +450,20 @@ export default {
           message: this.$t("notification.errors.invalidAmount")
         });
         return;
+      }
+
+      if (this.newTx.address_book.save) {
+        let addressIsExist = this.address_book_combined.filter(
+          item => item.Address === this.newTx.address
+        );
+        if (addressIsExist) {
+          this.$q.notify({
+            type: "negative",
+            timeout: 1000,
+            message: "Address is already exist!"
+          });
+          return;
+        }
       }
 
       if (this.$v.newTx.address.$error) {

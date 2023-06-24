@@ -139,7 +139,8 @@ export default {
       }
 
       this.$q.loading.show({
-        delay: 0
+        delay: 0,
+        spinnerColor: "positive"
       });
 
       this.wallet.path = this.wallet_path;

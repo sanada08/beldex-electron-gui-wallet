@@ -171,9 +171,9 @@
             <article
               :class="
                 `${
-                  page !== 'peers'
-                    ? 'version-wrapper'
-                    : 'version-wrapperwithpeer'
+                  tabs[tabs.length - 1].value === 'peers'
+                    ? 'version-wrapperwithpeer'
+                    : 'version-wrapper'
                 } flex items-end`
               "
             >

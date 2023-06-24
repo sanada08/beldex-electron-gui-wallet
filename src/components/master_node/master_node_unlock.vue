@@ -124,9 +124,8 @@ export default {
                   color: "primary"
                 },
                 cancel: {
-                  flat: true,
                   label: this.$t("dialog.buttons.cancel"),
-                  color: this.theme == "dark" ? "white" : "dark"
+                  color: "accent"
                 },
                 style: "min-width: 500px; overflow-wrap: break-word;",
                 dark: this.theme == "dark",
@@ -175,9 +174,8 @@ export default {
             color: "primary"
           },
           cancel: {
-            flat: true,
             label: this.$t("dialog.buttons.cancel"),
-            color: this.theme === "dark" ? "white" : "dark"
+            color: "accent"
           },
           dark: this.theme == "dark",
           color: this.theme == "dark" ? "white" : "dark"

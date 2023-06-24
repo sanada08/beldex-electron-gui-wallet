@@ -301,7 +301,8 @@ export default {
           })
           .onOk(password => {
             this.$q.loading.show({
-              delay: 0
+              delay: 0,
+              spinnerColor: "positive"
             });
             this.$gateway.send("wallet", "open_wallet", {
               name: wallet.name,
@@ -312,7 +313,8 @@ export default {
           .onDismiss(() => {});
       } else {
         this.$q.loading.show({
-          delay: 0
+          delay: 0,
+          spinnerColor: "positive"
         });
         this.$gateway.send("wallet", "open_wallet", {
           name: wallet.name,

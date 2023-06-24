@@ -1,26 +1,27 @@
 <template>
-  <div class="language-select column items-center justify-center q-mb-lg">
-    <!-- <h6 class="q-my-md" style="font-weight: 300">
+  <section>
+    <div class="language-select column items-center justify-center q-mb-lg">
+      <!-- <h6 class="q-my-md" style="font-weight: 300">
       {{ $t("strings.selectLanguage") }}:
      </h6> -->
-    <div class="inner-box row justify-between q-mb-lg">
-      <q-btn
-        v-for="option in options"
-        :key="option.value"
-        class="row justify-center items-center"
-        :color="lang === option.value ? 'active' : ''"
-        outline
-        @click="setLanguage(option.value)"
-      >
-        <span :class="`flag-icon flag-icon-${option.flag}`" />
-        <span>{{ option.label }}</span>
-      </q-btn>
+      <div class="inner-box row justify-between q-mb-lg">
+        <q-btn
+          v-for="option in options"
+          :key="option.value"
+          class="row justify-center items-center"
+          :color="lang === option.value ? 'active' : ''"
+          outline
+          @click="setLanguage(option.value)"
+        >
+          <span :class="`flag-icon flag-icon-${option.flag}`" />
+          <span>{{ option.label }}</span>
+        </q-btn>
+      </div>
     </div>
-
-    <div>
+    <div class="flex justify-center">
       <q-btn color="primary" label="Next" @click="submit()" />
     </div>
-  </div>
+  </section>
 </template>
 
 <script>

@@ -1,29 +1,30 @@
 <template>
   <q-dialog v-model="show" persistent>
     <q-card class="signature-dialog">
-      <q-card-section>
-        <div class="text-h6">{{ $t("dialog.signature.title") }}</div>
-        <div>
+      <q-card-section class="header-wrapper">
+        <div class="text-h5 ft-semibold text-center">
+          {{ $t("dialog.signature.title") }}
+        </div>
+        <div class="subtxt text-center ft-medium">
           {{ $t("dialog.signature.message") }}
         </div>
       </q-card-section>
       <q-card-section class="info">
-        <q-item class="signature row">
+        <q-item class="signature row sign-inner-wrapper ft-medium">
           <div class="col">
-            <q-item-label class="labels">{{
+            <!-- <q-item-label class="labels">{{
               $t("fieldLabels.signature")
-            }}</q-item-label>
+            }}</q-item-label> -->
             {{ signature }}
           </div>
           <div class="col-auto">
-            <q-btn
+            <div
+              class="copyIcon-btn flex justify-center items-center"
               color="primary"
-              icon="file_copy"
-              size="sm"
-              padding="xs"
-              style="width: 100%; margin-top: 16px"
+              icon="content_copy"
               @click="onCopySignature"
             >
+              <q-icon name="content_copy" color="white" size="24px" />
               <q-tooltip
                 anchor="center left"
                 self="center right"
@@ -31,25 +32,24 @@
               >
                 {{ $t("buttons.copySignature") }}
               </q-tooltip>
-            </q-btn>
+            </div>
           </div>
         </q-item>
-        <q-item class="row unsigned-data">
+        <q-item class="row unsigned-data sign-inner-wrapper ft-medium">
           <div class="col">
-            <q-item-label class="labels">{{
+            <!-- <q-item-label class="labels">{{
               $t("fieldLabels.data")
-            }}</q-item-label>
+            }}</q-item-label> -->
             {{ unsignedData }}
           </div>
           <div class="col-auto">
-            <q-btn
+            <div
+              class="copyIcon-btn flex justify-center items-center"
               color="primary"
-              icon="file_copy"
-              size="sm"
-              padding="xs"
-              style="width: 100%; margin-top: 16px"
               @click="onCopyUnsignedData"
             >
+              <q-icon name="content_copy" color="white" size="24px" />
+
               <q-tooltip
                 anchor="center left"
                 self="center right"
@@ -57,26 +57,23 @@
               >
                 {{ $t("buttons.copyData") }}
               </q-tooltip>
-            </q-btn>
+            </div>
           </div>
         </q-item>
-        <q-item class="row address">
+        <q-item class="row address sign-inner-wrapper ft-medium">
           <div class="col">
-            <q-item-label class="labels">{{
+            <!-- <q-item-label class="labels">{{
               $t("fieldLabels.address")
-            }}</q-item-label>
+            }}</q-item-label> -->
             {{ address }}
           </div>
           <div class="col-auto">
-            <q-btn
-              color="primary"
-              class="vertical-middle"
-              icon="file_copy"
-              size="sm"
-              style="width: 100%; margin-top: 16px"
-              padding="xs"
+            <div
+              class="copyIcon-btn flex justify-center items-center vertical-middle"
               @click="onCopyAddress"
             >
+              <q-icon name="content_copy" color="white" size="24px" />
+
               <q-tooltip
                 anchor="center left"
                 self="center right"
@@ -84,12 +81,12 @@
               >
                 {{ $t("buttons.copyAddress") }}
               </q-tooltip>
-            </q-btn>
+            </div>
           </div>
         </q-item>
       </q-card-section>
-      <q-card-actions align="right">
-        <q-btn flat :label="$t('buttons.close')" @click="onClose" />
+      <q-card-actions align="right" class="q-my-lg">
+        <q-btn color="accent" :label="$t('buttons.close')" @click="onClose" />
       </q-card-actions>
     </q-card>
   </q-dialog>

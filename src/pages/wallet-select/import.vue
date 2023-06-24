@@ -1,5 +1,5 @@
 <template>
-  <q-page style="min-height: unset;">
+  <q-page style="min-height: unset; height: calc( 100vh - 70px);">
     <section class="flex justify-center align-center">
       <div class="fields">
         <div class="createTitle">{{ this.$t("titles.importFromFile") }}</div>
@@ -192,7 +192,8 @@ export default {
       }
 
       this.$q.loading.show({
-        delay: 0
+        delay: 0,
+        spinnerColor: "positive"
       });
 
       this.$gateway.send("wallet", "import_wallet", this.wallet);

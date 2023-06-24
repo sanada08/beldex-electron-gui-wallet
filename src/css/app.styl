@@ -842,19 +842,19 @@ footer,
 .oxen-field {
     .content {
         border: 1.2px solid #484856;
-        //background: $beldex-bgcol;
-        -webkit-transition: background-color 0.2s ease-in, border-color 0.2s ease-in;
-        transition: background-color 0.2s ease-in, border-color 0.2s ease-in;
+        background: $beldex-bgcol;
+    -webkit-transition: background-color 0.2s ease-in, border-color 0.2s ease-in;
+       transition: background-color 0.2s ease-in, border-color 0.2s ease-in;
         border-radius: 10px !important;
     }
 
-    &:not(.disable):not(.disable-hover) {
-        .content:hover {
-            // background: #1c1c26;
-            background:#242433;
-            border:1px solid #9F9FAF
+   &:not(.disable):not(.disable-hover) {
+       .content:hover {
+             background: #1c1c26;
+           background:#242433;
+            border-color:#9F9FAF
         }
-    }
+   }
 
     &.disable {
         .content {
@@ -901,7 +901,43 @@ footer,
 }
 
 .signature-dialog {
-    color: $oxen-navy;    
+    color:white;    
+    background-color:$beldex-lightgray;
+    border-radius:15px !important;
+    .subtxt{
+        color:$beldex-font-grey;
+        font-size: 18px;
+        width: 82%;
+        margin: 10px auto;
+    }
+    .info{
+        padding:0 15px;
+    }
+    .header-wrapper {
+        padding:16px 16px 0 16px; 
+    }
+    .sign-inner-wrapper{
+        background-color: #32324a;
+        border-radius: 12px;
+        color: #afafbe;
+        font-size: 16px;
+        padding: 20px;
+        margin-top: 8px;
+
+    }
+    .copyIcon-btn
+    {
+        width: 50px;
+        height: 50px;
+        background-color: $beldex-std-green;
+        border-radius: 9px;
+       cursor:pointer;
+       margin-left:30px;
+    }
+    .copyIcon-btn:hover
+    {
+    background:#00D409 !important;
+    }
 }
 
 .check-transaction {
@@ -1267,9 +1303,10 @@ footer,
     background-color:$beldex-lightgray;
     margin-top:50px;
     margin-bottom:20px;
-    padding:20px 68px 68px;
+    padding:20px 50px ;
     border-radius: 20px;
     box-shadow: 0px 6px 24px rgba(0, 0, 0, 0.2);
+    overflow-y: auto;
 }
 .createTitle {
     text-align: center;
@@ -1863,6 +1900,26 @@ body
     }
     .q-btn{
         font-size:16px;
+    }
+
+    .registrationBox {
+        width: 695px;
+        height: 535px;
+    }
+    registrationBox .img {
+        width: 100%;
+        height: 306px;
+    }
+    .registrationBox .btn {
+        height:55px;
+    }
+    .registration-View .back-btn-box {
+        width: 695px !important;
+        cursor: pointer;
+    }
+    .fields
+    {
+        max-height: 77vh;
     }
    
   }
