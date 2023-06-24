@@ -103,7 +103,11 @@
         <!-- placeholder="$t('placeholders.transactionNotes')" -->
 
         <div class="col q-mt-lg">
-          <OxenField :label="$t('fieldLabels.notes')" class="ft-medium">
+          <OxenField
+            :label="$t('fieldLabels.notes')"
+            optional
+            class="ft-medium"
+          >
             <q-input
               v-model="newTx.note"
               class="full-width text-area-oxen"
@@ -124,7 +128,11 @@
               dense
             />
           </OxenField>
-          <OxenField class="q-mt-lg" :label="$t('fieldLabels.notes')" optional>
+          <OxenField
+            class="q-mt-lg"
+            :label="$t('fieldLabels.addressBookNotes')"
+            optional
+          >
             <q-input
               v-model="newTx.address_book.description"
               type="textarea"

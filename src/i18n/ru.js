@@ -48,7 +48,8 @@ export default {
     stake: "СТЕЙК",
     sweepAll: "Sweep All",
     unlock: "UNLOCK",
-    viewOnExplorer: "ПОСМОТРЕТЬ В ЭКСПЛОРЕРЕ"
+    viewOnExplorer: "ПОСМОТРЕТЬ В ЭКСПЛОРЕРЕ",
+    add: "Добавлять"
   },
   dialog: {
     // Generic buttons
@@ -204,6 +205,7 @@ export default {
     name: "ИМЯ",
     newWalletName: "ИМЯ НОВОГО КОШЕЛЬКА",
     notes: "ЗАМЕТКИ",
+    addressBookNotes: "Примечания к адресной книге",
     optional: "НЕОБЯЗАТЕЛЬНО",
     password: "ПАРОЛЬ",
     paymentId: "PAYMENT ID",

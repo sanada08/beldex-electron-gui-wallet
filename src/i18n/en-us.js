@@ -11,7 +11,7 @@ export default {
     change: "Change",
     check: "Check",
     clear: "Clear",
-    clearAll: "",
+    clearAll: "Clear All",
     close: "Close",
     contacts: "CONTACTS",
     copyAddress: "COPY ADDRESS",
@@ -243,6 +243,7 @@ export default {
     name: "Name",
     newWalletName: "Wallet Name",
     notes: "Notes",
+    addressBookNotes: "Addressbook Notes",
     optional: "optional",
 
     owner: "Owner",

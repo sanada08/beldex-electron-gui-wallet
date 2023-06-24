@@ -246,7 +246,7 @@
                   v-for="entry in daemon.connections"
                   :key="entry.address"
                   clickable
-                  class="items-center deamonConDetails-Wrapper q-mx-md"
+                  class="items-center deamonConDetails-Wrapper q-mx-md q-my-md"
                   @click.native="showPeerDetails(entry)"
                 >
                   <q-item-label class="greenIcon"> </q-item-label>

@@ -51,7 +51,8 @@ export default {
     stake: "STAKE",
     sweepAll: "TOUT BALAYER",
     unlock: "UNLOCK",
-    viewOnExplorer: "VUE SUR L’EXPLORATEUR"
+    viewOnExplorer: "VUE SUR L’EXPLORATEUR",
+    add: "Ajouter"
   },
   dialog: {
     // Generic buttons
@@ -210,6 +211,7 @@ export default {
     name: "NOM",
     newWalletName: "NOUVEAU NOM DU PORTEFEUILLE",
     notes: "NOTES",
+    addressBookNotes: "Notes du carnet d'adresses",
     optional: "OPTIONNEL",
     password: "MOT DE PASSE",
     paymentId: "ID DE PAIEMENT",

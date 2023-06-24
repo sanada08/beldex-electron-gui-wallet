@@ -83,14 +83,7 @@
           </OxenField>
         </div>
 
-        <div class="flex justify-between align-center q-mt-lg">
-          <!-- <q-btn
-            v-if="mode == 'edit'"
-            color="accent"
-            no-ripple
-            :label="$t('buttons.cancel')"
-            @click="cancelEdit()"
-          /> -->
+        <div class="flex justify-center align-center q-mt-lg">
           <q-btn
             v-if="mode == 'edit'"
             color="accent"
@@ -102,7 +95,7 @@
           <q-btn
             class="q-ml-sm add-btn res_btn"
             color="primary"
-            :label="$t('buttons.save')"
+            :label="$t('buttons.add')"
             size="1.2em"
             @click="save()"
           />
@@ -439,7 +432,7 @@ export default {
   }
   .delete-btn {
     min-width: unset;
-    width: 6.5vw;
+    width: 7.5vw;
     border-radius: 9px;
     .on-left {
       margin-right: 1px;

@@ -51,7 +51,8 @@ export default {
     stake: "PARTICIPAÇÃO",
     sweepAll: "VARRER TUDO",
     unlock: "UNLOCK",
-    viewOnExplorer: "VISUALIZAR NO EXPLORADOR"
+    viewOnExplorer: "VISUALIZAR NO EXPLORADOR",
+    add: "Adicionar"
   },
   dialog: {
     // Generic buttons
@@ -207,6 +208,7 @@ export default {
     name: "NOME",
     newWalletName: "NOME DA NOVA CARTEIRA",
     notes: "NOTAS",
+    addressBookNotes: "Notas do livro de endereços",
     optional: "OPCIONAL",
     password: "PALAVRA-PASSE",
     paymentId: "ID DE PAGAMENTO",

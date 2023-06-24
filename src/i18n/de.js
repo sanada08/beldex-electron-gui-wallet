@@ -50,7 +50,8 @@ export default {
     stake: "STAKE",
     sweepAll: "ALLES BEREINIGEN",
     unlock: "UNLOCK",
-    viewOnExplorer: "IN EXPLORER ANZEIGEN"
+    viewOnExplorer: "IN EXPLORER ANZEIGEN",
+    add: "Hinzufügen"
   },
   dialog: {
     // Generic buttons
@@ -211,6 +212,7 @@ export default {
     newWalletName: "NEUER WALLET NAME",
     network: "NETZWERK",
     notes: "NOTIZEN",
+    addressBookNotes: "Adressbuchnotizen",
     optional: "OPTIONAL",
     password: "PASSWORT",
     paymentId: "PAYMENT ID",

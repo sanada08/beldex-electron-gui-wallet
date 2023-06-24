@@ -75,13 +75,13 @@
     <div class="hr-separator" />
     <article class="rightpane-nav-view">
       <keep-alive>
-        <div v-if="this.routes === 'send'">
+        <div v-if="this.routes === 'send'" style="margin-right:4px;">
           <Send />
         </div>
         <div v-else-if="this.routes === 'receive'">
           <Receive />
         </div>
-        <div v-else>
+        <div v-else style="margin-right:4px;">
           <Adressbook />
         </div>
         <!-- <router-view /> -->

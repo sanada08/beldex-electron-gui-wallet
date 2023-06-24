@@ -51,7 +51,8 @@ export default {
     stake: "RETENER PARTICIPACIÓN",
     sweepAll: "TRANSFERIR/BARRER TODO",
     unlock: "LIBERAR",
-    viewOnExplorer: "VER EN EL EXPLORADOR"
+    viewOnExplorer: "VER EN EL EXPLORADOR",
+    add: "Agregar"
   },
   dialog: {
     // Generic buttons
@@ -209,6 +210,7 @@ export default {
     name: "NOMBRE",
     newWalletName: "NUEVO NOMBRE PARA EL MONEDERO",
     notes: "NOTAS",
+    addressBookNotes: "Notas de la libreta de direcciones",
     optional: "OPCIONAL",
     password: "CONTRASEÑA",
     paymentId: "ID DE PAGO",
