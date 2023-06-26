@@ -1730,12 +1730,15 @@ body
     .rmDesc{
         color:#B9B9B9;
     }
-    .radio-btn-box ,.radio-btn-box-non-select {
-        
+    .radio-btn-box ,.radio-btn-box-non-select {     
         height: 55px;
         border-radius: 10px;
         margin: 10px 30px;
     }
+    .r-btn-wrapper :hover{
+        background-color:#3A3A56 !important;
+    }
+   
     .radio-btn-box {
         background-color:#40405E;
         
@@ -1744,6 +1747,7 @@ body
     .radio-btn-box-non-select{
         background-color:$beldex-disable-grey;
     } 
+   
 }
 
 .key-image-modal {
@@ -1845,9 +1849,12 @@ body
 }
 .peerDetails{
     height:100%;
+    padding: 20px;
+
+   
     .peerlist-wrapper{
         width: 420px;
-        background-color: #32324A;
+        background-color: $beldex-disable-grey;
         padding: 20px 0;
         border-radius: 16px;
         overflow: auto;
@@ -1860,9 +1867,11 @@ body
         {
             padding-left:85px;
             border-radius:10px;
+            background-color:$beldex-disable-grey;
         }
+       
         .deamonConDetails-Wrapper:hover{
-            background-color:#484866;
+            background-color:#484866 !important;
         }
         .deamonConDetails{
             font-size:1.125rem;

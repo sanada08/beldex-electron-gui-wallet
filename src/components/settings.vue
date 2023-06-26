@@ -253,7 +253,7 @@
                   v-for="entry in daemon.connections"
                   :key="entry.address"
                   clickable
-                  class="items-center deamonConDetails-Wrapper q-mx-md q-my-md"
+                  class="items-center deamonConDetails-Wrapper q-mx-md q-my-sm"
                   @click.native="showPeerDetails(entry)"
                 >
                   <q-item-label class="greenIcon"> </q-item-label>
@@ -300,6 +300,31 @@
         </div>
         <!-- </q-page-container> -->
       </q-page>
+
+      <q-dialog v-model="this.peerEntryModal" minimized>
+        <div class="about-modal txn-details-modal">
+          <div class="modal-header ft-semibold text-center text-h6">
+            {{ this.$t("dialog.banPeer.peerDetailsTitle") }}
+          </div>
+          <article class="content-wrapper q-mt-md">
+            {{ JSON.stringify(this.peerEntry, null, 2) }}
+          </article>
+          <div class="flex justify-center q-my-lg">
+            <q-btn
+              color="accent"
+              :label="this.$t('dialog.buttons.cancel')"
+              @click="peerEntryModal = false"
+            />
+
+            <q-btn
+              color="negative"
+              :label="this.$t('dialog.banPeer.ok')"
+              class="q-ml-lg"
+              @click.native="showdialog"
+            />
+          </div>
+        </div>
+      </q-dialog>
     </q-layout>
   </q-dialog>
 </template>
@@ -323,7 +348,9 @@ export default {
       page: "general",
       isVisible: false,
       version,
-      username: "matt"
+      username: "matt",
+      peerEntry: "",
+      peerEntryModal: false
     };
   },
   computed: mapState({
@@ -368,53 +395,86 @@ export default {
       this.isVisible = false;
     },
     showPeerDetails(entry) {
+      (this.peerEntry = entry), (this.peerEntryModal = true);
+
+      // this.$q
+      //   .dialog({
+      //     title: this.$t("dialog.banPeer.peerDetailsTitle"),
+      //     message: JSON.stringify(entry, null, 2),
+      //     ok: {
+      //       label: this.$t("dialog.banPeer.ok"),
+      //       color: "negative"
+      //     },
+      //     cancel: {
+      //       label: "cancel",
+      //       // color: this.theme == "dark" ? "white" : "dark"
+      //       color: "accent"
+      //     },
+      //     dark: this.theme === "dark",
+      //     style: "width: 657px;padding:20px;"
+      //   })
+      //   .onOk(() => {
+      //     this.$q
+      //       .dialog({
+      //         title: this.$t("dialog.banPeer.title"),
+      //         message: this.$t("dialog.banPeer.message"),
+      //         prompt: {
+      //           model: "",
+      //           type: "number"
+      //         },
+      //         ok: {
+      //           label: this.$t("dialog.banPeer.ok"),
+      //           color: "negative"
+      //         },
+      //         cancel: {
+      //           label: this.$t("dialog.buttons.cancel"),
+      //           color: "accent"
+      //         },
+      //         dark: this.theme === "dark",
+      //         color: this.theme === "dark" ? "white" : "dark"
+      //       })
+      //       .onOk(seconds => {
+      //         this.$gateway.send("daemon", "ban_peer", {
+      //           host: entry.host,
+      //           seconds
+      //         });
+      //       })
+      //       .onCancel(() => {})
+      //       .onDismiss(() => null);
+      //   })
+      //   .onCancel(() => {})
+      //   .onDismiss(() => {});
+    },
+    showdialog() {
+      console.log("show inner");
+      this.peerEntryModal = false;
       this.$q
         .dialog({
-          title: this.$t("dialog.banPeer.peerDetailsTitle"),
-          message: JSON.stringify(entry, null, 2),
+          title: this.$t("dialog.banPeer.title"),
+          message: this.$t("dialog.banPeer.message"),
+          prompt: {
+            model: "",
+            type: "number"
+          },
           ok: {
             label: this.$t("dialog.banPeer.ok"),
             color: "negative"
           },
           cancel: {
-            label: "cancel",
-            // color: this.theme == "dark" ? "white" : "dark"
+            label: this.$t("dialog.buttons.cancel"),
             color: "accent"
           },
           dark: this.theme === "dark",
-          style: "width: 657px;padding:20px;"
+          color: this.theme === "dark" ? "white" : "dark"
         })
-        .onOk(() => {
-          this.$q
-            .dialog({
-              title: this.$t("dialog.banPeer.title"),
-              message: this.$t("dialog.banPeer.message"),
-              prompt: {
-                model: "",
-                type: "number"
-              },
-              ok: {
-                label: this.$t("dialog.banPeer.ok"),
-                color: "negative"
-              },
-              cancel: {
-                label: this.$t("dialog.buttons.cancel"),
-                color: "accent"
-              },
-              dark: this.theme === "dark",
-              color: this.theme === "dark" ? "white" : "dark"
-            })
-            .onOk(seconds => {
-              this.$gateway.send("daemon", "ban_peer", {
-                host: entry.host,
-                seconds
-              });
-            })
-            .onCancel(() => {})
-            .onDismiss(() => null);
+        .onOk(seconds => {
+          this.$gateway.send("daemon", "ban_peer", {
+            host: this.peerEntry.host,
+            seconds
+          });
         })
         .onCancel(() => {})
-        .onDismiss(() => {});
+        .onDismiss(() => null);
     }
   }
 };

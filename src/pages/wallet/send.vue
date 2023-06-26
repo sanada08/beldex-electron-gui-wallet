@@ -429,7 +429,7 @@ export default {
     },
     async send() {
       this.$v.newTx.$touch();
-      console.log("address_book_combined", this.address_book_combined);
+      // console.log("address_book_combined", this.address_book_combined);
       if (this.newTx.amount < 0) {
         this.$q.notify({
           type: "negative",
@@ -461,9 +461,12 @@ export default {
       }
 
       if (this.newTx.address_book.save) {
-        let addressIsExist = this.address_book_combined.filter(
-          item => item.Address === this.newTx.address
-        );
+        let addressIsExist =
+          this.address_book_combined.filter(
+            // item =>  console.log('filter item',item.address)
+            item => item.address === this.newTx.address
+          ).length > 0;
+        // console.log('address_book_combined filter ::',addressIsExist)
         if (addressIsExist) {
           this.$q.notify({
             type: "negative",

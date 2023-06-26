@@ -79,7 +79,7 @@
           class="q-mr-sm txnDetails"
           color="primary"
           :label="$t('buttons.showTxDetails')"
-          @click="showTxDetails"
+          @click="showTxnDetails(true)"
         />
         <q-btn
           v-if="can_open"
@@ -352,6 +352,37 @@
         </div>
       </div>
     </q-page>
+
+    <!-- <q-dialog v-model="txnModalVisible"> -->
+    <!-- <q-dialog ref="txnDetails"  minimized>
+
+      <section class="modal txn-details-modal">
+        <div class="modal-header ft-bold">
+          {{ this.$t("dialog.transactionDetails.title") }}
+        </div>
+
+        <article class="content-wrapper q-mt-lg">
+          {{ JSON.stringify(this.tx, null, 2) }}
+        </article>
+        <div class="flex justify-center q-my-lg">
+          <q-btn color="accent" label="close" />
+        </div>
+      </section>
+    </q-dialog> -->
+
+    <q-dialog ref="txnDetails" minimized>
+      <div class="about-modal txn-details-modal">
+        <div class="modal-header ft-semibold text-center text-h6">
+          {{ this.$t("dialog.transactionDetails.title") }}
+        </div>
+        <article class="content-wrapper q-mt-md">
+          {{ JSON.stringify(this.tx, null, 2) }}
+        </article>
+        <div class="flex justify-center q-my-lg ">
+          <q-btn color="accent" label="close" @click="showTxnDetails(false)" />
+        </div>
+      </div>
+    </q-dialog>
   </q-layout>
   <!-- </q-dialog> -->
 </template>
@@ -394,7 +425,8 @@ export default {
       //   type: "",
       //   unlock_time: 0
       // },
-      menuItems
+      menuItems,
+      txnModalVisible: true
     };
   },
   computed: mapState({
@@ -459,22 +491,26 @@ export default {
     goback() {
       this.$emit("goback", "");
     },
-    showTxDetails() {
-      this.$q
-        .dialog({
-          title: this.$t("dialog.transactionDetails.title"),
-          message: JSON.stringify(this.tx, null, 2),
-          ok: {
-            label: this.$t("dialog.transactionDetails.ok"),
-            color: "primary"
-          },
-          style: "min-width: 500px; overflow-wrap: break-word;",
-          color: "#010101"
-        })
-        .onOk(() => {})
-        .onCancel(() => {})
-        .onDismiss(() => {});
+    showTxnDetails(toggle) {
+      if (toggle) this.$refs.txnDetails.show();
+      else this.$refs.txnDetails.hide();
     },
+    // showTxDetails() {
+    //   this.$q
+    //     .dialog({
+    //       title: this.$t("dialog.transactionDetails.title"),
+    //       message: JSON.stringify(this.tx, null, 2),
+    //       ok: {
+    //         label: this.$t("dialog.transactionDetails.ok"),
+    //         color: "primary"
+    //       },
+    //       style: "min-width: 500px; overflow-wrap: break-word;",
+    //       color: "#010101"
+    //     })
+    //     .onOk(() => {})
+    //     .onCancel(() => {})
+    //     .onDismiss(() => {});
+    // },
     openExplorer() {
       this.$gateway.send("core", "open_explorer", {
         type: "tx",
@@ -575,6 +611,20 @@ export default {
     margin: 10px 0;
 
     border-radius: 10px;
+  }
+}
+.txn-details-modal {
+  width: 600px;
+  padding: 25px 25px 10px 25px;
+  background-color: #2f2f40;
+  color: #fff;
+  border-radius: 10px !important;
+  word-break: break-all;
+
+  .content-wrapper {
+    background-color: #32324a;
+    padding: 25px;
+    border-radius: 16px;
   }
 }
 </style>

@@ -188,42 +188,46 @@
         <div class="q-ma-md ft-medium">
           <p class="rmDesc">{{ $t("strings.rescanModalDescription") }}</p>
 
-          <div
-            :class="[
-              modals.rescan.type === 'full'
-                ? 'radio-btn-box'
-                : 'radio-btn-box-non-select',
-              'q-mt-lg',
-              'flex',
-              'items-center',
-              'ft-semibold',
-              'q-pl-md'
-            ]"
-          >
-            <q-radio
-              v-model="modals.rescan.type"
-              val="full"
-              :label="$t('fieldLabels.rescanFullBlockchain')"
-            />
+          <div class="r-btn-wrapper">
+            <div
+              :class="[
+                modals.rescan.type === 'full'
+                  ? 'radio-btn-box'
+                  : 'radio-btn-box-non-select',
+                'q-mt-lg',
+                'flex',
+                'items-center',
+                'ft-semibold',
+                'q-pl-md'
+              ]"
+            >
+              <q-radio
+                v-model="modals.rescan.type"
+                val="full"
+                :label="$t('fieldLabels.rescanFullBlockchain')"
+              />
+            </div>
           </div>
           <!-- <div class="q-mt-lg radio-btn-box-non-select flex items-center ft-semibold q-pl-md "   > -->
-          <div
-            :class="[
-              modals.rescan.type !== 'full'
-                ? 'radio-btn-box'
-                : 'radio-btn-box-non-select',
-              'q-mt-lg',
-              'flex',
-              'items-center',
-              'ft-semibold',
-              'q-pl-md'
-            ]"
-          >
-            <q-radio
-              v-model="modals.rescan.type"
-              val="spent"
-              :label="$t('fieldLabels.rescanSpentOutputs')"
-            />
+          <div class="r-btn-wrapper">
+            <div
+              :class="[
+                modals.rescan.type !== 'full'
+                  ? 'radio-btn-box'
+                  : 'radio-btn-box-non-select',
+                'q-mt-lg',
+                'flex',
+                'items-center',
+                'ft-semibold',
+                'q-pl-md'
+              ]"
+            >
+              <q-radio
+                v-model="modals.rescan.type"
+                val="spent"
+                :label="$t('fieldLabels.rescanSpentOutputs')"
+              />
+            </div>
           </div>
 
           <div class="q-my-lg text-center">
@@ -263,43 +267,47 @@
         <div class="q-ma-md">
           <div class="q-mb-md">
             <!-- <div class="q-mr-xl"> -->
-            <div
-              :class="[
-                modals.key_image.type === 'Export'
-                  ? 'radio-btn-box'
-                  : 'radio-btn-box-non-select',
-                'q-mt-lg',
-                'flex',
-                'items-center',
-                'ft-semibold',
-                'q-pl-md'
-              ]"
-            >
-              <q-radio
-                v-model="modals.key_image.type"
-                val="Export"
-                :label="$t('dialog.keyImages.export')"
-                class="ft-semibold"
-              />
+            <div class="r-btn-wrapper">
+              <div
+                :class="[
+                  modals.key_image.type === 'Export'
+                    ? 'radio-btn-box'
+                    : 'radio-btn-box-non-select',
+                  'q-mt-lg',
+                  'flex',
+                  'items-center',
+                  'ft-semibold',
+                  'q-pl-md'
+                ]"
+              >
+                <q-radio
+                  v-model="modals.key_image.type"
+                  val="Export"
+                  :label="$t('dialog.keyImages.export')"
+                  class="ft-semibold"
+                />
+              </div>
             </div>
             <!-- <div> -->
-            <div
-              :class="[
-                modals.key_image.type !== 'Export'
-                  ? 'radio-btn-box'
-                  : 'radio-btn-box-non-select',
-                'q-mt-lg',
-                'flex',
-                'items-center',
-                'ft-semibold',
-                'q-pl-md'
-              ]"
-            >
-              <q-radio
-                v-model="modals.key_image.type"
-                val="Import"
-                :label="$t('dialog.keyImages.import')"
-              />
+            <div class="r-btn-wrapper">
+              <div
+                :class="[
+                  modals.key_image.type !== 'Export'
+                    ? 'radio-btn-box'
+                    : 'radio-btn-box-non-select',
+                  'q-mt-lg',
+                  'flex',
+                  'items-center',
+                  'ft-semibold',
+                  'q-pl-md'
+                ]"
+              >
+                <q-radio
+                  v-model="modals.key_image.type"
+                  val="Import"
+                  :label="$t('dialog.keyImages.import')"
+                />
+              </div>
             </div>
           </div>
 

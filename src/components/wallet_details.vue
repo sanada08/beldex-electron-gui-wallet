@@ -43,13 +43,13 @@
         <div
           class="wallet-address row justify-between items-center q-pl-md q-pr-sm"
         >
-          <div class="col-md-9 flex row items-center q-pt-md">
+          <div class="col-md-11 flex row items-center ">
             <div class="ft-semibold title q-mr-xs " style="padding: 0 10px;">
               {{ this.$t("fieldLabels.address") }}
             </div>
-            <div class="address ft-regular col-md-10">{{ info.address }}</div>
+            <div class="address ft-regular ">{{ info.address }}</div>
           </div>
-          <div class="col-md-2 flex justify-end">
+          <div class="col-md-1 flex justify-end">
             <q-btn
               flat
               size="sm"
@@ -220,6 +220,7 @@ export default {
       margin: 12px auto;
 
       .address {
+        width: 70%;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
