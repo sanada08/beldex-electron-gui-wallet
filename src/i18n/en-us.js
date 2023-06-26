@@ -214,7 +214,8 @@ export default {
   },
   fieldLabels: {
     // Field labels are also all uppercased
-    address: "Recipient Address",
+    address: "Address",
+    recipientAddress: "Recipient Address",
     amount: "Amount",
     backupOwner: "BACKUP OWNER",
     confirmPassword: "Confirm Password (optional)",

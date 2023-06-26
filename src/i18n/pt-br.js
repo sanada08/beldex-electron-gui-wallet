@@ -183,7 +183,8 @@ export default {
   },
   fieldLabels: {
     // Field labels are also all uppercased
-    address: "Endereço do destinatário",
+    address: "Endereço",
+    recipientAddress: "Endereço do destinatário",
     amount: "QUANTIDADE",
     confirmPassword: "CONFIRMAR PALAVRA-PASSE",
     daemonLogLevel: "NÍVEL DE LOG PARA O SERVIÇO",

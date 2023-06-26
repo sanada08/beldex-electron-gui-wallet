@@ -184,7 +184,8 @@ export default {
   },
   fieldLabels: {
     // Field labels are also all uppercased
-    address: "Empfängeradresse",
+    address: "Adresse",
+    recipientAddress: "Empfängeradresse",
     amount: "BETRAG",
     awardRecepientAddress: "EMPFÄNGER ADRESSE FÜR DIE VERGÜTUNG",
     confirmPassword: "PASSWORT BESTÄTIGEN",

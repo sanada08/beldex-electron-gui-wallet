@@ -63,7 +63,7 @@
         <q-item class="row address sign-inner-wrapper ft-medium">
           <div class="col">
             <!-- <q-item-label class="labels">{{
-              $t("fieldLabels.address")
+              $t("fieldLabels.recipientAddress")
             }}</q-item-label> -->
             {{ address }}
           </div>

@@ -180,7 +180,8 @@ export default {
   },
   fieldLabels: {
     // Field labels are also all uppercased
-    address: "Адрес получателя",
+    address: "Адрес",
+    recipientAddress: "Адрес получателя",
     amount: "СУММА",
     confirmPassword: "ПОДТВЕРЖДЕНИЕ ПАРОЛЯ",
     daemonLogLevel: "УРОВЕНЬ ЛОГА ДЕМОНА",

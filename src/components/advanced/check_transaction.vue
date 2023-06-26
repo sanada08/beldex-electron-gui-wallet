@@ -21,7 +21,7 @@
         </OxenField>
         <OxenField
           class="q-mt-md ft-medium"
-          :label="$t('fieldLabels.address')"
+          :label="$t('fieldLabels.recipientAddress')"
           :error="$v.address.$error"
           optional
         >

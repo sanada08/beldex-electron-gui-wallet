@@ -60,7 +60,7 @@
         </OxenField>
         <OxenField
           class="q-mt-md ft-regular"
-          :label="$t('fieldLabels.address')"
+          :label="$t('fieldLabels.recipientAddress')"
         >
           <q-input
             v-model.trim="address"
