@@ -215,13 +215,14 @@
             :placeholder="toString(daemon_defaults.log_level)"
             :disable="is_remote"
             :dark="theme == 'dark'"
-            type="number"
             :decimals="0"
             :step="1"
             min="0"
             max="4"
             borderless
             dense
+            mask="######"
+            unmasked-value
           />
         </OxenField>
         <OxenField
@@ -343,13 +344,14 @@
             :disable="is_remote"
             :dark="theme == 'dark'"
             float-
-            type="number"
             :decimals="0"
             :step="1"
             min="1024"
             max="65535"
             borderless
             dense
+            mask="######"
+            unmasked-value
           />
         </OxenField>
         <OxenField
@@ -384,13 +386,14 @@
             :disable="is_remote"
             :dark="theme == 'dark'"
             float-
-            type="number"
             :decimals="0"
             :step="1"
             min="1024"
             max="65535"
             borderless
             dense
+            mask="######"
+            unmasked-value
           />
         </OxenField>
       </div>

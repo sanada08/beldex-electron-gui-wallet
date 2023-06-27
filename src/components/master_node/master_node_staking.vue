@@ -37,6 +37,7 @@
           borderless
           dense
           @blur="$v.master_node.amount.$touch"
+          @keydown="keyHandler"
         />
         <q-btn
           class="minBtn"
@@ -300,6 +301,16 @@ export default {
       const operatorPortion = node.portions_for_operator;
       return (operatorPortion / 18446744073709551612) * 100;
     },
+    keyHandler(evt) {
+      if (
+        evt.key === "-" ||
+        evt.key === "+" ||
+        evt.key === "e" ||
+        evt.key === "E"
+      ) {
+        evt.preventDefault();
+      }
+    },
     getNodeWithPubKey() {
       const key = this.master_node.key;
       const nodeOfKey = this.awaiting_master_nodes.find(
@@ -493,9 +504,7 @@ export default {
   .tab-desc {
     color: #afafbe;
   }
-  .q-placeholder {
-    color: #77778b !important;
-  }
+
   .minBtn {
     height: 43px;
     background-color: #32324a;

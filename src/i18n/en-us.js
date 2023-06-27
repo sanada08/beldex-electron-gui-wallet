@@ -93,7 +93,7 @@ export default {
     deleteWallet: {
       title: "Delete wallet",
       message:
-        "Are you absolutely sure you want to delete your wallet?\nMake sure you have your private keys backed up.\nTHIS PROCESS IS NOT REVERSIBLE!",
+        "Are you absolutely sure you want to delete your wallet?\nMake sure you have your private keys backed up.\n This proccess is not reversible!",
       ok: "Delete"
     },
     exit: {

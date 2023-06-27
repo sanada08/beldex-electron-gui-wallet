@@ -716,6 +716,7 @@ export default {
           timeout: 1000,
           message: this.$t("notification.errors.passwordFieldEmpty")
         });
+        return;
       }
       if (new_password == old_password) {
         this.$q.notify({

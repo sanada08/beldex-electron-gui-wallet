@@ -2,11 +2,12 @@
   <q-layout view="hHh Lpr lFf">
     <q-header>
       <q-toolbar>
-        <div>
+        <!-- <div>
           <img src="../../assets/images/Logo.png" />
-        </div>
-        <div class="main-title">
-          <span class="green q-mr-xs">Beldex </span>
+        </div> -->
+        <div class="main-title flex items-center">
+          <img src="../../assets/images/Logo.png" />
+          <span class="green q-mr-xs q-ml-sm">Beldex </span>
           <span>Electron Wallet</span>
         </div>
         <!-- <template v-if="show_menu">

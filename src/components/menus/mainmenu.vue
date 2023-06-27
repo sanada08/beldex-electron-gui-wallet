@@ -116,7 +116,9 @@
               >
             </p>
           </div>
-          <div class="flex row justify-center items-center q-mb-md">
+          <div
+            class="flex row justify-center items-center q-mb-md external-links"
+          >
             <img src="www.svg" height="15" />
             <a
               style="color: #ffffff"

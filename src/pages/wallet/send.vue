@@ -4,7 +4,7 @@
       <div class="q-pa-md">{{ $t("strings.viewOnlyMode") }}</div>
     </template>
     <template v-else>
-      <div v-if="!contact" style="padding: 0px 2px">
+      <div v-if="!contact" style="padding: 0px 2px 15px">
         <div class="row gutter-md q-mt-lg">
           <!-- Amount -->
           <div class="col-8 amount">
@@ -359,7 +359,12 @@ export default {
       this.confirmFields = this.buildDialogFields(txData);
     },
     keyHandler(evt) {
-      if (evt.key === "-" || evt.key === "+" || evt.key === "e") {
+      if (
+        evt.key === "-" ||
+        evt.key === "+" ||
+        evt.key === "e" ||
+        evt.key === "E"
+      ) {
         evt.preventDefault();
       }
     },

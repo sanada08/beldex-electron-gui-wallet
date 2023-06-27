@@ -68,6 +68,7 @@
           <OxenField :label="$t('fieldLabels.confirmPassword')">
             <q-input
               v-model="wallet.password_confirm"
+              :placeholder="$t('placeholders.reEnterWalletPassword')"
               type="password"
               :dark="theme == 'dark'"
               borderless

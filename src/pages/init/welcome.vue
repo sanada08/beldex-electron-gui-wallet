@@ -5,7 +5,7 @@
       v-model="step"
       class="welcome-stepper"
       active-color="#00AD07"
-      done-color="deep-orange"
+      done-color="#000"
       flat
       dark
     >
