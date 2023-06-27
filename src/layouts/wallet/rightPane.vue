@@ -117,6 +117,9 @@ export default {
 
   methods: {
     router: function(e) {
+      this.$gateway.send("wallet", "set_sender_address", {
+        data: ""
+      });
       this.$gateway.send("wallet", "set_router_path_rightpane", { data: e });
     }
   }
