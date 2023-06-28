@@ -43,3 +43,9 @@ export const resetPendingConfig = state => {
     pending_config: state.state.app.config
   });
 };
+
+export const update_router_path_rightpane = state => {
+  state.commit("set_router_path_rightpane", {
+    router_path_rightpane: state.state.app.config
+  });
+};

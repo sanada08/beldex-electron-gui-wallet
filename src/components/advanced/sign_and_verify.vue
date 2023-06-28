@@ -1,16 +1,18 @@
 <template>
-  <div class="sign-and-verify">
+  <div class="sign-and-verify ">
     <div class="q-pa-md">
-      <div class="q-mb-lg tab-desc">
+      <div class="q-mb-lg tab-desc ft-regular ">
         {{ $t("strings.signAndVerifyDescription") }}
       </div>
       <div v-if="is_view_only">
         {{ $t("strings.cannotSign") }}
       </div>
       <div v-else>
-        <div class="text-h6 header">{{ $t("titles.advanced.sign") }}</div>
-        <div class="row justify-between items-end">
-          <OxenField :label="$t('fieldLabels.data')">
+        <div class=" header ft-bold " style="font-size:1.25rem">
+          {{ $t("titles.advanced.sign") }}
+        </div>
+        <div class="row justify-between ">
+          <OxenField :label="$t('fieldLabels.data')" class="ft-regular">
             <q-input
               v-model.trim="toSign"
               :dark="theme == 'dark'"
@@ -19,22 +21,26 @@
               :placeholder="$t('placeholders.dataToSign')"
             />
           </OxenField>
-          <div class="btn-wrapper q-ml-md q-py-sm">
+          <div class="btn-wrapper q-ml-md flex items-end">
             <q-btn
               color="primary"
-              :label="$t('buttons.sign')"
+              :label="$t('titles.advanced.sign')"
               :loading="sign_status.sending"
               :disable="!toSign"
+              class="btn-position"
               @click="sign()"
             />
           </div>
         </div>
       </div>
-      <div class="verify-heading text-h6 header">
+      <div class="verify-heading  header ft-bold " style="font-size:1.25rem">
         {{ $t("titles.advanced.verify") }}
       </div>
       <div class="justify-between items-end">
-        <OxenField class="q-mt-md" :label="$t('fieldLabels.signature')">
+        <OxenField
+          class="q-mt-md ft-regular"
+          :label="$t('fieldLabels.signature')"
+        >
           <q-input
             v-model.trim="signatureToVerify"
             :dark="theme == 'dark'"
@@ -43,7 +49,7 @@
             :placeholder="$t('placeholders.signature')"
           />
         </OxenField>
-        <OxenField class="q-mt-md" :label="$t('fieldLabels.data')">
+        <OxenField class="q-mt-md ft-regular" :label="$t('fieldLabels.data')">
           <q-input
             v-model.trim="unsignedData"
             :dark="theme == 'dark'"
@@ -52,7 +58,10 @@
             :placeholder="$t('placeholders.unsignedData')"
           />
         </OxenField>
-        <OxenField class="q-mt-md" :label="$t('fieldLabels.address')">
+        <OxenField
+          class="q-mt-md ft-regular"
+          :label="$t('fieldLabels.recipientAddress')"
+        >
           <q-input
             v-model.trim="address"
             :dark="theme == 'dark'"
@@ -61,10 +70,10 @@
             :placeholder="$t('placeholders.addressOfSigner')"
           />
         </OxenField>
-        <div class="submit-button">
+        <div class="submit-button flex row justify-center">
           <q-btn
-            color="primary"
-            :label="$t('buttons.verify')"
+            color="primary "
+            :label="$t('titles.advanced.verify')"
             :disable="!signatureToVerify || !unsignedData || !address"
             @click="verify()"
           />
@@ -231,6 +240,10 @@ export default {
   .oxen-field {
     flex: 1;
   }
+  .bg-primary {
+    max-width: unset;
+    width: 137px;
+  }
 }
 
 .verify-heading {
@@ -242,5 +255,9 @@ export default {
     margin-left: 8px;
   }
   margin-bottom: 12px;
+}
+.btn-position {
+  position: relative;
+  bottom: -6px;
 }
 </style>

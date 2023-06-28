@@ -1,26 +1,53 @@
 <template>
   <div>
-    <q-btn class="menu" icon="menu" size="md" flat>
+    <q-btn class="menu" icon="settings" size="md" flat>
       <q-menu>
-        <q-list separator class="menu-list">
+        <q-list separator class="menu-list settings-sub-menu">
           <q-item
             v-if="!disableSwitchWallet"
             v-close-popup
             clickable
             @click.native="switchWallet"
           >
-            <q-item-label header>{{
-              $t("menuItems.switchWallet")
-            }}</q-item-label>
+            <q-item-label header class="flex items-center">
+              <img
+                src="../../assets/images/switch_wallet.svg"
+                alt="exitWallet"
+                class="icon"
+              />
+              {{ $t("menuItems.switchWallet") }}</q-item-label
+            >
           </q-item>
-          <q-item v-close-popup clickable @click.native="openSettings">
-            <q-item-label header>{{ $t("menuItems.settings") }}</q-item-label>
+          <q-item
+            v-if="!disableSettings"
+            v-close-popup
+            clickable
+            @click.native="openSettings"
+          >
+            <q-item-label header class="flex items-center">
+              <img
+                src="../../assets/images/settings-sub-icon.svg"
+                class="icon"
+                alt="exitWallet"
+              />
+              {{ $t("menuItems.settings") }}</q-item-label
+            >
           </q-item>
           <q-item v-close-popup clickable @click.native="showAbout(true)">
-            <q-item-label header>{{ $t("menuItems.about") }}</q-item-label>
+            <q-item-label header class="flex items-center">
+              <q-icon name="o_info" size="xs" class="icon" />
+              {{ $t("menuItems.about") }}</q-item-label
+            >
           </q-item>
           <q-item v-close-popup clickable @click.native="exit">
-            <q-item-label header>{{ $t("menuItems.exit") }}</q-item-label>
+            <q-item-label header class="flex items-center">
+              <img
+                src="../../assets/images/exitWallet.svg"
+                alt="exitWallet"
+                class="icon"
+              />
+              {{ $t("menuItems.exit") }}
+            </q-item-label>
           </q-item>
         </q-list>
       </q-menu>
@@ -29,49 +56,86 @@
     <!-- TODO: Move this to it's own component -->
     <q-dialog ref="aboutModal" minimized>
       <div class="about-modal">
-        <img class="q-mb-md" src="beldex.png" height="42" />
-
-        <p class="q-my-sm">Wallet Version: v{{ version }}</p>
-        <p class="q-my-sm">Deaemon Version: v{{ daemonVersion }}</p>
-        <p class="q-my-sm">Copyright (c) 2018-2021, Beldex</p>
-        <p class="q-my-sm">All rights reserved.</p>
-
-        <div class="q-mt-md q-mb-lg external-links">
-          <p>
-            <a href="#" @click="openExternal('https://beldex.io/')"
-              >https://beldex.io/</a
-            >
+        <div style="">
+          <div class="logo">
+            <img src="beldex.svg" height="50" />
+          </div>
+          <p class="text">
+            Beldex <span style="color: #ffffff">Electron Wallet</span>
           </p>
-          <p>
-            <a href="#" @click="openExternal('t.me/official_beldex')"
-              >Telegram</a
-            >
+          <hr style="width: 70%; border: 1px solid #4d4d6d" />
+          <p class="q-my-sm">
+            Wallet Version: <span style="color: #00ad07">{{ version }}</span>
+          </p>
+          <p class="q-my-sm">
+            Daemon Version:
+            <span style="color: #00ad07">{{ daemonVersion }}</span>
+          </p>
+          <p class="q-my-sm">
+            Copyright <span style="font-weight: bold;"> ⓒ </span>
             -
-            <a
-              href="#"
-              @click="openExternal('https://discord.com/invite/Hj4MAmA5gs')"
-              >Discord</a
-            >
-            -
-            <!-- readded once oxen subreddit is known -->
-            <!-- <a
+            <span style="color: #00ad07">2018-2021, Beldex</span>
+          </p>
+          <!-- <p
+            class="q-my-sm"
+            style="font-family: Poppins-Regular; font-size: 13px"
+          >
+            All rights reserved.
+          </p> -->
+
+          <div class="q-mt-md external-links">
+            <p style="margin: 0 0 20px">
+              <img src="telegram.svg" height="12" />
+              <a href="#" @click="openExternal('https://t.me/official_beldex')"
+                >Telegram</a
+              >
+
+              <img src="discord.svg" height="12" />
+              <a
+                href="#"
+                @click="openExternal('https://discord.com/invite/Hj4MAmA5gs')"
+                >Discord</a
+              >
+
+              <!-- readded once oxen subreddit is known -->
+              <!-- <a
               href="#"
               @click="openExternal('https://www.reddit.com/r/LokiProject/')"
               >Reddit</a
             >
             - -->
+              <img src="github.svg" height="12" />
+              <a
+                href="#"
+                @click="
+                  openExternal(
+                    'https://github.com/Beldex-Coin/beldex-electron-gui-wallet'
+                  )
+                "
+                >Github</a
+              >
+            </p>
+          </div>
+          <div
+            class="flex row justify-center items-center q-mb-md external-links"
+          >
+            <img src="www.svg" height="15" />
             <a
+              style="color: #ffffff"
               href="#"
-              @click="
-                openExternal(
-                  'https://github.com/Beldex-Coin/beldex-electron-gui-wallet'
-                )
-              "
-              >Github</a
+              @click="openExternal('https://beldex.io')"
+              >beldex.io</a
             >
-          </p>
+          </div>
+          <div style="display: flex; justify-content: center">
+            <q-btn
+              style="min-width: 100px; height: 45px"
+              color="primary"
+              label="OK"
+              @click="showAbout(false)"
+            />
+          </div>
         </div>
-        <q-btn color="primary" label="Close" @click="showAbout(false)" />
       </div>
     </q-dialog>
   </div>
@@ -88,6 +152,11 @@ export default {
   },
   props: {
     disableSwitchWallet: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    disableSettings: {
       type: Boolean,
       required: false,
       default: false
@@ -173,7 +242,41 @@ export default {
 </script>
 
 <style lang="scss">
+.q-menu {
+  max-width: unset !important;
+}
+
+.settings-sub-menu {
+  .icon {
+    color: #a9a9cd !important;
+    margin-right: 10px;
+    width: 16px;
+    height: 16px;
+  }
+}
 .about-modal {
+  font-family: Poppins-Medium;
+
+  a {
+    margin-right: 10px;
+    text-decoration: none;
+  }
+  img {
+    margin-right: 5px;
+  }
+
+  .logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .text {
+    font-family: Poppins-Bold;
+    color: #00ad07;
+    font-size: 20px;
+  }
+
   padding: 25px;
   background-color: #2f2f40;
   color: #fff;
@@ -181,7 +284,7 @@ export default {
 
   .external-links {
     a {
-      color: #35af3b;
+      color: #ffffff;
       text-decoration: none;
 
       &:hover,

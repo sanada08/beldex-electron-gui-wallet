@@ -152,12 +152,10 @@ export class Backend {
       event,
       data
     };
-
     let encrypted_data = this.scee.encryptString(
       JSON.stringify(message),
       this.token
     );
-
     this.wss.clients.forEach(function each(client) {
       if (client.readyState === WebSocket.OPEN) {
         client.send(encrypted_data);
@@ -290,7 +288,7 @@ export class Backend {
         if (path) {
           const baseUrl =
             net_type === "testnet"
-              ? "https://testnet.beldex.io"
+              ? "https://testnet.beldex.dev"
               : "https://explorer.beldex.io";
           const url = `${baseUrl}/${path}/`;
           require("electron").shell.openExternal(url + params.id);

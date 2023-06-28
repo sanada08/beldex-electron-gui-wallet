@@ -1,6 +1,6 @@
 <template>
-  <q-page class="advanced-page">
-    <div class="header row items-center justify-left q-pt-md">
+  <q-page class="advanced-page" style="min-height: unset;">
+    <div class="header row items-center justify-left ">
       <q-btn-toggle
         v-model="screen"
         toggle-color="primary"

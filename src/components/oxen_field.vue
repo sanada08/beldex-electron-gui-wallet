@@ -1,5 +1,5 @@
 <template>
-  <div class="oxen-field" :class="{ disable, 'disable-hover': disableHover }">
+  <div class="oxen-field " :class="{ disable, 'disable-hover': disableHover }">
     <div v-if="label" class="label row items-center" :disabled="disable">
       {{ label }}
       <span v-if="optional" class="optional"
@@ -60,9 +60,9 @@ export default {
 .oxen-field {
   .label {
     margin: 6px 0;
-    font-weight: bold;
-    font-size: 12px;
-
+    // font-weight: bold;
+    font-size: 16px;
+    // font-family: "Poppins-Medium";
     // Disable text selection
     -webkit-user-select: none;
     user-select: none;

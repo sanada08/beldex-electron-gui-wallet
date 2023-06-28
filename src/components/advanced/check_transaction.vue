@@ -1,13 +1,14 @@
 <template>
   <div class="check-transaction">
     <div class="q-pa-md">
-      <div class="q-mb-lg tab-desc">
+      <div class="q-mb-lg tab-desc ft-medium">
         {{ $t("strings.checkTransaction.description") }}
       </div>
       <div>
         <OxenField
           :label="$t('fieldLabels.transactionId')"
           :error="$v.txid.$error"
+          class="ft-medium"
         >
           <q-input
             v-model.trim="txid"
@@ -19,8 +20,8 @@
           />
         </OxenField>
         <OxenField
-          class="q-mt-md"
-          :label="$t('fieldLabels.address')"
+          class="q-mt-md ft-medium"
+          :label="$t('fieldLabels.recipientAddress')"
           :error="$v.address.$error"
           optional
         >
@@ -33,7 +34,11 @@
             @blur="$v.address.$touch"
           />
         </OxenField>
-        <OxenField class="q-mt-md" :label="$t('fieldLabels.message')" optional>
+        <OxenField
+          class="q-mt-md ft-medium"
+          :label="$t('fieldLabels.message')"
+          optional
+        >
           <q-input
             v-model.trim="message"
             :dark="theme == 'dark'"
@@ -43,7 +48,7 @@
           />
         </OxenField>
         <OxenField
-          class="q-mt-md"
+          class="q-mt-md ft-medium"
           :label="$t('fieldLabels.signature')"
           :error="$v.signature.$error"
         >
@@ -55,7 +60,7 @@
             dense
           />
         </OxenField>
-        <div class="submit-button">
+        <div class="submit-button flex row justify-center">
           <q-btn color="primary" :label="$t('buttons.check')" @click="check" />
           <q-btn
             v-if="canClear"

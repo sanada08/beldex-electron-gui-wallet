@@ -1,11 +1,6 @@
 <template>
   <div class="wallet-settings">
-    <q-btn
-      icon-right="more_vert"
-      :label="$t('buttons.settings')"
-      size="md"
-      flat
-    >
+    <q-btn icon-right="menu" size="md" flat>
       <q-menu anchor="bottom right" self="top right">
         <q-list separator class="menu-list">
           <q-item
@@ -14,9 +9,10 @@
             :disabled="!is_ready"
             @click.native="getPrivateKeys()"
           >
-            <q-item-label header>{{
-              $t("menuItems.showPrivateKeys")
-            }}</q-item-label>
+            <q-item-label header class="sub_menu_txt ft-medium">
+              <img src="../../assets/images/key.svg" class="menuIcon q-mr-md" />
+              {{ $t("menuItems.showPrivateKeys") }}
+            </q-item-label>
           </q-item>
           <q-item
             v-close-popup
@@ -24,9 +20,13 @@
             :disabled="!is_ready"
             @click.native="showModal('change_password')"
           >
-            <q-item-label header>{{
-              $t("menuItems.changePassword")
-            }}</q-item-label>
+            <q-item-label header class="sub_menu_txt ft-medium">
+              <img
+                src="../../assets/images/lock.svg"
+                class="menuIcon q-mr-md"
+              />
+              {{ $t("menuItems.changePassword") }}
+            </q-item-label>
           </q-item>
           <q-item
             v-close-popup
@@ -34,9 +34,13 @@
             :disabled="!is_ready"
             @click.native="showModal('rescan')"
           >
-            <q-item-label header>{{
-              $t("menuItems.rescanWallet")
-            }}</q-item-label>
+            <q-item-label header class="sub_menu_txt ft-medium">
+              <img
+                src="../../assets/images/reload.svg"
+                class="menuIcon q-mr-md"
+              />
+              {{ $t("menuItems.rescanWallet") }}
+            </q-item-label>
           </q-item>
           <q-item
             v-close-popup
@@ -44,9 +48,13 @@
             :disabled="!is_ready"
             @click.native="showModal('key_image')"
           >
-            <q-item-label header>{{
-              $t("menuItems.manageKeyImages")
-            }}</q-item-label>
+            <q-item-label header class="sub_menu_txt ft-medium">
+              <img
+                src="../../assets/images/manage_key.svg"
+                class="menuIcon q-mr-md"
+              />
+              {{ $t("menuItems.manageKeyImages") }}
+            </q-item-label>
           </q-item>
           <q-item
             v-close-popup
@@ -54,9 +62,13 @@
             :disabled="!is_ready"
             @click.native="deleteWallet()"
           >
-            <q-item-label header>{{
-              $t("menuItems.deleteWallet")
-            }}</q-item-label>
+            <q-item-label header class="sub_menu_txt ft-medium">
+              <img
+                src="../../assets/images/delete.svg"
+                class="menuIcon q-mr-md"
+              />
+              {{ $t("menuItems.deleteWallet") }}
+            </q-item-label>
           </q-item>
         </q-list>
       </q-menu>
@@ -64,98 +76,99 @@
 
     <!-- Modals -->
     <!-- PRIVATE KEY MODAL -->
-    <q-dialog
-      v-model="modals.private_keys.visible"
-      minimized
-      @hide="closePrivateKeys()"
-    >
+    <q-dialog v-model="modals.private_keys.visible" @hide="closePrivateKeys()">
       <div class="modal private-key-modal">
-        <div class="modal-header">{{ $t("titles.privateKeys") }}</div>
+        <div class="modal-header ft-bold">{{ $t("titles.privateKeys") }}</div>
         <div class="q-ma-md">
           <template v-if="secret.mnemonic">
-            <h6 class="q-mb-xs q-mt-lg">
-              {{ $t("strings.seedWords") }}
+            <h6 class="q-mb-xs ft-semibold q-pl-md">
+              {{ $t("strings.seedWords") }} -
+              <span class="rSeed_hint"
+                >Please Copy and save these in a secure location!</span
+              >
             </h6>
-            <div class="row">
-              <div class="col">
-                {{ secret.mnemonic }}
-              </div>
+            <div class="row seed_box q-pa-md">
+              <div class="col ft-medium">{{ secret.mnemonic }}</div>
               <div class="col-auto">
                 <q-btn
                   class="copy-btn"
-                  color="primary"
-                  padding="xs"
-                  size="sm"
-                  icon="file_copy"
+                  color="secondary"
+                  padding="10px 35px"
+                  size="md"
+                  icon-right="content_copy"
+                  :label="this.$t('buttons.copy')"
                   @click="copyPrivateKey('mnemonic', $event)"
                 >
                   <q-tooltip
                     anchor="center left"
                     self="center right"
                     :offset="[5, 10]"
+                    >{{ $t("menuItems.copySeedWords") }}</q-tooltip
                   >
-                    {{ $t("menuItems.copySeedWords") }}
-                  </q-tooltip>
                 </q-btn>
               </div>
             </div>
           </template>
 
           <template v-if="secret.view_key != secret.spend_key">
-            <h6 class="q-mb-xs">{{ $t("strings.viewKey") }}</h6>
-            <div class="row">
-              <div class="col" style="word-break:break-all;">
+            <h6 class="q-mb-xs ft-semibold q-pl-md">
+              {{ $t("strings.viewKey") }}
+            </h6>
+            <div class="row viewKey_box q-pa-md">
+              <div class="col ft-medium" style="word-break: break-all">
                 {{ secret.view_key }}
               </div>
               <div class="col-auto">
                 <q-btn
                   class="copy-btn"
-                  color="primary"
-                  padding="xs"
-                  size="sm"
-                  icon="file_copy"
+                  color="secondary"
+                  padding="10px 35px"
+                  size="md"
+                  icon-right="content_copy"
+                  :label="this.$t('buttons.copy')"
                   @click="copyPrivateKey('view_key', $event)"
                 >
                   <q-tooltip
                     anchor="center left"
                     self="center right"
                     :offset="[5, 10]"
+                    >{{ $t("menuItems.copyViewKey") }}</q-tooltip
                   >
-                    {{ $t("menuItems.copyViewKey") }}
-                  </q-tooltip>
                 </q-btn>
               </div>
             </div>
           </template>
 
           <template v-if="!/^0*$/.test(secret.spend_key)">
-            <h6 class="q-mb-xs">{{ $t("strings.spendKey") }}</h6>
-            <div class="row">
-              <div class="col" style="word-break:break-all;">
+            <h6 class="q-mb-xs ft-semibold q-pl-md">
+              {{ $t("strings.spendKey") }}
+            </h6>
+            <div class="row q-pa-md">
+              <div class="col ft-medium" style="word-break: break-all">
                 {{ secret.spend_key }}
               </div>
               <div class="col-auto">
                 <q-btn
                   class="copy-btn"
-                  color="primary"
-                  padding="xs"
-                  size="sm"
-                  icon="file_copy"
+                  color="secondary"
+                  padding="10px 35px"
+                  size="md"
+                  icon-right="content_copy"
+                  :label="this.$t('buttons.copy')"
                   @click="copyPrivateKey('spend_key', $event)"
                 >
                   <q-tooltip
                     anchor="center left"
                     self="center right"
                     :offset="[5, 10]"
+                    >{{ $t("menuItems.copySpendKey") }}</q-tooltip
                   >
-                    {{ $t("menuItems.copySpendKey") }}
-                  </q-tooltip>
                 </q-btn>
               </div>
             </div>
           </template>
 
-          <div class="q-mt-lg">
+          <div class="q-mt-lg flex justify-center">
             <q-btn
               color="primary"
               :label="$t('buttons.close')"
@@ -169,30 +182,59 @@
     <!-- RESCAN MODAL -->
     <q-dialog v-model="modals.rescan.visible" minimized>
       <div class="modal rescan-modal">
-        <div class="a-ma-lg modal-header">{{ $t("titles.rescanWallet") }}</div>
-        <div class="q-ma-md">
-          <p>{{ $t("strings.rescanModalDescription") }}</p>
+        <div class="a-ma-lg modal-header ft-bold">
+          {{ $t("titles.rescanWallet") }}
+        </div>
+        <div class="q-ma-md ft-medium">
+          <p class="rmDesc">{{ $t("strings.rescanModalDescription") }}</p>
 
-          <div class="q-mt-lg">
-            <q-radio
-              v-model="modals.rescan.type"
-              val="full"
-              :label="$t('fieldLabels.rescanFullBlockchain')"
-            />
+          <div class="r-btn-wrapper">
+            <div
+              :class="[
+                modals.rescan.type === 'full'
+                  ? 'radio-btn-box'
+                  : 'radio-btn-box-non-select',
+                'q-mt-lg',
+                'flex',
+                'items-center',
+                'ft-semibold',
+                'q-pl-md'
+              ]"
+            >
+              <q-radio
+                v-model="modals.rescan.type"
+                val="full"
+                :label="$t('fieldLabels.rescanFullBlockchain')"
+              />
+            </div>
           </div>
-          <div class="q-mt-sm">
-            <q-radio
-              v-model="modals.rescan.type"
-              val="spent"
-              :label="$t('fieldLabels.rescanSpentOutputs')"
-            />
+          <!-- <div class="q-mt-lg radio-btn-box-non-select flex items-center ft-semibold q-pl-md "   > -->
+          <div class="r-btn-wrapper">
+            <div
+              :class="[
+                modals.rescan.type !== 'full'
+                  ? 'radio-btn-box'
+                  : 'radio-btn-box-non-select',
+                'q-mt-lg',
+                'flex',
+                'items-center',
+                'ft-semibold',
+                'q-pl-md'
+              ]"
+            >
+              <q-radio
+                v-model="modals.rescan.type"
+                val="spent"
+                :label="$t('fieldLabels.rescanSpentOutputs')"
+              />
+            </div>
           </div>
 
-          <div class="q-mt-xl text-right">
+          <div class="q-my-lg text-center">
             <q-btn
-              flat
               class="q-mr-sm"
-              :label="$t('buttons.close')"
+              color="accent"
+              :label="$t('buttons.cancel')"
               @click="hideModal('rescan')"
             />
             <q-btn
@@ -223,26 +265,55 @@
           }}
         </div>
         <div class="q-ma-md">
-          <div class="row q-mb-md">
-            <div class="q-mr-xl">
-              <q-radio
-                v-model="modals.key_image.type"
-                val="Export"
-                :label="$t('dialog.keyImages.export')"
-              />
+          <div class="q-mb-md">
+            <!-- <div class="q-mr-xl"> -->
+            <div class="r-btn-wrapper">
+              <div
+                :class="[
+                  modals.key_image.type === 'Export'
+                    ? 'radio-btn-box'
+                    : 'radio-btn-box-non-select',
+                  'q-mt-lg',
+                  'flex',
+                  'items-center',
+                  'ft-semibold',
+                  'q-pl-md'
+                ]"
+              >
+                <q-radio
+                  v-model="modals.key_image.type"
+                  val="Export"
+                  :label="$t('dialog.keyImages.export')"
+                  class="ft-semibold"
+                />
+              </div>
             </div>
-            <div>
-              <q-radio
-                v-model="modals.key_image.type"
-                val="Import"
-                :label="$t('dialog.keyImages.import')"
-              />
+            <!-- <div> -->
+            <div class="r-btn-wrapper">
+              <div
+                :class="[
+                  modals.key_image.type !== 'Export'
+                    ? 'radio-btn-box'
+                    : 'radio-btn-box-non-select',
+                  'q-mt-lg',
+                  'flex',
+                  'items-center',
+                  'ft-semibold',
+                  'q-pl-md'
+                ]"
+              >
+                <q-radio
+                  v-model="modals.key_image.type"
+                  val="Import"
+                  :label="$t('dialog.keyImages.import')"
+                />
+              </div>
             </div>
           </div>
 
           <template v-if="modals.key_image.type == 'Export'">
             <OxenField
-              class="q-mt-lg"
+              class="q-mt-lg ex_oxen"
               :label="$t('fieldLabels.keyImages.exportDirectory')"
               disable-hover
             >
@@ -261,14 +332,14 @@
                 hidden
                 @change="setKeyImageExportPath"
               />
-              <q-btn color="primary" @click="selectKeyImageExportPath">{{
-                $t("buttons.browse")
-              }}</q-btn>
+              <q-btn color="secondary" @click="selectKeyImageExportPath">
+                {{ $t("buttons.browse") }}
+              </q-btn>
             </OxenField>
           </template>
           <template v-if="modals.key_image.type == 'Import'">
             <OxenField
-              class="q-mt-lg"
+              class="q-mt-lg ex_oxen"
               :label="$t('fieldLabels.keyImages.importFile')"
               disable-hover
             >
@@ -285,17 +356,17 @@
                 hidden
                 @change="setKeyImageImportPath"
               />
-              <q-btn color="primary" @click="selectKeyImageImportPath">{{
-                $t("buttons.browse")
-              }}</q-btn>
+              <q-btn color="secondary" @click="selectKeyImageImportPath">
+                {{ $t("buttons.browse") }}
+              </q-btn>
             </OxenField>
           </template>
 
-          <div class="q-mt-lg text-right">
+          <div class="q-mt-lg text-center">
             <q-btn
-              flat
+              color="accent"
               class="q-mr-sm"
-              :label="$t('buttons.close')"
+              :label="$t('buttons.cancel')"
               @click="hideModal('key_image')"
             />
             <q-btn
@@ -315,30 +386,45 @@
       @hide="clearChangePassword()"
     >
       <div class="modal password-modal">
-        <div class="modal-header">{{ $t("titles.changePassword") }}</div>
+        <div class="modal-header ft-semibold text-center q-mt-sm">
+          {{ $t("titles.changePassword") }}
+        </div>
         <div class="q-ma-md">
-          <q-input
-            v-model="modals.change_password.old_password"
-            type="password"
-            :label="$t('fieldLabels.oldPassword')"
-          />
-          <q-input
-            v-model="modals.change_password.new_password"
-            type="password"
-            :label="$t('fieldLabels.newPassword')"
-          />
+          <OxenField :label="$t('fieldLabels.oldPassword')" class="ft-medium">
+            <q-input
+              v-model="modals.change_password.old_password"
+              type="password"
+              borderless
+              placeholder="Enter old Password"
+            />
+          </OxenField>
 
-          <q-input
-            v-model="modals.change_password.new_password_confirm"
-            type="password"
+          <OxenField :label="$t('fieldLabels.newPassword')" class="ft-medium">
+            <q-input
+              v-model="modals.change_password.new_password"
+              type="password"
+              borderless
+              placeholder="Enter New Password"
+            />
+          </OxenField>
+
+          <OxenField
             :label="$t('fieldLabels.confirmNewPassword')"
-          />
+            class="ft-medium"
+          >
+            <q-input
+              v-model="modals.change_password.new_password_confirm"
+              type="password"
+              borderless
+              placeholder="Re-Enter Password"
+            />
+          </OxenField>
 
-          <div class="q-mt-xl text-right">
+          <div class="q-mt-xl text-center">
             <q-btn
-              flat
               class="q-mr-sm"
-              :label="$t('buttons.close')"
+              color="accent"
+              :label="$t('buttons.cancel')"
               @click="hideModal('change_password')"
             />
             <q-btn
@@ -514,8 +600,7 @@ export default {
           color: "primary"
         },
         cancel: {
-          color: "tertiary",
-          flat: true
+          color: "accent"
         },
         color: "white"
       });
@@ -550,11 +635,11 @@ export default {
             title: this.$t("dialog.rescan.title"),
             message: this.$t("dialog.rescan.message"),
             ok: {
-              label: this.$t("dialog.rescan.ok"),
+              label: this.$t("buttons.rescan"),
               color: "primary"
             },
             cancel: {
-              flat: true,
+              color: "accent",
               label: this.$t("dialog.buttons.cancel")
             }
           })
@@ -592,8 +677,11 @@ export default {
           type: type.toLocaleLowerCase(this.locale)
         }),
         ok: {
-          label: type.toLocaleUpperCase(this.locale),
+          label: type.toLocaleLowerCase(this.locale),
           color: "primary"
+        },
+        cancel: {
+          color: "accent"
         },
         dark: this.theme == "dark",
         color: this.theme == "dark" ? "white" : "dark"
@@ -622,6 +710,14 @@ export default {
       let new_password_confirm = this.modals.change_password
         .new_password_confirm;
 
+      if (!old_password || !new_password || !new_password_confirm) {
+        this.$q.notify({
+          type: "negative",
+          timeout: 1000,
+          message: this.$t("notification.errors.passwordFieldEmpty")
+        });
+        return;
+      }
       if (new_password == old_password) {
         this.$q.notify({
           type: "negative",
@@ -653,14 +749,15 @@ export default {
         .dialog({
           title: this.$t("dialog.deleteWallet.title"),
           message: this.$t("dialog.deleteWallet.message"),
+          // message: "Are you sure you want to delete the current wallet?",
           ok: {
             label: this.$t("dialog.deleteWallet.ok"),
             color: "red"
           },
           cancel: {
-            flat: true,
-            label: this.$t("dialog.buttons.cancel"),
-            color: this.theme == "dark" ? "white" : "dark"
+            color: "accent",
+            label: this.$t("dialog.buttons.cancel")
+            // color: this.theme == "dark" ? "white" : "dark"
           },
           color: "#010101"
         })
@@ -671,8 +768,10 @@ export default {
               .dialog({
                 title: this.$t("dialog.deleteWallet.title"),
                 message: this.$t("dialog.password.message"),
+
                 prompt: {
                   model: "",
+                  placeholder: "nowfil",
                   type: "password"
                 },
                 ok: {
@@ -680,9 +779,8 @@ export default {
                   color: "negative"
                 },
                 cancel: {
-                  flat: true,
                   label: this.$t("dialog.buttons.cancel"),
-                  color: this.theme == "dark" ? "white" : "dark"
+                  color: "accent"
                 },
                 dark: this.theme == "dark",
                 color: this.theme == "dark" ? "white" : "dark"
@@ -708,10 +806,14 @@ export default {
 </script>
 
 <style lang="scss">
+.q-placeholder {
+  color: #fff;
+}
 .password-modal {
-  background: #2f2f40;
+  background: #242433;
   color: #fff;
   border-radius: 10px !important;
+  width: 540px;
 
   > * {
     color: #fff;
@@ -722,7 +824,6 @@ export default {
 }
 
 .rescan-modal {
-  background: #2f2f40;
   color: #fff;
   border-radius: 10px !important;
 }
@@ -733,7 +834,7 @@ export default {
 }
 
 .key-image-modal {
-  background: #2f2f40;
+  // background: #2f2f40;
   color: #fff;
   border-radius: 10px !important;
 
@@ -746,15 +847,22 @@ export default {
     overflow: ellipsis;
   }
 }
+.q-radio__inner:before {
+  background: transparent !important;
+}
 
 .private-key-modal {
-  background: #2f2f40;
+  // background: #2f2f40;
   color: #fff;
   border-radius: 10px !important;
 
   .copy-btn {
     margin-left: 8px;
   }
+}
+.sub_menu_txt {
+  color: white;
+  font-size: 18px;
 }
 
 .key-image-modal {

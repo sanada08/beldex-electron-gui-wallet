@@ -1,12 +1,35 @@
 <template>
   <div class="address-header-div">
     <q-item-section class="self-start">
-      <q-item-label class="title non-selectable">{{ title }}</q-item-label>
+      <div class="name q-mb-sm">{{ this.$t("fieldLabels.name") }}</div>
+      <q-item-label
+        class="tittle-Box non-selectable flex items-center q-mb-md"
+        >{{ title }}</q-item-label
+      >
+
+      <div class="flex row items-center">
+        <div class="name">{{ this.$t("fieldLabels.address") }}</div>
+        <q-btn
+          side
+          flat
+          padding="sm"
+          size="sm"
+          icon="content_copy"
+          class="q-mr-sm"
+          color="green"
+          @click="copyAddress"
+        >
+          <q-tooltip anchor="bottom right" self="top right" :offset="[0, 5]">
+            {{ $t("menuItems.copyAddress") }}
+          </q-tooltip>
+        </q-btn>
+      </div>
+
       <q-item-label class="row">
-        <q-item-section class="break-all" style="font-size: 18px">
+        <q-item-section class="break-all address_box">
           {{ address }}
         </q-item-section>
-        <q-item-section v-if="showCopy" side>
+        <!-- <q-item-section v-if="showCopy" side>
           <q-btn
             ref="copy"
             color="primary"
@@ -23,7 +46,7 @@
               {{ $t("menuItems.copyAddress") }}
             </q-tooltip>
           </q-btn>
-        </q-item-section>
+        </q-item-section> -->
       </q-item-label>
       <q-item-label v-if="extra" header class="extra non-selectable">{{
         extra
@@ -91,6 +114,14 @@ export default {
   .title {
     font-size: 20px;
     color: #fff;
+  }
+  .name {
+    // font-weight: 500;
+    font-weight: 500;
+    font-size: 16px;
+    // line-height: 24px;
+    color: #ffffff;
+    font-family: "Poppins-Regular";
   }
 
   .extra {

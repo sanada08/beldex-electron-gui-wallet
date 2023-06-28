@@ -2,30 +2,42 @@ export default {
   buttons: {
     // All button text is uppercased in the gui
     advanced: "ADVANCED",
+    addAddressBook: "Ajouter au carnet d'adresses",
+    addWallet: "Ajouter un portefeuille",
+
     all: "TOUT",
     back: "RETOUR",
     browse: "NAVIGUER",
     cancel: "ANNULER",
     change: "CHANGER",
-    check: "CHECK",
-    clear: "CLEAR",
+    check: "Vérifier",
+    clear: "clear",
+    clearAll: "Tout effacer",
     close: "FERMER",
     contacts: "CONTACTS",
+    copy: "copie",
     copyAddress: "ADRESSE DE COPIE",
     copySignature: "COPY SIGNATURE",
     createWallet: "CRÉER UN PORTEFEUILLE",
     delete: "SUPPRIMER",
     edit: "MODIFIER",
+    editNotes: "Modifier les notes",
+
     export: "EXPORTER",
-    generate: "GENERATE",
+    fromBlockheight: "De la hauteur du bloc",
+
+    generate: "Générer",
     import: "IMPORTER",
     importWallet: "IMPORTER UN PORTEFEUILLE | IMPORTER DES PORTEFEUILLE",
+    min: "min",
+    max: "Max",
     next: "SUIVANT",
     openWallet: "OUVRIR LE PORTEFEUILLE",
     receive: "RECEVOIR",
     registerMasterNode: "ENREGISTRER UN NOEUD DE MASTER",
     rescan: "RÉANALYSER",
     restoreWallet: "RESTAURER LE PORTEFEUILLE",
+    refresh: "Rafraîchir",
     save: "SAUVEGARDER",
     saveTxNotes: "SAUVEGARDER LES NOTES DE TRANSACTION",
     selectLocation: "SÉLECTIONNEZ L'EMPLACEMENT",
@@ -35,11 +47,12 @@ export default {
     masterNode: "NOEUD DE MASTER",
     settings: "RÉGLAGES",
     showQRCode: "AFFICHER LE QR CODE",
-    showTxDetails: "AFFICHER LES DETAILS DE TRANSACTION",
+    showTxDetails: "Détails TXN",
     stake: "STAKE",
     sweepAll: "TOUT BALAYER",
     unlock: "UNLOCK",
-    viewOnExplorer: "VUE SUR L’EXPLORATEUR"
+    viewOnExplorer: "VUE SUR L’EXPLORATEUR",
+    add: "Ajouter"
   },
   dialog: {
     // Generic buttons
@@ -79,7 +92,7 @@ export default {
     },
     exit: {
       title: "Quitter",
-      message: "Êtes-vous sûr de vouloir quitter?",
+      message: "Êtes-vous sûr de vouloir quitter le portefeuille ?",
       ok: "Quitter"
     },
     keyImages: {
@@ -139,6 +152,8 @@ export default {
     switchWallet: {
       title: "CHANGER DE PORTEFEUILLE",
       closeMessage: "Êtes-vous sûr de vouloir fermer le portefeuille actuel ?",
+      restartWalletMessage:
+        "Êtes-vous sûr de vouloir fermer et redémarrer le portefeuille ?",
       restartMessage:
         "Le portefeuille RPC est en cours de synchronisation. \nSi vous souhaitez changer de portefeuille, vous devez redémarrer l'application. \nVous allez perdre votre progression concernant la  synchronisation, vous devrez à nouveau analyser la blockchain."
     },
@@ -170,14 +185,16 @@ export default {
   },
   fieldLabels: {
     // Field labels are also all uppercased
-    address: "ADRESSE",
+    address: "Adresse",
+    recipientAddress: "Adresse du destinataire",
     amount: "MONTANT",
     awardRecepientAddress: "ADRESSE DU BÉNÉFICIAIRE POUR LA RÉCOMPENSE",
     confirmPassword: "CONFIRMER LE MOT DE PASSE",
     daemonLogLevel: "NIVEAU D'IMPORTANCE DU DÉMON",
     daemonP2pPort: "PORT P2P DU DÉMON",
     dataStoragePath: "CHEMIN DE STOCKAGE DE DONNÉES",
-    filter: "FILTER",
+    data: "Data",
+    filter: "Filter",
     filterTransactionType: "FILTRER PAR TYPE DE TRANSACTION",
     internalWalletPort: "PORT DE PORTEFEUILLE INTERNE",
     keyImages: {
@@ -190,11 +207,12 @@ export default {
     localDaemonPort: "PORT DU DÉMON LOCAL",
     maxIncomingPeers: "MAXIMUM DE PAIRS ENTRANTS",
     maxOutgoingPeers: "NOMBRE MAXIMUM DE PAIRS SORTANTS",
-    message: "MESSAGE",
+    message: "Message",
     mnemonicSeed: "MOT MNÉMONIQUE",
     name: "NOM",
     newWalletName: "NOUVEAU NOM DU PORTEFEUILLE",
     notes: "NOTES",
+    addressBookNotes: "Notes du carnet d'adresses",
     optional: "OPTIONNEL",
     password: "MOT DE PASSE",
     paymentId: "ID DE PAIEMENT",
@@ -204,10 +222,12 @@ export default {
     restoreFromBlockHeight: "RESTAURATION DE LA HAUTEUR DU BLOC",
     restoreFromDate: "RESTAURATION A PARTIR DE LA DATE",
     seedLanguage: "LANGAGE SEED",
+    totalBalance: "Balance total",
+    to: "Pour",
     masterNodeCommand: "COMMANDE DE NŒUD DE MASTER",
     masterNodeKey: "CLÉ DE MASTER NODE",
-    signature: "SIGNATURE",
-    transactionId: "TRANSACTION ID",
+    signature: "Signature",
+    transactionId: "Identifiant de transaction",
     walletFile: "DOSSIER DU PORTEFEUILLE",
     walletLogLevel: "NIVEAU D'IMPORTANCE DU PORTEFEUILLE",
     walletName: "NOM DU PORTEFEUILLE",
@@ -236,6 +256,7 @@ export default {
     about: "A propos",
     changePassword: "Changer le mot de passe",
     copyAddress: "Copier l’adresse",
+    copySeed: "Copier la graine",
     copyQR: "Copier le QR code",
     copySeedWords: "Copier les mots clés",
     copySpendKey: "Copier la clé de dépense",
@@ -319,7 +340,9 @@ export default {
       },
       negativeAmount: "Le montant ne peut être négatif",
       newPasswordNoMatch: "Les nouveaux mots de passe ne correspondent pas",
-      newPasswordSame: "Le nouveau mot de passe doit être différent",
+      newPasswordSame:
+        "Impossible d'utiliser l'ancien mot de passe. Définissez un mot de passe différent",
+      passwordFieldEmpty: "s'il vous plait entrez votre mot de passe",
       notEnoughBalance: "Pas assez de solde débloqué",
       passwordNoMatch: "Les mots de passe ne correspondent pas",
       remoteCannotBeReached: "La démon distant ne peut pas être atteint",
@@ -339,16 +362,25 @@ export default {
   },
   placeholders: {
     additionalNotes: "Notes supplémentaires",
+    addNotesOptional: "Ajouter des notes (facultatif)",
     addressBookName: "Nom rattaché à cette adresse",
-    filterTx: "Enter an ID, name, address or amount",
+    addressOfSigner: "Adresse du portefeuille public du signataire",
+    beldexAddress: "Adresse Beldex",
+    enterName: "Entrez le nom",
+    enterAddress: "Entrer l'adresse",
+    filterTx: "Saisissez un identifiant, un nom, une adresse ou un montant",
     hexCharacters: "{count} caractères hexadécimaux",
     mnemonicSeed: "25 (ou 24) mot mnémonique",
-    pasteTransactionId: "Paste transaction ID",
-    pasteTransactionProof: "Paste transaction proof",
+    pasteTransactionId: "Coller l'ID de transaction",
+    pasteTransactionProof: "Coller la preuve de transaction",
     proveOptionalMessage:
-      "Optional message against which the signature is signed",
-    recipientWalletAddress: "Recipient's wallet address",
+      "Message facultatif contre lequel la signature est signée",
+    dataToSign: "Data you want to sign with your primary address's private key",
+
+    recipientWalletAddress: "Adresse du portefeuille du destinataire",
     selectAFile: "Veuillez sélectionner un fichier",
+    signature: "Signature à vérifier",
+
     transactionNotes: "Notes additionnelles attachées à la transaction",
     walletName: "Un nom pour votre portefeuille",
     walletPassword: "Un mot de passe optionnel pour votre portefeuille"
@@ -362,9 +394,10 @@ export default {
       myUnusedAddresses: "Mes adresses non utilisées",
       myUsedAddresses: "Mes adresses utilisées",
       notYourAddress: "Ce n'est pas votre adresse !",
-      primaryAddress: "Adresse principale",
+      // primaryAddress: "Adresse principale",
       subAddress: "Sous adresse",
-      subAddressIndex: "Index {index}"
+      subAddressIndex: "Index {index}",
+      primaryAccount: "Compte principal"
     },
     advancedOptions: "Options avancées",
     bannedPeers: {
@@ -425,7 +458,8 @@ export default {
       slow: "Lent",
       normal: "Normal",
       fast: "Rapide",
-      fastest: "Le plus rapide"
+      fastest: "Le plus rapide",
+      flash: "éclair"
     },
     readingWalletList: "Liste des portefeuilles lisibles",
     recentIncomingTransactionsToAddress:
@@ -458,11 +492,11 @@ export default {
       timestamp: "Horodatage",
       types: {
         all: "Toutes",
-        incoming: "Entrantes",
-        outgoing: "Sortantes",
+        incoming: "Recevoir",
+        outgoing: "Envoyé",
         pending: "En attente",
-        pendingIncoming: "Entrantes en attente",
-        pendingOutgoing: "Sortantes en attente",
+        pendingIncoming: "Envoyé",
+        pendingOutgoing: "Recevoir",
         miner: "Miner",
         masterNode: "Noeud de master",
         governance: "Gouvernance",
@@ -480,18 +514,28 @@ export default {
   titles: {
     addressBook: "Carnet d'adresses",
     addressDetails: "Détails de l'adresse",
+    contactBook: "Contacter Réserver",
+
     advanced: {
-      checkTransaction: "CHECK TRANSACTION",
-      prove: "PROVE"
+      checkTransaction: "Chèque Transaction",
+      prove: "Prouver",
+      signAndVerify: "Signer/Vérifier",
+
+      sign: "Signe",
+      verify: "Vérifier"
     },
     changePassword: "Changer de mot de passe",
-    configure: "Configurer",
+    configure: "Paramètres de configuration",
     currentlyStakedNodes: "Currently staked nodes",
     privateKeys: "Clés privées",
+    importFromFile: "Importer depuis un fichier",
     rescanWallet: "Analysez de nouveau le portefeuille",
+    restoreFromSeed: "Restaurer à partir de la graine",
+
     masterNode: {
       registration: "ENREGISTREMENT",
-      staking: "STAKING"
+      staking: "STAKING",
+      myStakes: "Mes mises"
     },
     settings: {
       title: "Réglages",
@@ -506,14 +550,18 @@ export default {
     wallet: {
       createNew: "Créer un nouveau portefeuille",
       createdOrRestored: "Créer ou restaurer un portefeuille",
+      walletRestored: "Portefeuille restauré",
+      walletCreated: "Portefeuille créé",
+      walletImported: "Portefeuille importé",
       importFromFile: "Importer un portefeuille à partir d'un fichier",
+      useExistingWallet: "Use Existing Wallet",
       importFromLegacyGUI:
         "Importer un portefeuille à partir d'un héritage GUI",
       importFromOldGUI: "Importer un portefeuille à partir d'un ancien GUI",
       restoreFromSeed: "Restaurer un portefeuille à partir de mots clés",
       restoreViewOnly: "Restaurer un portefeuille en mode d'affichage seulement"
     },
-    welcome: "Bienvenue",
+    chooseLanguage: "Choisissez la langue",
     yourWallets: "Vos portefeuilles"
   }
 };

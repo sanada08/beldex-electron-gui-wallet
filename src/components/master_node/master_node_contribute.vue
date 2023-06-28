@@ -2,14 +2,23 @@
   <div class="master-node-stake-tab">
     <div class="q-pa-md">
       <div class="row align-items sn-contribution-info">
-        <div class="col-md-8">
+        <div class="col-md-9">
           <div class="header">{{ $t("titles.availableForContribution") }}</div>
+          <div v-if="awaitingMasterNodes.length == 0" class="info-txt">
+            {{ $t("strings.noMasterNodesCurrentlyAvailable") }}
+          </div>
         </div>
-        <div class="col-md-4">
+        <div
+          class="col-md-3"
+          style="    display: flex;
+    align-items: center;
+    justify-content: center;"
+        >
           <q-btn
-            class="float-right vertical-top"
+            class="float-right vertical-top bg-secondary"
+            size="md"
             icon="refresh"
-            flat
+            :label="$t('buttons.refresh')"
             @click="updateMasterNodeList"
           />
         </div>
@@ -23,7 +32,6 @@
           :action="contributeToNode"
         />
       </div>
-      <div v-else>{{ $t("strings.noMasterNodesCurrentlyAvailable") }}</div>
     </div>
     <MasterNodeDetails
       ref="masterNodeDetailsContribute"
@@ -93,5 +101,12 @@ export default {
     margin: 20 400;
   }
   margin-bottom: 6px;
+}
+
+.master-node-stake-tab .q-btn .q-icon {
+  color: white;
+}
+.info-txt {
+  color: #afafbe;
 }
 </style>

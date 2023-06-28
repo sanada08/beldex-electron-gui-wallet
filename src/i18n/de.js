@@ -2,30 +2,41 @@ export default {
   buttons: {
     // All button text is uppercased in the gui
     advanced: "ADVANCED",
+    addAddressBook: "Zum Adressbuch hinzufügen",
+    addWallet: "Geldbörse hinzufügen",
+
     all: "ALLES",
     back: "ZURÜCK",
     browse: "DURCHSUCHEN",
     cancel: "ABBRECHEN",
     change: "ÄNDERN",
-    check: "CHECK",
-    clear: "CLEAR",
+    check: "Überprüfen",
+    clear: "klar",
+    clearAll: "Alles löschen",
     close: "SCHLIESSEN",
     contacts: "KONTAKTE",
+    copy: "Kopieren",
     copyAddress: "ADRESSE KOPIEREN",
     copySignature: "COPY SIGNATURE",
     createWallet: "WALLET ERSTELLEN",
     delete: "LÖSCHEN",
     edit: "BEARBEITEN",
+    editNotes: "Notizen bearbeiten",
     export: "EXPORTIEREN",
-    generate: "GENERATE",
+    fromBlockheight: "Von Blockhöhe",
+
+    generate: "Generieren",
     import: "IMPORTIEREN",
     importWallet: "WALLET IMPORTIEREN | WALLETS IMPORTIEREN",
+    min: "Mindest",
+    max: "Max",
     next: "WEITER",
     openWallet: "WALLET ÖFFNEN",
     receive: "EMPFANGEN",
     registerMasterNode: "MASTER NODE REGISTRIEREN",
     rescan: "ERNEUT SCANNEN",
     restoreWallet: "WALLET WIEDERHERSTELLEN",
+    refresh: "Aktualisierung",
     save: "SPEICHERN",
     saveTxNotes: "TX NOTES SPEICHERN",
     selectLocation: "STANDORT AUSWÄHLEN",
@@ -35,11 +46,12 @@ export default {
     masterNode: "MASTER NODE",
     settings: "EINSTELLUNGEN",
     showQRCode: "QR CODE ANZEIGEN",
-    showTxDetails: "TX DETAILS ANZEIGEN",
+    showTxDetails: "TXN Details",
     stake: "STAKE",
     sweepAll: "ALLES BEREINIGEN",
     unlock: "UNLOCK",
-    viewOnExplorer: "IN EXPLORER ANZEIGEN"
+    viewOnExplorer: "IN EXPLORER ANZEIGEN",
+    add: "Hinzufügen"
   },
   dialog: {
     // Generic buttons
@@ -78,7 +90,7 @@ export default {
     },
     exit: {
       title: "Beenden",
-      message: "Bist du sicher, dass du das Programm beenden möchtest?",
+      message: "Sind Sie sicher, dass Sie das Wallet verlassen möchten?",
       ok: "Beenden"
     },
     keyImages: {
@@ -139,6 +151,8 @@ export default {
       title: "Wallet wechseln",
       closeMessage:
         "Bist du sicher, dass du die aktuelle Wallet schliessen möchtest?",
+      restartWalletMessage:
+        "Sind Sie sicher, dass Sie das Wallet schließen und neu starten möchten?",
       restartMessage:
         "Die Wallet RPC synchronisiert sich gerade\n Wenn du deine Wallet wechseln möchtest, musst du die Anwendung erneut starten. \n Die Synchronisation wird abgebrochen und du musst die Blockchain erneut scannen. "
     },
@@ -170,7 +184,8 @@ export default {
   },
   fieldLabels: {
     // Field labels are also all uppercased
-    address: "ADRESSE",
+    address: "Adresse",
+    recipientAddress: "Empfängeradresse",
     amount: "BETRAG",
     awardRecepientAddress: "EMPFÄNGER ADRESSE FÜR DIE VERGÜTUNG",
     confirmPassword: "PASSWORT BESTÄTIGEN",
@@ -178,7 +193,8 @@ export default {
     daemonLogLevel: "DAEMON LOG LEVEL",
     daemonP2pPort: "DAEMON P2P PORT",
     dataStoragePath: "DATENSICHERUNGSPFAD",
-    filter: "FILTER",
+    data: "Daten",
+    filter: "Filter",
     filterTransactionType: "FILTERN NACH TRANSAKTIONSTYP",
     internalWalletPort: "INTERNER WALLET PORT",
     keyImages: {
@@ -191,12 +207,13 @@ export default {
     localDaemonPort: "LOKALER DAEMON PORT",
     maxIncomingPeers: "MAX EINGEHENDE PEERS",
     maxOutgoingPeers: "MAX AUSGEHENDE PEERS",
-    message: "MESSAGE",
+    message: "Nachricht",
     mnemonicSeed: "MNEMONIC SEED",
-    name: "NAME",
+    name: "Name",
     newWalletName: "NEUER WALLET NAME",
     network: "NETZWERK",
     notes: "NOTIZEN",
+    addressBookNotes: "Adressbuchnotizen",
     optional: "OPTIONAL",
     password: "PASSWORT",
     paymentId: "PAYMENT ID",
@@ -206,10 +223,12 @@ export default {
     restoreFromBlockHeight: "WIEDERHERSTELLUNG VON BLOCKHÖHE",
     restoreFromDate: "WIEDERHERSTELLUNG VON DATUM",
     seedLanguage: "SEED SPRACHE",
+    totalBalance: "Gesamtsaldo",
+    to: "Zu",
     masterNodeCommand: "MASTER NODE COMMAND",
     masterNodeKey: "MASTER NODE KEY",
-    signature: "SIGNATURE",
-    transactionId: "TRANSACTION ID",
+    signature: "Unterschrift",
+    transactionId: "Transaktions-ID",
     walletFile: "WALLET FILE",
     walletLogLevel: "WALLET LOG LEVEL",
     walletName: "WALLET NAME",
@@ -235,6 +254,7 @@ export default {
     about: "Über ",
     changePassword: "Passwort ändern",
     copyAddress: "Adresse kopieren",
+    copySeed: "Samen kopieren",
     copyQR: "QR Code kopieren",
     copySeedWords: "Seed Wörter kopieren",
     copySpendKey: "Spend Key kopieren",
@@ -318,7 +338,9 @@ export default {
       },
       negativeAmount: "Betrag kann nicht negativ sein ",
       newPasswordNoMatch: "Neue Passwörter stimmen nicht überein",
-      newPasswordSame: "Neues Passwort darf nicht identisch sein",
+      newPasswordSame:
+        "Das alte Passwort kann nicht verwendet werden. Legen Sie ein anderes Passwort fest",
+      passwordFieldEmpty: "Bitte geben Sie Ihr Passwort ein",
       notEnoughBalance: "Nicht genug frei verfügbares Guthaben",
       passwordNoMatch: "Passwörter stimmen nicht überein",
       remoteCannotBeReached: "Remote daemon ist nicht erreichbar",
@@ -337,16 +359,27 @@ export default {
   },
   placeholders: {
     additionalNotes: "Zusätzliche Notizen",
+    addNotesOptional: "Notizen hinzufügen (optional)",
     addressBookName: "Zugehörige Namen zu dieser Adresse",
-    filterTx: "Enter an ID, name, address or amount",
+    addressOfSigner: "Öffentliche Wallet-Adresse des Unterzeichners",
+
+    beldexAddress: "Beldex-Adresse",
+    enterName: "Name eingeben",
+    enterAddress: "Adresse eingeben",
+    filterTx:
+      "Geben Sie eine ID, einen Namen, eine Adresse oder einen Betrag ein",
     hexCharacters: "{count} Hexadezimal Zeichen",
+    dataToSign: "Data you want to sign with your primary address's private key",
+
     mnemonicSeed: "25 (oder 24) mnemonic Seed Wörter",
-    pasteTransactionId: "Paste transaction ID",
-    pasteTransactionProof: "Paste transaction proof",
+    pasteTransactionId: "Transaktions-ID einfügen",
+    pasteTransactionProof: "Transaktionsnachweis einfügen",
     proveOptionalMessage:
-      "Optional message against which the signature is signed",
-    recipientWalletAddress: "Recipient's wallet address",
+      "Optionale Nachricht, gegen die die Signatur signiert wird",
+    recipientWalletAddress: "Wallet-Adresse des Empfängers",
     selectAFile: "Bitte Datei auswählen",
+    signature: "Unterschrift zur Überprüfung",
+    unsignedData: "Die Daten, wie sie vor dem Signieren aussehen sollten",
     transactionNotes:
       "Zusätzliche Notizen die an die Transaktions gehängt werden sollen",
     walletName: "Ein Name für deine Wallet",
@@ -360,9 +393,10 @@ export default {
       myPrimaryAddress: "Meine primäre Adresse",
       myUnusedAddresses: "Meine ungenutzten Adressen",
       myUsedAddresses: "Meine benutzen Adressen",
-      primaryAddress: "Primäre Adresse",
+      // primaryAddress: "Primäre Adresse",
       subAddress: "Sub-Adresse",
-      subAddressIndex: "Index {index}"
+      subAddressIndex: "Index {index}",
+      primaryAccount: "Hauptkonto"
     },
     advancedOptions: "Erweiterte Optionen",
     bannedPeers: {
@@ -421,7 +455,8 @@ export default {
       fast: "Schnell",
       fastest: "Am schnellsten",
       normal: "Normal",
-      slow: "Langsam"
+      slow: "Langsam",
+      flash: "blinken"
     },
     proveTransactionDescription:
       "Generate a proof of your incoming/outgoing payment by supplying the transaction ID, the recipient address and an optional message.\nFor the case of outgoing payments, you can get a 'Spend Proof' that proves the authorship of a transaction. In this case, you don't need to specify the recipient address.",
@@ -456,8 +491,8 @@ export default {
       timestamp: "Zeitstempel",
       types: {
         all: "Alles",
-        incoming: "Eingehend",
-        outgoing: "Ausgehend",
+        incoming: "Erhalten",
+        outgoing: "Gesendet",
         pending: "Ausstehend",
         pendingIncoming: "Ausstehend eingehend",
         pendingOutgoing: "Ausstehend ausgehend",
@@ -478,18 +513,27 @@ export default {
   titles: {
     addressBook: "Adressbuch",
     addressDetails: "Adressdetails",
+    contactBook: "Kontaktbuch",
+
     advanced: {
-      checkTransaction: "CHECK TRANSACTION",
-      prove: "PROVE"
+      checkTransaction: "Überprüfen Sie die Transaktion",
+      prove: "Beweisen",
+      signAndVerify: "Unterschreiben/bestätigen",
+      sign: "Zeichen",
+      verify: "Verifizieren"
     },
     changePassword: "Passwort ändern",
-    configure: "Konfiguaration",
+    configure: "Konfigurationseinstellungen",
     currentlyStakedNodes: "Currently staked nodes",
+    importFromFile: "Aus Datei importieren",
     privateKeys: "Private Keys",
     rescanWallet: "Wallet erneut scannen",
+    restoreFromSeed: "Aus Seed wiederherstellen",
+
     masterNode: {
       registration: "REGISTRIERUNG",
-      staking: "STAKING"
+      staking: "STAKING",
+      myStakes: "Meine Einsätze"
     },
     settings: {
       title: "Einstellungen",
@@ -499,18 +543,24 @@ export default {
         peers: "Peers"
       }
     },
+
     transactionDetails: "Transaktionsdetails",
     transactions: "Transaktionen",
+
     wallet: {
       createNew: "Neue Wallet erstellen",
       createdOrRestored: "Wallet erstellt/wiederhergestellt",
+      walletRestored: "Brieftasche restauriert",
+      walletCreated: "Wallet erstellt",
+      walletImported: "Wallet Imported",
       importFromFile: "Importieren der Wallet aus Datei",
+      useExistingWallet: "Use Existing Wallet",
       importFromLegacyGUI: "Wiederherstellung der Wallet von legacy GUI",
       importFromOldGUI: "Wiederherstellung der Wallet von altem GUI",
       restoreFromSeed: "Wiederherstellung Wallet von Seed Wörtern",
       restoreViewOnly: "Wiederherstellung Anzeige Wallet"
     },
-    welcome: "Willkommen",
+    chooseLanguage: "Sprache wählen",
     yourWallets: "Deine Wallets"
   }
 };

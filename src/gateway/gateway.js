@@ -89,12 +89,11 @@ export class Gateway extends EventEmitter {
       message: msg,
       ok: {
         label: i18n.t(`dialog.${key}.ok`),
-        color: "primary"
+        color: key !== "exit" ? "primary" : "red"
       },
       cancel: {
-        flat: true,
         label: i18n.t("dialog.buttons.cancel"),
-        color: "grey"
+        color: "accent"
       }
     })
       .onOk(() => {
@@ -290,6 +289,20 @@ export class Gateway extends EventEmitter {
       case "set_update_required":
         this.app.store.commit(
           "gateway/set_update_required",
+          decrypted_data.data
+        );
+        break;
+
+      case "set_router_path_rightpane":
+        this.app.store.commit(
+          "gateway/set_router_path_rightpane",
+          decrypted_data.data
+        );
+        break;
+
+      case "set_sender_address":
+        this.app.store.commit(
+          "gateway/set_sender_address",
           decrypted_data.data
         );
         break;

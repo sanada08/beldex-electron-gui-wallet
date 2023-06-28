@@ -1,10 +1,16 @@
 <template>
-  <q-page class="receive">
-    <q-list link no-border :dark="theme == 'dark'" class="oxen-list">
-      <q-item-label header class="list-header">{{
-        $t("strings.addresses.myPrimaryAddress")
-      }}</q-item-label>
-      <ReceiveItem
+  <q-page class="receive" style="min-height: unset">
+    <q-list
+      v-if="!address"
+      link
+      no-border
+      :dark="theme == 'dark'"
+      class="oxen-list"
+    >
+      <q-item-label header class="list-header text-center ft-semibold"
+        >{{ $t("strings.addresses.primaryAccount") }}
+      </q-item-label>
+      <!-- <ReceiveItem
         v-for="address in address_list.primary"
         :key="address.address"
         class="primary-address"
@@ -14,12 +20,40 @@
         :copy-address="copyAddress"
         :details="details"
         white-q-r-icon
-      />
+      />-->
+      <article class="flex justify-center align-center">
+        <div
+          style="
+            border: 11px solid #1f1f28;
+            display: inline-block;
+            border-radius: 20px;
+          "
+        >
+          <div class="text-center qr-card">
+            <QrcodeVue ref="qr" :value="info.address" size="100"></QrcodeVue>
+          </div>
+        </div>
+      </article>
+      <article
+        class="copy-btn flex justify-center align-center q-mt-sm q-mb-lg"
+      >
+        <q-btn
+          style="border-radius: 6px"
+          color="primary"
+          :label="$t('dialog.copyAddress.title')"
+          icon="content_copy"
+          padding="md"
+          class="q-px-md"
+          @click="copyAddress"
+        />
+      </article>
+      <div class="hr-separator" />
 
       <template v-if="address_list.used.length">
-        <q-item-label header class="list-header">{{
-          $t("strings.addresses.myUsedAddresses")
-        }}</q-item-label>
+        <q-item-label header class="list-header">
+          {{ $t("strings.addresses.myUsedAddresses") }}
+        </q-item-label>
+
         <ReceiveItem
           v-for="address in address_list.used"
           :key="address.address"
@@ -61,14 +95,18 @@
         />
       </template>
     </q-list>
-    <AddressDetails ref="addressDetails" />
+    <AddressDetails
+      v-else-if="address"
+      :address="address"
+      @details="details($event)"
+    />
 
     <!-- QR Code -->
     <template v-if="QR.address != null">
       <q-dialog v-model="QR.visible" :content-class="'qr-code-modal'">
         <q-card class="qr-code-card">
-          <div class="text-center q-mb-sm q-pa-md" style="background: white;">
-            <QrcodeVue ref="qr" :value="QR.address" size="240"> </QrcodeVue>
+          <div class="text-center q-mb-sm q-pa-md" style="background: white">
+            <QrcodeVue ref="qr" :value="QR.address" size="240"></QrcodeVue>
             <ContextMenu
               :menu-items="menuItems"
               @copyQR="copyQR()"
@@ -120,22 +158,27 @@ export default {
       { action: "copyQR", i18n: "menuItems.copyQR" },
       { action: "saveQR", i18n: "menuItems.saveQR" }
     ];
+
     return {
       QR: {
         visible: false,
         address: null
       },
-      menuItems
+      menuItems,
+      subAddressList: false,
+      address: ""
     };
   },
   computed: mapState({
     theme: state => state.gateway.app.config.appearance.theme,
-    address_list: state => state.gateway.wallet.address_list
+    address_list: state => state.gateway.wallet.address_list,
+    info: state => state.gateway.wallet.info
   }),
   methods: {
     details(address) {
-      this.$refs.addressDetails.address = address;
-      this.$refs.addressDetails.isVisible = true;
+      this.address = address;
+      // this.$refs.addressDetails.address = address;
+      // this.$refs.addressDetails.isVisible = true;
     },
     showQR(address, event) {
       event.stopPropagation();
@@ -156,9 +199,8 @@ export default {
       let img = this.$refs.qr.$el.childNodes[0].toDataURL();
       this.$gateway.send("core", "save_png", { img, type: "QR Code" });
     },
-    copyAddress(address, event) {
-      event.stopPropagation();
-      clipboard.writeText(address);
+    copyAddress() {
+      clipboard.writeText(this.info.address);
       this.$q.notify({
         type: "positive",
         timeout: 1000,
@@ -177,13 +219,16 @@ export default {
 }
 
 .receive {
+  // height: 599px;
+  // overflow: auto;
+  min-height: unset;
   .q-item-label {
     font-weight: 400;
   }
 
   .oxen-list-item {
     cursor: pointer;
-
+    border: none;
     .q-item-section {
       display: flex;
       justify-content: center;
@@ -200,6 +245,26 @@ export default {
         font-weight: bold;
       }
     }
+  }
+  .qr-card {
+    background: white;
+    display: inline-block;
+    border-radius: 10px;
+    line-height: unset;
+    padding: 8px 8px 4px 8px;
+  }
+}
+.copy-btn {
+  .q-btn .q-icon {
+    font-size: 1.2em;
+  }
+  .on-left {
+    margin-right: 5px;
+  }
+  .bg-primary {
+    min-width: unset;
+    // height: 35px;
+    font-size: 14px;
   }
 }
 </style>
