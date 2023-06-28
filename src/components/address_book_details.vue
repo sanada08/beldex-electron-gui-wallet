@@ -237,6 +237,16 @@ export default {
       // return `${prefix}..`;
 
       return this.$t("placeholders.enterAddress");
+    },
+    address_book: state => state.gateway.wallet.address_list.address_book,
+    address_book_starred: state =>
+      state.gateway.wallet.address_list.address_book_starred,
+    address_book_combined() {
+      const starred = this.address_book_starred.map(a => ({
+        ...a,
+        starred: true
+      }));
+      return [...starred, ...this.address_book];
     }
   }),
   validations: {
@@ -266,6 +276,24 @@ export default {
           message: this.$t("notification.errors.invalidAddress")
         });
         return;
+      }
+      console.log("this.newEntry", this.newEntry);
+
+      if (this.mode === "new") {
+        let addressIsExist =
+          this.address_book_combined.filter(
+            // item =>  console.log('filter item',item.address)
+            item => item.address === this.newEntry.address
+          ).length > 0;
+        // console.log('address_book_combined filter ::',addressIsExist)
+        if (addressIsExist) {
+          this.$q.notify({
+            type: "negative",
+            timeout: 1000,
+            message: "Address is already exist!"
+          });
+          return;
+        }
       }
 
       this.$gateway.send("wallet", "add_address_book", this.newEntry);

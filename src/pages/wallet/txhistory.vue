@@ -23,15 +23,18 @@
     </template>
     <section v-else-if="this.tx_list.length !== 0 && !this.txnDetails">
       <div
-        class="row q-pt-sm q-ml-md q-mb-lg items-center flex color-white justify-between"
+        class="row  q-pt-sm q-ml-md q-mb-lg items-center flex color-white justify-between no-wrap"
       >
         <div class="ft-semibold txn-title">
           {{ $t("titles.transactions") }}
         </div>
         <!-- <section class="searchBox flex row col-8">
           <article class="flex row items-center col-10"> -->
-        <section class="searchBox flex row">
-          <article class="flex row items-center">
+        <section class="searchBox flex row no-wrap">
+          <article
+            class="flex row items-center no-wrap  q-ml-lg"
+            style="width:75%; "
+          >
             <div class="col-1 filter-txt ft-semibold">
               {{ $t("fieldLabels.filter") }}
             </div>

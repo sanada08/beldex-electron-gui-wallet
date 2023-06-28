@@ -481,6 +481,7 @@ export default {
         }
         destinations.push(destination);
       }
+      console.log("destinations", destinations);
       return destinations;
     },
     is_ready() {

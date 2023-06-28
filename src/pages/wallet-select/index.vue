@@ -1,6 +1,6 @@
 <template>
   <q-page
-    style="min-height: unset; height:calc(100vh - 70px)"
+    style="min-height: unset; height: calc(100vh - 70px)"
     class="registration-View"
   >
     <q-list
@@ -9,13 +9,13 @@
       no-border
       :dark="theme == 'dark'"
     >
-      <div
-        v-if="backbtn"
-        class="flex items-center back-btn-box"
-        @click="backbtn = false"
-      >
-        <div class="flex items-center" style="width: 107px; cursor: pointer;">
-          <qbtn flat>
+      <div v-if="backbtn" class="flex items-center back-btn-box">
+        <div
+          class="flex items-center"
+          style="width: 120px;"
+          @click="backbtn = false"
+        >
+          <qbtn flat class="back-btn">
             <svg
               width="26"
               height="26"
@@ -29,7 +29,7 @@
               />
             </svg>
           </qbtn>
-          <span>{{ this.$t("buttons.back") }}</span>
+          <span style="padding-top: 10px;">{{ this.$t("buttons.back") }}</span>
         </div>
       </div>
       <div
@@ -357,7 +357,18 @@ export default {
 .registration-View {
   .back-btn-box {
     width: 832px;
-
+    .back-btn {
+      cursor: pointer;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .back-btn:hover {
+      background: rgba(119, 119, 151, 0.3) !important;
+      border-radius: 20px;
+    }
     span {
       font-family: "Poppins-Bold";
       font-size: 26px;

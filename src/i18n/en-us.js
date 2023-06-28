@@ -244,7 +244,7 @@ export default {
     name: "Name",
     newWalletName: "Wallet Name",
     notes: "Notes",
-    addressBookNotes: "Addressbook Notes",
+    addressBookNotes: "Address Book Notes",
     optional: "optional",
 
     owner: "Owner",

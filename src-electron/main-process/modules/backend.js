@@ -288,7 +288,7 @@ export class Backend {
         if (path) {
           const baseUrl =
             net_type === "testnet"
-              ? "https://testnet.beldex.io"
+              ? "https://testnet.beldex.dev"
               : "https://explorer.beldex.io";
           const url = `${baseUrl}/${path}/`;
           require("electron").shell.openExternal(url + params.id);

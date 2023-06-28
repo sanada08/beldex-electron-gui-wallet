@@ -1,9 +1,9 @@
 <template>
   <q-page class="address-book" style="min-height: unset">
     <section v-show="this.isvisible">
-      <article class="flex row justify-between addbtn-box align-center">
+      <article class="flex row justify-between addbtn-box align-center q-my-sm">
         <div
-          class="header row q-pt-md q-pb-xs q-mx-md q-mb-none items-center non-selectable ft-semibold"
+          class="header row  q-pb-xs q-mx-md q-mb-none items-center non-selectable ft-semibold"
         >
           <q-btn
             v-if="from === 'send'"

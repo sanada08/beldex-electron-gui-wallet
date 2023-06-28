@@ -101,7 +101,10 @@
               <q-btn
                 color="secondary "
                 class="restore-from-button"
-                @click="wallet.refresh_type = 'height'"
+                @click="
+                  (wallet.refresh_type = 'height'),
+                    (wallet.refresh_start_height = 0)
+                "
               >
                 <div class="row justify-center items-center">
                   {{ this.$t("buttons.fromBlockheight") }}
