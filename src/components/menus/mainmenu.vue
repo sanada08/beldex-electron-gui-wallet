@@ -68,7 +68,7 @@
             Wallet Version: <span style="color: #00ad07">{{ version }}</span>
           </p>
           <p class="q-my-sm">
-            Deamon Version:
+            Daemon Version:
             <span style="color: #00ad07">{{ daemonVersion }}</span>
           </p>
           <p class="q-my-sm">

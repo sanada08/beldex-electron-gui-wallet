@@ -209,7 +209,11 @@
 
           <div class="row right-header">
             <!-- <q-btn style="width: 40px" flat round dense icon="reply" @click="isVisible = false" /> -->
-            <q-btn flat round dense @click="isVisible = false">
+            <!-- <q-btn flat round dense @click="isVisible = false"> -->
+            <div
+              class="flex items-center back-arrow-btn"
+              @click="isVisible = false"
+            >
               <svg
                 width="28"
                 height="28"
@@ -222,7 +226,7 @@
                   fill="white"
                 />
               </svg>
-            </q-btn>
+            </div>
             <q-toolbar-title shrink style="font-family: Poppins-Bold">
               {{
                 page === "language"
@@ -446,7 +450,7 @@ export default {
       //   .onDismiss(() => {});
     },
     showdialog() {
-      console.log("show inner");
+      // console.log("show inner");
       this.peerEntryModal = false;
       this.$q
         .dialog({

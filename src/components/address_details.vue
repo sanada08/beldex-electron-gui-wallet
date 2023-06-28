@@ -4,7 +4,11 @@
     <q-layout style="min-height: unset">
       <q-header>
         <q-toolbar color="dark" inverted>
-          <q-btn flat round dense @click="() => this.$emit('details', '')">
+          <!-- <q-btn flat round dense @click="() => this.$emit('details', '')"> -->
+          <div
+            class="flex items-center back-arrow-btn"
+            @click="() => this.$emit('details', '')"
+          >
             <svg
               width="26"
               height="26"
@@ -17,7 +21,8 @@
                 fill="white"
               />
             </svg>
-          </q-btn>
+          </div>
+          <!-- </q-btn> -->
           <q-toolbar-title>
             {{ $t("titles.addressDetails") }}
           </q-toolbar-title>
@@ -150,18 +155,18 @@
               </div>
             </template>
 
-            <div class="q-mt-sm">
+            <!-- <div class="q-mt-sm">
               <div class="ft-medium recent-transactions-wrapper">
-                <q-icon name="history" size="24px" />
-                <!-- <span class="vertical-middle q-ml-xs">{{
+                <q-icon name="history" size="24px" /> -->
+            <!-- <span class="vertical-middle q-ml-xs">{{
                   $t("strings.recentIncomingTransactionsToAddress")
                 }}</span> -->
-                <span class="vertical-middle q-ml-xs"
+            <!-- <span class="vertical-middle q-ml-xs"
                   >Recent incoming Transactions</span
                 >
-              </div>
+              </div> -->
 
-              <div style="margin: 12px -16px">
+            <!-- <div style="margin: 12px -16px">
                 <TxList
                   :key="address.address"
                   type="all_in"
@@ -169,7 +174,7 @@
                   :to-incoming-address-index="address.address_index"
                 />
               </div>
-            </div>
+            </div> -->
           </template>
         </div>
       </q-page>
@@ -218,12 +223,12 @@ const { clipboard, nativeImage } = require("electron");
 // import AddressHeader from "components/address_header";
 import FormatOxen from "components/format_oxen";
 import QrcodeVue from "qrcode.vue";
-import TxList from "components/tx_list";
+// import TxList from "components/tx_list";
 export default {
   name: "AddressDetails",
   components: {
     // AddressHeader,
-    TxList,
+    // TxList,
     FormatOxen,
     QrcodeVue
   },

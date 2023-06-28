@@ -4,11 +4,16 @@
     <q-layout v-if="mode == 'edit' || mode == 'new'" style="min-height: unset">
       <q-header>
         <q-toolbar inverted>
-          <q-btn
+          <!-- <q-btn
             v-if="mode !== 'edit'"
             flat
             round
             dense
+            
+          > -->
+          <div
+            v-if="mode !== 'edit'"
+            class="flex items-center back-arrow-btn"
             @click="() => (mode == 'edit' ? cancelEdit() : close())"
           >
             <svg
@@ -23,7 +28,8 @@
                 fill="white"
               />
             </svg>
-          </q-btn>
+          </div>
+          <!-- </q-btn> -->
           <q-toolbar-title v-if="mode == 'new'" class="ft-semibold title">
             {{ $t("strings.addAddressBookEntry") }}
           </q-toolbar-title>
@@ -107,7 +113,12 @@
     <q-layout v-else style="min-height: unset">
       <q-header>
         <q-toolbar inverted>
-          <q-btn flat round dense @click="close()">
+          <!-- <q-btn flat round dense @click="close()"> -->
+          <div
+            v-if="mode !== 'edit'"
+            class="flex items-center back-arrow-btn"
+            @click="close()"
+          >
             <svg
               width="26"
               height="26"
@@ -120,7 +131,7 @@
                 fill="white"
               />
             </svg>
-          </q-btn>
+          </div>
           <!-- <q-btn flat round dense icon="reply" @click="close()" /> -->
           <q-toolbar-title class="ft-semibold">
             {{ $t("titles.addressBook") }}
@@ -173,9 +184,9 @@
               "
             />
 
-            <div class="q-mt-lg">
+            <!-- <div class="q-mt-lg">
               <div class="ft-semibold">
-                <!-- <q-icon name="history" size="24px" /> -->
+                <q-icon name="history" size="24px" />
                 <span class="vertical-middle q-ml-xs" style="color: white">{{
                   $t("strings.recentTransactionsWithAddress")
                 }}</span>
@@ -186,7 +197,7 @@
                 :limit="5"
                 :to-outgoing-address="entry.address"
               />
-            </div>
+            </div> -->
           </template>
         </div>
       </q-page>
@@ -198,7 +209,7 @@
 <script>
 import { mapState } from "vuex";
 import AddressHeader from "components/address_header";
-import TxList from "components/tx_list";
+// import TxList from "components/tx_list";
 import OxenField from "components/oxen_field";
 import { address } from "src/validators/common";
 import { required } from "vuelidate/lib/validators";
@@ -206,7 +217,7 @@ export default {
   name: "AddressBookDetails",
   components: {
     AddressHeader,
-    TxList,
+    // TxList,
     OxenField
   },
 
@@ -277,7 +288,7 @@ export default {
         });
         return;
       }
-      console.log("this.newEntry", this.newEntry);
+      // console.log("this.newEntry", this.newEntry);
 
       if (this.mode === "new") {
         let addressIsExist =

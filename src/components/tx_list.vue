@@ -381,7 +381,7 @@ export default {
       });
     },
     details(tx) {
-      console.log("txn details", tx);
+      // console.log("txn details", tx);
       this.$emit("submitTxDetails", tx);
       // this.$refs.txDetails.tx = tx;
       // this.$refs.txDetails.txNotes = tx.note;

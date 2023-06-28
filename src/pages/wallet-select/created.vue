@@ -207,7 +207,7 @@ export default {
     },
     copyPrivateKey(type, event) {
       event.stopPropagation();
-      console.log("secret ::", this.secret);
+      // console.log("secret ::", this.secret);
       for (let i = 0; i < event.path.length; i++) {
         if (event.path[i].tagName == "BUTTON") {
           event.path[i].blur();

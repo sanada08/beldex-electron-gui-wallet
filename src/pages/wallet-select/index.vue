@@ -10,12 +10,8 @@
       :dark="theme == 'dark'"
     >
       <div v-if="backbtn" class="flex items-center back-btn-box">
-        <div
-          class="flex items-center"
-          style="width: 120px;"
-          @click="backbtn = false"
-        >
-          <qbtn flat class="back-btn">
+        <div class="flex items-center" style="width: 120px;">
+          <qbtn flat class="back-btn" @click="backbtn = false">
             <svg
               width="26"
               height="26"

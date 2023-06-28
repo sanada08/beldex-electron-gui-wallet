@@ -162,7 +162,7 @@ export default {
       .content:hover {
         // background: #1c1c26;
         background: #41415b;
-        border: unset;
+        // border: unset;
       }
     }
   }
@@ -189,7 +189,6 @@ export default {
   height: 45px !important;
   background-color: #32324a;
   margin-bottom: unset !important;
-  border: unset;
 }
 .infoTxt {
   color: white;

@@ -6,7 +6,8 @@
     <q-header>
       <q-toolbar>
         <!-- <q-btn flat round dense icon="" @click="isVisible = false" /> -->
-        <q-btn flat round dense @click="goback()">
+        <!-- <q-btn flat round dense @click="goback()" > -->
+        <div class="flex items-center back-arrow-btn" @click="goback()">
           <svg
             width="26"
             height="26"
@@ -19,7 +20,7 @@
               fill="white"
             />
           </svg>
-        </q-btn>
+        </div>
         <q-toolbar-title class="ft-semibold">
           {{ $t("titles.details") }}
         </q-toolbar-title>
@@ -481,7 +482,7 @@ export default {
         }
         destinations.push(destination);
       }
-      console.log("destinations", destinations);
+      // console.log("destinations", destinations);
       return destinations;
     },
     is_ready() {
