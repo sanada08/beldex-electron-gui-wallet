@@ -10,7 +10,7 @@
       :dark="theme == 'dark'"
     >
       <div v-if="backbtn" class="flex items-center back-btn-box">
-        <div class="flex items-center" style="width: 120px;">
+        <div class="flex items-center" style="width: 150px;">
           <qbtn flat class="back-btn" @click="backbtn = false">
             <svg
               width="26"
@@ -275,10 +275,10 @@ export default {
       if (wallet.password_protected !== false) {
         this.$q
           .dialog({
-            // title: this.$t("dialog.password.title"),
-            title: "Enter your Wallet Password",
-            // message: this.$t("dialog.password.message"),
-            message: `Just click “Enter” if you haven’t set any password :)`,
+            title: this.$t("dialog.password.title"),
+            // title: "Enter your Wallet Password",
+            message: this.$t("dialog.password.message"),
+            // message: `Just click “Enter” if you haven’t set any password :)`,
             prompt: {
               model: "",
               type: "password"

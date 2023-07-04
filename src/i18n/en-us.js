@@ -118,8 +118,8 @@ export default {
       ok: "Yes"
     },
     password: {
-      title: "Password",
-      message: "Enter wallet password to continue."
+      title: "Enter your Wallet Password",
+      message: "Just click “Enter” if you haven’t set any password :)"
     },
     purchase: {
       title: "Purchase name",
@@ -443,6 +443,9 @@ export default {
     belnetFullAddress: "Full belnet address to map BNS name to (without .bdx)",
     enterName: "Enter Name",
     enterAddress: "Enter Address",
+    enteroldPassword: "Enter old Password",
+    enterNewPassword: "Enter New Password",
+    reEnterPassword: "Re-Enter Password",
     mnemonicSeed: "Enter your Recovery seed",
     pasteTransactionId: "Paste transaction ID",
     pasteTransactionProof: "Paste transaction proof",

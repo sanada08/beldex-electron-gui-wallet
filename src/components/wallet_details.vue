@@ -13,8 +13,8 @@
         <article class="flex row justify-center items-center">
           <div style="margin-top: 5px; margin-right: 5px">
             <svg
-              width="18"
-              height="18"
+              width="20"
+              height="20"
               viewBox="0 0 30 30"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -28,7 +28,14 @@
           <div class="title ft-semibold">{{ info.name }}</div>
         </article>
 
-        <div>
+        <div class="flex row no-wrap justify-center items-center">
+          <q-btn
+            color="accent"
+            :label="$t('buttons.rescan')"
+            icon="refresh"
+            class="rescan-btn"
+            @click.native="showModal('rescan')"
+          />
           <WalletSettings />
           <!-- <q-btn
             class="balance-button"
@@ -39,15 +46,15 @@
           </q-btn> -->
         </div>
       </div>
-      <article class="decoration q-my-md">
+      <article class="decoration q-pb-xs q-mt-sm">
         <div
           class="wallet-address row justify-between items-center q-pl-md q-pr-sm"
         >
-          <div class="col-md-11 flex row items-center ">
-            <div class="ft-semibold title q-mr-xs " style="padding: 0 10px;">
+          <div class="col-md-11 flex row items-center">
+            <div class="ft-semibold title q-mr-xs" style="padding: 0 10px">
               {{ this.$t("fieldLabels.address") }}
             </div>
-            <div class="address ft-regular ">{{ info.address }}</div>
+            <div class="address ft-regular">{{ info.address }}</div>
           </div>
           <div class="col-md-1 flex justify-end">
             <q-btn
@@ -134,6 +141,74 @@
         </div>
       </article>
     </div>
+
+    <!-- RESCAN MODAL -->
+    <q-dialog v-model="modals.rescan.visible" minimized>
+      <div class="modal rescan-modal">
+        <div class="a-ma-lg modal-header ft-bold">
+          {{ $t("titles.rescanWallet") }}
+        </div>
+        <div class="q-ma-md ft-medium">
+          <p class="rmDesc">{{ $t("strings.rescanModalDescription") }}</p>
+
+          <div class="r-btn-wrapper">
+            <div
+              :class="[
+                modals.rescan.type === 'full'
+                  ? 'radio-btn-box'
+                  : 'radio-btn-box-non-select',
+                'q-mt-lg',
+                'flex',
+                'items-center',
+                'ft-semibold',
+                'q-pl-md'
+              ]"
+            >
+              <q-radio
+                v-model="modals.rescan.type"
+                val="full"
+                :label="$t('fieldLabels.rescanFullBlockchain')"
+              />
+            </div>
+          </div>
+          <!-- <div class="q-mt-lg radio-btn-box-non-select flex items-center ft-semibold q-pl-md "   > -->
+          <div class="r-btn-wrapper">
+            <div
+              :class="[
+                modals.rescan.type !== 'full'
+                  ? 'radio-btn-box'
+                  : 'radio-btn-box-non-select',
+                'q-mt-lg',
+                'flex',
+                'items-center',
+                'ft-semibold',
+                'q-pl-md'
+              ]"
+            >
+              <q-radio
+                v-model="modals.rescan.type"
+                val="spent"
+                :label="$t('fieldLabels.rescanSpentOutputs')"
+              />
+            </div>
+          </div>
+
+          <div class="q-my-lg text-center">
+            <q-btn
+              class="q-mr-sm"
+              color="accent"
+              :label="$t('buttons.cancel')"
+              @click="hideModal('rescan')"
+            />
+            <q-btn
+              color="primary"
+              :label="$t('buttons.rescan')"
+              @click="rescanWallet()"
+            />
+          </div>
+        </div>
+      </div>
+    </q-dialog>
   </div>
 </template>
 
@@ -150,9 +225,23 @@ export default {
     WalletSettings
     // CopyIcon
   },
+  data() {
+    return {
+      modals: {
+        rescan: {
+          visible: false,
+          type: "full"
+        }
+      }
+    };
+  },
   computed: mapState({
     theme: state => state.gateway.app.config.appearance.theme,
     info: state => state.gateway.wallet.info,
+    is_ready() {
+      return this.$store.getters["gateway/isReady"];
+    },
+
     load_balance: state => {
       return state.gateway.wallet.info.load_balance;
     }
@@ -165,6 +254,38 @@ export default {
         }
       });
       this.$gateway.send("wallet", "get_balance");
+    },
+    showModal(which) {
+      if (!this.is_ready) return;
+      this.modals[which].visible = true;
+    },
+    hideModal(which) {
+      this.modals[which].visible = false;
+    },
+    rescanWallet() {
+      this.hideModal("rescan");
+      if (this.modals.rescan.type == "full") {
+        this.$q
+          .dialog({
+            title: this.$t("dialog.rescan.title"),
+            message: this.$t("dialog.rescan.message"),
+            ok: {
+              label: this.$t("buttons.rescan"),
+              color: "primary"
+            },
+            cancel: {
+              color: "accent",
+              label: this.$t("dialog.buttons.cancel")
+            }
+          })
+          .onOk(() => {
+            this.$gateway.send("wallet", "rescan_blockchain");
+          })
+          .onDismiss(() => {})
+          .onCancel(() => {});
+      } else {
+        this.$gateway.send("wallet", "rescan_spent");
+      }
     },
     copyAddress(text) {
       clipboard.writeText(text);
@@ -189,7 +310,9 @@ export default {
 
   .wallet-content {
     text-align: center;
-    padding: 2em;
+    // padding:0 1em;
+    // padding: 0 1em 1em;
+    padding: 0.5em 1em 1em;
     background: #242433;
     margin-bottom: 15px;
     // margin-top: 15px;
@@ -243,6 +366,17 @@ export default {
     .q-btn {
       font-size: 14px;
     }
+    .rescan-btn {
+      height: 36px;
+      min-width: 30px;
+      border-radius: 31px;
+      .q-icon {
+        font-size: 1.2em;
+      }
+      .on-left {
+        margin-right: 1px;
+      }
+    }
 
     .unlocked {
       font-size: 16px;
@@ -250,10 +384,10 @@ export default {
       color: #afafbe;
     }
   }
-  @media only screen and (max-height: 780px) {
-    .wallet-content {
-      padding: 0.5em 2em;
-    }
-  }
+  // @media only screen and (max-height: 780px) {
+  //   .wallet-content {
+  //     padding: 0.5em 2em;
+  //   }
+  // }
 }
 </style>

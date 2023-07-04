@@ -106,7 +106,7 @@ export default {
       ok: "JA"
     },
     password: {
-      title: "Passwort",
+      title: "Geben Sie Ihr Wallet-Passwort ein",
       message: "Wallet Passwort eingeben um fortzufahren"
     },
     registerMasterNode: {
@@ -366,6 +366,9 @@ export default {
     beldexAddress: "Beldex-Adresse",
     enterName: "Name eingeben",
     enterAddress: "Adresse eingeben",
+    enteroldPassword: "Geben Sie das alte Passwort ein",
+    enterNewPassword: "Neues Passwort eingeben",
+    reEnterPassword: "Kennwort erneut eingeben",
     filterTx:
       "Geben Sie eine ID, einen Namen, eine Adresse oder einen Betrag ein",
     hexCharacters: "{count} Hexadezimal Zeichen",
@@ -377,6 +380,8 @@ export default {
     proveOptionalMessage:
       "Optionale Nachricht, gegen die die Signatur signiert wird",
     recipientWalletAddress: "Wallet-Adresse des Empfängers",
+    reEnterWalletPassword: "Kennwort erneut eingeben",
+
     selectAFile: "Bitte Datei auswählen",
     signature: "Unterschrift zur Überprüfung",
     unsignedData: "Die Daten, wie sie vor dem Signieren aussehen sollten",

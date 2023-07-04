@@ -108,7 +108,7 @@ export default {
       ok: "OUI"
     },
     password: {
-      title: "Mot de passe",
+      title: "Entrez votre mot de passe de portefeuille",
       message: "Entrez le mot de passe du portefeuille pour continuer."
     },
     registerMasterNode: {
@@ -368,6 +368,9 @@ export default {
     beldexAddress: "Adresse Beldex",
     enterName: "Entrez le nom",
     enterAddress: "Entrer l'adresse",
+    enteroldPassword: "Entrez l'ancien mot de passe",
+    enterNewPassword: "Entrez un nouveau mot de passe",
+    reEnterPassword: "Entrez à nouveau le mot de passe",
     filterTx: "Saisissez un identifiant, un nom, une adresse ou un montant",
     hexCharacters: "{count} caractères hexadécimaux",
     mnemonicSeed: "25 (ou 24) mot mnémonique",
@@ -378,6 +381,7 @@ export default {
     dataToSign: "Data you want to sign with your primary address's private key",
 
     recipientWalletAddress: "Adresse du portefeuille du destinataire",
+    reEnterWalletPassword: "Entrez à nouveau le mot de passe",
     selectAFile: "Veuillez sélectionner un fichier",
     signature: "Signature à vérifier",
 

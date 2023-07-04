@@ -7,7 +7,7 @@
       <q-toolbar>
         <!-- <q-btn flat round dense icon="" @click="isVisible = false" /> -->
         <!-- <q-btn flat round dense @click="goback()" > -->
-        <div class="flex items-center back-arrow-btn" @click="goback()">
+        <div class="flex items-center back-arrow-btn q-ml-md" @click="goback()">
           <svg
             width="26"
             height="26"

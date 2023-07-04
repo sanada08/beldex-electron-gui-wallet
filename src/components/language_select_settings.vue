@@ -5,11 +5,12 @@
         background: #32324a;
         width: 360px;
         border-radius: 16px;
-        height: 540px;
+        /* height: 540px; */
         display: flex;
         align-items: center;
         justify-content: center;
         margin: 0 auto;
+        height: 63vh;
       "
       class="language-select column items-center justify-center"
     >
@@ -18,7 +19,7 @@
           {{ $t("strings.selectLanguage") }}
         </p>
       </div>
-      <div>
+      <div style="height: 67%; overflow-y: auto">
         <div class="column justify-center">
           <div
             v-for="option in options"

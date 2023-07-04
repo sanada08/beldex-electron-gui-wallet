@@ -107,7 +107,7 @@ export default {
       ok: "SÍ"
     },
     password: {
-      title: "Contraseña",
+      title: "Ingrese su contraseña de billetera",
       message: "Introduzca la contraseña del monedero para continuar."
     },
     registerMasterNode: {
@@ -367,6 +367,9 @@ export default {
     beldexAddress: "Dirección de Beldex",
     enterName: "Ingrese su nombre",
     enterAddress: "Ingresa la direccion",
+    enteroldPassword: "Ingrese la contraseña anterior",
+    enterNewPassword: "Ingrese nueva clave",
+    reEnterPassword: "Escriba la contraseña otra vez",
     filterTx: "Introduzca un ID, nombre, dirección o cantidad",
     hexCharacters: "{count} caracteres hexadecimales",
     mnemonicSeed: "Semilla mnemónica de 25 (o 24) palabras",
@@ -376,6 +379,7 @@ export default {
     pasteTransactionProof: "Pegar prueba de la transacción",
     proveOptionalMessage: "Mensaje opcional contra el qué se firma la firma",
     recipientWalletAddress: "Dirección del monedero de destino",
+    reEnterWalletPassword: "Escriba la contraseña otra vez",
     selectAFile: "Seleccione un archivo por favor",
     transactionNotes: "Notas adicionales para agregar a la transacción",
     signature: "Signature to verify",

@@ -28,7 +28,7 @@
               {{ $t("menuItems.changePassword") }}
             </q-item-label>
           </q-item>
-          <q-item
+          <!-- <q-item
             v-close-popup
             clickable
             :disabled="!is_ready"
@@ -41,7 +41,7 @@
               />
               {{ $t("menuItems.rescanWallet") }}
             </q-item-label>
-          </q-item>
+          </q-item> -->
           <q-item
             v-close-popup
             clickable
@@ -180,7 +180,7 @@
     </q-dialog>
 
     <!-- RESCAN MODAL -->
-    <q-dialog v-model="modals.rescan.visible" minimized>
+    <!-- <q-dialog v-model="modals.rescan.visible" minimized>
       <div class="modal rescan-modal">
         <div class="a-ma-lg modal-header ft-bold">
           {{ $t("titles.rescanWallet") }}
@@ -208,7 +208,7 @@
               />
             </div>
           </div>
-          <!-- <div class="q-mt-lg radio-btn-box-non-select flex items-center ft-semibold q-pl-md "   > -->
+          <div class="q-mt-lg radio-btn-box-non-select flex items-center ft-semibold q-pl-md "   >
           <div class="r-btn-wrapper">
             <div
               :class="[
@@ -245,7 +245,7 @@
           </div>
         </div>
       </div>
-    </q-dialog>
+    </q-dialog> -->
 
     <!-- KEY IMAGE MODAL -->
     <q-dialog
@@ -395,7 +395,7 @@
               v-model="modals.change_password.old_password"
               type="password"
               borderless
-              placeholder="Enter old Password"
+              :placeholder="$t('placeholders.enteroldPassword')"
             />
           </OxenField>
 
@@ -404,7 +404,7 @@
               v-model="modals.change_password.new_password"
               type="password"
               borderless
-              placeholder="Enter New Password"
+              :placeholder="$t('placeholders.enterNewPassword')"
             />
           </OxenField>
 
@@ -416,7 +416,7 @@
               v-model="modals.change_password.new_password_confirm"
               type="password"
               borderless
-              placeholder="Re-Enter Password"
+              :placeholder="$t('placeholders.reEnterPassword')"
             />
           </OxenField>
 
@@ -457,10 +457,10 @@ export default {
         private_keys: {
           visible: false
         },
-        rescan: {
-          visible: false,
-          type: "full"
-        },
+        // rescan: {
+        //   visible: false,
+        //   type: "full"
+        // },
         key_image: {
           visible: false,
           type: "Export",
@@ -627,31 +627,31 @@ export default {
         });
       }, 500);
     },
-    rescanWallet() {
-      this.hideModal("rescan");
-      if (this.modals.rescan.type == "full") {
-        this.$q
-          .dialog({
-            title: this.$t("dialog.rescan.title"),
-            message: this.$t("dialog.rescan.message"),
-            ok: {
-              label: this.$t("buttons.rescan"),
-              color: "primary"
-            },
-            cancel: {
-              color: "accent",
-              label: this.$t("dialog.buttons.cancel")
-            }
-          })
-          .onOk(() => {
-            this.$gateway.send("wallet", "rescan_blockchain");
-          })
-          .onDismiss(() => {})
-          .onCancel(() => {});
-      } else {
-        this.$gateway.send("wallet", "rescan_spent");
-      }
-    },
+    // rescanWallet() {
+    //   this.hideModal("rescan");
+    //   if (this.modals.rescan.type == "full") {
+    //     this.$q
+    //       .dialog({
+    //         title: this.$t("dialog.rescan.title"),
+    //         message: this.$t("dialog.rescan.message"),
+    //         ok: {
+    //           label: this.$t("buttons.rescan"),
+    //           color: "primary"
+    //         },
+    //         cancel: {
+    //           color: "accent",
+    //           label: this.$t("dialog.buttons.cancel")
+    //         }
+    //       })
+    //       .onOk(() => {
+    //         this.$gateway.send("wallet", "rescan_blockchain");
+    //       })
+    //       .onDismiss(() => {})
+    //       .onCancel(() => {});
+    //   } else {
+    //     this.$gateway.send("wallet", "rescan_spent");
+    //   }
+    // },
     selectKeyImageExportPath() {
       this.$refs.keyImageExportSelect.click();
     },

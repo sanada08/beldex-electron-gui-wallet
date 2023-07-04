@@ -1181,6 +1181,7 @@ footer,
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-wrap: nowrap;
 }
 
 .p-absolute
@@ -1585,7 +1586,9 @@ body
 
 .router-view-wrapper
 {
-    height:46vh;
+    // height:46vh; 
+    // height: calc( 100vh - 456px );    
+    height: calc(100vh - 402px);
     overflow-y:auto;
 }
 
@@ -1902,7 +1905,9 @@ body
 @media only screen and (max-height: 780px) {
     .router-view-wrapper
     {
-        height:40.5vh;
+        // height:40.5vh;
+        // height: calc( 100vh - 417px );
+        height: calc(100vh - 401px);
         overflow-y:auto;
     }
     .rectangleBox{

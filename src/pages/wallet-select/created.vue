@@ -70,7 +70,7 @@
             margin-left: 12px;
             font-family: Poppins-Medium;
           "
-          >Recovery Seed</span
+          >{{ $t("strings.seedWords") }}</span
         >
         <span style="color: #00e509"
           >- {{ $t("strings.saveSeedWarning") }}</span

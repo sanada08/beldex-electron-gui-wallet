@@ -266,6 +266,7 @@
             max="65535"
             borderless
             dense
+            @keydown="keyHandler"
           />
         </OxenField>
         <OxenField
@@ -286,6 +287,7 @@
             max="65535"
             borderless
             dense
+            @keydown="keyHandler"
           />
         </OxenField>
         <OxenField
@@ -307,6 +309,7 @@
             max="65535"
             borderless
             dense
+            @keydown="keyHandler"
           />
         </OxenField>
         <OxenField
@@ -328,6 +331,7 @@
             max="65535"
             borderless
             dense
+            @keydown="keyHandler"
           />
         </OxenField>
       </div>
@@ -561,6 +565,16 @@ export default {
       const { host, port } = option;
       if (host) this.config_daemon.remote_host = host;
       if (port) this.config_daemon.remote_port = port;
+    },
+    keyHandler(evt) {
+      if (
+        // evt.key === "-" ||
+        evt.key === "+" ||
+        evt.key === "e" ||
+        evt.key === "E"
+      ) {
+        evt.preventDefault();
+      }
     },
     toString(value) {
       if (!value && typeof value !== "number") return "";

@@ -104,7 +104,7 @@ export default {
       ok: "СОЗДАТЬ"
     },
     password: {
-      title: "Пароль",
+      title: "Введите пароль своего кошелька",
       message: "Введите пароль кошелька"
     },
     registerMasterNode: {
@@ -360,7 +360,9 @@ export default {
     beldexAddress: "Белдекс Адрес",
     enterName: "Введите имя",
     enterAddress: "Введите адрес",
-
+    enteroldPassword: "Введите старый пароль",
+    enterNewPassword: "Введите новый пароль",
+    reEnterPassword: "Повторно введите пароль",
     filterTx: "Введите идентификатор, имя, адрес или сумму",
     hexCharacters: "Шестнадцатеричных символов: {count}",
     mnemonicSeed: "Seed-фраза, состоящая из 25 или 24 слов",
@@ -372,6 +374,7 @@ export default {
     proveOptionalMessage:
       "Необязательное сообщение, против которого подписывается подпись",
     recipientWalletAddress: "Адрес кошелька получателя",
+    reEnterWalletPassword: "Повторно введите пароль",
     selectAFile: "Пожалуйста, выберите файл",
     signature: "Подпись для проверки",
     unsignedData:

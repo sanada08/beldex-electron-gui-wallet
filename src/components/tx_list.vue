@@ -36,11 +36,12 @@
           >
             <q-item-section class="type flex items-center">
               <div>
-                <img
+                <!-- <img
                   :src="txnTypeIndicate(tx.type)"
                   width="20px"
                   height="20px"
-                />
+                /> -->
+                <TxTypeIcon :type="tx.type" :tooltip="false" />
               </div>
               <!-- <div>{{ tx.type | typeToString }}</div> -->
             </q-item-section>
@@ -118,7 +119,7 @@ import { QSpinnerDots } from "quasar";
 import FormatOxen from "components/format_oxen";
 import { i18n } from "boot/i18n";
 import ContextMenu from "components/menus/contextmenu";
-
+import TxTypeIcon from "components/tx_type_icon";
 export default {
   name: "TxList",
   filters: {
@@ -150,7 +151,8 @@ export default {
     QSpinnerDots,
     // TxDetails,
     FormatOxen,
-    ContextMenu
+    ContextMenu,
+    TxTypeIcon
   },
   props: {
     limit: {
@@ -316,29 +318,29 @@ export default {
         return valid;
       });
     },
-    txnTypeIndicate(value) {
-      switch (value) {
-        case "in":
-          return require("../assets/images/recieve_icon.svg");
-        case "out":
-          return require("../assets/images/send_icon.svg");
-        case "failed":
-          return i18n.t("strings.transactions.types.failed");
-        case "pending":
-        case "pool":
-          return require("../assets/images/pending.svg");
-        case "miner":
-          return i18n.t("strings.transactions.types.miner");
-        case "mnode":
-          return i18n.t("strings.transactions.types.masterNode");
-        case "gov":
-          return i18n.t("strings.transactions.types.governance");
-        case "stake":
-          return i18n.t("strings.transactions.types.stake");
-        default:
-          return "-";
-      }
-    },
+    // txnTypeIndicate(value) {
+    //   switch (value) {
+    //     case "in":
+    //       return require("../assets/images/recieve_icon.svg");
+    //     case "out":
+    //       return require("../assets/images/send_icon.svg");
+    //     case "failed":
+    //       return i18n.t("strings.transactions.types.failed");
+    //     case "pending":
+    //     case "pool":
+    //       return require("../assets/images/pending.svg");
+    //     case "miner":
+    //       return i18n.t("strings.transactions.types.miner");
+    //     case "mnode":
+    //       return i18n.t("strings.transactions.types.masterNode");
+    //     case "gov":
+    //       return i18n.t("strings.transactions.types.governance");
+    //     case "stake":
+    //       return i18n.t("strings.transactions.types.stake");
+    //     default:
+    //       return "-";
+    //   }
+    // },
     txContains(tx, value) {
       // The tx can be searchable using:
       // id, address, notes, amount, recipient name

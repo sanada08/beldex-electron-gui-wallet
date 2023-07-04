@@ -107,7 +107,7 @@ export default {
       ok: "SIM"
     },
     password: {
-      title: "Palavra-passe",
+      title: "Digite sua senha da carteira",
       message: "Introduza a sua palavra-passe para continuar"
     },
     registerMasterNode: {
@@ -364,6 +364,9 @@ export default {
     beldexAddress: "Endereço Beldex",
     enterAddress: "Insira o endereço",
     enterName: "Insira o nome",
+    enteroldPassword: "Digite a senha antiga",
+    enterNewPassword: "Insira a nova senha",
+    reEnterPassword: "Digite novamente a senha",
     filterTx: "Digite um ID, nome, endereço ou valor",
     hexCharacters: "{count} caracteres hexadecimais",
     mnemonicSeed: "25 (or 24) palavras semente mnemónicas",
@@ -374,6 +377,7 @@ export default {
     proveOptionalMessage:
       "Mensagem opcional contra a qual a assinatura é assinada",
     recipientWalletAddress: "Endereço da carteira do destinatário",
+    reEnterWalletPassword: "Digite novamente a senha",
     selectAFile: "Por favor selecione um ficheiro",
     signature: "Assinatura para verificar",
 
