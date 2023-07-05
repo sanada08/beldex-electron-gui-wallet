@@ -522,7 +522,7 @@ export default {
 }
 
 .master-node-stake-tab {
-  margin-top: 4px;
+  // margin-top: 4px;
   user-select: none;
   min-height: 41vh;
   .header {

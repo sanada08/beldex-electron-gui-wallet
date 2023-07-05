@@ -391,18 +391,18 @@ export default {
     },
     formatHeight(tx) {
       let height = tx.height;
-      let confirms = Math.max(0, this.wallet_height - height);
+      // let confirms = Math.max(0, this.wallet_height - height);
       if (height == 0) return this.$t("strings.transactions.types.pending");
-      if (confirms < Math.max(10, tx.unlock_time - height))
-        return (
-          this.$t("strings.height") +
-          `: ${height} (${confirms} confirm${confirms == 1 ? "" : "s"})`
-        );
-      else
-        return (
-          this.$t("strings.height") +
-          `: ${height} (${this.$t("strings.transactionConfirmed")})`
-        );
+      // if (confirms < Math.max(1, tx.unlock_time - height))
+      //   return (
+      //     this.$t("strings.height") +
+      //     `: ${height} (${confirms} confirm${confirms == 1 ? "" : "s"})`
+      //   );
+      // else
+      return (
+        this.$t("strings.height") +
+        `: ${height} (${this.$t("strings.transactionConfirmed")})`
+      );
     },
     copyTxId(txid) {
       clipboard.writeText(txid);

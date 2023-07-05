@@ -8,7 +8,7 @@
         {{ $t("titles.transactions") }}
       </div>
       <section
-        class="flex column justify-center items-center empty-txn-wrapper"
+        class="flex column justify-center no-wrap items-center empty-txn-wrapper"
       >
         <div>
           <img src="../../assets/images/No_transaction.svg" height="119px" />
@@ -167,11 +167,13 @@ export default {
     }
   }
   .empty-txn-wrapper {
-    height: 39vh;
+    // height: 39vh;
+    height: calc(100vh - 464px);
   }
   @media only screen and (max-height: 780px) {
     .empty-txn-wrapper {
-      height: 32vh;
+      // height: 32vh;
+      height: calc(100vh - 468px);
     }
   }
 }
