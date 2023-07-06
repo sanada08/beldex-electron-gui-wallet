@@ -33,7 +33,7 @@
             color="accent"
             :label="$t('buttons.rescan')"
             icon="refresh"
-            class="rescan-btn"
+            class="rescan-btn q-mr-sm"
             @click.native="showModal('rescan')"
           />
           <WalletSettings />

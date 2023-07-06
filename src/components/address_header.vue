@@ -7,15 +7,15 @@
         >{{ title }}</q-item-label
       >
 
-      <div class="flex row items-center">
-        <div class="name">{{ this.$t("fieldLabels.address") }}</div>
+      <div class="flex row items-center q-mb-sm">
+        <div class="name ">{{ this.$t("fieldLabels.address") }}</div>
         <q-btn
           side
           flat
           padding="sm"
           size="sm"
           icon="content_copy"
-          class="q-mr-sm"
+          class="q-ml-sm copy-icon "
           color="green"
           @click="copyAddress"
         >
@@ -115,6 +115,7 @@ export default {
     font-size: 20px;
     color: #fff;
   }
+
   .name {
     // font-weight: 500;
     font-weight: 500;
@@ -126,6 +127,9 @@ export default {
 
   .extra {
     color: #fff;
+  }
+  .copy-icon {
+    height: 34px;
   }
 }
 

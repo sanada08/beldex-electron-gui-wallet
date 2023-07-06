@@ -278,7 +278,7 @@ export default {
   }
 
   padding: 25px;
-  background-color: #2f2f40;
+  background-color: #32324a;
   color: #fff;
   border-radius: 10px !important;
 

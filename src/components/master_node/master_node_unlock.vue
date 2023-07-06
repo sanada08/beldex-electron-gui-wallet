@@ -1,8 +1,8 @@
 <template>
   <div class="master-node-stake-tab">
-    <div class="q-pa-md">
+    <div :class="`q-pa-md ${master_nodes.length === 0 ? 'd-center' : ''}`">
       <div
-        class="q-pb-sm header"
+        class="q-pb-sm header items-center  "
         style="font-family: Poppins-Regular;
                font-size: 16px;
                display: flex;
@@ -20,6 +20,7 @@
           <span>{{ $t("strings.masterNodeStartStakingDescription1") }}</span>
         </span>
       </div>
+      <div></div>
       <div v-if="master_nodes">
         <MasterNodeList
           :master-nodes="master_nodes"
@@ -256,4 +257,11 @@ export default {
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.d-center {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  height: 100%;
+}
+</style>

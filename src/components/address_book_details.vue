@@ -73,6 +73,9 @@
           <OxenField
             :label="$t('fieldLabels.address')"
             :error="$v.newEntry.address.$error"
+            :starred="newEntry.starred"
+            :update-starred="updateStarred"
+            :enable-star="true"
           >
             <q-input
               v-model.trim="newEntry.address"
@@ -81,13 +84,13 @@
               dense
               @blur="$v.newEntry.address.$touch"
             />
-            <q-btn
+            <!-- <q-btn
               v-model="newEntry.starred"
               flat
               round
               :icon="newEntry.starred ? 'star' : 'star_border'"
               @click="updateStarred"
-            />
+            /> -->
           </OxenField>
           <OxenField :label="$t('fieldLabels.notes')" optional>
             <q-input

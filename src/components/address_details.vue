@@ -186,7 +186,10 @@
         :content-class="'qr-code-modal'"
       >
         <q-card class="qr-code-card">
-          <div class="text-center q-mb-sm q-pa-md" style="background: white">
+          <div
+            class="text-center  q-pa-md q-ma-lg"
+            style="background: white;border-radius: 10px;"
+          >
             <QrcodeVue ref="qr" :value="address.address" size="240">
             </QrcodeVue>
             <q-menu content-menu>
@@ -206,6 +209,7 @@
           </div>
           <q-card-actions>
             <q-btn
+              class="q-mb-md"
               color="primary"
               :label="$t('buttons.close')"
               @click="isQRCodeVisible = false"

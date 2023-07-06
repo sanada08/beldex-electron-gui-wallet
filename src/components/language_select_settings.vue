@@ -10,12 +10,15 @@
         align-items: center;
         justify-content: center;
         margin: 0 auto;
-        height: 63vh;
+        /* height: 63vh; */
       "
       class="language-select column items-center justify-center"
     >
       <div class="selectLanguage" style="color: #b9b9b9">
-        <p class style="font-family: Poppins-Medium; font-size: 1.25rem">
+        <p
+          class="q-mt-lg"
+          style="font-family: Poppins-Medium; font-size: 1.25rem"
+        >
           {{ $t("strings.selectLanguage") }}
         </p>
       </div>
@@ -36,7 +39,7 @@
           </div>
         </div>
       </div>
-      <div class="q-mt-lg">
+      <div class="q-my-lg">
         <q-btn color="primary" :label="$t('buttons.save')" @click="save" />
       </div>
     </div>
@@ -111,8 +114,10 @@ export default {
   .lang-btn,
   .selected-btn,
   .unselected-btn {
-    width: 259px;
-    height: 60px;
+    // width: 259px;
+    // height: 60px;
+    width: 245px;
+    height: 50px;
     box-shadow: none;
     margin-top: 5px;
     border-radius: 10px;

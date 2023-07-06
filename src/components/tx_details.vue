@@ -618,7 +618,7 @@ export default {
 .txn-details-modal {
   width: 600px;
   padding: 25px 25px 10px 25px;
-  background-color: #2f2f40;
+  background-color: #242433;
   color: #fff;
   border-radius: 10px !important;
   word-break: break-all;

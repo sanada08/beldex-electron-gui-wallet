@@ -1,10 +1,18 @@
 <template>
-  <div class="oxen-field " :class="{ disable, 'disable-hover': disableHover }">
+  <div class="oxen-field" :class="{ disable, 'disable-hover': disableHover }">
     <div v-if="label" class="label row items-center" :disabled="disable">
       {{ label }}
       <span v-if="optional" class="optional"
         >({{ $t("fieldLabels.optional") }})</span
       >
+      <q-btn
+        v-if="enableStar"
+        v-model="starred"
+        class="q-ml-xs"
+        color="accent"
+        :icon="starred ? 'star' : 'star_border'"
+        @click="updateStarred"
+      />
     </div>
     <div class="content row items-center" :class="{ error }">
       <slot></slot>
@@ -48,6 +56,22 @@ export default {
       type: Boolean,
       required: false,
       default: false
+    },
+    enableStar: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    starred: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+
+    updateStarred: {
+      type: Function,
+      required: false,
+      default: undefined
     }
   },
   data() {
@@ -71,6 +95,17 @@ export default {
     .optional {
       font-weight: 400;
       margin-left: 4px;
+    }
+
+    .q-btn {
+      font-size: 11px;
+      min-width: unset !important;
+      width: 32px;
+      height: 30px;
+      border-radius: 7px;
+      .q-icon {
+        color: #2879fb;
+      }
     }
   }
   .content {

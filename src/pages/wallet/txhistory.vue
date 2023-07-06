@@ -33,7 +33,7 @@
         <section class="searchBox flex row no-wrap">
           <article
             class="flex row items-center no-wrap  q-ml-lg"
-            style="width:75%; "
+            style="width:80%; "
           >
             <div class="col-1 filter-txt ft-semibold">
               {{ $t("fieldLabels.filter") }}
