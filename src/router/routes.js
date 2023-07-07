@@ -91,6 +91,10 @@ export default [
         component: () => import("pages/wallet/addressbook")
       },
       {
+        path: "swap",
+        component: () => import("pages/wallet/swap")
+      },
+      {
         path: "masternode",
         component: () => import("pages/wallet/master-node")
       },

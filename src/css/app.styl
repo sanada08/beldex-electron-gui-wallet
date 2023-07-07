@@ -1212,7 +1212,7 @@ body
     font-family Poppins-Bold
 
 // }
-.transactionBox, .master-node-page, .advanced-page
+.transactionBox, .master-node-page, .advanced-page, .swap
     background-color $beldex-lightgray
     padding 15px
     border-radius 20px
@@ -1443,6 +1443,47 @@ body
             background-color $beldex-std-green
             border-radius 10px
             margin-right 20px
+.exchage-option
+    min-width: 175px !important
+.swap
+    color white
+    height: calc(100vh - 405px);
+    overflow-y: auto;
+    .dropdown-send-type
+        background-color #40405E    
+        max-width 136px
+        border-radius: 7px
+        .currency-name
+            color: #77778B !important
+            font-size: 12px
+
+   
+    .swap-btn
+        min-width: unset;
+        width 38px
+        height: 38px
+        .q-btn__wrapper 
+            padding: unset
+            min-height:unset
+    .fee-expand
+        border: 1px solid #41415B    
+    .drp-content
+        background-color:#242433
+        border-radius: 10px;
+        .q-card__section--vert
+            padding-top: 0;
+    .exerate-wrapper
+        border: 1.2px solid #41415B   
+        border-radius: 10px;
+        .exerate-inner-wrapper
+             border: 1.2px solid #41415B   
+             border-radius: 10px;
+             .icon
+                width:30px
+                height:30px
+                background-color: #40405E
+                border-radius: 20px;
+
 
 @media only screen and (max-width 1380px)
     .rightPane
