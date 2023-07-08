@@ -60,13 +60,14 @@
           </button>
         </q-toolbar>
       </q-header>
-      <q-page class="detail-page" style="padding-top: 59px; min-height: unset">
+      <q-page style="padding-top: 59px; min-height: unset">
         <div class="address-book-modal">
           <OxenField :label="$t('fieldLabels.name')">
             <q-input
               v-model.trim="newEntry.name"
               :placeholder="$t('placeholders.enterName')"
               borderless
+              :maxlength="20"
               dense
             />
           </OxenField>

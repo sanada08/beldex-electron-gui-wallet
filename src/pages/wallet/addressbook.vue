@@ -5,12 +5,12 @@
         <div
           class="header row  q-pb-xs q-mx-md q-mb-none items-center non-selectable ft-semibold"
         >
-          <q-btn
+          <div
             v-if="from === 'send'"
             flat
             round
             dense
-            class="q-mr-sm"
+            class="flex items-center back-arrow-btn q-mr-sm"
             @click="setAddress({ address: '' })"
           >
             <svg
@@ -25,7 +25,7 @@
                 fill="white"
               />
             </svg>
-          </q-btn>
+          </div>
 
           {{
             from === "send"

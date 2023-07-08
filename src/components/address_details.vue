@@ -47,7 +47,7 @@
         </q-toolbar>
       </q-header>
       <!-- <q-page-container class="detail-page"> -->
-      <q-page class="detail-page" style="min-height: unset">
+      <q-page style="min-height: unset">
         <!-- <div class="layout-padding"> -->
         <div>
           <template v-if="address != null">
@@ -59,10 +59,10 @@
               :show-copy="false"
             /> -->
             <div class="address-section">
-              <div class="ft-medium label">
+              <div class="ft-medium label q-mt-md q-mb-xs">
                 Address
                 <q-btn
-                  class="q-ml-sm"
+                  class="q-ml-sm address-copy-btn"
                   flat
                   padding="sm"
                   size="sm"
@@ -301,6 +301,9 @@ export default {
 
 <style lang="scss">
 .address_details {
+  .q-layout {
+    background-color: unset;
+  }
   .q-toolbar {
     padding: 0;
     background-color: #242433;
@@ -311,6 +314,12 @@ export default {
     height: 35px;
     width: 35px;
     border-radius: 10px;
+  }
+
+  .address-copy-btn {
+    .q-btn--flat {
+      height: unset;
+    }
   }
   .address-section {
     color: white;

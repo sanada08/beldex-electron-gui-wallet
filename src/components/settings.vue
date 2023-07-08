@@ -129,9 +129,10 @@
                   />
                 </article>
               </router>
+              <!-- v-if="tabs[tabs.length - 1].value === 'peers'" -->
               <routering
                 v-if="tabs[tabs.length - 1].value === 'peers'"
-                class="routering"
+                class="routering q-mt-md"
                 @click="page = 'peers'"
               >
                 <!-- <article
@@ -231,7 +232,9 @@
               {{
                 page === "language"
                   ? $t("titles.settings.tabs.language")
-                  : $t("titles.settings.title")
+                  : page === "peers"
+                  ? this.$t("titles.settings.tabs.peers")
+                  : this.$t("titles.settings.tabs.general")
               }}
             </q-toolbar-title>
           </div>
@@ -538,7 +541,7 @@ export default {
       height: 78vh;
     }
     .version-wrapper {
-      height: 71%;
+      height: 35%;
     }
     .version-wrapperwithpeer {
       height: 58%;

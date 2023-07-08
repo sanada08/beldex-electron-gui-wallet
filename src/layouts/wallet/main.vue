@@ -74,7 +74,7 @@
           </router-link>
           <router-link to="/wallet/swap" class="box">
             <article
-              class="flex row alignItem-center justify-between menuList selected box"
+              class="flex row alignItem-center justify-between menuList selected box q-mt-md"
             >
               <div class="flex row align-center justify-center a-center">
                 <svg
@@ -359,7 +359,7 @@ export default {
 
 @media only screen and (max-height: 780px) {
   .version-wrapper {
-    height: 51%;
+    height: 39%;
   }
 }
 .footer {

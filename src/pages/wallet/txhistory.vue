@@ -60,6 +60,7 @@
               class="ft-semibold q-pl-sm"
               popup-content-class="txn-option"
               dropdown-icon="tune"
+              :menu-offset="[100, 10]"
             />
           </OxenField>
         </section>
@@ -161,7 +162,7 @@ export default {
     &:not(.disable):not(.disable-hover) {
       .content:hover {
         // background: #1c1c26;
-        background: #41415b;
+        background: #484866 !important;
         // border: unset;
       }
     }
@@ -199,7 +200,7 @@ export default {
   color: #82828d;
 }
 .txn-option {
-  width: 175px;
+  width: 155px;
   font-family: "Poppins-Regular";
 }
 </style>

@@ -3,7 +3,7 @@
     <q-item-section class="self-start">
       <div class="name q-mb-sm">{{ this.$t("fieldLabels.name") }}</div>
       <q-item-label
-        class="tittle-Box non-selectable flex items-center q-mb-md"
+        class="tittle-Box non-selectable flex items-center q-mb-md ellipsis"
         >{{ title }}</q-item-label
       >
 
