@@ -276,6 +276,9 @@ export default {
       width: 35px;
       border-radius: 10px;
     }
+    .q-btn--flat:hover {
+      border-radius: 10px !important;
+    }
   }
   .address-label {
     color: #afafbe;

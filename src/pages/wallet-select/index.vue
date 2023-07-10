@@ -361,10 +361,10 @@ export default {
       justify-content: center;
       align-items: center;
     }
-    .back-btn:hover {
-      background: rgba(119, 119, 151, 0.3) !important;
-      border-radius: 20px;
-    }
+    // .back-btn:hover {
+    //   background: rgba(119, 119, 151, 0.3) !important;
+    //   border-radius: 20px;
+    // }
     span {
       font-family: "Poppins-Bold";
       font-size: 26px;

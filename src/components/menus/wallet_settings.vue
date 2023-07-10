@@ -1,11 +1,12 @@
 <template>
   <div class="wallet-settings">
     <q-btn icon-right="menu" size="md" flat>
-      <q-menu anchor="bottom right" self="top right">
-        <q-list separator class="menu-list">
+      <q-menu anchor="bottom right" self="top right ">
+        <q-list separator class="menu-list wallet-settings-wrapper">
           <q-item
             v-close-popup
             clickable
+            class="q-mx-md q-my-sm"
             :disabled="!is_ready"
             @click.native="getPrivateKeys()"
           >
@@ -17,6 +18,7 @@
           <q-item
             v-close-popup
             clickable
+            class="q-mx-md q-my-sm"
             :disabled="!is_ready"
             @click.native="showModal('change_password')"
           >
@@ -45,6 +47,7 @@
           <q-item
             v-close-popup
             clickable
+            class="q-mx-md q-my-sm"
             :disabled="!is_ready"
             @click.native="showModal('key_image')"
           >
@@ -59,6 +62,7 @@
           <q-item
             v-close-popup
             clickable
+            class="q-mx-md q-my-sm"
             :disabled="!is_ready"
             @click.native="deleteWallet()"
           >
@@ -806,6 +810,18 @@ export default {
 </script>
 
 <style lang="scss">
+.wallet-settings-wrapper {
+  .q-item-type + .q-item-type {
+    border: unset !important;
+  }
+  .q-item {
+    padding: 0;
+  }
+  .q-hoverable:hover > .q-focus-helper {
+    background-color: #40405e !important;
+    border-radius: 10px;
+  }
+}
 .q-placeholder {
   color: #fff;
 }

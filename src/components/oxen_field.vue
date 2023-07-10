@@ -8,11 +8,15 @@
       <q-btn
         v-if="enableStar"
         v-model="starred"
-        class="q-ml-xs"
+        class="q-ml-sm"
         color="accent"
         :icon="starred ? 'star' : 'star_border'"
         @click="updateStarred"
-      />
+      >
+        <q-tooltip anchor="bottom right" self="top right" :offset="[0, 5]">
+          {{ starred ? "Remove favourite" : "Add favourite" }}
+        </q-tooltip>
+      </q-btn>
     </div>
     <div class="content row items-center" :class="{ error }">
       <slot></slot>

@@ -57,6 +57,9 @@
                 />
               </g>
             </svg>
+            <q-tooltip anchor="bottom right" self="top right" :offset="[0, 5]">
+              Delete Contact
+            </q-tooltip>
           </button>
         </q-toolbar>
       </q-header>

@@ -315,11 +315,14 @@ export default {
     width: 35px;
     border-radius: 10px;
   }
+  .copy-icon:hover {
+    border-radius: 10px !important;
+  }
 
   .address-copy-btn {
-    .q-btn--flat {
-      height: unset;
-    }
+    // .q-btn--flat {
+    height: unset !important;
+    // }
   }
   .address-section {
     color: white;

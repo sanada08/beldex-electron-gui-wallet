@@ -1,12 +1,13 @@
 <template>
   <div>
-    <q-btn class="menu" icon="settings" size="md" flat>
-      <q-menu>
+    <q-btn class="menu" icon="settings" size="16" flat>
+      <q-menu class="settings-sub-menu-wrapper">
         <q-list separator class="menu-list settings-sub-menu">
           <q-item
             v-if="!disableSwitchWallet"
             v-close-popup
             clickable
+            class="q-mx-md q-my-sm"
             @click.native="switchWallet"
           >
             <q-item-label header class="flex items-center">
@@ -22,6 +23,7 @@
             v-if="!disableSettings"
             v-close-popup
             clickable
+            class="q-mx-md q-my-sm"
             @click.native="openSettings"
           >
             <q-item-label header class="flex items-center">
@@ -33,13 +35,24 @@
               {{ $t("menuItems.settings") }}</q-item-label
             >
           </q-item>
-          <q-item v-close-popup clickable @click.native="showAbout(true)">
+
+          <q-item
+            v-close-popup
+            class="q-mx-md q-my-sm"
+            clickable
+            @click.native="showAbout(true)"
+          >
             <q-item-label header class="flex items-center">
               <q-icon name="o_info" size="xs" class="icon" />
               {{ $t("menuItems.about") }}</q-item-label
             >
           </q-item>
-          <q-item v-close-popup clickable @click.native="exit">
+          <q-item
+            v-close-popup
+            class="q-mx-md q-my-sm"
+            clickable
+            @click.native="exit"
+          >
             <q-item-label header class="flex items-center">
               <img
                 src="../../assets/images/exitWallet.svg"
@@ -72,7 +85,10 @@
             <span style="color: #00ad07">{{ daemonVersion }}</span>
           </p>
           <p class="q-my-sm">
-            Copyright <span style="font-weight: bold;"> ⓒ </span>
+            Copyright
+            <!-- <span style="font-weight: bold"> ⓒ </span> -->
+            <span style="font-weight: bold"> (c)</span>
+
             -
             <span style="color: #00ad07">2018-2021, Beldex</span>
           </p>
@@ -242,11 +258,29 @@ export default {
 </script>
 
 <style lang="scss">
+body.desktop .q-hoverable:hover > .q-focus-helper {
+  background: unset;
+}
 .q-menu {
   max-width: unset !important;
 }
-
+.settings-sub-menu-wrapper {
+  border: unset !important;
+  color: white;
+}
 .settings-sub-menu {
+  width: 241px;
+  border-radius: 10px;
+  .q-hoverable:hover > .q-focus-helper {
+    background-color: #40405e !important;
+    border-radius: 10px;
+  }
+  .q-item-type + .q-item-type {
+    border: unset !important;
+  }
+  .q-item {
+    padding: 0;
+  }
   .icon {
     color: #a9a9cd !important;
     margin-right: 10px;

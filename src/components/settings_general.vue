@@ -2,7 +2,13 @@
   <div class="settings-general">
     <div class="daemonType">
       <div class="row justify-between q-mb-sm q-pb-sm daemonType">
-        <div>
+        <div
+          :class="
+            `daemonTitle-wrapper  ${
+              config_daemon.type === 'remote' ? 'active' : ''
+            }`
+          "
+        >
           <q-radio
             v-model="config_daemon.type"
             dense
@@ -11,7 +17,13 @@
             :label="$t('strings.daemon.remote.title')"
           />
         </div>
-        <div>
+        <div
+          :class="
+            `daemonTitle-wrapper  ${
+              config_daemon.type === 'local_remote' ? 'active' : ''
+            }`
+          "
+        >
           <q-radio
             v-model="config_daemon.type"
             dense
@@ -20,7 +32,13 @@
             :label="$t('strings.daemon.localRemote.title')"
           />
         </div>
-        <div>
+        <div
+          :class="
+            `daemonTitle-wrapper  ${
+              config_daemon.type === 'local' ? 'active' : ''
+            }`
+          "
+        >
           <q-radio
             v-model="config_daemon.type"
             dense
@@ -605,6 +623,18 @@ export default {
       padding-right: 30px;
       margin: 0px;
       border-right: 2px solid #3e3e5b;
+    }
+    .daemonTitle-wrapper {
+      padding: 10px 0;
+      width: 33%;
+      text-align: center;
+      border-radius: 7px;
+    }
+    .daemonTitle-wrapper:hover {
+      background-color: #32324b;
+    }
+    .active {
+      background-color: #40405e;
     }
   }
   .daemonDiscription {

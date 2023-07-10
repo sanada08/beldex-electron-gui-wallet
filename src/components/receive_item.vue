@@ -9,7 +9,7 @@
             padding="sm"
             size="sm"
             icon="content_copy"
-            class="q-mr-sm"
+            class="q-mr-sm "
             color="green"
             @click="copyAddress(address.address, $event)"
           >
@@ -161,6 +161,9 @@ export default {
 .icon-btn .q-btn {
   background-color: #1f1f28;
   height: 35px;
+}
+.icon-btn .q-btn--flat:hover {
+  border-radius: 10px !important;
 }
 
 .address-label {

@@ -55,7 +55,7 @@
       </div>
       <div :class="[this.routes === '' ? 'active' : '']">
         <!-- <router-link to="/wallet/addressbook" > -->
-        <q-btn class="large-btn contact-btn" size="md" @click="router('')">
+        <q-btn class="large-btn addressbook-btn" size="md" @click="router('')">
           <svg
             width="21"
             height="21"

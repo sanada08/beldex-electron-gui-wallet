@@ -568,7 +568,7 @@ export default {
 
     seedWords: "Recovery Seed",
     walletCreated: "Wallet Created",
-    selectLanguage: "Select language",
+    selectLanguage: "Select a language",
     masterNodeContributionDescription:
       "Staking contributes to the safety of the Beldex network. For your contribution, you earn BDX. Once staked, you will have to wait either 15 or 30 days to have your BDX unlocked, depending on if a stake was unlocked by a contributor or the node was deregistered. To learn more about staking, please visit the documentation on the",
     masterNodeRegistrationDescription:
