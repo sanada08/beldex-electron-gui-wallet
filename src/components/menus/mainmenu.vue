@@ -1,6 +1,12 @@
 <template>
   <div>
-    <q-btn class="menu" icon="settings" size="16" flat>
+    <q-btn
+      class="menu setting-btn"
+      icon="settings"
+      size="14px"
+      text-color="#A9A9CD"
+      flat
+    >
       <q-menu class="settings-sub-menu-wrapper">
         <q-list separator class="menu-list settings-sub-menu">
           <q-item
@@ -261,6 +267,11 @@ export default {
 body.desktop .q-hoverable:hover > .q-focus-helper {
   background: unset;
 }
+.setting-btn {
+  .q-icon {
+    color: #a9a9cd !important;
+  }
+}
 .q-menu {
   max-width: unset !important;
 }
@@ -268,6 +279,7 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
   border: unset !important;
   color: white;
 }
+
 .settings-sub-menu {
   width: 241px;
   border-radius: 10px;

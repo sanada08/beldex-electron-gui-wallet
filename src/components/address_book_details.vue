@@ -474,7 +474,7 @@ export default {
       font-size: 1.2em;
     }
     .on-left {
-      margin-right: 1px;
+      margin-right: 5px;
     }
   }
   .q-toolbar {

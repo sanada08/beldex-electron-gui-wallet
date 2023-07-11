@@ -86,8 +86,7 @@ export default {
     },
     deleteWallet: {
       title: "Eliminar monedero",
-      message:
-        "¿Está absolutamente seguro de querer eliminar su monedero?\nAsegúrese de tener una copia de seguridad de sus claves privadas antes de proceder.\n¡ESTE PROCESO NO ES REVERSIBLE!",
+      message: "¿Está seguro de que desea eliminar la billetera actual?",
       ok: "ELIMINAR"
     },
     exit: {

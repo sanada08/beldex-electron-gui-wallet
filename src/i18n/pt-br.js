@@ -86,8 +86,7 @@ export default {
     },
     deleteWallet: {
       title: "Apagar carteira",
-      message:
-        "Tem a certeza absoluta que pretende apagar a sua carteira?\nTenha a certeza que tem um backup da suas chaves privadas.\nESTE PROCESSO NÃO É REVERSÍVEL!",
+      message: "Tem certeza de que deseja excluir a carteira atual?",
       ok: "APAGAR"
     },
     exit: {

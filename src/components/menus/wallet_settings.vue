@@ -1,6 +1,6 @@
 <template>
   <div class="wallet-settings">
-    <q-btn icon-right="menu" size="md" flat>
+    <q-btn icon-right="menu " size="17px" flat>
       <q-menu anchor="bottom right" self="top right ">
         <q-list separator class="menu-list wallet-settings-wrapper">
           <q-item

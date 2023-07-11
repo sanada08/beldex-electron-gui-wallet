@@ -84,8 +84,7 @@ export default {
     },
     deleteWallet: {
       title: "Wallet löschen",
-      message:
-        "Bist du dir absolut sicher, dass du deine Wallet löschen willst?\n Bitte stelle sicher, dass du deinen Private Key gesichert hast.\n DIESER SCHRITT KANN NICHT RÜCKGÄNGIG GEMACHT WERDEN!",
+      message: "Sind Sie sicher, dass Sie das aktuelle Wallet löschen möchten?",
       ok: "LÖSCHEN"
     },
     exit: {

@@ -86,8 +86,7 @@ export default {
     },
     deleteWallet: {
       title: "Supprimer le portefeuille",
-      message:
-        "Êtes-vous absolument certain de vouloir supprimer votre portefeuille?\nAssurez-vous que vos clés privées sont sauvegardées. \nCE PROCESSUS N'EST PAS REVERSIBLE !",
+      message: "Voulez-vous vraiment supprimer le portefeuille actuel ?",
       ok: "Supprimer"
     },
     exit: {

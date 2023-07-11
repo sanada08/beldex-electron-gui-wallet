@@ -506,9 +506,10 @@ export default {
   }
 
   .minBtn {
-    height: 43px;
+    height: 40px;
     background-color: #32324a;
     border-radius: 10px;
+    margin-right: 10px;
   }
   .oxen-field .content {
     min-height: 40px !important;

@@ -267,6 +267,7 @@ export default {
     display: flex;
     align-items: center;
     color: #2879fb;
+    cursor: default;
   }
 
   .copy-icon {

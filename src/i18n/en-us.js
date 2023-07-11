@@ -92,8 +92,7 @@ export default {
     },
     deleteWallet: {
       title: "Delete wallet",
-      message:
-        "Are you absolutely sure you want to delete your wallet?\nMake sure you have your private keys backed up.\n This proccess is not reversible!",
+      message: "Are you sure you want to delete the current wallet?",
       ok: "Delete"
     },
     exit: {
@@ -191,7 +190,7 @@ export default {
       ok: "Send"
     },
     confirmTransaction: {
-      title: "Confirm transaction",
+      title: "Confirm Sending",
       sendTo: "Send to",
       priority: "Priority"
     },
@@ -256,7 +255,7 @@ export default {
     restoreFromBlockHeight: "Restore from BlockHeight",
     restoreFromDate: "Restore from Date",
     seedLanguage: "Seed Language",
-    masterNodeCommand: "Master node command",
+    masterNodeCommand: "Master Node Command",
     masterNodeKey: "Master node Key",
     bchatId: "BCHAT ID",
     signature: "Signature",
@@ -664,7 +663,7 @@ export default {
     },
     masterNode: {
       registration: "Registration",
-      staking: "Staking",
+      staking: "Stakings",
       myStakes: "My Stakes"
     },
 

@@ -35,15 +35,14 @@
             class="copy-icon"
             @click="isQRCodeVisible = true"
           />
-          <q-btn
-            class="q-ml-sm copy-icon"
+          <!-- <q-btn
+            class="q-ml-sm copy-icon green-icon"
             flat
             padding="sm"
             size="sm"
             icon="content_copy"
-            color="green"
             @click="copyAddress()"
-          />
+          /> -->
         </q-toolbar>
       </q-header>
       <!-- <q-page-container class="detail-page"> -->
@@ -310,13 +309,19 @@ export default {
   }
 
   .copy-icon {
-    background-color: #40405d;
+    background-color: #1f1f28;
     height: 35px;
     width: 35px;
-    border-radius: 10px;
+    border-radius: 7px;
   }
   .copy-icon:hover {
     border-radius: 10px !important;
+  }
+
+  .green-icon {
+    .q-icon {
+      color: #20d030;
+    }
   }
 
   .address-copy-btn {

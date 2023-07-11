@@ -57,7 +57,7 @@
               dense
               emit-value
               map-options
-              class="ft-semibold q-pl-sm"
+              class="ft-semibold q-pa-xs"
               popup-content-class="txn-option"
               dropdown-icon="tune"
               :menu-offset="[100, 10]"

@@ -29,7 +29,7 @@
           <div class="ft-medium wallet-txt">
             Daemon Version : <span>{{ daemonVersion }}</span>
           </div>
-          <LanguageSelect class="q-mt-lg" @select="onLanguageSelected" />
+          <LanguageSelect class="q-mt-md" @select="onLanguageSelected" />
         </div>
       </q-step>
 
@@ -203,7 +203,7 @@ export default {
   .second-step {
     display: block;
     margin-bottom: 49px;
-    max-height: 70vh;
+    max-height: 81vh;
     overflow: auto;
   }
 }
@@ -233,7 +233,7 @@ export default {
 @media only screen and (max-height: 780px) {
   .welcome {
     .first-step {
-      height: 70vh;
+      max-height: 92vh;
     }
     .welcome-container {
       padding: 35px 0;
