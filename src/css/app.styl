@@ -739,11 +739,39 @@ h1, h2, h3, h4, h5, h6, img, .q-list-header, .q-header, .q-menu .q-item-label, .
         font-size 14px
 
 .masterNodeDetails
+    background-color: #242433
+    .q-toolbar
+        padding 0
+
+    .q-header .q-toolbar__title
+        background-color unset !important
+    .detail-page
+        padding-top: 70px;
+        color:white
     .address
         color white
-
+    .detailbox
+        border:2px solid #41415B
+        padding: 10px;
+        border-radius: 10px
+    .oxen-list .oxen-list-item 
+        background-color: #32324A
+        padding: 20px
+        margin:10px 0
+    .mn-detail-wrapper
+        width: 14%
+        .text
+           font-size: 0.8rem;
+           margin-bottom: 15px
+        
+        
     .name
         color #979797
+
+    .unlock-btn,.explorebtn
+        min-width unset
+        height 43px
+        font-size 1rem
 
 .non-selectable
     color #979797
@@ -752,16 +780,15 @@ h1, h2, h3, h4, h5, h6, img, .q-list-header, .q-header, .q-menu .q-item-label, .
     color $oxen-navy
 
     .created-inner-wrapper
-         background-color: #242433;
-         width: 70%;
-         border-radius: 10px;
-         padding: 20px;
+        background-color #242433
+        width 70%
+        border-radius 10px
+        padding 20px
+
     .q-btn
-    
-       .q-icon
-          font-size: 16px
-            
-    
+        .q-icon
+            font-size 16px
+
     .address
         text-align center
         word-break break-all
@@ -1455,47 +1482,56 @@ body
             background-color $beldex-std-green
             border-radius 10px
             margin-right 20px
+
 .exchage-option
-    min-width: 175px !important
+    min-width 175px !important
+
 .swap
     color white
-    height: calc(100vh - 405px);
-    overflow-y: auto;
+    height calc(100vh - 405px)
+    overflow-y auto
+
     .dropdown-send-type
-        background-color #40405E    
+        background-color #40405E
         max-width 136px
-        border-radius: 7px
+        border-radius 7px
+
         .currency-name
-            color: #77778B !important
-            font-size: 12px
+            color #77778B !important
+            font-size 12px
 
-   
     .swap-btn
-        min-width: unset;
+        min-width unset
         width 38px
-        height: 38px
-        .q-btn__wrapper 
-            padding: unset
-            min-height:unset
-    .fee-expand
-        border: 1px solid #41415B    
-    .drp-content
-        background-color:#242433
-        border-radius: 10px;
-        .q-card__section--vert
-            padding-top: 0;
-    .exerate-wrapper
-        border: 1.2px solid #41415B   
-        border-radius: 10px;
-        .exerate-inner-wrapper
-             border: 1.2px solid #41415B   
-             border-radius: 10px;
-             .icon
-                width:30px
-                height:30px
-                background-color: #40405E
-                border-radius: 20px;
+        height 38px
 
+        .q-btn__wrapper
+            padding unset
+            min-height unset
+
+    .fee-expand
+        border 1px solid #41415B
+
+    .drp-content
+        background-color #242433
+        border-radius 10px
+
+        .q-card__section--vert
+            padding-top 0
+
+    .exerate-wrapper
+        border 1.2px solid #41415B
+        border-radius 10px
+
+        .exerate-inner-wrapper
+            border 1.2px solid #41415B
+            border-radius 10px
+
+            .icon
+                width 30px
+                height 30px
+                background-color #40405E
+                border-radius 20px
 
 @media only screen and (max-width 1380px)
     .rightPane

@@ -33,6 +33,7 @@
           </div>
         </div>
       </div>
+      <div class="seperator-line q-my-sm"></div>
       <div class="verify-heading  header ft-bold " style="font-size:1.25rem">
         {{ $t("titles.advanced.verify") }}
       </div>
@@ -236,7 +237,10 @@ export default {
   .q-item {
     cursor: default;
   }
-
+  .seperator-line {
+    height: 1.5px;
+    background-color: #484856;
+  }
   .oxen-field {
     flex: 1;
   }

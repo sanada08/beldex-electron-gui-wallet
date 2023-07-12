@@ -1,6 +1,9 @@
 <template>
   <div class="master-node-stake-tab">
-    <div :class="`q-pa-md ${master_nodes.length === 0 ? 'd-center' : ''}`">
+    <div
+      v-if="isVisible"
+      :class="`q-pa-md ${master_nodes.length === 0 ? 'd-center' : ''}`"
+    >
       <div
         class="q-pb-sm header items-center  "
         style="font-family: Poppins-Regular;
@@ -35,12 +38,14 @@
       >
         <q-spinner color="primary" size="30" />
       </q-inner-loading>
-      <MasterNodeDetails
-        ref="masterNodeDetailsUnlock"
-        :action="unlockWarning"
-        action-i18n="buttons.unlock"
-      />
     </div>
+    <MasterNodeDetails
+      v-else
+      ref="masterNodeDetailsUnlock"
+      :action="unlockWarning"
+      action-i18n="buttons.unlock"
+      :node="this.nodeDetails"
+    />
   </div>
 </template>
 
@@ -66,7 +71,9 @@ export default {
       { action: "viewOnExplorer", i18n: "menuItems.viewOnExplorer" }
     ];
     return {
-      menuItems
+      menuItems,
+      isVisible: true,
+      nodeDetails: ""
     };
   },
   computed: mapState({
@@ -158,8 +165,11 @@ export default {
   },
   methods: {
     details(node) {
-      this.$refs.masterNodeDetailsUnlock.isVisible = true;
-      this.$refs.masterNodeDetailsUnlock.node = node;
+      this.nodeDetails = node;
+      this.isVisible = false;
+
+      // this.$refs.masterNodeDetailsUnlock.isVisible = true;
+      // this.$refs.masterNodeDetailsUnlock.node = node;
     },
     unlockWarning(node, event) {
       const key = node.master_node_pubkey;

@@ -372,9 +372,10 @@ export default {
       border-radius: 31px;
       .q-icon {
         font-size: 1.2em;
+        margin-top: 2px;
       }
       .on-left {
-        margin-right: 1px;
+        margin-right: 3px;
       }
     }
 

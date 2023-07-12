@@ -339,10 +339,13 @@ export default {
 }
 
 .version-wrapper {
-  height: 52%;
+  position: absolute;
+  bottom: 28px;
+  // height: 52%;
   /* background-color: aliceblue; */
   display: flex;
   align-items: flex-end;
+
   .version {
     display: flex;
     align-items: center;
@@ -357,11 +360,11 @@ export default {
   }
 }
 
-@media only screen and (max-height: 780px) {
-  .version-wrapper {
-    height: 39%;
-  }
-}
+// @media only screen and (max-height: 780px) {
+//   .version-wrapper {
+//     height: 39%;
+//   }
+// }
 .footer {
   .fixed-bottom,
   .absolute-bottom {
