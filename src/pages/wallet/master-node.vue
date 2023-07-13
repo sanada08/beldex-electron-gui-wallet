@@ -1,6 +1,9 @@
 <template>
   <q-page class="master-node-page" style="min-height: unset">
-    <div class="header row items-center justify-left ">
+    <div
+      v-if="Object.keys(this.nodedetails).length === 0"
+      class="header row items-center justify-left "
+    >
       <q-btn-toggle
         v-model="screen"
         toggle-color="primary"
@@ -28,15 +31,20 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 import MasterNodeStaking from "components/master_node/master_node_staking";
 import MasterNodeRegistration from "components/master_node/master_node_registration";
 import MasterNodeUnlock from "components/master_node/master_node_unlock";
+
 export default {
   components: {
     MasterNodeStaking,
     MasterNodeRegistration,
     MasterNodeUnlock
   },
+  computed: mapState({
+    nodedetails: state => state.gateway.mnDetails
+  }),
   data() {
     return {
       screen: "staking"

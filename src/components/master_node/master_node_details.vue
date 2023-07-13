@@ -57,11 +57,11 @@
       </q-toolbar>
     </q-header>
     <q-page class="detail-page" style="min-height:unset;">
-      <div>
-        <h6 class="q-mt-xs q-mb-none text-weight-light">
+      <div lass="q-mt-lg ">
+        <!-- <h6 class="q-mt-xs q-mb-none text-weight-light">
           {{ $t("strings.masterNodeDetails.masterNodeKey") }}
         </h6>
-        <p class="break-all">{{ node.master_node_pubkey }}</p>
+        <p class="break-all">{{ node.master_node_pubkey }}</p> -->
 
         <div class=" detailbox flex row justify-between">
           <div class="mn-detail-wrapper">
@@ -106,7 +106,7 @@
           </div>
           <div class="mn-detail-wrapper">
             <div class="infoBoxContent">
-              <div class="text ft-Light" style="padding-right: 23px;">
+              <div class="text ft-Light" style="padding-right: 25px;">
                 <span>{{ $t("strings.masterNodeDetails.operatorFee") }}</span>
               </div>
               <div class="value ft-semibold">
@@ -157,6 +157,7 @@
             v-for="contributor in contributors"
             :key="contributor.address"
             class="oxen-list-item"
+            style="margin-right: 5px;"
             clickable
             @click="openUserWalletInfo(contributor.address)"
           >
@@ -216,6 +217,10 @@ export default {
       type: String,
       required: true
     },
+    goback: {
+      type: Function,
+      required: true
+    },
     node: {
       type: Object,
       required: true
@@ -235,6 +240,7 @@ export default {
   computed: mapState({
     theme: state => state.gateway.app.config.appearance.theme,
     unlock_status: state => state.gateway.master_node_status.unlock,
+    nodedetails: state => state.gateway.mnDetails,
     is_ready() {
       return this.$store.getters["gateway/isReady"];
     },
@@ -246,6 +252,7 @@ export default {
       const { net_type } = state.gateway.app.config.app;
       return net_type !== "stagenet";
     },
+
     contributors(state) {
       if (!this.node.contributors) return [];
       const { address_book } = state.gateway.wallet.address_list;
@@ -279,6 +286,7 @@ export default {
       });
     },
     openExplorer() {
+      // console.log('nodedetails::',this.nodedetails)
       this.$gateway.send("core", "open_explorer", {
         type: "master_node",
         id: this.node.master_node_pubkey

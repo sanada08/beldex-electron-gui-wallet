@@ -47,7 +47,7 @@
         >
       </q-item-section>
     </q-item>
-    <template v-if="shouldShowInfo">
+    <!-- <template v-if="shouldShowInfo">
       <q-separator />
       <q-item>
         <q-item-section>
@@ -74,7 +74,7 @@
           </div>
         </q-item-section>
       </q-item>
-    </template>
+    </template> -->
     <ContextMenu
       :menu-items="menuItems"
       @showDetails="details(address)"

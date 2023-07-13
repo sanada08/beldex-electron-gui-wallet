@@ -123,7 +123,7 @@
                 <div class="ft-medium label q-mt-sm">
                   {{ $t("strings.oxenBalance") }}
                 </div>
-                <div class="value balance-box">N/A</div>
+                <div class="value balance-box">0</div>
                 <!-- </div>
                 </div> -->
                 <div class="flex row justify-between q-mt-md">
@@ -134,7 +134,7 @@
                       <span>{{ $t("strings.oxenUnlockedBalance") }}</span>
                     </div>
 
-                    <div class="value"><span>N/A</span></div>
+                    <div class="value"><span>0</span></div>
                   </div>
                   <!-- </div>
                   </div> -->
@@ -146,7 +146,7 @@
                       <!-- <span>{{ $t("strings.numberOfUnspentOutputs") }}</span> -->
                       <span>Unspent Outputs</span>
                     </div>
-                    <div class="value"><span>N/A</span></div>
+                    <div class="value"><span>0</span></div>
                   </div>
                   <!-- </div>
                   </div> -->

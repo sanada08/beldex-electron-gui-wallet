@@ -1,6 +1,15 @@
 <template>
-  <div class="master-node-staking">
-    <div class="q-px-md q-pt-md">
+  <div
+    :class="
+      `${
+        Object.keys(this.nodedetails).length === 0 ? 'master-node-staking' : ''
+      }`
+    "
+  >
+    <div
+      v-if="Object.keys(this.nodedetails).length === 0"
+      class="q-px-md q-pt-md"
+    >
       <p class="tab-desc ft-Light">
         {{ $t("strings.masterNodeContributionDescription") }}
         <span
@@ -69,10 +78,13 @@
         />
       </div>
     </div>
-    <div class="hr-separator" style="margin: 10px 19px" />
+    <div
+      v-if="Object.keys(this.nodedetails).length === 0"
+      class="hr-separator"
+      style="margin: 10px 19px"
+    />
     <MasterNodeContribute
       :awaiting-master-nodes="awaiting_master_nodes"
-      class="contribute q-mx-md"
       @contribute="fillStakingFields"
     />
     <ConfirmTransactionDialog
@@ -140,6 +152,7 @@ export default {
     sweep_all_status: state => state.gateway.sweep_all_status,
     award_address: state => state.gateway.wallet.info.address,
     confirmSweepAll: state => state.gateway.sweep_all_status.code === 1,
+    nodedetails: state => state.gateway.mnDetails,
     is_ready() {
       return this.$store.getters["gateway/isReady"];
     },
@@ -396,7 +409,11 @@ export default {
         noPasswordMessage: this.$t("dialog.sweepAll.message"),
         ok: {
           label: this.$t("dialog.sweepAll.ok"),
-          color: "#35af3b"
+          color: "primary"
+        },
+        cancel: {
+          label: this.$t("dialog.buttons.cancel"),
+          color: "accent"
         }
       });
       passwordDialog
@@ -465,6 +482,11 @@ export default {
           label: this.$t("dialog.stake.ok"),
           color: "primary"
         },
+        cancel: {
+          label: this.$t("dialog.buttons.cancel"),
+          color: "accent"
+        },
+
         dark: this.theme == "dark",
         color: this.theme == "dark" ? "white" : "dark"
       });

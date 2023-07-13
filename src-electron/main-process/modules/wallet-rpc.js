@@ -464,6 +464,14 @@ export class WalletRPC {
         // });
         break;
 
+      case "set_mnDetails":
+        // this.getBalance("getbalance");
+        this.set_mnDetails(params.data);
+        // this.$store.commit("gateway/set_router_path_rightpane", {
+        //   path: "receive"
+        // });
+        break;
+
       default:
     }
   }
@@ -2412,6 +2420,9 @@ export class WalletRPC {
   }
   set_sender_address(val) {
     this.sendGateway("set_sender_address", val);
+  }
+  set_mnDetails(val) {
+    this.sendGateway("set_mnDetails", val);
   }
   exportKeyImages(password, filename = null) {
     crypto.pbkdf2(

@@ -4,7 +4,7 @@ export default {
     advanced: "Advanced",
     addAddressBook: "Add to Address book",
     addWallet: "Add Wallet",
-    all: "ALL",
+    all: "All",
     back: "Back",
     browse: "Browse",
     cancel: "Cancel",
@@ -13,11 +13,11 @@ export default {
     clear: "Clear",
     clearAll: "Clear All",
     close: "Close",
-    contacts: "CONTACTS",
-    copyAddress: "COPY ADDRESS",
-    copyData: "COPY DATA",
+    contacts: "Contacts",
+    copyAddress: "Copy Address",
+    copyData: "Copy Data",
     copy: "Copy",
-    copySignature: "COPY SIGNATURE",
+    copySignature: "Copy Signature",
     createWallet: "Create Wallet",
     decrypt: "DECRYPT",
     delete: "Delete",
@@ -27,16 +27,16 @@ export default {
     fromBlockheight: "From Blockheight",
     generate: "Generate",
     import: "Import",
-    importWallet: "Import Wallet | IMPORT WALLETS",
-    bns: "BELDEX NAME SERVICE",
+    importWallet: "Import Wallet | Import Wallets",
+    bns: "BELDEX Name Service",
 
     min: "Min",
     next: "Next",
-    openWallet: "OPEN WALLET",
+    openWallet: "Open Wallet",
     purchase: "PURCHASE",
     receive: "Receive",
     registerMasterNode: "Register Master Node",
-    renew: "RENEW",
+    renew: "Renew",
     refresh: "Refresh",
     rescan: "Rescan",
     restoreWallet: "Restore Wallet",
@@ -46,9 +46,9 @@ export default {
     selectWalletFile: "Select File",
     send: "Send",
     sendCoins: "Send Coins",
-    masterNode: "MASTER NODES",
-    settings: "SETTINGS",
-    showQRCode: "SHOW QR CODE",
+    masterNode: "Master Node",
+    settings: "Settings",
+    showQRCode: "Show QR Code",
     showTxDetails: "TXN Details",
     sign: "Sign",
     stake: "Stake",
@@ -66,7 +66,7 @@ export default {
     buttons: {
       ok: "OK",
       cancel: "Cancel",
-      open: "OPEN"
+      open: "Open"
     },
 
     // Dialogs
@@ -133,13 +133,13 @@ export default {
     registerMasterNode: {
       title: "Register master node",
       message: "Do you want to register the master node?",
-      ok: "REGISTER"
+      ok: "Register"
     },
     rescan: {
       title: "Rescan wallet",
       message:
         "Warning: Some information about previous transactions\nsuch as the recipient's address will be lost.",
-      ok: "RESCAN"
+      ok: "Rescan"
     },
     restart: {
       title: "Restart",
@@ -159,12 +159,12 @@ export default {
     stake: {
       title: "Stake",
       message: "Do you want to stake?",
-      ok: "STAKE"
+      ok: "Stake"
     },
     sweepAll: {
       title: "Sweep all",
       message: "Do you want to sweep all?",
-      ok: "SWEEP ALL"
+      ok: "Sweep all"
     },
     sweepAllWarning: {
       title: "Sweep all warning",

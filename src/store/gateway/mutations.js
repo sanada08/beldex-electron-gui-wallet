@@ -69,3 +69,7 @@ export const set_router_path_rightpane = (state, data) => {
 export const set_sender_address = (state, data) => {
   state.sender_address = data;
 };
+
+export const set_mnDetails = (state, data) => {
+  state.mnDetails = data;
+};

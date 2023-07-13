@@ -146,5 +146,6 @@ export default {
   },
   update_required: false,
   router_path_rightpane: "send",
-  sender_address: ""
+  sender_address: "",
+  mnDetails: {}
 };

@@ -30,7 +30,7 @@
     scrollbar-dark-shadow-color #646464
 
     &::-webkit-scrollbar
-        width 8px
+        width 4px
         height 8px
 
     &::-webkit-scrollbar-button
@@ -174,7 +174,7 @@ h1, h2, h3, h4, h5, h6, img, .q-list-header, .q-header, .q-menu .q-item-label, .
     border-radius 8px
 
 .bg-red:hover
-    background-color #FF5454 !important
+    background-color #FF4444 !important
 
 .q-layout-page
     min-height 0 !important
@@ -746,20 +746,23 @@ h1, h2, h3, h4, h5, h6, img, .q-list-header, .q-header, .q-menu .q-item-label, .
     .q-header .q-toolbar__title
         background-color unset !important
     .detail-page
-        padding-top: 70px;
-        color:white
+        padding-top: 75px;
+        color:white;
+        height: calc(100vh - 426px);
+        
     .address
         color white
     .detailbox
         border:2px solid #41415B
         padding: 10px;
         border-radius: 10px
+        margin-right: 5px;
     .oxen-list .oxen-list-item 
         background-color: #32324A
         padding: 20px
         margin:10px 0
     .mn-detail-wrapper
-        width: 14%
+        width: 12%
         .text
            font-size: 0.8rem;
            margin-bottom: 15px
@@ -769,9 +772,9 @@ h1, h2, h3, h4, h5, h6, img, .q-list-header, .q-header, .q-menu .q-item-label, .
         color #979797
 
     .unlock-btn,.explorebtn
-        min-width unset
-        height 43px
-        font-size 1rem
+        min-width unset !important
+        height 40px  !important
+        font-size 1rem !important
 
 .non-selectable
     color #979797
@@ -1537,6 +1540,9 @@ body
     .rightPane
         .send-btn
             width unset
+
+    .masterNodeDetails .mn-detail-wrapper
+        width: 14%;        
 
 @media only screen and (max-height 780px)
     .rectangleBox
