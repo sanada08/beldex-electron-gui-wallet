@@ -173,7 +173,11 @@
             :disable="!is_ready"
             size="md"
             @click="edit()"
-          />
+          >
+            <q-tooltip anchor="bottom right" self="top right" :offset="[0, 5]">
+              Edit Contact
+            </q-tooltip>
+          </q-btn>
           <!-- :label="$t('buttons.send')" -->
           <!-- 
           <q-btn

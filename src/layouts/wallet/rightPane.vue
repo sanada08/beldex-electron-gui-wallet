@@ -53,9 +53,13 @@
           <span class="btn-txt">Receive</span>
         </q-btn>
       </div>
-      <div :class="[this.routes === '' ? 'active' : '']">
+      <div :class="[this.routes === 'address' ? 'active' : '']">
         <!-- <router-link to="/wallet/addressbook" > -->
-        <q-btn class="large-btn addressbook-btn" size="md" @click="router('')">
+        <q-btn
+          class="large-btn addressbook-btn"
+          size="md"
+          @click="router('address')"
+        >
           <svg
             width="21"
             height="21"

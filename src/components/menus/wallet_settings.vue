@@ -536,9 +536,11 @@ export default {
     );
   },
   methods: {
-    showModal(which) {
+    async showModal(which) {
       if (!this.is_ready) return;
       this.modals[which].visible = true;
+      // const hasPassword =  await this.hasPassword();
+      // console.log('hasPasswordhasPassword ::',hasPassword)
     },
     hideModal(which) {
       this.modals[which].visible = false;
@@ -714,11 +716,35 @@ export default {
       let new_password_confirm = this.modals.change_password
         .new_password_confirm;
 
-      if (!old_password || !new_password || !new_password_confirm) {
+      // if (!old_password || !new_password || !new_password_confirm) {
+      //   this.$q.notify({
+      //     type: "negative",
+      //     timeout: 1000,
+      //     message: this.$t("notification.errors.passwordFieldEmpty")
+      //   });
+      //   return;
+      // }
+      if (!old_password) {
         this.$q.notify({
           type: "negative",
           timeout: 1000,
-          message: this.$t("notification.errors.passwordFieldEmpty")
+          message: "Please enter old password"
+        });
+        return;
+      }
+      if (!new_password) {
+        this.$q.notify({
+          type: "negative",
+          timeout: 1000,
+          message: "Please enter new password"
+        });
+        return;
+      }
+      if (!new_password_confirm) {
+        this.$q.notify({
+          type: "negative",
+          timeout: 1000,
+          message: "Please enter confirm password"
         });
         return;
       }

@@ -71,10 +71,10 @@ export default {
 
     // Dialogs
     banPeer: {
-      title: "Ban peer",
-      peerDetailsTitle: "Peer details",
+      title: "Ban Peer",
+      peerDetailsTitle: "Peer Details",
       message: "Enter length to ban peer in seconds.\nDefault 3600 = 1 hour.",
-      ok: "Ban peer"
+      ok: "Ban Peer"
     },
     copyAddress: {
       title: "Copy address",
@@ -91,14 +91,14 @@ export default {
       spendKey: "Spend Key"
     },
     deleteWallet: {
-      title: "Delete wallet",
+      title: "Delete Wallet",
       message: "Are you sure you want to delete the current wallet?",
       ok: "Delete"
     },
     exit: {
       title: "Exit",
       message: "Are you sure you want to Exit the wallet?",
-      ok: "Exit"
+      ok: "Exit Wallet"
     },
     keyImages: {
       title: "{type} Key Images",
@@ -112,7 +112,7 @@ export default {
       ok: "UPDATE"
     },
     noPassword: {
-      title: "No password set",
+      title: "No Password Set",
       message: "Are you sure you want to create a wallet with no password?",
       ok: "Yes"
     },
@@ -144,10 +144,10 @@ export default {
     restart: {
       title: "Restart",
       message: "Changes require restart. Would you like to restart now?",
-      ok: "Restart"
+      ok: "Restart Wallet"
     },
     showPrivateKeys: {
-      title: "Show private keys",
+      title: "Show Private Keys",
       message: "Do you want to view your private keys?",
       ok: "Show"
     },
@@ -181,7 +181,7 @@ export default {
         "Are you sure you want to close and Restart the wallet?"
     },
     transactionDetails: {
-      title: "Transaction details",
+      title: "Transaction Details",
       ok: "Close"
     },
     transfer: {
@@ -256,7 +256,7 @@ export default {
     restoreFromDate: "Restore from Date",
     seedLanguage: "Seed Language",
     masterNodeCommand: "Master Node Command",
-    masterNodeKey: "Master node Key",
+    masterNodeKey: "Master Node Key",
     bchatId: "BCHAT ID",
     signature: "Signature",
     transactionId: "Transaction ID",
@@ -270,8 +270,8 @@ export default {
     confirmNewPassword: "Confirm New Password",
     newPassword: "New Password",
     oldPassword: "Old Password",
-    rescanFullBlockchain: "Rescan full blockchain",
-    rescanSpentOutputs: "Rescan spent outputs",
+    rescanFullBlockchain: "Rescan Full Blockchain",
+    rescanSpentOutputs: "Rescan Spent Outputs",
     transactionNotes: "Transaction Notes",
     totalBalance: "Total Balance",
     chooseNetwork: "Choose a Network",
@@ -306,7 +306,7 @@ export default {
     copyMasterNodeKey: "Copy master node key",
     copyTransactionId: "Copy transaction ID",
     copyViewKey: "Copy view key",
-    createNewWallet: "Create new wallet",
+    createNewWallet: "Create New Wallet",
     deleteWallet: "Delete Wallet",
     exit: "Exit Wallet",
     importOldGUIWallet: "Import wallets from old GUI",
@@ -461,13 +461,13 @@ export default {
     reEnterWalletPassword: "Re-Enter Password"
   },
   strings: {
-    addAddressBookEntry: "Add address ",
+    addAddressBookEntry: "Add Address ",
     addressBookDetails: "Address book details",
     addressBookIsEmpty: "Address book is empty",
     addresses: {
       myPrimaryAddress: "My primary address",
-      myUnusedAddresses: "My unused addresses",
-      myUsedAddresses: "My used addresses",
+      myUnusedAddresses: "Unused Address",
+      myUsedAddresses: "Used addresses",
       // primaryAddress: "Primary address",
       subAddress: "Sub-address",
       subAddressIndex: "Index {index}",
@@ -536,15 +536,15 @@ export default {
     oxenBalance: "Balance",
     belnetNameDescription:
       "Purchase or update a name on Belnet. If you purchase a name it may take a minute or two for it to show up in the list. To learn more about belnet visit: ",
-    oxenUnlockedBalance: "Unlocked balance",
+    oxenUnlockedBalance: "Unlocked Balance",
     oxenUnlockedShort: "Unlocked",
     me: "Me",
-    noTransactionsFound: "No transactions yet",
+    noTransactionsFound: "No transactions yet!",
     notes: "Notes",
     numberOfUnspentOutputs: "Number of unspent outputs",
     operator: "Operator",
     paymentID: "Payment ID",
-    peerList: "Peer list",
+    peerList: "Peer List",
     priorityOptions: {
       automatic: "Automatic",
       slow: "Slow",
@@ -654,7 +654,7 @@ export default {
     bnsBelnetRecords: "Belnet records",
     importFromFile: "Import from File",
     privateKeys: "Private keys",
-    rescanWallet: "Rescan wallet",
+    rescanWallet: "Rescan Wallet",
     restoreFromSeed: "Restore from Seed",
 
     bns: {
@@ -676,16 +676,16 @@ export default {
         peers: "Peers"
       }
     },
-    transactionDetails: "Transaction details",
+    transactionDetails: "Transaction Details",
     details: "Details",
     transactions: "Transactions",
     wallet: {
-      createNew: "Create new wallet",
+      createNew: "Create New Wallet",
       createdOrRestored: "Wallet created/restored",
       walletRestored: "Wallet Restored",
       walletCreated: "Wallet Created",
       walletImported: "Wallet Imported",
-      importFromFile: "Import wallet from file",
+      importFromFile: "Import Wallet from File",
       useExistingWallet: "Use Existing Wallet",
       importFromLegacyGUI: "Import wallet from legacy GUI",
       importFromOldGUI: "Import wallet from old GUI",

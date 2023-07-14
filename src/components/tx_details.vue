@@ -381,7 +381,11 @@
           {{ JSON.stringify(this.tx, null, 2) }}
         </article>
         <div class="flex justify-center q-my-lg ">
-          <q-btn color="accent" label="close" @click="showTxnDetails(false)" />
+          <q-btn
+            color="accent"
+            :label="$t('buttons.close')"
+            @click="showTxnDetails(false)"
+          />
         </div>
       </div>
     </q-dialog>
