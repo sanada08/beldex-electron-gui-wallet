@@ -646,7 +646,7 @@ export default {
       verify: "Verify"
     },
     availableForContribution: "Master nodes available for contribution",
-    changePassword: "Change password",
+    changePassword: "Change Password",
     configure: "Configuration Settings",
     currentlyStakedNodes: "Currently staked nodes",
     bnsRecordDetails: "BNS record details",
