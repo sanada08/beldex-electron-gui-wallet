@@ -1494,7 +1494,26 @@ body
     color white
     height calc(100vh - 405px)
     overflow-y auto
-
+    .history-btn
+        min-width: 100px;
+        height 40px
+        font-size: 16px
+    .txn-fee-details
+        border:1.5px solid #484856;
+        border-radius: 10px
+        border-collapse: separate;
+        border-spacing: 0;
+        td
+          padding: 10px 12px;
+        td:nth-child(1)
+           border-right: 1.5px solid #484856
+           width: 48%;
+        tr:nth-child(1)
+           td
+             padding-top: 16px;
+        tr:last-child
+          td
+            border-top:1.5px solid #484856
     .dropdown-send-type
         background-color #40405E
         max-width 136px
@@ -1524,18 +1543,81 @@ body
             padding-top 0
 
     .exerate-wrapper
-        border 1.2px solid #41415B
-        border-radius 10px
-
         .exerate-inner-wrapper
             border 1.2px solid #41415B
             border-radius 10px
-
+            background-color: $beldex-disable-grey
+ 
             .icon
                 width 30px
                 height 30px
                 background-color #40405E
                 border-radius 20px
+            .content
+                color: #77778B
+                font-size: 1.14188rem
+
+    .info-wrapper
+        border:1px solid #41415B    
+        padding: 10px
+        border-radius: 10px  
+        color: $beldex-font-grey    
+
+    .support-protocal-box
+        background-color: $beldex-disable-grey
+        width: 30px;
+        text-align: center;
+        font-size: 12px;
+        border-radius: 4px;
+
+    .terms-condition 
+          color: white
+          text-align: center
+         
+    .terms-condition ,.destination-tag-wrapper
+          .q-checkbox__inner--truthy 
+            .q-checkbox__bg
+                background-color: transparent
+                border-color:#20D030
+            .q-checkbox__svg
+                color:#20D030;
+             
+          a
+           color:white  
+    .destination-tag-wrapper
+         border:1px solid #41415B    
+         padding: 10px 30px
+         border-radius:10px
+         .hint
+            color: #EBEBEB
+    .box-input
+         border:1px solid #41415B   
+         border-radius:10px 
+         padding: 7px 10px 
+
+.confirmPayment
+    padding: 13px 25px;
+    .header-txt
+        font-size 18px   
+    .amount-txt
+        font-size: 16px  
+        
+    .expand-txt
+        color: #00AD07
+        font-size: 14px  
+    .hr-seperator
+        height: 2px
+        background-color: #8787A8
+        margin-top: 20px;
+        margin-bottom: 20px;
+    .hint-txt
+        font-size: 12px
+        color:#AFAFBE
+        width: 70%
+    .recipt-address
+        word-break: break-all;
+        width: 86%;
+        font-size: 12px;
 
 @media only screen and (max-width 1380px)
     .rightPane

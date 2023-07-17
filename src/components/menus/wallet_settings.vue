@@ -716,38 +716,38 @@ export default {
       let new_password_confirm = this.modals.change_password
         .new_password_confirm;
 
-      // if (!old_password || !new_password || !new_password_confirm) {
+      if (!old_password || !new_password || !new_password_confirm) {
+        this.$q.notify({
+          type: "negative",
+          timeout: 1000,
+          message: this.$t("notification.errors.passwordFieldEmpty")
+        });
+        return;
+      }
+      // if (!old_password) {
       //   this.$q.notify({
       //     type: "negative",
       //     timeout: 1000,
-      //     message: this.$t("notification.errors.passwordFieldEmpty")
+      //     message: "Please enter old password"
       //   });
       //   return;
       // }
-      if (!old_password) {
-        this.$q.notify({
-          type: "negative",
-          timeout: 1000,
-          message: "Please enter old password"
-        });
-        return;
-      }
-      if (!new_password) {
-        this.$q.notify({
-          type: "negative",
-          timeout: 1000,
-          message: "Please enter new password"
-        });
-        return;
-      }
-      if (!new_password_confirm) {
-        this.$q.notify({
-          type: "negative",
-          timeout: 1000,
-          message: "Please enter confirm password"
-        });
-        return;
-      }
+      // if (!new_password) {
+      //   this.$q.notify({
+      //     type: "negative",
+      //     timeout: 1000,
+      //     message: "Please enter new password"
+      //   });
+      //   return;
+      // }
+      // if (!new_password_confirm) {
+      //   this.$q.notify({
+      //     type: "negative",
+      //     timeout: 1000,
+      //     message: "Please enter confirm password"
+      //   });
+      //   return;
+      // }
       if (new_password == old_password) {
         this.$q.notify({
           type: "negative",
