@@ -323,17 +323,24 @@
         <q-btn label="Next" color="primary" />
       </div>
     </div>
-    <SwapConfirmPayment v-else />
+    <SwapConfirmPayment v-if="false" />
+    <SwapTxnHistory v-if="false" />
+    <SwapTxnSettlement v-else />
   </q-page>
 </template>
 
 <script>
 import OxenField from "components/oxen_field";
 import SwapConfirmPayment from "./swapConfirmPayment.vue";
+import SwapTxnHistory from "./swapTxnHistory.vue";
+import SwapTxnSettlement from "./swapTxnSettlement.vue";
+
 export default {
   components: {
     OxenField,
-    SwapConfirmPayment
+    SwapConfirmPayment,
+    SwapTxnHistory,
+    SwapTxnSettlement
   },
   data() {
     return {
