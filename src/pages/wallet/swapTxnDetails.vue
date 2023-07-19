@@ -3,7 +3,7 @@
     <!-- <q-header>
           <q-toolbar top> -->
     <header class="flex row items-center q-mb-md justify-between">
-      <div class="flex items-center back-arrow-btn">
+      <div class="flex items-center back-arrow-btn" @click="backToHistory">
         <svg
           width="26"
           height="26"
@@ -91,10 +91,21 @@
 export default {
   name: "SwapTxnDetails",
 
+  props: {
+    goback: {
+      type: Function,
+      require: true
+    }
+  },
+
   data() {
     return {};
   },
 
-  methods: {}
+  methods: {
+    backToHistory() {
+      this.$emit("goback");
+    }
+  }
 };
 </script>

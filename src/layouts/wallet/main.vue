@@ -72,6 +72,7 @@
               <q-icon name="chevron_right" size="24px" />
             </article>
           </router-link>
+
           <router-link to="/wallet/swap" class="box">
             <article
               class="flex row alignItem-center justify-between menuList selected box q-mt-md"
@@ -93,6 +94,130 @@
               <q-icon name="chevron_right" size="24px" />
             </article>
           </router-link>
+          <!-- 
+          <div class="q-pa-md swap-stepper">
+            <q-stepper v-model="step" vertical color="primary" animated>
+              <q-step
+                :name="1"
+                title="Select campaign settings"
+                icon="1"
+                :done="this.step > 1"
+              >
+                For each ad campaign that you create, 
+
+                <q-stepper-navigation>
+                  <q-btn @click="step = 2" color="primary" label="Continue" />
+                </q-stepper-navigation>
+              </q-step>
+
+              <q-step
+                :name="2"
+                title="Create an ad group"
+                caption="Optional"
+                icon="2"
+                :done="step > 2"
+              >
+                An ad group contains 
+
+                <q-stepper-navigation>
+                  <q-btn @click="step = 4" color="primary" label="Continue" />
+                  <q-btn
+                    flat
+                    @click="step = 1"
+                    color="primary"
+                    label="Back"
+                    class="q-ml-sm"
+                  />
+                </q-stepper-navigation>
+              </q-step>
+
+              <q-step :name="3" title="Ad template" icon="assignment" disable>
+                This step won't show up because it is disabled.
+              </q-step>
+
+              <q-step :name="4" title="Create an ad" icon="add_comment">
+                Try out different ad text to see 
+                <q-stepper-navigation>
+                  <q-btn color="primary" label="Finish" />
+                  <q-btn
+                    flat
+                    @click="step = 2"
+                    color="primary"
+                    label="Back"
+                    class="q-ml-sm"
+                  />
+                </q-stepper-navigation>
+              </q-step>
+            </q-stepper>
+          </div> -->
+          <div class="swap-stepper q-mt-sm">
+            <div class="flex row">
+              <div
+                class="icon-wrapper q-mr-sm flex justify-center items-center"
+              >
+                <sapn
+                  class="position flex justify-center items-center indicateLine"
+                  >1</sapn
+                >
+              </div>
+              <div>
+                <span class="ft-semibold">Exchange Pair</span><br />
+                <sapn class="ft-Light step-content"
+                  >Set the preferred exchange pair</sapn
+                >
+              </div>
+            </div>
+
+            <div class="flex row q-mt-md">
+              <div
+                class="icon-wrapper q-mr-sm flex justify-center items-center no-wrap"
+              >
+                <sapn
+                  class="position flex justify-center items-center"
+                  style="position: relative"
+                  >2</sapn
+                >
+              </div>
+              <div>
+                <span class="ft-semibold">Wallet address</span><br />
+                <sapn class="ft-Light step-content"
+                  >Fill in the crypto wallet address details</sapn
+                >
+              </div>
+            </div>
+
+            <div class="flex row  q-mt-md">
+              <div
+                class="icon-wrapper q-mr-sm flex justify-center items-center no-wrap "
+              >
+                <sapn
+                  class="position flex justify-center items-center "
+                  style="position: relative"
+                  >3</sapn
+                >
+              </div>
+              <div>
+                <span class="ft-semibold">Payment</span><br />
+                <sapn class="ft-Light step-content"
+                  >Deposit the amount required for the exchange</sapn
+                >
+              </div>
+            </div>
+
+            <div class="flex row q-mt-md">
+              <div
+                class="icon-wrapper q-mr-sm flex justify-center items-center no-wrap "
+              >
+                <sapn class="position flex justify-center items-center">4</sapn>
+              </div>
+              <div>
+                <span class="ft-semibold">Exchange</span><br />
+                <sapn class="ft-Light step-content"
+                  >Wait for your transaction to be completed</sapn
+                >
+              </div>
+            </div>
+          </div>
           <router-link to="/wallet/advanced" class="box">
             <article
               class="flex row alignItem-center justify-between menuList selected q-mt-md"
@@ -265,7 +390,7 @@ export default {
     RightPane
   },
   data() {
-    return { version };
+    return { version, step: 1 };
   },
   computed: mapState({
     theme: state => state.gateway.app.config.appearance.theme,

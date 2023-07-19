@@ -3,7 +3,7 @@
     <!-- <q-header>
       <q-toolbar top> -->
     <header class="flex row items-center  q-mb-md">
-      <div class="flex items-center back-arrow-btn">
+      <div class="flex items-center back-arrow-btn" @click="goBack">
         <svg
           width="26"
           height="26"
@@ -97,7 +97,7 @@
       </article>
     </section>
 
-    <div class="flex justify-center q-mt-sm">
+    <div class="flex justify-center q-mt-lg">
       <q-btn c color="primary" label="Confirm & Make payment" />
     </div>
 
@@ -109,6 +109,12 @@
 <script>
 export default {
   name: "SwapConfirmPayment",
+  props: {
+    goBack: {
+      type: Function,
+      required: true
+    }
+  },
 
   data() {
     return {};

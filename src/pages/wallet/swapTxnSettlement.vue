@@ -58,7 +58,7 @@
 
       <article class="recipt-address-wrapper">
         <div class="label">Recipient address</div>
-        <div class="flex row justify-between q-mt-md">
+        <div class="flex row justify-between q-mt-sm">
           <div>
             <span class="ft-medium"
               >bcbf9e4b0703d65223af71f3318711d1bc5462588c901c09bda751447b69a0a1</span
@@ -67,8 +67,14 @@
               >blockchain : bitcoin</span
             >
           </div>
-          <q-btn label="Copy Address" color="primary" class="copy-adress-btn" />
-          <q-btn icon="qr_code_scanner" color="accent" class="qr-btn" />
+          <div>
+            <q-btn
+              label="Copy Address"
+              color="primary"
+              class="copy-adress-btn q-mr-xs"
+            />
+            <q-btn icon="qr_code_scanner" color="accent" class="qr-btn" />
+          </div>
         </div>
       </article>
 

@@ -1,9 +1,14 @@
 <template>
   <q-page class="swap" style="min-height: unset">
-    <div v-if="false">
+    <div v-if="this.routes === 'mainPage'">
       <div class="flex row justify-between">
         <header class="text-h6 ft-bold">Exchange</header>
-        <q-btn color="accent" class="history-btn">
+
+        <q-btn
+          color="accent"
+          class="history-btn"
+          @click="routes = 'txnHistory'"
+        >
           <svg
             width="18"
             height="18"
@@ -320,12 +325,12 @@
         >
       </div>
       <div class="flex justify-center q-my-lg">
-        <q-btn label="Next" color="primary" />
+        <q-btn label="Next" color="primary" @click="routes = 'makePayment'" />
       </div>
     </div>
-    <SwapConfirmPayment v-if="false" />
-    <SwapTxnHistory v-if="false" />
-    <SwapTxnSettlement v-else />
+    <SwapConfirmPayment v-if="this.routes === 'makePayment'" />
+    <SwapTxnHistory v-if="this.routes === 'txnHistory'" @goback="navigation" />
+    <SwapTxnSettlement v-if="this.routes === 'settlement'" />
   </q-page>
 </template>
 
@@ -350,6 +355,7 @@ export default {
       destinationTag: "no",
       destinationTagValue: "",
       refundAdress: "",
+      routes: "mainPage",
       sendAmounType:
         "BDX<span class='currency-name ft-regular'> - beldex<span>",
       sendAmounTypeOption: [
@@ -367,6 +373,12 @@ export default {
         }
       ]
     };
+  },
+  methods: {
+    navigation() {
+      console.log("mainPagemainPagemainPage");
+      this.routes = "mainPage";
+    }
   }
 };
 </script>

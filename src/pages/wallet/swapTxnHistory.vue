@@ -1,9 +1,9 @@
 <template>
-  <div v-if="false" class="swapTxnHistory">
+  <div v-if="isVisible" class="swapTxnHistory">
     <!-- <q-header>
         <q-toolbar top> -->
     <header class="flex row items-center q-mb-md justify-between">
-      <div class="flex items-center back-arrow-btn">
+      <div class="flex items-center back-arrow-btn" @click="backToSwap">
         <svg
           width="26"
           height="26"
@@ -54,8 +54,8 @@
           <th>Receiver</th>
           <th>Amount Received</th>
         </tr>
-        <tr>
-          <td>
+        <tr @click="isVisible = false">
+          <td class="cursor">
             <svg
               width="28"
               height="28"
@@ -69,12 +69,12 @@
               />
             </svg>
           </td>
-          <td class="ft-medium">28 Apr 2023, 20:14:15</td>
+          <td class="ft-medium cursor">28 Apr 2023, 20:14:15</td>
 
-          <td class="ft-semibold">774BDX</td>
-          <td class="ft-medium">1 BDX = 0.00000116BTC</td>
-          <td class="ft-medium">142...hzy</td>
-          <td class="ft-semibold">0.00063271 BTC</td>
+          <td class="ft-semibold cursor">774BDX</td>
+          <td class="ft-medium cursor">1 BDX = 0.00000116BTC</td>
+          <td class="ft-medium cursor">142...hzy</td>
+          <td class="ft-semibold cursor">0.00063271 BTC</td>
         </tr>
 
         <tr>
@@ -131,7 +131,7 @@
     <!-- </q-toolbar>
       </q-header> -->
   </div>
-  <SwapTxnDetails v-else />
+  <SwapTxnDetails v-else @goback="isVisible = true" />
 </template>
 
 <script>
@@ -141,11 +141,23 @@ export default {
   components: {
     SwapTxnDetails
   },
-
-  data() {
-    return {};
+  props: {
+    goback: {
+      type: Function,
+      required: true
+    }
   },
 
-  methods: {}
+  data() {
+    return {
+      isVisible: true
+    };
+  },
+
+  methods: {
+    backToSwap() {
+      this.$emit("goback");
+    }
+  }
 };
 </script>
