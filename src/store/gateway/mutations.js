@@ -73,3 +73,7 @@ export const set_sender_address = (state, data) => {
 export const set_mnDetails = (state, data) => {
   state.mnDetails = data;
 };
+
+export const set_stepperPosition = (state, data) => {
+  state.stepperPosition = data;
+};

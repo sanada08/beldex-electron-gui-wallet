@@ -1520,10 +1520,14 @@ body
 
         td
             padding 10px 12px
+            .fixed-rate-hint
+                color: #AFAFBE
+                font-size: 10px
+
 
         td:nth-child(1)
             border-right 1.5px solid #484856
-            width 48%
+            width: 44%;
 
         tr:nth-child(1)
             td
@@ -1562,10 +1566,12 @@ body
             padding-top 0
 
     .exerate-wrapper
+        
         .exerate-inner-wrapper
             border 1.2px solid #41415B
             border-radius 10px
             background-color $beldex-disable-grey
+            cursor pointer
 
             .icon
                 width 30px
@@ -1576,6 +1582,8 @@ body
             .content
                 color #77778B
                 font-size 1.14188rem
+        .active
+            border-color:#00AD07
 
     .info-wrapper
         border 1px solid #41415B
@@ -1739,6 +1747,9 @@ body
             margin-right 3px
 
 .txnSettlement
+    padding: 13px 25px;
+    .header-txt
+        font-size 18px
     .fund-details-wrapper
         .title
             font-size 1rem
@@ -1821,6 +1832,7 @@ body
     color white
     border-radius:10px
     display: none
+    position relative
     transition: display 2s linear 1s
 
     .icon-wrapper
@@ -1829,17 +1841,24 @@ body
             border-radius 55px
             width 25px
             height 25px
+        .dot
+            width: 10px
+            height: 10px
+            border-radius: 60px
+            background-color: #A9A9CD
         .indicateLine:after
             content: '';
             position: absolute;
-            left: 3.7%;
-            top: 48%;
+            // left: 3.7%;
+            top: 60px;
             width: 1px;
-            height: 193px;
+            height: 211px;
             background: #484856;
     .step-content
         color: #AFAFBE
         font-size: 0.8rem
+    .menu-wrapper
+        width: 184px;
 
 @media only screen and (max-width 1380px)
     .rightPane

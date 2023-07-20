@@ -27,13 +27,18 @@
 
       <section class="flex row justify-between">
         <article style="width: 49%">
-          <OxenField class="q-mt-md ft-regular" label="You send">
+          <OxenField
+            class="q-mt-md ft-regular"
+            label="You send"
+            :error="$v.sendAmount.$error"
+          >
             <q-input
-              v-model.trim="address"
+              v-model="sendAmount"
               :dark="theme == 'dark'"
               borderless
               dense
               :placeholder="0"
+              @blur="$v.sendAmount.$touch()"
             />
             <q-select
               v-model="sendAmounType"
@@ -83,13 +88,18 @@
             </q-btn>
           </div>
 
-          <OxenField class="ft-regular" label="You get">
+          <OxenField
+            class="ft-regular"
+            label="You get"
+            :error="$v.getAmount.$error"
+          >
             <q-input
-              v-model.trim="address"
+              v-model="getAmount"
               :dark="theme == 'dark'"
               borderless
               dense
               :placeholder="0"
+              @blur="$v.getAmount.$error"
             />
             <q-select
               v-model="sendAmounType"
@@ -113,17 +123,31 @@
           <table style="width: 100%" class="txn-fee-details">
             <tr>
               <td>You send</td>
-              <td>0 BTC</td>
+              <td>{{ this.sendAmount > 0 ? this.sendAmount : 0 }} BTC</td>
             </tr>
-            <tr>
+            <tr v-if="this.exechangeRate === 'float'">
               <td>Exchange rate</td>
               <td>1 BTC ~ ... ETH</td>
             </tr>
-            <tr>
+            <tr v-else>
+              <td>Fixed rate</td>
+              <td>
+                <span>1 BTC ~ 15.97904761 ETH</span><br />
+                <span class="fixed-rate-hint"
+                  >The fixed rate is updated every 30 Seconds</span
+                >
+              </td>
+            </tr>
+            <tr v-if="this.exechangeRate == 'float'">
               <td>Service fee 0.25%</td>
               <td>0 ETH</td>
             </tr>
-            <tr>
+
+            <tr v-else>
+              <td>Fees</td>
+              <td style="font-size: 12px">All fees inclueded in the rate</td>
+            </tr>
+            <tr v-if="this.exechangeRate == 'float'">
               <td>Network fee</td>
               <td>0 ETH</td>
             </tr>
@@ -156,7 +180,25 @@
     </article> -->
 
       <section class="exerate-wrapper q-mt-md">
-        <article class="flex row exerate-inner-wrapper q-py-md">
+        <article class="flex row info-wrapper q-my-md">
+          <div style="width: 4%; padding-top: 5px" class="flex justify-center">
+            <q-icon name="o_info" size="14px" />
+          </div>
+          <div style="width: 95%">
+            Please do not forget to paste the XRP destination tag provided by
+            your wallet. If the tag is required by your wallet yet is missing in
+            your recipient data, your Ripples will not be delivered.
+          </div>
+        </article>
+
+        <article
+          :class="
+            `flex row exerate-inner-wrapper q-py-md ${
+              this.exechangeRate === 'float' ? 'active' : ''
+            }`
+          "
+          @click="exechangeRate = 'float'"
+        >
           <div class="col-1 flex justify-center items-center">
             <span class="flex justify-center items-center icon" style="">
               <svg
@@ -179,16 +221,21 @@
           <div class="col-10 flex items-center justify-between">
             <span class="ft-semibold content">Floating Exchange Rate</span
             ><br />
-            <span>
-              ~ 502.48397062
-            </span>
+            <span> ~ 502.48397062 </span>
             <!-- <span class="ft-regular" style="color: #afafbe; font-size: 12px"
             >Your amount could chage depending on the market conditions</span
           > -->
           </div>
         </article>
 
-        <article class="flex row exerate-inner-wrapper q-py-md q-mt-sm">
+        <article
+          :class="
+            `flex row exerate-inner-wrapper q-py-md q-mt-sm ${
+              this.exechangeRate === 'fixed' ? 'active' : ''
+            }`
+          "
+          @click="exechangeRate = 'fixed'"
+        >
           <div class="col-1 flex justify-center items-center">
             <span class="flex justify-center items-center icon" style="">
               <svg
@@ -223,16 +270,20 @@
         <div style="width: 4%; padding-top: 5px" class="flex justify-center">
           <q-icon name="o_info" size="14px" />
         </div>
-        <div style="width: 95%">
+        <div v-if="this.exechangeRate === 'float'" style="width: 95%">
           The floating rate can change at any point due to market conditions, so
           you might receive more or less crypto than expected.
+        </div>
+        <div v-else style="width: 95%">
+          With the fixed rate, you will receive the exact amount of crypto you
+          see on this screen.
         </div>
       </div>
 
       <header class="ft-bold q-mt-md">Wallet Address</header>
       <OxenField class="q-mt-md ft-regular" label="Recipient Address">
         <q-input
-          v-model.trim="address"
+          v-model="recipientAddress"
           :dark="theme == 'dark'"
           borderless
           dense
@@ -240,7 +291,7 @@
         />
       </OxenField>
 
-      <article class="flex row q-mt-sm">
+      <!-- <article class="flex row q-mt-sm">
         <div
           class="support-protocal-box ft-semibold flex justify-center items-center q-mr-xs"
         >
@@ -254,14 +305,14 @@
         <div class="ft-Light" style="color: #ebebeb">
           FIO protocol and Unstoppable Domains are supported
         </div>
-      </article>
+      </article> -->
 
       <!-- Refund wallet Address for BTC -->
 
-      <article>
+      <article v-if="this.exechangeRate === 'fixed'">
         <OxenField class="q-mt-md ft-regular" label="Refund wallet Address">
           <q-input
-            v-model.trim="refundAdress"
+            v-model.trim="refundAddress"
             :dark="theme == 'dark'"
             borderless
             dense
@@ -269,7 +320,7 @@
           />
         </OxenField>
 
-        <article class="flex row q-mt-sm">
+        <!-- <article class="flex row q-mt-sm">
           <div
             class="support-protocal-box ft-semibold flex justify-center items-center q-mr-xs"
           >
@@ -283,10 +334,13 @@
           <div class="ft-Light" style="color: #ebebeb">
             FIO protocol and Unstoppable Domains are supported
           </div>
-        </article>
+        </article> -->
       </article>
 
-      <div class="destination-tag-wrapper q-mt-md">
+      <div
+        v-if="this.exechangeRate === 'float'"
+        class="destination-tag-wrapper q-mt-md"
+      >
         <span class="ft-Light hint"
           >Please specify the Destination Tag for your XRP receiving address if
           your wallet provides it. Your transaction will not go through if you
@@ -325,16 +379,28 @@
         >
       </div>
       <div class="flex justify-center q-my-lg">
-        <q-btn label="Next" color="primary" @click="routes = 'makePayment'" />
+        <q-btn label="Next" color="primary" @click="this.next" />
       </div>
     </div>
-    <SwapConfirmPayment v-if="this.routes === 'makePayment'" />
-    <SwapTxnHistory v-if="this.routes === 'txnHistory'" @goback="navigation" />
-    <SwapTxnSettlement v-if="this.routes === 'settlement'" />
+    <SwapConfirmPayment
+      v-if="this.routes === 'makePayment'"
+      @goback="navigation('mainPage', 1)"
+      @submit="navigation('settlement', 3)"
+    />
+    <SwapTxnHistory
+      v-if="this.routes === 'txnHistory'"
+      @goback="navigation('mainPage', 1)"
+    />
+    <SwapTxnSettlement
+      v-if="this.routes === 'settlement'"
+      @goback="navigation('makePayment', 2)"
+    />
   </q-page>
 </template>
 
 <script>
+import { required, decimal } from "vuelidate/lib/validators";
+// import { greater_than_zero } from "src/validators/common";
 import OxenField from "components/oxen_field";
 import SwapConfirmPayment from "./swapConfirmPayment.vue";
 import SwapTxnHistory from "./swapTxnHistory.vue";
@@ -347,6 +413,15 @@ export default {
     SwapTxnHistory,
     SwapTxnSettlement
   },
+  validations: {
+    sendAmount: {
+      required,
+      decimal
+    },
+    getAmount: {
+      required
+    }
+  },
   data() {
     return {
       sendAmount: "",
@@ -354,8 +429,10 @@ export default {
       agree: "no",
       destinationTag: "no",
       destinationTagValue: "",
-      refundAdress: "",
+      refundAddress: "",
       routes: "mainPage",
+      exechangeRate: "float",
+      recipientAddress: "",
       sendAmounType:
         "BDX<span class='currency-name ft-regular'> - beldex<span>",
       sendAmounTypeOption: [
@@ -375,9 +452,33 @@ export default {
     };
   },
   methods: {
-    navigation() {
+    navigation(page, step) {
       console.log("mainPagemainPagemainPage");
-      this.routes = "mainPage";
+      this.$gateway.send("wallet", "set_stepperPosition", {
+        data: step
+      });
+      this.routes = page;
+    },
+    next() {
+      let refundAdd =
+        this.exechangeRate === "fixed" ? this.refundAddress : true;
+      if (
+        this.sendAmount &&
+        this.agree === "yes" &&
+        this.recipientAddress &&
+        refundAdd
+      ) {
+        this.routes = "makePayment";
+        this.$gateway.send("wallet", "set_stepperPosition", {
+          data: 2
+        });
+      } else {
+        this.$q.notify({
+          type: "negative",
+          timeout: 1000,
+          message: "please fill the inputs"
+        });
+      }
     }
   }
 };

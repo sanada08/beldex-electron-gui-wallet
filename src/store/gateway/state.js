@@ -147,5 +147,6 @@ export default {
   update_required: false,
   router_path_rightpane: "send",
   sender_address: "",
-  mnDetails: {}
+  mnDetails: {},
+  stepperPosition: 1
 };

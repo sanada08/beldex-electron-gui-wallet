@@ -3,7 +3,10 @@
     <!-- <q-header>
       <q-toolbar top> -->
     <header class="flex row items-center  q-mb-md">
-      <div class="flex items-center back-arrow-btn" @click="goBack">
+      <div
+        class="flex items-center back-arrow-btn"
+        @click="this.goToExchangepair"
+      >
         <svg
           width="26"
           height="26"
@@ -98,7 +101,11 @@
     </section>
 
     <div class="flex justify-center q-mt-lg">
-      <q-btn c color="primary" label="Confirm & Make payment" />
+      <q-btn
+        color="primary"
+        label="Confirm & Make payment"
+        @click="this.makePayment"
+      />
     </div>
 
     <!-- </q-toolbar>
@@ -110,7 +117,11 @@
 export default {
   name: "SwapConfirmPayment",
   props: {
-    goBack: {
+    goback: {
+      type: Function,
+      required: true
+    },
+    submit: {
       type: Function,
       required: true
     }
@@ -120,6 +131,13 @@ export default {
     return {};
   },
 
-  methods: {}
+  methods: {
+    goToExchangepair() {
+      this.$emit("goback");
+    },
+    makePayment() {
+      this.$emit("submit");
+    }
+  }
 };
 </script>

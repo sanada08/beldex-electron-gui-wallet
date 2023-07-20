@@ -310,6 +310,13 @@ export class Gateway extends EventEmitter {
         this.app.store.commit("gateway/set_mnDetails", decrypted_data.data);
 
         break;
+      case "set_stepperPosition":
+        this.app.store.commit(
+          "gateway/set_stepperPosition",
+          decrypted_data.data
+        );
+
+        break;
     }
   }
 
