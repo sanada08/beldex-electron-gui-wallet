@@ -317,6 +317,12 @@ export class Gateway extends EventEmitter {
         );
 
         break;
+
+      case "set_currencyInfo":
+        console.log("gateway 1");
+        this.app.store.commit("gateway/set_currencyInfo", decrypted_data.data);
+
+        break;
     }
   }
 

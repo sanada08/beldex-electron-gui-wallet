@@ -77,3 +77,9 @@ export const set_mnDetails = (state, data) => {
 export const set_stepperPosition = (state, data) => {
   state.stepperPosition = data;
 };
+
+export const set_currencyInfo = (state, data) => {
+  console.log("gateway 2");
+
+  state.currencyInfo = data;
+};

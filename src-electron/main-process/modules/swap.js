@@ -1,11 +1,31 @@
 import axios from "axios";
 
 export class Swap {
+  constructor(backend) {
+    this.backend = backend;
+    this.wallet_state = {
+      open: false
+    };
+  }
+
+  sendGateway(method, data) {
+    console.log("gateway 3", method);
+
+    console.log("sendGateway:", method, data);
+    // if wallet is closed, do not send any wallet data to gateway
+    // this is for the case that we close the wallet at the same
+    // after another action has started, but before it has finished
+    if (!this.wallet_state.open && method == "set_wallet_data") {
+      return;
+    }
+    this.backend.send(method, data);
+  }
   async handle(data) {
     let params = data.data;
     console.log("paramms:", params);
     switch (data.method) {
       case "currency_list":
+        console.log("currency  1");
         this.getCurrencyList();
         break;
 
@@ -49,8 +69,10 @@ export class Swap {
     }
   }
 
-  getCurrencyList() {
-    return this.sendRPC("getCurrenciesFull", {});
+  async getCurrencyList() {
+    const data = await this.sendRPC("getCurrenciesFull", {});
+    this.sendGateway("set_currencyInfo", data);
+    return;
   }
 
   getExchangeAmount() {
@@ -157,8 +179,8 @@ export class Swap {
         body,
         headers
       );
-      console.log("A:", response.data.result.length);
-      return response.data.result.length;
+      // console.log("A:", response.data.result);
+      return response.data.result;
     } catch (err) {
       return err;
     }

@@ -148,5 +148,9 @@ export default {
   router_path_rightpane: "send",
   sender_address: "",
   mnDetails: {},
-  stepperPosition: 1
+  stepperPosition: 1,
+
+  //  swap states
+
+  currencyInfo: {}
 };

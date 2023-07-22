@@ -45,17 +45,17 @@
               @blur="$v.sendAmount.$touch"
             />
             <q-select
-              v-model="sendAmounType"
-              :options="sendAmounTypeOption"
+              v-model="sendAmounType.label"
+              :options="currencyInfo"
               borderless
               dense
               emit-value
               map-options
-              :menu-offset="[50, 5]"
               :options-html="sendAmounType"
               class="ft-semibold q-pl-sm dropdown-send-type"
               popup-content-class="exchage-option"
               dropdown-icon="expand_more"
+              :menu-offset="[170, 10]"
               @input="sendAmountValidator($event)"
             />
           </OxenField>
@@ -108,12 +108,12 @@
             />
             <q-select
               v-model="receiveAmountType"
-              :options="sendAmounTypeOption"
+              :options="currencyInfo"
               borderless
               dense
               emit-value
               map-options
-              :menu-offset="[50, 5]"
+              :menu-offset="[170, 10]"
               :options-html="receiveAmountType"
               class="ft-semibold q-pl-sm dropdown-send-type"
               popup-content-class="exchage-option"
@@ -422,6 +422,7 @@ import OxenField from "components/oxen_field";
 import SwapConfirmPayment from "./swapConfirmPayment.vue";
 import SwapTxnHistory from "./swapTxnHistory.vue";
 import SwapTxnSettlement from "./swapTxnSettlement.vue";
+import { mapState } from "vuex";
 
 export default {
   components: {
@@ -430,6 +431,22 @@ export default {
     SwapTxnHistory,
     SwapTxnSettlement
   },
+  computed: mapState({
+    // currencyInfo:(state)=>state.gateway.currencyInfo
+    currencyInfo: state => {
+      let data = state.gateway.currencyInfo;
+      let pushedData = [];
+      Object.keys(data).length > 0 &&
+        data.map(item => {
+          let obj = {
+            label: `${item.name}<span class='currency-name ft-regular'> -${item.fullName}<span>`,
+            value: `${item.name}`
+          };
+          pushedData.push(obj);
+        });
+      return pushedData;
+    }
+  }),
   validations: {
     sendAmount: {
       required,
@@ -450,39 +467,24 @@ export default {
       routes: "mainPage",
       exechangeRate: "float",
       recipientAddress: { error: false, val: "" },
-      sendAmounType: "BTC<span class='currency-name ft-regular'> -BTC<span>",
-      receiveAmountType:
-        "BDX<span class='currency-name ft-regular'> - beldex<span>",
-      sendAmounTypeOption: [
-        {
-          label: "BTC<span class='currency-name ft-regular'> - BTC<span>",
-          value: "BTC"
-        },
-        {
-          label: "ETH<span class='currency-name ft-regular'> - ETH<span>",
-          value: "ETH"
-        },
-        {
-          label: "XRP<span class='currency-name ft-regular'> - XRP<span>",
+      sendAmounType: {
+        label: "BTC<span class='currency-name ft-regular'> -Bitcoin<span>",
+        value: "BTC"
+      },
+      receiveAmountType: {
+        label: "BDX<span class='currency-name ft-regular'> -Beldex<span>",
+        value: "BDX"
+      },
 
-          value: "XRP"
-        },
-        {
-          label: "XMR<span class='currency-name ft-regular'> - XMR<span>",
-
-          value: "XMR"
-        },
-        {
-          label: "BDX<span class='currency-name ft-regular'> - BDX<span>",
-
-          value: "BDX"
-        }
-      ]
+      sendAmounTypeOption: ""
     };
+  },
+  mounted() {
+    this.$gateway.send("swap", "currency_list", {});
   },
   methods: {
     navigation(page, step) {
-      console.log("mainPagemainPagemainPage");
+      // console.log("mainPagemainPagemainPage");
       this.$gateway.send("wallet", "set_stepperPosition", {
         data: step
       });
@@ -522,6 +524,8 @@ export default {
         this.receiveAmountType,
         this.sendAmounType
       ];
+
+      // console.log("this.currencyInfo ::", this.currencyInfo);
     },
     next() {
       let refundAdderss =
