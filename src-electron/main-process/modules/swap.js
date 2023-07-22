@@ -3,14 +3,46 @@ import axios from "axios";
 export class Swap {
   async handle(data) {
     let params = data.data;
-
+    console.log("paramms:", params);
     switch (data.method) {
-      case "has_password":
-        this.hasPassword();
+      case "currency_list":
+        this.getCurrencyList();
         break;
 
-      case "create_wallet":
-        this.createWallet(params.name, params.password, params.language);
+      case "exchange_amount":
+        this.getExchangeAmount();
+        break;
+
+      case "fixed_exchange_amount":
+        this.getFixedExchangeAmount();
+        break;
+
+      case "get_min_max":
+        this.getPairsMinMax();
+        break;
+
+      case "get_min":
+        this.getMinAmount();
+        break;
+
+      case "validate_address":
+        this.validateAddress();
+        break;
+
+      case "create_transaction":
+        this.createTransaction();
+        break;
+
+      case "create_fixed_transaction":
+        this.createFixTransaction();
+        break;
+
+      case "transaction_history":
+        this.getTransactionHistory();
+        break;
+
+      case "transaction_status":
+        this.getTransactionStatus();
         break;
 
       default:
