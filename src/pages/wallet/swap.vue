@@ -37,8 +37,12 @@
               :dark="theme == 'dark'"
               borderless
               dense
+              type="number"
+              min="0.1"
+              max="100000"
               :placeholder="0"
-              @blur="$v.sendAmount.$touch()"
+              @keydown="keyHandler"
+              @blur="$v.sendAmount.$touch"
             />
             <q-select
               v-model="sendAmounType"
@@ -52,11 +56,16 @@
               class="ft-semibold q-pl-sm dropdown-send-type"
               popup-content-class="exchage-option"
               dropdown-icon="expand_more"
+              @input="sendAmountValidator($event)"
             />
           </OxenField>
           <span class="q-mt-xs">Minimum amount is 762 BDX</span>
           <div class="flex justify-end">
-            <q-btn color="accent" class="swap-btn q-mt-sm">
+            <q-btn
+              color="accent"
+              class="swap-btn q-mt-sm"
+              @click="swapCurrencyType"
+            >
               <svg
                 width="18px"
                 height="18px"
@@ -88,31 +97,28 @@
             </q-btn>
           </div>
 
-          <OxenField
-            class="ft-regular"
-            label="You get"
-            :error="$v.getAmount.$error"
-          >
+          <OxenField class="ft-regular" label="You get">
             <q-input
               v-model="getAmount"
               :dark="theme == 'dark'"
               borderless
               dense
               :placeholder="0"
-              @blur="$v.getAmount.$error"
+              disable
             />
             <q-select
-              v-model="sendAmounType"
+              v-model="receiveAmountType"
               :options="sendAmounTypeOption"
               borderless
               dense
               emit-value
               map-options
               :menu-offset="[50, 5]"
-              :options-html="sendAmounType"
+              :options-html="receiveAmountType"
               class="ft-semibold q-pl-sm dropdown-send-type"
               popup-content-class="exchage-option"
               dropdown-icon="expand_more"
+              @input="getAmountValidator($event)"
             />
           </OxenField>
         </article>
@@ -281,13 +287,24 @@
       </div>
 
       <header class="ft-bold q-mt-md">Wallet Address</header>
-      <OxenField class="q-mt-md ft-regular" label="Recipient Address">
+
+      <OxenField
+        class="q-mt-md ft-regular"
+        label="Recipient Address"
+        :error="recipientAddress.error"
+      >
         <q-input
-          v-model="recipientAddress"
+          v-model="recipientAddress.val"
           :dark="theme == 'dark'"
           borderless
           dense
           :placeholder="'Enter your ETH recipient address'"
+          @blur="
+            () =>
+              !recipientAddress.val
+                ? (recipientAddress.error = true)
+                : (recipientAddress.error = false)
+          "
         />
       </OxenField>
 
@@ -424,7 +441,7 @@ export default {
   },
   data() {
     return {
-      sendAmount: "",
+      sendAmount: 0.1,
       getAmount: "",
       agree: "no",
       destinationTag: "no",
@@ -432,21 +449,33 @@ export default {
       refundAddress: "",
       routes: "mainPage",
       exechangeRate: "float",
-      recipientAddress: "",
-      sendAmounType:
+      recipientAddress: { error: false, val: "" },
+      sendAmounType: "BTC<span class='currency-name ft-regular'> -BTC<span>",
+      receiveAmountType:
         "BDX<span class='currency-name ft-regular'> - beldex<span>",
       sendAmounTypeOption: [
         {
-          label: this.$t("strings.transactions.types.all"),
-          value: "all"
+          label: "BTC<span class='currency-name ft-regular'> - BTC<span>",
+          value: "BTC"
         },
         {
-          label: this.$t("strings.transactions.types.incoming"),
-          value: "in"
+          label: "ETH<span class='currency-name ft-regular'> - ETH<span>",
+          value: "ETH"
         },
         {
-          label: this.$t("strings.transactions.types.outgoing"),
-          value: "out"
+          label: "XRP<span class='currency-name ft-regular'> - XRP<span>",
+
+          value: "XRP"
+        },
+        {
+          label: "XMR<span class='currency-name ft-regular'> - XMR<span>",
+
+          value: "XMR"
+        },
+        {
+          label: "BDX<span class='currency-name ft-regular'> - BDX<span>",
+
+          value: "BDX"
         }
       ]
     };
@@ -459,14 +488,49 @@ export default {
       });
       this.routes = page;
     },
+    keyHandler(evt) {
+      if (
+        evt.key === "-" ||
+        evt.key === "+" ||
+        evt.key === "e" ||
+        evt.key === "E"
+      ) {
+        evt.preventDefault();
+      }
+    },
+    sendAmountValidator() {
+      if (this.sendAmounType === "BDX" && this.receiveAmountType === "BDX") {
+        this.receiveAmountType = "ETH";
+      } else if (this.sendAmounType !== "BDX") {
+        this.receiveAmountType = "BDX";
+      }
+    },
+    getAmountValidator() {
+      if (this.sendAmounType === "BDX" && this.receiveAmountType === "BDX") {
+        this.sendAmounType = "ETH";
+      } else if (this.receiveAmountType !== "BDX") {
+        this.sendAmounType = "BDX";
+      }
+    },
+    swapCurrencyType() {
+      // let swapVal;
+      // swapVal=this.sendAmounType;
+      // this.sendAmounType= this.receiveAmountType;
+      // this.receiveAmountType=swapVal
+
+      [this.sendAmounType, this.receiveAmountType] = [
+        this.receiveAmountType,
+        this.sendAmounType
+      ];
+    },
     next() {
-      let refundAdd =
+      let refundAdderss =
         this.exechangeRate === "fixed" ? this.refundAddress : true;
       if (
-        this.sendAmount &&
+        this.sendAmount > 0 &&
         this.agree === "yes" &&
-        this.recipientAddress &&
-        refundAdd
+        this.recipientAddress.val &&
+        refundAdderss
       ) {
         this.routes = "makePayment";
         this.$gateway.send("wallet", "set_stepperPosition", {

@@ -1,5 +1,4 @@
 import child_process from "child_process";
-
 const request = require("request-promise");
 const queue = require("promise-queue");
 const nodeQueue = require("node-request-queue");
@@ -9,10 +8,12 @@ const fs = require("fs-extra");
 const path = require("upath");
 const crypto = require("crypto");
 const portscanner = require("portscanner");
+const { Swap } = require("./swap");
 
 export class WalletRPC {
   constructor(backend) {
     this.backend = backend;
+    this.swap = null;
     this.data_dir = null;
     this.wallet_dir = null;
     this.auth = [];
@@ -60,6 +61,7 @@ export class WalletRPC {
 
     this.agent = new http.Agent({ keepAlive: true, maxSockets: 10 });
     this.queue = new queue(1, Infinity);
+    this.swap = new Swap(this);
   }
 
   // this function will take an options object for testnet, data-dir, etc
@@ -2648,7 +2650,9 @@ export class WalletRPC {
     this.listWallets();
   }
 
-  listWallets(legacy = false) {
+  async listWallets(legacy = false) {
+    let a = await this.swap.getCurrencyList();
+    console.log("aaa:", a);
     let wallets = {
       list: [],
       directories: []

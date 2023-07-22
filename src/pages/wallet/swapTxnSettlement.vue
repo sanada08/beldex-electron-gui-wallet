@@ -1,6 +1,6 @@
 <template>
   <div class="txnSettlement">
-    <header class="flex row items-center  q-mb-md">
+    <header class="flex row items-center q-mb-md">
       <div class="flex items-center back-arrow-btn" @click="this.backTopayment">
         <svg
           width="26"
@@ -16,9 +16,7 @@
         </svg>
       </div>
 
-      <div class="ft-semibold q-ml-md header-txt">
-        Back
-      </div>
+      <div class="ft-semibold q-ml-md header-txt">Back</div>
     </header>
     <section class="q-mt-lg">
       <article class="fund-details-wrapper flex row">
@@ -34,7 +32,9 @@
             <div class="label">Time left to send 0.1 BTC</div>
             <div class="flex items-center">
               <q-icon name="timer" class="time-icon" />
-              <span class="ft-semibold q-ml-xs">02:59:56</span>
+              <span ref="timer" class="ft-semibold q-ml-xs">{{
+                this.reduceTime
+              }}</span>
             </div>
           </div>
           <div class="hr-seperator"></div>
@@ -67,7 +67,7 @@
             <span class="ft-medium"
               >bcbf9e4b0703d65223af71f3318711d1bc5462588c901c09bda751447b69a0a1</span
             ><br />
-            <span class="ft-semibold" style="color:#00AD07"
+            <span class="ft-semibold" style="color: #00ad07"
               >blockchain : bitcoin</span
             >
           </div>
@@ -137,8 +137,8 @@
       <q-dialog v-model="QR.visible" :content-class="'qr-code-modal'">
         <q-card class="qr-code-card">
           <div
-            class="text-center  q-pa-md q-ma-lg "
-            style="background-color: white; border-radius: 10px;"
+            class="text-center q-pa-md q-ma-lg"
+            style="background-color: white; border-radius: 10px"
           >
             <QrcodeVue ref="qr" :value="QR.address" size="240"></QrcodeVue>
             <!-- <ContextMenu
@@ -148,7 +148,7 @@
             /> -->
           </div>
 
-          <q-card-actions class="q-mb-md " style="margin-right: 0;">
+          <q-card-actions class="q-mb-md" style="margin-right: 0">
             <q-btn
               color="primary"
               :label="$t('buttons.close')"
@@ -170,6 +170,7 @@
 
 <script>
 const { clipboard } = require("electron");
+// const moment = require("moment");
 
 import QrcodeVue from "qrcode.vue";
 
@@ -188,7 +189,9 @@ export default {
   data() {
     return {
       QR: {
-        visible: false
+        visible: false,
+        reduceTime: "",
+        timer: ""
       }
     };
   },
@@ -196,6 +199,13 @@ export default {
   methods: {
     backTopayment() {
       this.$emit("goback");
+
+      // let momentTime = moment("2014-06-07 03:00:00");
+      // this.timer = setInterval(() => {
+      //   let momentA = momentTime.subtract(1, "seconds");
+      //   this.reduceTime=momentA.format('LTS').toString()
+
+      // }, 1000);
     },
     showQR() {
       // event.stopPropagation();
@@ -204,7 +214,9 @@ export default {
         "bcbf9e4b0703d65223af71f3318711d1bc5462588c901c09bda751447b69a0a1";
 
       // this.QR.address='bcbf9e4b0703d65223af71f3318711d1bc5462588c901c09bda751447b69a0a1'
+      // clearInterval(this.timer);
     },
+
     copyAddress(content) {
       clipboard.writeText(content.val);
       this.$q.notify({
