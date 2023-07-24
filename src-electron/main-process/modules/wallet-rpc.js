@@ -2651,13 +2651,10 @@ export class WalletRPC {
   }
 
   async listWallets(legacy = false) {
-    // let a = await this.swap.getCurrencyList();
-    // console.log("aaa:", a);
     let wallets = {
       list: [],
       directories: []
     };
-
     let walletFiles = [];
     try {
       walletFiles = fs.readdirSync(this.wallet_dir);
@@ -2923,7 +2920,7 @@ export class WalletRPC {
   }
 
   sendGateway(method, data) {
-    console.log("sendGateway:", method, data);
+    // console.log("sendGateway:", method, data);
     // if wallet is closed, do not send any wallet data to gateway
     // this is for the case that we close the wallet at the same
     // after another action has started, but before it has finished
