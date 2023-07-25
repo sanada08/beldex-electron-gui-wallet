@@ -233,11 +233,9 @@ export class Swap {
       let apiSignature;
 
       if (method == "getCurrenciesFull") {
-        apiSignature =
-          "iHpf8rWpmTsWcSdTt5J1bvJXIxJ09/ocLRBuJwWyvz13T09gQZUYFQIYqJFFAtFuV1WDaL8LCnMUDim0lX/DOBnkqHrTx42ES03SsNYgYl8GbbU7qcFwq3to7hsJrmfWkv3ZaZtaPbRVauREQyXcss9UPXZ+ZGtZfQzGmfPmPBV5L+XhEmOS1UCzIIxopPNHSI1ln1kZu5LtlOTKg/SJK5Vm9LhZ0LYHOpN9vJAYUsAFWOf+BbPd/J9KffTZwPlZ6TedQIDT9GmeGCciK7QGT9Ts4/9lMYnrBfQJadKI+unUh0yfcQOGohvqb57jc9/ChhRWlvm1gjMIps5rZzvAzA==";
+        apiSignature = "<< your Api Signature >>";
       } else {
-        apiSignature =
-          "kALhFAgvIdbrDEpfg+4XkKF67abOPL30nV2W6amWxTk0jQI9E4/ujUV7FcPmc4fpyrN9msoN7O92U4sF1w6wRSPZI5BJQEJVTGZEqZO8T/R69KTlxkF+od0Pn4n2vPRsgIN8hn9/qfiF3M6LmzHHjFRftb9K2ORI73Ck/PGsQO1ovRLzUTiztyiAof/DuyMKZkOSMPXaKtu6A9JVq5XBq9F3Hb52BhlURyDhzyBQuOO//H6oFbuV/jetTHd4kL3eT0qyzrn5NqB8qgMDZKl69uQZeETk15Zzc/e52boVb9QN4bJXyFsmSVbiEaBwKfYXjPBAU9D9VzvyAQdQgS6gVA==";
+        apiSignature = "<< your Api Signature >>";
       }
       let headers = {
         headers: {
