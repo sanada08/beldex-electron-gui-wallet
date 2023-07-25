@@ -2920,7 +2920,6 @@ export class WalletRPC {
   }
 
   sendGateway(method, data) {
-    // console.log("sendGateway:", method, data);
     // if wallet is closed, do not send any wallet data to gateway
     // this is for the case that we close the wallet at the same
     // after another action has started, but before it has finished

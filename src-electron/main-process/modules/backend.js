@@ -167,7 +167,7 @@ export class Backend {
 
   receive(data) {
     let decrypted_data = JSON.parse(this.scee.decryptString(data, this.token));
-    console.log("decrypted_data:", decrypted_data);
+    // console.log("decrypted_data:", decrypted_data);
     // route incoming request to either the daemon, wallet, or here
     switch (decrypted_data.module) {
       case "core":

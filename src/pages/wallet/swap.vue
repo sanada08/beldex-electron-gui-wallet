@@ -34,7 +34,6 @@
           >
             <q-input
               v-model="sendAmount"
-              :dark="theme == 'dark'"
               borderless
               dense
               type="number"
@@ -45,19 +44,40 @@
               @blur="$v.sendAmount.$touch"
             />
             <q-select
-              v-model="sendAmounType.label"
-              :options="currencyInfo"
+              v-model="sendAmounType"
+              :options="currencyList"
               borderless
               dense
               emit-value
               map-options
-              :options-html="sendAmounType"
               class="ft-semibold q-pl-sm dropdown-send-type"
               popup-content-class="exchage-option"
               dropdown-icon="expand_more"
               :menu-offset="[170, 10]"
               @input="sendAmountValidator($event)"
-            />
+            >
+              <template v-slot:option="scope">
+                <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
+                  <q-item-section class="swapdropDown-option">
+                    <q-img
+                      class="q-mr-sm"
+                      :src="scope.opt.icon"
+                      style="
+                        height: 20px;
+                        max-width: 20px;
+                        filter: grayscale(150);
+                      "
+                    />
+                    <q-item-label class="ft-bold q-mr-xs"
+                      >{{ scope.opt.name }}
+                    </q-item-label>
+                    <q-item-label class="currency-name ft-regular">
+                      - {{ scope.opt.description }}</q-item-label
+                    >
+                  </q-item-section>
+                </q-item>
+              </template>
+            </q-select>
           </OxenField>
           <span class="q-mt-xs">Minimum amount is 762 BDX</span>
           <div class="flex justify-end">
@@ -99,7 +119,7 @@
 
           <OxenField class="ft-regular" label="You get">
             <q-input
-              v-model="getAmount"
+              v-model="exchange_amount.amountTo"
               :dark="theme == 'dark'"
               borderless
               dense
@@ -108,7 +128,7 @@
             />
             <q-select
               v-model="receiveAmountType"
-              :options="currencyInfo"
+              :options="currencyList"
               borderless
               dense
               emit-value
@@ -118,8 +138,30 @@
               class="ft-semibold q-pl-sm dropdown-send-type"
               popup-content-class="exchage-option"
               dropdown-icon="expand_more"
-              @input="getAmountValidator($event)"
-            />
+              @change="val => getAmountValidator(val)"
+            >
+              <template v-slot:option="scope">
+                <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
+                  <q-item-section class="swapdropDown-option">
+                    <q-img
+                      class="q-mr-sm"
+                      :src="scope.opt.icon"
+                      style="
+                        height: 20px;
+                        max-width: 20px;
+                        filter: grayscale(150);
+                      "
+                    />
+                    <q-item-label class="ft-bold q-mr-xs"
+                      >{{ scope.opt.name }}
+                    </q-item-label>
+                    <q-item-label class="currency-name ft-regular">
+                      - {{ scope.opt.description }}</q-item-label
+                    >
+                  </q-item-section>
+                </q-item>
+              </template>
+            </q-select>
           </OxenField>
         </article>
         <article style="width: 48%">
@@ -133,7 +175,14 @@
             </tr>
             <tr v-if="this.exechangeRate === 'float'">
               <td>Exchange rate</td>
-              <td>1 BTC ~ ... ETH</td>
+              <td>
+                1
+                {{
+                  exchange_amount.from ? exchange_amount.from.toUpperCase() : ""
+                }}
+                ~ {{ exchange_amount.rate }}
+                {{ exchange_amount.to ? exchange_amount.to.toUpperCase() : "" }}
+              </td>
             </tr>
             <tr v-else>
               <td>Fixed rate</td>
@@ -146,7 +195,10 @@
             </tr>
             <tr v-if="this.exechangeRate == 'float'">
               <td>Service fee 0.25%</td>
-              <td>0 ETH</td>
+              <td>
+                {{ exchange_amount.fee }}
+                {{ exchange_amount.to ? exchange_amount.to.toUpperCase() : "" }}
+              </td>
             </tr>
 
             <tr v-else>
@@ -155,11 +207,17 @@
             </tr>
             <tr v-if="this.exechangeRate == 'float'">
               <td>Network fee</td>
-              <td>0 ETH</td>
+              <td>
+                {{ exchange_amount.networkFee }}
+                {{ exchange_amount.to ? exchange_amount.to.toUpperCase() : "" }}
+              </td>
             </tr>
             <tr>
               <td>You Get</td>
-              <td>~ 0 ETH</td>
+              <td>
+                ~ {{ exchange_amount.amountTo }}
+                {{ exchange_amount.to ? exchange_amount.to.toUpperCase() : "" }}
+              </td>
             </tr>
           </table>
         </article>
@@ -203,7 +261,7 @@
               this.exechangeRate === 'float' ? 'active' : ''
             }`
           "
-          @click="exechangeRate = 'float'"
+          @click="this.getExchangeRate"
         >
           <div class="col-1 flex justify-center items-center">
             <span class="flex justify-center items-center icon" style="">
@@ -227,7 +285,7 @@
           <div class="col-10 flex items-center justify-between">
             <span class="ft-semibold content">Floating Exchange Rate</span
             ><br />
-            <span> ~ 502.48397062 </span>
+            <span> ~ {{ exchange_amount.rate }} </span>
             <!-- <span class="ft-regular" style="color: #afafbe; font-size: 12px"
             >Your amount could chage depending on the market conditions</span
           > -->
@@ -395,12 +453,15 @@
           <a href="">Privacy Policy</a> and <a href="">AML/KYC</a></span
         >
       </div>
+
       <div class="flex justify-center q-my-lg">
         <q-btn label="Next" color="primary" @click="this.next" />
       </div>
     </div>
     <SwapConfirmPayment
       v-if="this.routes === 'makePayment'"
+      :exchange-data="this.exchange_amount"
+      :recipient-address="this.recipientAddress.val"
       @goback="navigation('mainPage', 1)"
       @submit="navigation('settlement', 3)"
     />
@@ -432,21 +493,30 @@ export default {
     SwapTxnSettlement
   },
   computed: mapState({
-    // currencyInfo:(state)=>state.gateway.currencyInfo
-    currencyInfo: state => {
-      let data = state.gateway.currencyInfo;
+    //  testcurrencyList: (state) => state.gateway.currencyList,
+    currencyList: state => {
+      let data = state.gateway.currencyList;
       let pushedData = [];
       Object.keys(data).length > 0 &&
         data.map(item => {
           let obj = {
             label: `${item.name}<span class='currency-name ft-regular'> -${item.fullName}<span>`,
-            value: `${item.name}`
+            value: item.ticker,
+            name: item.name,
+            description: item.fullName,
+            icon: item.image
           };
           pushedData.push(obj);
         });
       return pushedData;
-    }
+    },
+    imgpath: state => state.gateway.currencyList[0].image,
+    exchange_amount: state =>
+      state.gateway.exchangeAmount.status
+        ? state.gateway.exchangeAmount.result[0]
+        : []
   }),
+
   validations: {
     sendAmount: {
       required,
@@ -467,14 +537,18 @@ export default {
       routes: "mainPage",
       exechangeRate: "float",
       recipientAddress: { error: false, val: "" },
-      sendAmounType: {
-        label: "BTC<span class='currency-name ft-regular'> -Bitcoin<span>",
-        value: "BTC"
-      },
-      receiveAmountType: {
-        label: "BDX<span class='currency-name ft-regular'> -Beldex<span>",
-        value: "BDX"
-      },
+      sendAmounType: "btc",
+      receiveAmountType: "bdx",
+      blockChainDetails: { senderChain: "", receiverchain: "" },
+      // sendAmounType: {
+      //   label:
+      //     "<span>BTC<span class='currency-name ft-regular'> -Bitcoin<span><span>",
+      //   value: "btc"
+      // },
+      // receiveAmountType: {
+      //   label: "BDX<span class='currency-name ft-regular'> -Beldex<span>",
+      //   value: "btc"
+      // },
 
       sendAmounTypeOption: ""
     };
@@ -500,19 +574,23 @@ export default {
         evt.preventDefault();
       }
     },
-    sendAmountValidator() {
-      if (this.sendAmounType === "BDX" && this.receiveAmountType === "BDX") {
-        this.receiveAmountType = "ETH";
-      } else if (this.sendAmounType !== "BDX") {
-        this.receiveAmountType = "BDX";
+    sendAmountValidator(event) {
+      console.log("event ::", event);
+      if (this.sendAmounType === "bdx" && this.receiveAmountType === "bdx") {
+        this.receiveAmountType = "eth";
+      } else if (this.sendAmounType !== "bdx") {
+        this.receiveAmountType = "bdx";
       }
+
+      //  this.getExchangeRate()
     },
     getAmountValidator() {
-      if (this.sendAmounType === "BDX" && this.receiveAmountType === "BDX") {
-        this.sendAmounType = "ETH";
-      } else if (this.receiveAmountType !== "BDX") {
-        this.sendAmounType = "BDX";
+      if (this.sendAmounType === "bdx" && this.receiveAmountType === "bdx") {
+        this.sendAmounType = "eth";
+      } else if (this.receiveAmountType !== "bdx") {
+        this.sendAmounType = "bdx";
       }
+      // this.getExchangeRate()
     },
     swapCurrencyType() {
       // let swapVal;
@@ -524,8 +602,29 @@ export default {
         this.receiveAmountType,
         this.sendAmounType
       ];
+      // this.getExchangeRate()
 
-      // console.log("this.currencyInfo ::", this.currencyInfo);
+      // console.log("this.currencyList ::", this.exchange_amount);
+    },
+    getExchangeRate() {
+      // console.log('this.sendAmounType.value',this.sendAmounType,'this.receiveAmountType.value',this.receiveAmountType.value)
+      // let data = {
+      //   from:this.sendAmounType,
+      //   to: this.receiveAmountType,
+      //   amountFrom: this.sendAmount
+      // };
+      let data = {
+        from: "btc",
+        to: "eth",
+        amountFrom: "0.1"
+      };
+
+      this.exechangeRate = "float";
+      console.log("getExchangeRate", data);
+      this.$gateway.send("swap", "exchange_amount", data);
+
+      // let test =this.testcurrencyList.filter((item)=>item.contractAddress==='0x410afe72a5f18cce5f758c731bb2a9b90e74e5c7')
+      // console.log('test ::',test)
     },
     next() {
       let refundAdderss =

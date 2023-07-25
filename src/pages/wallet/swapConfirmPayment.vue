@@ -32,7 +32,11 @@
             You send
           </div>
           <div class="ft-semibold amount-txt">
-            0.1 BTC
+            {{
+              this.exchangeData.amountFrom +
+                " " +
+                this.exchangeData.from.toUpperCase()
+            }}
           </div>
           <div class="ft-semibold expand-txt">
             blockchain : bitcoin
@@ -43,7 +47,12 @@
             You get
           </div>
           <div class="ft-semibold amount-txt">
-            ~ 1.6112626 ETH
+            ~
+            {{
+              this.exchangeData.amountTo +
+                " " +
+                this.exchangeData.to.toUpperCase()
+            }}
           </div>
           <div class="ft-semibold expand-txt">
             blockchain : ethereum
@@ -58,7 +67,9 @@
             Exchange Fee
           </div>
           <div class="ft-semibold amount-txt">
-            0.00404243 ETH
+            {{
+              this.exchangeData.fee + " " + this.exchangeData.to.toUpperCase()
+            }}
           </div>
           <div class="ft-regular hint-txt">
             The exchange fee is already included in the displayed amount you’ll
@@ -70,7 +81,11 @@
             Network Fee
           </div>
           <div class="ft-semibold amount-txt">
-            0.00158499 ETH
+            {{
+              this.exchangeData.networkFee +
+                " " +
+                this.exchangeData.to.toUpperCase()
+            }}
           </div>
           <div class="ft-regular  hint-txt">
             The network fee is already included in the displayed amount you’ll
@@ -86,7 +101,7 @@
             Recipient address
           </div>
           <div class="ft-medium recipt-address">
-            79bf9e4b0703d65223af71f3318711d1bc5462588c901c09bda751447b69a0a1
+            {{ this.recipientAddress }}
           </div>
         </div>
         <div class="col-6">
@@ -94,7 +109,14 @@
             Exchange rate
           </div>
           <div class="ft-semibold amount-txt">
-            1 BTC ~ 15.38471475 ETH
+            1
+            {{
+              this.exchangeData.from.toUpperCase() +
+                " ~ " +
+                this.exchangeData.rate +
+                " " +
+                this.exchangeData.to.toUpperCase()
+            }}
           </div>
         </div>
       </article>
@@ -123,6 +145,14 @@ export default {
     },
     submit: {
       type: Function,
+      required: true
+    },
+    exchangeData: {
+      type: Object,
+      required: true
+    },
+    recipientAddress: {
+      type: String,
       required: true
     }
   },

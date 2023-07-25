@@ -78,8 +78,10 @@ export const set_stepperPosition = (state, data) => {
   state.stepperPosition = data;
 };
 
-export const set_currencyInfo = (state, data) => {
-  console.log("gateway 2");
+export const set_currencyList = (state, data) => {
+  state.currencyList = data;
+};
 
-  state.currencyInfo = data;
+export const set_exchangeAmount = (state, data) => {
+  state.exchangeAmount = data;
 };

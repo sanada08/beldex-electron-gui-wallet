@@ -9,9 +9,9 @@ export class Swap {
   }
 
   sendGateway(method, data) {
-    console.log("gateway 3", method);
+    // console.log("gateway 3", method);
 
-    console.log("sendGateway:", method, data);
+    // console.log("sendGateway:", method, data);
     // if wallet is closed, do not send any wallet data to gateway
     // this is for the case that we close the wallet at the same
     // after another action has started, but before it has finished
@@ -22,20 +22,22 @@ export class Swap {
   }
   async handle(data) {
     let params = data.data;
-    console.log("paramms:", params);
+    // console.log("paramms:", params);
     switch (data.method) {
       case "currency_list":
-        console.log("currency  1");
+        // console.log("currency  1");
         this.getCurrencyList();
         break;
 
       case "exchange_amount":
-        this.getExchangeAmount(
-          params.from,
-          params.to,
-          params.recipentAddress,
-          params.amount
-        );
+        // this.getExchangeAmount(
+        //   params.from,
+        //   params.to,
+        //   params.recipentAddress,
+        //   params.amount
+        // );
+        this.getExchangeAmount(params);
+
         break;
 
       case "fixed_exchange_amount":
@@ -88,28 +90,30 @@ export class Swap {
 
   async getCurrencyList() {
     let currencyList = await this.sendRPC("getCurrenciesFull", {});
+
     if (currencyList.status) {
       let enabledCurrency = await currencyList.result.filter(currency => {
         return currency.enabled == true;
       });
-      this.sendGateway("set_currencyInfo", enabledCurrency);
+      this.sendGateway("set_currencyList", enabledCurrency);
       return;
     }
     return;
   }
 
-  getExchangeAmount(from, to, address, amountFrom) {
-    let params = {
-      from,
-      to,
-      address,
-      amountFrom
-    };
-    // from: "btc",
-    // to: "eth",
-    // address: "0x410afe72a5f18cce5f758c731bb2a9b90e74e5c7",
-    // amountFrom: "0.1"
-    return this.sendRPC("getExchangeAmount", params);
+  async getExchangeAmount(params) {
+    // let body = {
+    //   from,
+    //   to,
+    //   address,
+    //   amountFrom
+    // };
+    console.log("getExchangeAmount ::", params);
+    let data = await this.sendRPC("getExchangeAmount", params);
+    console.log("getExchangeAmount", data.result);
+
+    this.sendGateway("set_exchangeAmount", data);
+    return;
   }
 
   getFixedExchangeAmount(from, to, amountFrom) {
@@ -229,9 +233,11 @@ export class Swap {
       let apiSignature;
 
       if (method == "getCurrenciesFull") {
-        apiSignature = "<<ENTER YOUR SIGNATURE KEY>>";
+        apiSignature =
+          "iHpf8rWpmTsWcSdTt5J1bvJXIxJ09/ocLRBuJwWyvz13T09gQZUYFQIYqJFFAtFuV1WDaL8LCnMUDim0lX/DOBnkqHrTx42ES03SsNYgYl8GbbU7qcFwq3to7hsJrmfWkv3ZaZtaPbRVauREQyXcss9UPXZ+ZGtZfQzGmfPmPBV5L+XhEmOS1UCzIIxopPNHSI1ln1kZu5LtlOTKg/SJK5Vm9LhZ0LYHOpN9vJAYUsAFWOf+BbPd/J9KffTZwPlZ6TedQIDT9GmeGCciK7QGT9Ts4/9lMYnrBfQJadKI+unUh0yfcQOGohvqb57jc9/ChhRWlvm1gjMIps5rZzvAzA==";
       } else {
-        apiSignature = "<<ENTER YOUR SIGNATURE KEY>>";
+        apiSignature =
+          "kALhFAgvIdbrDEpfg+4XkKF67abOPL30nV2W6amWxTk0jQI9E4/ujUV7FcPmc4fpyrN9msoN7O92U4sF1w6wRSPZI5BJQEJVTGZEqZO8T/R69KTlxkF+od0Pn4n2vPRsgIN8hn9/qfiF3M6LmzHHjFRftb9K2ORI73Ck/PGsQO1ovRLzUTiztyiAof/DuyMKZkOSMPXaKtu6A9JVq5XBq9F3Hb52BhlURyDhzyBQuOO//H6oFbuV/jetTHd4kL3eT0qyzrn5NqB8qgMDZKl69uQZeETk15Zzc/e52boVb9QN4bJXyFsmSVbiEaBwKfYXjPBAU9D9VzvyAQdQgS6gVA==";
       }
       let headers = {
         headers: {

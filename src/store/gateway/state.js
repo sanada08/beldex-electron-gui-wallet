@@ -152,5 +152,6 @@ export default {
 
   //  swap states
 
-  currencyInfo: {}
+  currencyList: [],
+  exchangeAmount: []
 };
