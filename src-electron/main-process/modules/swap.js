@@ -218,30 +218,21 @@ export class Swap {
 
   async sendRPC(method, params = {}) {
     try {
-      let body = {
+      const body = {
         jsonrpc: "2.0",
         id: "test",
         method,
         params
-        // : {
-        //   "from": "btc",
-        //   "to": "eth",
-        //   "address": "0x410afe72a5f18cce5f758c731bb2a9b90e74e5c7",
-        //   "amountFrom": "0.1"
-        // }
       };
-      let apiSignature;
-
-      if (method == "getCurrenciesFull") {
-        apiSignature = "<< your Api Signature >>";
-      } else {
-        apiSignature = "<< your Api Signature >>";
-      }
+      let signature = await axios.post(
+        "http://localhost:4030/api/v1/swap",
+        body
+      );
       let headers = {
         headers: {
           "Content-Type": "application/json",
           "X-Api-Key": "+kLt3F2TMo8W2LbQSjs6IDaBG4O/VLZsRH+qnNX5FyU=",
-          "X-Api-Signature": apiSignature
+          "X-Api-Signature": signature.data.signature
         }
       };
       // let message = {
