@@ -28,6 +28,7 @@
     "electron-updater": "^4.2.0",
     "electron-window-state": "^5.0.3",
     "fs-extra": "^8.1.0",
+    "https": "^1.0.0",
     "node-request-queue": "^1.0.2",
     "object-assign-deep": "^0.4.0",
     "portscanner": "^2.2.0",

@@ -218,16 +218,27 @@ export class Swap {
 
   async sendRPC(method, params = {}) {
     try {
+      const https = require("https");
+      // const privateKeyString = "PRIVATE_KEY";
+      // const privateKeybuffer = Buffer.from(privateKeyString, "hex");
       const body = {
         jsonrpc: "2.0",
         id: "test",
         method,
         params
       };
+      const agent = new https.Agent({
+        requestCert: true,
+        rejectUnauthorized: false,
+        ca: `ENTER CERTIFICATE`
+      });
       let signature = await axios.post(
-        "http://localhost:4030/api/v1/swap",
-        body
+        "https://api.beldex.io/api/v1/swap",
+        body,
+        { httpsAgent: agent }
       );
+      console.log("signature:", signature.data.signature);
+
       let headers = {
         headers: {
           "Content-Type": "application/json",
@@ -235,17 +246,6 @@ export class Swap {
           "X-Api-Signature": signature.data.signature
         }
       };
-      // let message = {
-      //   jsonrpc: "2.0",
-      //   id: "test",
-      //   method: "getExchangeAmount",
-      //   params: {
-      //     "from": "btc  ",
-      //     "to": "eth",
-      //     "address": "0x410afe72a5f18cce5f758c731bb2a9b90e74e5c7",
-      //     "amountFrom": "0.1"
-      //   }
-      // }
       // const request = require('request');
       // let options = {
       //   'method': 'POST',
@@ -255,26 +255,12 @@ export class Swap {
       //     'X-Api-Key': '<<ENTER YOUR API KEY >>',
       //     'X-Api-Signature': '<<ENTER YOUR PRIVATE KEY >>'
       //   },
-      //   body: JSON.stringify(message)
+      //   body: JSON.stringify(bo)
       // };
       // request(options, function (error, data) {
-      //   try {
-      //     let response = JSON.parse(data.body);
-      //     if (response.hasOwnProperty("error")) {
-      //       return {
-      //         status:400,
-      //         method: method,
-      //         params: params,
-      //         error: response.error
-      //       };
-      //     }
-      //     return {
-      //       status:200,
-      //       method: method,
-      //       params: params,
-      //       result: response.result
-      //     };
-      //   } catch (err) {
+      // try {
+      //   let response = JSON.parse(data.body);
+      //   if (response.hasOwnProperty("error")) {
       //     return {
       //       status:400,
       //       method: method,
@@ -282,7 +268,20 @@ export class Swap {
       //       error: response.error
       //     };
       //   }
-
+      //   return {
+      //     status:200,
+      //     method: method,
+      //     params: params,
+      //     result: response.result
+      //   };
+      // } catch (err) {
+      //   return {
+      //     status:400,
+      //     method: method,
+      //     params: params,
+      //     error: response.error
+      //   };
+      // }
       // });
       try {
         let response = await axios.post(

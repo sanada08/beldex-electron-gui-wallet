@@ -2651,6 +2651,8 @@ export class WalletRPC {
   }
 
   async listWallets(legacy = false) {
+    // let a = await this.swap.getCurrencyList();
+    // console.log("aaaa:",a)
     let wallets = {
       list: [],
       directories: []
