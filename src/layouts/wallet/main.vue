@@ -155,7 +155,7 @@
               <div
                 class="icon-wrapper q-mr-sm flex justify-center items-center"
               >
-                <sapn
+                <span
                   class="position flex justify-center items-center indicateLine "
                 >
                   <span
@@ -168,12 +168,12 @@
                     color="primary"
                     size="xs"
                   />
-                </sapn>
+                </span>
               </div>
               <div class="menu-wrapper">
                 <span class="ft-semibold">Exchange Pair</span><br />
-                <sapn class="ft-Light step-content"
-                  >Set the preferred exchange pair</sapn
+                <span class="ft-Light step-content"
+                  >Set the preferred exchange pair</span
                 >
               </div>
             </div>
@@ -182,7 +182,7 @@
               <div
                 class="icon-wrapper q-mr-sm flex justify-center items-center no-wrap"
               >
-                <sapn
+                <span
                   class="position flex justify-center items-center"
                   style="position: relative"
                 >
@@ -197,12 +197,12 @@
                     color="primary"
                     size="xs"
                   />
-                </sapn>
+                </span>
               </div>
               <div class="menu-wrapper">
                 <span class="ft-semibold">Wallet address</span><br />
-                <sapn class="ft-Light step-content"
-                  >Fill in the crypto wallet address details</sapn
+                <span class="ft-Light step-content"
+                  >Fill in the crypto wallet address details</span
                 >
               </div>
             </div>
@@ -211,7 +211,7 @@
               <div
                 class="icon-wrapper q-mr-sm flex justify-center items-center no-wrap "
               >
-                <sapn
+                <span
                   class="position flex justify-center items-center "
                   style="position: relative"
                 >
@@ -226,12 +226,12 @@
                     color="primary"
                     size="xs"
                   />
-                </sapn>
+                </span>
               </div>
               <div class="menu-wrapper">
                 <span class="ft-semibold">Payment</span><br />
-                <sapn class="ft-Light step-content"
-                  >Deposit the amount required for the exchange</sapn
+                <span class="ft-Light step-content"
+                  >Deposit the amount required for the exchange</span
                 >
               </div>
             </div>
@@ -240,12 +240,12 @@
               <div
                 class="icon-wrapper q-mr-sm flex justify-center items-center no-wrap "
               >
-                <sapn class="position flex justify-center items-center">4</sapn>
+                <span class="position flex justify-center items-center">4</span>
               </div>
               <div class="menu-wrapper">
                 <span class="ft-semibold">Exchange</span><br />
-                <sapn class="ft-Light step-content"
-                  >Wait for your transaction to be completed</sapn
+                <span class="ft-Light step-content"
+                  >Wait for your transaction to be completed</span
                 >
               </div>
             </div>

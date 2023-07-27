@@ -153,5 +153,7 @@ export default {
   //  swap states
 
   currencyList: [],
-  exchangeAmount: []
+  exchangeAmount: [],
+  createdTxnDetails: [],
+  RecipientAddressValidation: true
 };

@@ -62,7 +62,7 @@
       <div class="hr-seperator"></div>
 
       <article class="flex row">
-        <div class="col-6">
+        <div v-if="this.exchangeData.fee" class="col-6">
           <div class="q-mb-sm">
             Exchange Fee
           </div>
@@ -141,11 +141,11 @@ export default {
   props: {
     goback: {
       type: Function,
-      required: true
+      required: false
     },
     submit: {
       type: Function,
-      required: true
+      required: false
     },
     exchangeData: {
       type: Object,

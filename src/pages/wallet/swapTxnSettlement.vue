@@ -24,12 +24,24 @@
           <div class="ft-semibold title">Send funds to the address below</div>
           <div class="label q-mt-lg">Amount</div>
           <div class="amount ft-semibold">
-            0.1 BTC <q-btn icon="edit" color="accent" class="edit-btn" />
+            {{
+              createdTxnDetails.amountExpectedFrom +
+                " " +
+                createdTxnDetails.currencyTo
+            }}
+            <q-btn icon="edit" color="accent" class="edit-btn" />
           </div>
         </div>
         <div class="col-6 timer-wrapper">
           <div class="pad-wrap">
-            <div class="label">Time left to send 0.1 BTC</div>
+            <div class="label">
+              Time left to send
+              {{
+                createdTxnDetails.amountExpectedFrom +
+                  " " +
+                  createdTxnDetails.currencyTo
+              }}
+            </div>
             <div class="flex items-center">
               <q-icon name="timer" class="time-icon" />
               <span ref="timer" class="ft-semibold q-ml-xs">{{
@@ -41,7 +53,9 @@
           <div class="pad-wrap">
             <div class="label">Transaction ID</div>
             <div>
-              <span class="ft-semibold q-mr-xs">bcbf9e4b0703d65</span>
+              <span class="ft-semibold q-mr-xs">{{
+                createdTxnDetails.id
+              }}</span>
               <q-btn
                 class="copy-btn"
                 flat
@@ -50,7 +64,7 @@
                 color="primary"
                 @click="
                   copyAddress({
-                    val: 'bcbf9e4b0703d65',
+                    val: 'createdTxnDetails.id',
                     from: 'Transaction ID'
                   })
                 "
@@ -64,8 +78,7 @@
         <div class="label">Recipient address</div>
         <div class="flex row justify-between q-mt-sm">
           <div>
-            <span class="ft-medium"
-              >bcbf9e4b0703d65223af71f3318711d1bc5462588c901c09bda751447b69a0a1</span
+            <span class="ft-medium">{{ createdTxnDetails.payinAddress }}</span
             ><br />
             <span class="ft-semibold" style="color: #00ad07"
               >blockchain : bitcoin</span
@@ -78,8 +91,7 @@
               class="copy-adress-btn q-mr-xs"
               @click="
                 copyAddress({
-                  val:
-                    'bcbf9e4b0703d65223af71f3318711d1bc5462588c901c09bda751447b69a0a1',
+                  val: createdTxnDetails.payinAddress,
                   from: 'Recipient address'
                 })
               "
@@ -106,7 +118,7 @@
         <div class="ft-semibold" style="margin-top: 14px; margin-bottom: 9px">
           Transaction details
         </div>
-        <table style="width: 100%" class="txn-fee-details">
+        <!-- <table style="width: 100%" class="txn-fee-details">
           <tr>
             <td>You send</td>
             <td>0 BTC</td>
@@ -126,6 +138,66 @@
           <tr>
             <td>You Get</td>
             <td>~ 0 ETH</td>
+          </tr>
+        </table> -->
+
+        <table style="width: 100%" class="txn-fee-details">
+          <tr>
+            <td>You send</td>
+            <td>{{ this.sendAmount > 0 ? this.sendAmount : 0 }} BTC</td>
+          </tr>
+          <tr v-if="createdTxnDetails.type == 'float'">
+            <td>Exchange rate</td>
+            <td>
+              1
+              {{ exchangeData.from ? exchangeData.from.toUpperCase() : "" }}
+              ~ {{ exchangeData.rate }}
+              {{ exchangeData.to ? exchangeData.to.toUpperCase() : "" }}
+            </td>
+          </tr>
+          <tr v-else>
+            <td>Fixed rate</td>
+            <td>
+              <span
+                >1
+                {{
+                  exchange_amount.from ? exchange_amount.from.toUpperCase() : ""
+                }}
+                ~ {{ exchange_amount.result }}
+                {{
+                  exchange_amount.to ? exchange_amount.to.toUpperCase() : ""
+                }}</span
+              ><br />
+              <span class="fixed-rate-hint"
+                >The fixed rate is updated every 30 Seconds</span
+              >
+            </td>
+          </tr>
+          <tr v-if="createdTxnDetails.type == 'float'">
+            <td>Service fee 0.25%</td>
+            <td>
+              {{ exchangeData.fee }}
+              {{ exchangeData.to ? exchangeData.to.toUpperCase() : "" }}
+            </td>
+          </tr>
+
+          <tr v-else>
+            <td>Fees</td>
+            <td style="font-size: 12px">All fees inclueded in the rate</td>
+          </tr>
+          <tr v-if="createdTxnDetails.type == 'float'">
+            <td>Network fee</td>
+            <td>
+              {{ exchangeData.networkFee }}
+              {{ exchangeData.to ? exchangeData.to.toUpperCase() : "" }}
+            </td>
+          </tr>
+          <tr>
+            <td>You Get</td>
+            <td>
+              ~ {{ exchangeData.amountTo }}
+              {{ exchangeData.to ? exchangeData.to.toUpperCase() : "" }}
+            </td>
           </tr>
         </table>
       </article>
@@ -170,7 +242,7 @@
 
 <script>
 const { clipboard } = require("electron");
-// const moment = require("moment");
+const moment = require("moment");
 
 import QrcodeVue from "qrcode.vue";
 
@@ -183,35 +255,50 @@ export default {
     goback: {
       type: Function,
       require: true
+    },
+    createdTxnDetails: {
+      type: Object,
+      require: true
+    },
+    exchangeData: {
+      type: Object,
+      required: true
     }
   },
 
   data() {
     return {
       QR: {
-        visible: false,
-        reduceTime: "",
-        timer: ""
-      }
+        visible: false
+      },
+      reduceTime: "",
+      timer: ""
     };
+  },
+  mounted() {
+    this.startAndStopTimer();
   },
 
   methods: {
     backTopayment() {
       this.$emit("goback");
+      //  this.startAndStopTimer()
+    },
+    startAndStopTimer() {
+      setInterval(() => {
+        clearInterval(this.timer);
+      }, 10800000);
+      let momentTime = moment("2023-06-07 03:00:00");
+      this.timer = setInterval(() => {
+        let momentA = momentTime.subtract(1, "seconds");
 
-      // let momentTime = moment("2014-06-07 03:00:00");
-      // this.timer = setInterval(() => {
-      //   let momentA = momentTime.subtract(1, "seconds");
-      //   this.reduceTime=momentA.format('LTS').toString()
-
-      // }, 1000);
+        this.reduceTime = momentA.format("HH:mm:ss").toString();
+      }, 1000);
     },
     showQR() {
       // event.stopPropagation();
       this.QR.visible = true;
-      this.QR.address =
-        "bcbf9e4b0703d65223af71f3318711d1bc5462588c901c09bda751447b69a0a1";
+      this.QR.address = this.createdTxnDetails.payinAddress;
 
       // this.QR.address='bcbf9e4b0703d65223af71f3318711d1bc5462588c901c09bda751447b69a0a1'
       // clearInterval(this.timer);

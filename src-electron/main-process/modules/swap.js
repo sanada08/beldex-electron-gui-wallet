@@ -41,7 +41,7 @@ export class Swap {
         break;
 
       case "fixed_exchange_amount":
-        this.getFixedExchangeAmount(params.from, params.to, params.amount);
+        this.getFixedExchangeAmount(params);
         break;
 
       case "get_min_max":
@@ -53,16 +53,11 @@ export class Swap {
         break;
 
       case "validate_address":
-        this.validateAddress(params.currency, params.address);
+        this.validateAddress(params);
         break;
 
       case "create_transaction":
-        this.createTransaction(
-          params.from,
-          params.to,
-          params.recipentAddress,
-          params.amount
-        );
+        this.createTransaction(params);
         break;
 
       case "create_fixed_transaction":
@@ -116,16 +111,22 @@ export class Swap {
     return;
   }
 
-  getFixedExchangeAmount(from, to, amountFrom) {
-    let params = {
-      from,
-      to,
-      amountFrom
-    };
+  async getFixedExchangeAmount(params) {
+    // let params = {
+    //   from,
+    //   to,
+    //   amountFrom
+    // };
     // from: "btc",
     // to: "eth",
     // amountFrom: "0.1"
-    return this.sendRPC("getFixRateForAmount", params);
+    console.log("getFixRateForAmount ::", params);
+
+    let data = await this.sendRPC("getFixRateForAmount", params);
+    console.log("getFixRateForAmount", data);
+    this.sendGateway("set_exchangeAmount", data);
+
+    return;
   }
 
   getPairsMinMax(from, to) {
@@ -148,30 +149,37 @@ export class Swap {
     return this.sendRPC("getMinAmount", params);
   }
 
-  validateAddress(currency, address) {
-    let params = {
-      currency,
-      address
-    };
+  async validateAddress(params) {
+    console.log("validateAddress ::", params);
+    let data = await this.sendRPC("validateAddress", params);
+    console.log("validateAddress data ", data);
+    this.sendGateway("set_validateAddress", data);
+
     // currency: "eth",
     // address: "0x410afe72a5f18cce5f758c731bb2a9b90e74e5c7"
-    return this.sendRPC("validateAddress", params);
+    // return this.sendRPC("validateAddress", params);
   }
 
-  createTransaction(from, to, address, amountFrom) {
-    let params = {
-      from,
-      to,
-      address,
-      // "extraId": "<<valid xrp extraId>>",
-      amountFrom
-    };
+  async createTransaction(params) {
+    // let params = {
+    //   from,
+    //   to,
+    //   address,
+    //   // "extraId": "<<valid xrp extraId>>",
+    //   amountFrom
+    // };
+    console.log("createTransaction ::", params);
+
+    let data = await this.sendRPC("createTransaction", params);
+    console.log("createTransaction datadata ::", data);
+    this.sendGateway("set_createdTxnDetails", data);
+
     // from: "btc",
     //   to: "eth",
     //   address: "0x410afe72a5f18cce5f758c731bb2a9b90e74e5c7",
     //   // "extraId": "<<valid xrp extraId>>",
     //   amountFrom: "0.1"
-    return this.sendRPC("createTransaction", params);
+    return;
   }
 
   createFixTransaction(from, to, address, amountFrom, rateId, refundAddress) {
@@ -230,7 +238,7 @@ export class Swap {
       const agent = new https.Agent({
         requestCert: true,
         rejectUnauthorized: false,
-        ca: `ENTER CERTIFICATE`
+        ca: `your pem key`
       });
       let signature = await axios.post(
         "https://api.beldex.io/api/v1/swap",

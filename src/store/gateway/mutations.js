@@ -85,3 +85,11 @@ export const set_currencyList = (state, data) => {
 export const set_exchangeAmount = (state, data) => {
   state.exchangeAmount = data;
 };
+
+export const set_createdTxnDetails = (state, data) => {
+  state.createdTxnDetails = data;
+};
+
+export const set_validateAddress = (state, data) => {
+  state.RecipientAddressValidation = data;
+};

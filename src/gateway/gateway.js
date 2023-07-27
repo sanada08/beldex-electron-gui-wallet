@@ -331,6 +331,20 @@ export class Gateway extends EventEmitter {
         );
 
         break;
+      case "set_createdTxnDetails":
+        // console.log("gateway 1");
+        this.app.store.commit(
+          "gateway/set_createdTxnDetails",
+          decrypted_data.data
+        );
+        break;
+      case "set_validateAddress":
+        // console.log("gateway 1");
+        this.app.store.commit(
+          "gateway/set_validateAddress",
+          decrypted_data.data
+        );
+        break;
     }
   }
 
