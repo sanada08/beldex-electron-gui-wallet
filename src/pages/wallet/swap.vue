@@ -363,7 +363,7 @@
       <OxenField
         class="q-mt-md ft-regular"
         label="Recipient Address"
-        :error="this.recipientAddress.val && !this.isValidRecipientAddress"
+        :error="this.recipientAddress.error"
       >
         <q-input
           v-model="recipientAddress.val"
@@ -482,6 +482,7 @@
       :exchange-data="this.exchange_amount"
       @goback="navigation('makePayment', 2)"
     />
+    <!-- <swapStatus /> -->
   </q-page>
 </template>
 
@@ -492,6 +493,7 @@ import OxenField from "components/oxen_field";
 import SwapConfirmPayment from "./swapConfirmPayment.vue";
 import SwapTxnHistory from "./swapTxnHistory.vue";
 import SwapTxnSettlement from "./swapTxnSettlement.vue";
+// import swapStatus from './swapStatus.vue';
 import { mapState } from "vuex";
 
 export default {
@@ -500,6 +502,29 @@ export default {
     SwapConfirmPayment,
     SwapTxnHistory,
     SwapTxnSettlement
+    // swapStatus
+  },
+  watch: {
+    // whenever question changes, this function will run
+    isValidRecipientAddress(
+      newisValidRecipientAddress,
+      oldisValidRecipientAddress
+    ) {
+      console.log(
+        "watcher",
+        newisValidRecipientAddress,
+        oldisValidRecipientAddress
+      );
+      if (newisValidRecipientAddress) {
+        if (newisValidRecipientAddress.result) {
+          console.log("if");
+          this.recipientAddress.error = false;
+        } else {
+          this.recipientAddress.error = true;
+          console.log("else");
+        }
+      }
+    }
   },
   computed: mapState({
     //  testcurrencyList: (state) => state.gateway.currencyList,
@@ -569,6 +594,8 @@ export default {
       destinationTagValue: "",
       refundAddress: "",
       routes: "mainPage",
+      // routes: "",
+
       exechangeRateType: "float",
       recipientAddress: { error: false, val: "" },
       sendAmounType: "btc",
@@ -591,7 +618,11 @@ export default {
   mounted() {
     this.$gateway.send("swap", "currency_list", {});
     this.getExchangeRate();
+
     // recipientAddressIsValid.result?recipientAddress.error=false:recipientAddress.error=true
+  },
+  beforeDestroy() {
+    clearInterval(this.refreshFixedExchangeRate);
   },
   methods: {
     navigation(page, step) {
@@ -655,14 +686,10 @@ export default {
         to: "eth",
         amountFrom: "1"
       };
-
+      clearInterval(this.refreshFixedExchangeRate);
       this.exechangeRateType = "float";
       // console.log("getExchangeRate", data);
       this.$gateway.send("swap", "exchange_amount", data);
-      // clearInterval(this.callInterval);
-
-      // let test =this.testcurrencyList.filter((item)=>item.contractAddress==='0x410afe72a5f18cce5f758c731bb2a9b90e74e5c7')
-      // console.log('test ::',test)
     },
     getFixedExchangeAmount() {
       let data = {
@@ -673,10 +700,12 @@ export default {
       // clearInterval(this.callInterval);
 
       this.$gateway.send("swap", "fixed_exchange_amount", data);
-      // this.callInterval()
-      // this.refreshFixedExchangeRate = setInterval(() => {
-      //   this.$gateway.send("swap", "fixed_exchange_amount", data);
-      // }, 30000);
+      //  this.callInterval()
+      let count = 1;
+      this.refreshFixedExchangeRate = setInterval(() => {
+        this.$gateway.send("swap", "fixed_exchange_amount", data);
+        console.log("count ::", count++);
+      }, 30000);
 
       this.exechangeRateType = "fixed";
     },
@@ -693,17 +722,17 @@ export default {
 
     recipientAddressValidator() {
       let params = {
-        currency: "eth",
-        address: "0x410afe72a5f18cce5f758c731bb2a9b90e74e5c7"
+        // currency: this.receiveAmountType,
+        address: this.recipientAddress.val,
+
+        currency: "eth"
+        // address: "0x410afe72a5f18cce5f758c731bb2a9b90e74e5c7"
       };
       if (this.recipientAddress.val) {
         this.$gateway.send("swap", "validate_address", params);
       }
     },
     next() {
-      // clearInterval(this.callInterval);
-      // this.recipientAddressValidator()
-
       let refundAdderss =
         this.exechangeRateType === "fixed" ? this.refundAddress : true;
       if (
