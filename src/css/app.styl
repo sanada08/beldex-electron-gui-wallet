@@ -844,6 +844,9 @@ h1, h2, h3, h4, h5, h6, img, .q-list-header, .q-header, .q-menu .q-item-label, .
 .bg-primary:hover
     background #00D409 !important
 
+.text-primary
+    color #20D030 !important
+
 .q-btn--flat
     height 50px
     min-width 170px
@@ -1106,13 +1109,9 @@ h1, h2, h3, h4, h5, h6, img, .q-list-header, .q-header, .q-menu .q-item-label, .
 
         .q-icon
             display inline-block
-        
-        // swap stepper
 
-      .router-link-exact-active  +  .swap-stepper
-         display: block
-         
-        
+    .router-link-exact-active + .swap-stepper
+        display block
 
     .menuList
         height 78px
@@ -1500,19 +1499,19 @@ body
             margin-right 20px
 
 .exchage-option
-    min-width  unset !important
+    min-width unset !important
     width 300px
-    height: 300px
-    
+    height 300px
+
     .currency-name
-            color #77778B !important
-            font-size 12px
+        color #77778B !important
+        font-size 12px
 
 .swapdropDown-option
-    display: flex !important
-    flex-direction: row !important
-    justify-content: flex-start
-    align-items: center
+    display flex !important
+    flex-direction row !important
+    justify-content flex-start
+    align-items center
 
 .swap
     color white
@@ -1532,14 +1531,14 @@ body
 
         td
             padding 10px 12px
-            .fixed-rate-hint
-                color: #AFAFBE
-                font-size: 10px
 
+            .fixed-rate-hint
+                color #AFAFBE
+                font-size 10px
 
         td:nth-child(1)
             border-right 1.5px solid #484856
-            width: 44%;
+            width 44%
 
         tr:nth-child(1)
             td
@@ -1548,7 +1547,7 @@ body
         tr:last-child
             td
                 border-top 1.5px solid #484856
-                word-break: break-all;
+                word-break break-all
 
     .dropdown-send-type
         background-color #40405E
@@ -1579,7 +1578,6 @@ body
             padding-top 0
 
     .exerate-wrapper
-        
         .exerate-inner-wrapper
             border 1.2px solid #41415B
             border-radius 10px
@@ -1595,11 +1593,12 @@ body
             .content
                 color #77778B
                 font-size 1.14188rem
+
         .active
-            border-color:#00AD07
+            border-color #00AD07
+
             .content
                 color white !important
-
 
     .info-wrapper
         border 1px solid #41415B
@@ -1697,7 +1696,8 @@ body
 
     td
         font-size .9rem
-        padding: 10px 0 0 0;
+        padding 10px 0 0
+
     td:nth-child(2), td:nth-child(4), td:nth-child(5)
         color #D1D1D3
 
@@ -1709,8 +1709,10 @@ body
 
 .swapTxnDetails
     color white
+
     .header-txt
         font-size 18px
+
     .txn-id-wrapper
         background-color $beldex-disable-grey
         border-radius 10px
@@ -1763,9 +1765,11 @@ body
             margin-right 3px
 
 .txnSettlement
-    padding: 13px 25px;
+    padding 13px 25px
+
     .header-txt
         font-size 18px
+
     .fund-details-wrapper
         .title
             font-size 1rem
@@ -1846,10 +1850,10 @@ body
     border 1px solid #484856
     padding 15px
     color white
-    border-radius:10px
-    display: none
+    border-radius 10px
+    display none
     position relative
-    transition: display 2s linear 1s
+    transition display 2s linear 1s
 
     .icon-wrapper
         .position
@@ -1857,40 +1861,122 @@ body
             border-radius 55px
             width 25px
             height 25px
+
         .dot
-            width: 10px
-            height: 10px
-            border-radius: 60px
-            background-color: #A9A9CD
+            width 10px
+            height 10px
+            border-radius 60px
+            background-color #A9A9CD
+
         .indicateLine:after
-            content: '';
-            position: absolute;
+            content ""
+            position absolute
             // left: 3.7%;
-            top: 60px;
-            width: 1px;
-            height: 211px;
-            background: #484856;
+            top 60px
+            width 1px
+            height 211px
+            background #484856
+
     .step-content
-        color: #AFAFBE
-        font-size: 0.8rem
+        color #AFAFBE
+        font-size .8rem
+
     .menu-wrapper
-        width: 184px;
+        width 184px
+
 .swapStatus
     .progressBar
-        background-color: $beldex-disable-grey
-        height: 8px
+        background-color $beldex-disable-grey
+        height 8px
+        border-radius 20px
+
         .innerBar
-            background-color:#20D030
-            width: 70%
-            height:3px;
+            background-color #20D030
+            width 70%
+            height 3px
+
     .sub-title
-       color:#EBEBEB
-       font-size: 18px
+        color #EBEBEB
+        font-size 18px
+
     .desc
-       color:$beldex-font-grey
-       font-size: 12px;
+        color $beldex-font-grey
+        font-size 12px
+
     .explorer-link
-        text-decoration: underline
+        text-decoration underline
+
+    .hr-seperator
+        height 1px
+        background-color $oxen-light-teal
+
+    .nav-history-wrapper
+        background-color $beldex-disable-grey
+        border-radius 10px
+
+    .history-tag
+        color white
+        text-decoration underline
+
+    .txn-preview-wrapper
+        border 1px solid $beldex-border-grey
+        border-radius 20px
+
+        .label
+            color $beldex-font-grey
+
+        .content
+            font-size 12px
+
+        .total-wrapper
+            border-top 1px solid $beldex-border-grey
+
+.SwapTxnCompeleted
+    .header-txt
+        color #20D030
+        font-size 20px
+    .copy-btn
+        width 30px
+        height 30px
+
+    .txn-id-wrapper
+        background-color $beldex-disable-grey
+        border-radius 10px
+        height: 50px
+
+        .label
+            color $beldex-font-grey
+
+    .receipt-wrapper
+        article
+            .label
+                color $beldex-font-grey
+
+        .hr-seperator
+            height 1px
+            background-color $oxen-light-teal
+
+    .hash-btn
+        color white
+        width: 200px
+        font-size: 16px
+        height: 45px
+
+        .q-btn__wrapper:before
+            border 2px solid #41415B !important
+
+
+    .action-btn
+        font-family "Poppins-Medium" !important
+        min-width unset
+
+        width: 200px
+        font-size: 16px
+        height: 45px
+        .q-icon
+           font-size:  1.2em
+        .on-left
+            margin-right 5px
 
 @media only screen and (max-width 1380px)
     .rightPane

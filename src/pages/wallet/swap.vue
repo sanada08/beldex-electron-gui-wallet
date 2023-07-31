@@ -482,7 +482,12 @@
       :exchange-data="this.exchange_amount"
       @goback="navigation('makePayment', 2)"
     />
-    <!-- <swapStatus /> -->
+    <swapStatus v-if="this.routes === 'swapStatus'" />
+    <SwapTxnCompeleted
+      v-if="this.routes === 'txnCompleted'"
+      @openHistory="navigation('txnHistory', 1)"
+      @newTxn="navigation('mainPage', 1)"
+    />
   </q-page>
 </template>
 
@@ -493,7 +498,8 @@ import OxenField from "components/oxen_field";
 import SwapConfirmPayment from "./swapConfirmPayment.vue";
 import SwapTxnHistory from "./swapTxnHistory.vue";
 import SwapTxnSettlement from "./swapTxnSettlement.vue";
-// import swapStatus from './swapStatus.vue';
+import swapStatus from "./swapStatus.vue";
+import SwapTxnCompeleted from "./swapTxnCompeleted.vue";
 import { mapState } from "vuex";
 
 export default {
@@ -501,8 +507,9 @@ export default {
     OxenField,
     SwapConfirmPayment,
     SwapTxnHistory,
-    SwapTxnSettlement
-    // swapStatus
+    SwapTxnSettlement,
+    swapStatus,
+    SwapTxnCompeleted
   },
   watch: {
     // whenever question changes, this function will run
@@ -709,16 +716,6 @@ export default {
 
       this.exechangeRateType = "fixed";
     },
-    // callInterval:setInterval(() => {
-    //   let data = {
-    //     from: "btc",
-    //     to: "eth",
-    //     amountFrom: "0.1"
-    //   };
-    //     let count=1
-    //     console.log("count",count++)
-    //     this.$gateway.send("swap", "fixed_exchange_amount", data);
-    //   }, 30000),
 
     recipientAddressValidator() {
       let params = {
@@ -754,6 +751,7 @@ export default {
       }
     },
     createtxn() {
+      // this.navigation("txnCompleted", 4);
       let data = {
         from: "btc",
         to: "eth",
