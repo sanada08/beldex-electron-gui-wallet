@@ -45,7 +45,7 @@ export class Swap {
         break;
 
       case "get_min_max":
-        this.getPairsMinMax(params.from, params.to);
+        this.getPairsMinMax(params);
         break;
 
       case "get_min":
@@ -129,14 +129,18 @@ export class Swap {
     return;
   }
 
-  getPairsMinMax(from, to) {
-    let params = {
-      from,
-      to
-    };
+  async getPairsMinMax(params) {
+    // let params = {
+    //   from,
+    //   to
+    // };
     // from: "btc",
     // to: "eth"
-    return this.sendRPC("getPairsParams", params);
+    console.log("getPairsParams ::", params);
+    let data = await this.sendRPC("getPairsParams", params);
+    console.log("getPairsParams result ::", data);
+    this.sendGateway("set_pairsMinMax", data);
+    // return this.sendRPC("getPairsParams", params);
   }
 
   getMinAmount(from, to) {
@@ -144,6 +148,7 @@ export class Swap {
       from,
       to
     };
+
     // from: "xrp",
     // to: "eth"
     return this.sendRPC("getMinAmount", params);

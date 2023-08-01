@@ -93,3 +93,7 @@ export const set_createdTxnDetails = (state, data) => {
 export const set_validateAddress = (state, data) => {
   state.RecipientAddressValidation = data;
 };
+
+export const set_pairsMinMax = (state, data) => {
+  state.pairsMinMax = data;
+};
