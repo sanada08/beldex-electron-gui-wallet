@@ -81,17 +81,7 @@
               </template>
             </q-select>
           </OxenField>
-          <!-- <span class="q-mt-xs">{{
-            this.sendAmount <= this.pairsMinMax.minAmountFloat
-              ? `Minimum amount is ${
-                  this.pairsMinMax.minAmountFloat + " " + this.pairsMinMax.from
-                }`
-              : this.sendAmount >= this.pairsMinMax.maxAmountFloat
-              ? `Maximum amount is ${
-                  this.pairsMinMax.maxAmountFloat + " " + this.pairsMinMax.from
-                }`
-              : ""
-          }}</span> -->
+          <span class="q-mt-xs">{{ this.minMaxWarningContent }}</span>
           <!-- <span class="q-mt-xs">{{this.pairsMinMax.minAmountFloat<=this.sendAmount?`Minimum amount is ${ this.pairsMinMax.minAmountFloat}`:' '}} </span> -->
           <div class="flex justify-end">
             <q-btn
@@ -541,48 +531,35 @@ export default {
   },
   watch: {
     // whenever question changes, this function will run
-    isValidRecipientAddress(
-      newisValidRecipientAddress,
-      oldisValidRecipientAddress
-    ) {
-      console.log(
-        "watcher",
-        newisValidRecipientAddress,
-        oldisValidRecipientAddress
-      );
+    isValidRecipientAddress(newisValidRecipientAddress) {
       if (newisValidRecipientAddress) {
         if (newisValidRecipientAddress.result) {
-          console.log("if");
           this.recipientAddress.error = false;
         } else {
           this.recipientAddress.error = true;
-          console.log("else");
+          this.$q.notify({
+            type: "negative",
+            timeout: 1000,
+            message: "Invalid Address!"
+          });
         }
       }
     },
     sendAmount(newvalue) {
-      console.log("watcher 2::", newvalue);
-      console.log(
-        "call getexchange1",
-        newvalue >= this.pairsMinMax.minAmountFloat &&
-          newvalue <= this.pairsMinMax.maxAmountFloat
-      );
       this.getExchangeRate();
+      this.minMaxAmoutValidator(newvalue);
+    },
+    pairsMinMax() {
+      this.minMaxAmoutValidator(this.sendAmount);
     }
   },
 
   computed: mapState({
-    //  testcurrencyList: (state) => state.gateway.currencyList,
     currencyList: state => {
       let data = state.gateway.currencyList;
-      // console.log('currencyList',data)
       let pushedData = [];
       Object.keys(data).length > 0 &&
         data.map(item => {
-          // if(item.name==='BDX')
-          // {
-          //   console.log('item for bdx',item)
-          // }
           let obj = {
             label: `${item.name}<span class='currency-name ft-regular'> -${item.fullName}<span>`,
             value: item.ticker,
@@ -602,7 +579,6 @@ export default {
           result = state.gateway.exchangeAmount.result[0];
         }
       }
-
       return result;
     },
 
@@ -626,12 +602,9 @@ export default {
     isValidRecipientAddress: state =>
       state.gateway.RecipientAddressValidation.result,
     pairsMinMax: state => {
-      // console.log('pairsMinMax',state.gateway)
-
       let data = state.gateway.pairsMinMax;
       let result = {};
       if (data.hasOwnProperty("result")) {
-        // if (state.gateway.pairsMinMax.status) {
         result = state.gateway.pairsMinMax.result[0];
       }
       return result;
@@ -649,7 +622,7 @@ export default {
   },
   data() {
     return {
-      sendAmount: 0.1,
+      sendAmount: 0.01,
       getAmount: "",
       agree: "no",
       destinationTag: "no",
@@ -664,6 +637,7 @@ export default {
       receiveAmountType: "bdx",
       blockChainDetails: { senderChain: "", receiverchain: "" },
       refreshFixedExchangeRate: "",
+      minMaxWarningContent: "",
       // sendAmounType: {
       //   label:
       //     "<span>BTC<span class='currency-name ft-regular'> -Bitcoin<span><span>",
@@ -680,10 +654,7 @@ export default {
   created() {
     this.minMaxPair();
     this.$gateway.send("swap", "currency_list", {});
-  },
-  mounted() {
-    // this.getExchangeRate()
-    // recipientAddressIsValid.result?recipientAddress.error=false:recipientAddress.error=true
+    this.getExchangeRate();
   },
 
   beforeDestroy() {
@@ -691,7 +662,6 @@ export default {
   },
   methods: {
     navigation(page, step) {
-      // console.log("mainPagemainPagemainPage");
       this.$gateway.send("wallet", "set_stepperPosition", {
         data: step
       });
@@ -715,7 +685,6 @@ export default {
       }
     },
     sendAmountValidator() {
-      // console.log("event ::", event);
       if (this.sendAmounType === "bdx" && this.receiveAmountType === "bdx") {
         this.receiveAmountType = "eth";
         this.minMaxPair();
@@ -723,7 +692,6 @@ export default {
         this.receiveAmountType = "bdx";
         this.minMaxPair();
       }
-
       this.getExchangeRate();
     },
     getAmountValidator() {
@@ -732,25 +700,31 @@ export default {
       } else if (this.receiveAmountType !== "bdx") {
         this.sendAmounType = "bdx";
       }
-      // this.getExchangeRate()
     },
     swapCurrencyType() {
-      // let swapVal;
-      // swapVal=this.sendAmounType;
-      // this.sendAmounType= this.receiveAmountType;
-      // this.receiveAmountType=swapVal
-
       [this.sendAmounType, this.receiveAmountType] = [
         this.receiveAmountType,
         this.sendAmounType
       ];
-
-      // this.getExchangeRate()
-
-      // console.log("this.currencyList ::", this.exchange_amount);
+      this.minMaxPair();
+      this.getExchangeRate();
+    },
+    minMaxAmoutValidator(amount) {
+      if (Number(amount) < Number(this.pairsMinMax.minAmountFloat)) {
+        this.minMaxWarningContent = `Minimum amount is ${this.pairsMinMax
+          .minAmountFloat +
+          " " +
+          this.pairsMinMax.from}`;
+      } else if (Number(amount) > Number(this.pairsMinMax.maxAmountFloat)) {
+        this.minMaxWarningContent = `Maximum amount is ${this.pairsMinMax
+          .maxAmountFloat +
+          " " +
+          this.pairsMinMax.from}`;
+      } else {
+        this.minMaxWarningContent = "";
+      }
     },
     getExchangeRate() {
-      // console.log('this.sendAmounType.value',this.sendAmounType,'this.receiveAmountType.value',this.receiveAmountType.value)
       let data = {
         from: this.sendAmounType,
         to: this.receiveAmountType,
@@ -771,10 +745,7 @@ export default {
         to: "eth",
         amountFrom: "0.1"
       };
-      // clearInterval(this.callInterval);
-
       this.$gateway.send("swap", "fixed_exchange_amount", data);
-      //  this.callInterval()
       let count = 1;
       this.refreshFixedExchangeRate = setInterval(() => {
         this.$gateway.send("swap", "fixed_exchange_amount", data);
@@ -786,10 +757,9 @@ export default {
 
     recipientAddressValidator() {
       let params = {
-        // currency: this.receiveAmountType,
         address: this.recipientAddress.val,
-
-        currency: "eth"
+        currency: this.receiveAmountType
+        // currency: "eth",
         // address: "0x410afe72a5f18cce5f758c731bb2a9b90e74e5c7"
       };
       if (this.recipientAddress.val) {
