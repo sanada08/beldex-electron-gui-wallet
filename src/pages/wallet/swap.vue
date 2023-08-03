@@ -50,20 +50,20 @@
               :options="currencyList"
               borderless
               dense
-              emit-value
-              map-options
               class="ft-semibold q-pl-sm dropdown-send-type"
               popup-content-class="exchage-option"
               dropdown-icon="expand_more"
               :menu-offset="[170, 10]"
               @input="value => sendAmountValidator(value)"
             >
+              <!-- @input="(value) => sendAmountValidator(value)" -->
+
               <template v-slot:option="scope">
                 <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
                   <q-item-section class="swapdropDown-option">
                     <q-img
                       class="q-mr-sm"
-                      :src="scope.opt.icon"
+                      :src="scope.opt.image"
                       style="
                         height: 20px;
                         max-width: 20px;
@@ -74,14 +74,36 @@
                       >{{ scope.opt.name }}
                     </q-item-label>
                     <q-item-label class="currency-name ft-regular">
-                      - {{ scope.opt.description }}</q-item-label
+                      - {{ scope.opt.fullName }}</q-item-label
                     >
                   </q-item-section>
                 </q-item>
               </template>
             </q-select>
           </OxenField>
-          <span class="q-mt-xs">{{ this.minMaxWarningContent }}</span>
+          <!-- <pre>{{ this.sendAmounType }}</pre> -->
+          <span class="q-mt-xs">
+            <span v-if="this.minMaxWarningContent === 'min'"
+              >Minimum amount is
+              <span
+                class="validMinMaxAmount"
+                @click="sendAmount = pairsMinMax.minAmountFloat"
+                >{{
+                  this.pairsMinMax.minAmountFloat + " " + this.pairsMinMax.from
+                }}</span
+              ></span
+            >
+            <span
+              v-if="this.minMaxWarningContent === 'max'"
+              @click="sendAmount = pairsMinMax.maxAmountFloat"
+              >Maximum amount is
+              <span class="validMinMaxAmount">
+                {{
+                  this.pairsMinMax.maxAmountFloat + " " + this.pairsMinMax.from
+                }}</span
+              ></span
+            >
+          </span>
           <!-- <span class="q-mt-xs">{{this.pairsMinMax.minAmountFloat<=this.sendAmount?`Minimum amount is ${ this.pairsMinMax.minAmountFloat}`:' '}} </span> -->
           <div class="flex justify-end">
             <q-btn
@@ -133,21 +155,20 @@
               :options="currencyList"
               borderless
               dense
-              emit-value
-              map-options
               :menu-offset="[170, 10]"
               :options-html="receiveAmountType"
               class="ft-semibold q-pl-sm dropdown-send-type"
               popup-content-class="exchage-option"
               dropdown-icon="expand_more"
-              @change="val => getAmountValidator(val)"
+              @input="value => getAmountValidator(value)"
             >
+              <!-- @input="(value) => getAmountValidator(value)" -->
               <template v-slot:option="scope">
                 <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
                   <q-item-section class="swapdropDown-option">
                     <q-img
                       class="q-mr-sm"
-                      :src="scope.opt.icon"
+                      :src="scope.opt.image"
                       style="
                         height: 20px;
                         max-width: 20px;
@@ -158,7 +179,7 @@
                       >{{ scope.opt.name }}
                     </q-item-label>
                     <q-item-label class="currency-name ft-regular">
-                      - {{ scope.opt.description }}</q-item-label
+                      - {{ scope.opt.fullName }}</q-item-label
                     >
                   </q-item-section>
                 </q-item>
@@ -175,7 +196,7 @@
               <td>You send</td>
               <td>
                 {{ this.sendAmount > 0 ? this.sendAmount : 0 }}
-                {{ this.sendAmounType }}
+                {{ this.sendAmounType.name }}
               </td>
             </tr>
             <tr v-if="this.exechangeRateType === 'float'">
@@ -387,7 +408,9 @@
           v-model="recipientAddress.val"
           borderless
           dense
-          :placeholder="'Enter your ETH recipient address'"
+          :placeholder="
+            `Enter your ${this.receiveAmountType.name} recipient address`
+          "
           @blur="() => this.recipientAddressValidator()"
         />
       </OxenField>
@@ -546,7 +569,10 @@ export default {
       }
     },
     sendAmount(newvalue) {
+      // if(Number(newvalue) > Number(this.pairsMinMax.minAmountFloat) && Number(newvalue) < Number(this.pairsMinMax.maxAmountFloat))
+      // {
       this.getExchangeRate();
+      // }
       this.minMaxAmoutValidator(newvalue);
     },
     pairsMinMax() {
@@ -560,16 +586,24 @@ export default {
       let pushedData = [];
       Object.keys(data).length > 0 &&
         data.map(item => {
-          let obj = {
-            label: `${item.name}<span class='currency-name ft-regular'> -${item.fullName}<span>`,
-            value: item.ticker,
-            name: item.name,
-            description: item.fullName,
-            icon: item.image
-          };
-          pushedData.push(obj);
+          (item.label = `${item.name}<span class='currency-name ft-regular'> -${item.fullName}<span>`),
+            (item.value = item.ticker);
+          // let obj = {
+          //   label: `${item.name}<span class='currency-name ft-regular'> -${item.fullName}<span>`,
+          //   value: item.ticker,
+          // };
+          // let mergeObj={...obj,...item}
+          if (item.name === "BDX") {
+            console.log("Bdx details ::", item);
+          }
+          pushedData.push(item);
         });
       return pushedData;
+    },
+    bdxCoinDetails: state => {
+      let data = state.gateway.currencyList;
+      let data2 = data.find(item => item.name === "BDX");
+      console.log("data2 ", data2);
     },
     exchange_amount: state => {
       let data = state.gateway.exchangeAmount;
@@ -622,6 +656,23 @@ export default {
   },
   data() {
     return {
+      // bdxCoinDetails: {
+      //   blockchain: "beldex",
+      //   enabled: true,
+      //   enabledFrom: true,
+      //   enabledTo: true,
+      //   fixRateEnabled: false,
+      //   fixedTime: 0,
+      //   fullName: "Beldex",
+      //   image: "https://web-api.changelly.com/api/coins/bdx.png",
+      //   label: "BDX<span class='currency-name ft-regular'> -Beldex<span>",
+      //   name: "BDX",
+      //   payinConfirmations: 5,
+      //   protocol: "BDX",
+      //   ticker: "bdx",
+      //   transactionUrl: "https://explorer.beldex.io/tx/%1$s",
+      //   value: "bdx"
+      // },
       sendAmount: 0.01,
       getAmount: "",
       agree: "no",
@@ -633,20 +684,21 @@ export default {
 
       exechangeRateType: "float",
       recipientAddress: { error: false, val: "" },
-      sendAmounType: "btc",
-      receiveAmountType: "bdx",
+      // sendAmounType:,
+      // receiveAmountType:bdxCoinDetails,
       blockChainDetails: { senderChain: "", receiverchain: "" },
       refreshFixedExchangeRate: "",
       minMaxWarningContent: "",
-      // sendAmounType: {
-      //   label:
-      //     "<span>BTC<span class='currency-name ft-regular'> -Bitcoin<span><span>",
-      //   value: "btc"
-      // },
-      // receiveAmountType: {
-      //   label: "BDX<span class='currency-name ft-regular'> -Beldex<span>",
-      //   value: "btc"
-      // },
+
+      sendAmounType: {
+        label:
+          "<span>BTC<span class='currency-name ft-regular'> -Bitcoin<span><span>",
+        value: "btc"
+      },
+      receiveAmountType: {
+        label: "BDX<span class='currency-name ft-regular'> -Beldex<span>",
+        value: "bdx"
+      },
 
       sendAmounTypeOption: ""
     };
@@ -668,7 +720,10 @@ export default {
       this.routes = page;
     },
     minMaxPair() {
-      let data = { from: this.sendAmounType, to: this.receiveAmountType };
+      let data = {
+        from: this.sendAmounType.value,
+        to: this.receiveAmountType.value
+      };
       this.$gateway.send("swap", "get_min_max", data);
     },
     updateSendAmount(value) {
@@ -685,49 +740,64 @@ export default {
       }
     },
     sendAmountValidator() {
-      if (this.sendAmounType === "bdx" && this.receiveAmountType === "bdx") {
-        this.receiveAmountType = "eth";
-        this.minMaxPair();
-      } else if (this.sendAmounType !== "bdx") {
-        this.receiveAmountType = "bdx";
-        this.minMaxPair();
-      }
+      // if (
+      //   this.sendAmounType.value === "bdx" &&
+      //   this.receiveAmountType.value === "bdx"
+      // ) {
+      //   this.receiveAmountType.value = "eth";
+      this.minMaxPair();
+      // } else if (this.sendAmounType.value !== "bdx") {
+      //   this.receiveAmountType.value= "bdx";
+      //   this.minMaxPair();
+      // }
       this.getExchangeRate();
     },
     getAmountValidator() {
-      if (this.sendAmounType === "bdx" && this.receiveAmountType === "bdx") {
-        this.sendAmounType = "eth";
-      } else if (this.receiveAmountType !== "bdx") {
-        this.sendAmounType = "bdx";
-      }
+      // if (this.sendAmounType === "bdx" && this.receiveAmountType === "bdx") {
+      //   this.sendAmounType.value = "eth";
+      this.minMaxPair();
+      // } else if (this.receiveAmountType !== "bdx") {
+      //   this.sendAmounType.value = "bdx";
+      //   this.minMaxPair();
+      // }
+      this.getExchangeRate();
     },
     swapCurrencyType() {
-      [this.sendAmounType, this.receiveAmountType] = [
-        this.receiveAmountType,
-        this.sendAmounType
+      [this.sendAmounType.value, this.receiveAmountType.value] = [
+        this.receiveAmountType.value,
+        this.sendAmounType.value
       ];
+      this.$store.commit("gateway/set_pairsMinMax", {
+        result: [{ from: "", to: "", minAmountFloat: 0, maxAmountFloat: 0 }]
+      });
       this.minMaxPair();
       this.getExchangeRate();
     },
     minMaxAmoutValidator(amount) {
-      if (Number(amount) < Number(this.pairsMinMax.minAmountFloat)) {
-        this.minMaxWarningContent = `Minimum amount is ${this.pairsMinMax
-          .minAmountFloat +
-          " " +
-          this.pairsMinMax.from}`;
-      } else if (Number(amount) > Number(this.pairsMinMax.maxAmountFloat)) {
-        this.minMaxWarningContent = `Maximum amount is ${this.pairsMinMax
-          .maxAmountFloat +
-          " " +
-          this.pairsMinMax.from}`;
+      if (
+        this.pairsMinMax.minAmountFloat &&
+        Number(amount) < Number(this.pairsMinMax.minAmountFloat)
+      ) {
+        // this.minMaxWarningContent = `Minimum amount is <span class='validMinMaxAmount'>${this.pairsMinMax.minAmountFloat} ${this.pairsMinMax.from}</span>`;
+        this.minMaxWarningContent = "min";
+      } else if (
+        this.pairsMinMax.maxAmountFloat &&
+        Number(amount) > Number(this.pairsMinMax.maxAmountFloat)
+      ) {
+        // this.minMaxWarningContent = `Maximum amount is <span class='validMinMaxAmount'> ${
+        //   this.pairsMinMax.maxAmountFloat + " " + this.pairsMinMax.from
+        // }</span>`;
+        this.minMaxWarningContent = "max";
       } else {
         this.minMaxWarningContent = "";
       }
     },
     getExchangeRate() {
+      this.$store.commit("gateway/set_exchangeAmount", { result: [] });
+
       let data = {
-        from: this.sendAmounType,
-        to: this.receiveAmountType,
+        from: this.sendAmounType.value,
+        to: this.receiveAmountType.value,
         amountFrom: this.sendAmount
       };
       // let data = {
@@ -737,12 +807,24 @@ export default {
       // };
       clearInterval(this.refreshFixedExchangeRate);
       this.exechangeRateType = "float";
+      // console.log('before if')
+      // if(Number(this.sendAmount) >= Number(this.pairsMinMax.minAmountFloat) && Number(this.sendAmount) <= Number(this.pairsMinMax.maxAmountFloat))
+      // {
       this.$gateway.send("swap", "exchange_amount", data);
+      // console.log('after if')
+
+      // }
     },
     getFixedExchangeAmount() {
+      this.$store.commit("gateway/set_exchangeAmount", { result: [] });
+      // let data = {
+      //   from: this.sendAmounType,
+      //   to: this.receiveAmountType,
+      //   amountFrom: this.sendAmount
+      // };
       let data = {
-        from: "btc",
-        to: "eth",
+        from: "eth",
+        to: "bdx",
         amountFrom: "0.1"
       };
       this.$gateway.send("swap", "fixed_exchange_amount", data);
