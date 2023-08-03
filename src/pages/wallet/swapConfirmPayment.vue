@@ -31,31 +31,23 @@
           <div class="q-mb-sm">
             You send
           </div>
-          <div class="ft-semibold amount-txt">
-            {{
-              this.exchangeData.amountFrom +
-                " " +
-                this.exchangeData.from.toUpperCase()
-            }}
+          <div class="ft-semibold amount-txt uppercase">
+            {{ this.exchangeData.amountFrom + " " + this.exchangeData.from }}
           </div>
           <div class="ft-semibold expand-txt">
-            blockchain : bitcoin
+            blockchain : {{ sendChainDetails.blockchain }}
           </div>
         </div>
         <div class="col-6">
           <div class="q-mb-sm">
             You get
           </div>
-          <div class="ft-semibold amount-txt">
+          <div class="ft-semibold amount-txt uppercase">
             ~
-            {{
-              this.exchangeData.amountTo +
-                " " +
-                this.exchangeData.to.toUpperCase()
-            }}
+            {{ this.exchangeData.amountTo + " " + this.exchangeData.to }}
           </div>
           <div class="ft-semibold expand-txt">
-            blockchain : ethereum
+            blockchain : {{ receiveChainDtails.blockchain }}
           </div>
         </div>
       </article>
@@ -66,10 +58,8 @@
           <div class="q-mb-sm">
             Exchange Fee
           </div>
-          <div class="ft-semibold amount-txt">
-            {{
-              this.exchangeData.fee + " " + this.exchangeData.to.toUpperCase()
-            }}
+          <div class="ft-semibold amount-txt uppercase">
+            {{ this.exchangeData.fee + " " + this.exchangeData.to }}
           </div>
           <div class="ft-regular hint-txt">
             The exchange fee is already included in the displayed amount you’ll
@@ -80,12 +70,8 @@
           <div class="q-mb-sm">
             Network Fee
           </div>
-          <div class="ft-semibold amount-txt">
-            {{
-              this.exchangeData.networkFee +
-                " " +
-                this.exchangeData.to.toUpperCase()
-            }}
+          <div class="ft-semibold amount-txt uppercase">
+            {{ this.exchangeData.networkFee + " " + this.exchangeData.to }}
           </div>
           <div class="ft-regular  hint-txt">
             The network fee is already included in the displayed amount you’ll
@@ -108,14 +94,14 @@
           <div class="q-mb-sm">
             Exchange rate
           </div>
-          <div class="ft-semibold amount-txt">
+          <div class="ft-semibold amount-txt uppercase">
             1
             {{
-              this.exchangeData.from.toUpperCase() +
+              this.exchangeData.from +
                 " ~ " +
                 this.exchangeData.rate +
                 " " +
-                this.exchangeData.to.toUpperCase()
+                this.exchangeData.to
             }}
           </div>
         </div>
@@ -153,6 +139,14 @@ export default {
     },
     recipientAddress: {
       type: String,
+      required: true
+    },
+    sendChainDetails: {
+      type: Object,
+      required: true
+    },
+    receiveChainDtails: {
+      type: Object,
       required: true
     }
   },

@@ -32,7 +32,6 @@
             label="You send"
             :error="$v.sendAmount.$error"
           >
-            <!-- v-model="sendAmount" -->
             <q-input
               v-model="sendAmount"
               borderless
@@ -43,7 +42,6 @@
               :placeholder="0"
               @keydown="keyHandler"
               @blur="$v.sendAmount.$touch"
-              @update:model-value="val => updateSendAmount(val)"
             />
             <q-select
               v-model="sendAmounType"
@@ -56,8 +54,6 @@
               :menu-offset="[170, 10]"
               @input="value => sendAmountValidator(value)"
             >
-              <!-- @input="(value) => sendAmountValidator(value)" -->
-
               <template v-slot:option="scope">
                 <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
                   <q-item-section class="swapdropDown-option">
@@ -81,7 +77,6 @@
               </template>
             </q-select>
           </OxenField>
-          <!-- <pre>{{ this.sendAmounType }}</pre> -->
           <span class="q-mt-xs">
             <span v-if="this.minMaxWarningContent === 'min'"
               >Minimum amount is
@@ -104,7 +99,6 @@
               ></span
             >
           </span>
-          <!-- <span class="q-mt-xs">{{this.pairsMinMax.minAmountFloat<=this.sendAmount?`Minimum amount is ${ this.pairsMinMax.minAmountFloat}`:' '}} </span> -->
           <div class="flex justify-end">
             <q-btn
               color="accent"
@@ -162,7 +156,6 @@
               dropdown-icon="expand_more"
               @input="value => getAmountValidator(value)"
             >
-              <!-- @input="(value) => getAmountValidator(value)" -->
               <template v-slot:option="scope">
                 <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
                   <q-item-section class="swapdropDown-option">
@@ -201,35 +194,21 @@
             </tr>
             <tr v-if="this.exechangeRateType === 'float'">
               <td>Exchange rate</td>
-              <td>
+              <td class="uppercase">
                 1
-                {{
-                  exchange_amount.from
-                    ? exchange_amount.from.toUpperCase()
-                    : " ..."
-                }}
+                {{ exchange_amount.from ? exchange_amount.from : " ..." }}
                 ~ {{ exchange_amount.rate }}
-                {{
-                  exchange_amount.to ? exchange_amount.to.toUpperCase() : "..."
-                }}
+                {{ exchange_amount.to ? exchange_amount.to : "..." }}
               </td>
             </tr>
             <tr v-else>
               <td>Fixed rate</td>
-              <td>
+              <td class="uppercase">
                 <span
                   >1
-                  {{
-                    exchange_amount.from
-                      ? exchange_amount.from.toUpperCase()
-                      : "..."
-                  }}
+                  {{ exchange_amount.from ? exchange_amount.from : "..." }}
                   ~ {{ exchange_amount.result }}
-                  {{
-                    exchange_amount.to
-                      ? exchange_amount.to.toUpperCase()
-                      : "..."
-                  }}</span
+                  {{ exchange_amount.to ? exchange_amount.to : "..." }}</span
                 ><br />
                 <span class="fixed-rate-hint"
                   >The fixed rate is updated every 30 Seconds</span
@@ -238,11 +217,9 @@
             </tr>
             <tr v-if="this.exechangeRateType == 'float'">
               <td>Service fee 0.25%</td>
-              <td>
+              <td class="uppercase">
                 {{ exchange_amount.fee }}
-                {{
-                  exchange_amount.to ? exchange_amount.to.toUpperCase() : "..."
-                }}
+                {{ exchange_amount.to ? exchange_amount.to : "..." }}
               </td>
             </tr>
 
@@ -252,47 +229,25 @@
             </tr>
             <tr v-if="this.exechangeRateType == 'float'">
               <td>Network fee</td>
-              <td>
+              <td class="uppercase">
                 {{ exchange_amount.networkFee }}
-                {{
-                  exchange_amount.to ? exchange_amount.to.toUpperCase() : "..."
-                }}
+                {{ exchange_amount.to ? exchange_amount.to : "..." }}
               </td>
             </tr>
             <tr>
               <td>You Get</td>
-              <td>
+              <td class="uppercase">
                 ~ {{ exchange_amount.amountTo }}
-                {{
-                  exchange_amount.to ? exchange_amount.to.toUpperCase() : "..."
-                }}
+                {{ exchange_amount.to ? exchange_amount.to : "..." }}
               </td>
             </tr>
           </table>
         </article>
       </section>
-
-      <!-- <article>
-      <q-expansion-item
-        dense
-        dense-toggleexpand-icon-toggle
-        expand-separator
-        class="fee-expand q-mt-md"
-        dropdown-icon="expand_more"
-        label="All fees included"
+      <section
+        v-if="this.receiveAmountType.fixRateEnabled"
+        class="exerate-wrapper q-mt-md"
       >
-        <q-card class="drp-content">
-          <q-card-section>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem,
-            eius reprehenderit eos corrupti commodi magni quaerat ex numquam,
-            dolorum officiis modi facere maiores architecto suscipit iste
-            eveniet doloribus ullam aliquid.
-          </q-card-section>
-        </q-card>
-      </q-expansion-item>
-    </article> -->
-
-      <section class="exerate-wrapper q-mt-md">
         <article class="flex row info-wrapper q-my-md">
           <div style="width: 4%; padding-top: 5px" class="flex justify-center">
             <q-icon name="o_info" size="14px" />
@@ -337,9 +292,6 @@
             <span v-if="this.exechangeRateType === 'float'">
               ~ {{ exchange_amount.rate }}
             </span>
-            <!-- <span class="ft-regular" style="color: #afafbe; font-size: 12px"
-            >Your amount could chage depending on the market conditions</span
-          > -->
           </div>
         </article>
 
@@ -375,10 +327,6 @@
             <span v-if="this.exechangeRateType === 'fixed'"
               >~ {{ exchange_amount.result }}</span
             >
-            <!-- <span class="ft-regular" style="color: #afafbe; font-size: 12px"
-            >Your amount will remain the same irrespective of the changes on the
-            market</span
-          > -->
           </div>
         </article>
       </section>
@@ -414,25 +362,6 @@
           @blur="() => this.recipientAddressValidator()"
         />
       </OxenField>
-
-      <!-- <article class="flex row q-mt-sm">
-        <div
-          class="support-protocal-box ft-semibold flex justify-center items-center q-mr-xs"
-        >
-          FIO
-        </div>
-        <div
-          class="support-protocal-box ft-semibold flex justify-center items-center q-mr-xs"
-        >
-          UD
-        </div>
-        <div class="ft-Light" style="color: #ebebeb">
-          FIO protocol and Unstoppable Domains are supported
-        </div>
-      </article> -->
-
-      <!-- Refund wallet Address for BTC -->
-
       <article v-if="this.exechangeRateType === 'fixed'">
         <OxenField class="q-mt-md ft-regular" label="Refund wallet Address">
           <q-input
@@ -442,22 +371,6 @@
             :placeholder="'Enter your BTC refund address'"
           />
         </OxenField>
-
-        <!-- <article class="flex row q-mt-sm">
-          <div
-            class="support-protocal-box ft-semibold flex justify-center items-center q-mr-xs"
-          >
-            FIO
-          </div>
-          <div
-            class="support-protocal-box ft-semibold flex justify-center items-center q-mr-xs"
-          >
-            UD
-          </div>
-          <div class="ft-Light" style="color: #ebebeb">
-            FIO protocol and Unstoppable Domains are supported
-          </div>
-        </article> -->
       </article>
 
       <div
@@ -510,6 +423,8 @@
       v-if="this.routes === 'makePayment'"
       :exchange-data="this.exchange_amount"
       :recipient-address="this.recipientAddress.val"
+      :send-chain-details="this.sendAmounType"
+      :receive-chain-dtails="this.receiveAmountType"
       @goback="navigation('mainPage', 1)"
       @submit="createtxn"
     />
@@ -521,6 +436,7 @@
       v-if="this.routes === 'settlement' && createdTxnDetails.status"
       :created-txn-details="createdTxnDetails.result"
       :exchange-data="this.exchange_amount"
+      :send-chain-details="this.sendAmounType"
       @goback="navigation('makePayment', 2)"
     />
     <swapStatus v-if="this.routes === 'swapStatus'" />
@@ -534,7 +450,6 @@
 
 <script>
 import { required, decimal } from "vuelidate/lib/validators";
-// import { greater_than_zero } from "src/validators/common";
 import OxenField from "components/oxen_field";
 import SwapConfirmPayment from "./swapConfirmPayment.vue";
 import SwapTxnHistory from "./swapTxnHistory.vue";
@@ -569,14 +484,20 @@ export default {
       }
     },
     sendAmount(newvalue) {
-      // if(Number(newvalue) > Number(this.pairsMinMax.minAmountFloat) && Number(newvalue) < Number(this.pairsMinMax.maxAmountFloat))
-      // {
       this.getExchangeRate();
-      // }
       this.minMaxAmoutValidator(newvalue);
     },
     pairsMinMax() {
       this.minMaxAmoutValidator(this.sendAmount);
+    },
+    currencyList(newValue) {
+      if (newValue && newValue.length > 0) {
+        let btcDetails = newValue.find(item => item.name === "BTC");
+        let bdxDetails = newValue.find(item => item.name === "BDX");
+        this.bdxCoinDetails = bdxDetails;
+        this.sendAmounType = btcDetails;
+        this.receiveAmountType = bdxDetails;
+      }
     }
   },
 
@@ -588,23 +509,11 @@ export default {
         data.map(item => {
           (item.label = `${item.name}<span class='currency-name ft-regular'> -${item.fullName}<span>`),
             (item.value = item.ticker);
-          // let obj = {
-          //   label: `${item.name}<span class='currency-name ft-regular'> -${item.fullName}<span>`,
-          //   value: item.ticker,
-          // };
-          // let mergeObj={...obj,...item}
-          if (item.name === "BDX") {
-            console.log("Bdx details ::", item);
-          }
           pushedData.push(item);
         });
       return pushedData;
     },
-    bdxCoinDetails: state => {
-      let data = state.gateway.currencyList;
-      let data2 = data.find(item => item.name === "BDX");
-      console.log("data2 ", data2);
-    },
+
     exchange_amount: state => {
       let data = state.gateway.exchangeAmount;
       let result = {};
@@ -616,22 +525,6 @@ export default {
       return result;
     },
 
-    // exchange_amount:(state)=>{return {
-    //     from: "btc",
-    //     to: "eth",
-    //     networkFee: "0.0016933800000000000000",
-    //     amountFrom: "0.1",
-    //     amountTo: "1.56933722",
-    //     max: "16.07716815",
-    //     maxFrom: "16.07716815",
-    //     maxTo: "248.8629879",
-    //     min: "0.00085743",
-    //     minFrom: "0.00085743",
-    //     minTo: "0.01349678",
-    //     visibleAmount: "1.572482184368737474",
-    //     rate: "15.7248218436",
-    //     fee: "0.003144964368737474"
-    //   }},
     createdTxnDetails: state => state.gateway.createdTxnDetails,
     isValidRecipientAddress: state =>
       state.gateway.RecipientAddressValidation.result,
@@ -656,23 +549,6 @@ export default {
   },
   data() {
     return {
-      // bdxCoinDetails: {
-      //   blockchain: "beldex",
-      //   enabled: true,
-      //   enabledFrom: true,
-      //   enabledTo: true,
-      //   fixRateEnabled: false,
-      //   fixedTime: 0,
-      //   fullName: "Beldex",
-      //   image: "https://web-api.changelly.com/api/coins/bdx.png",
-      //   label: "BDX<span class='currency-name ft-regular'> -Beldex<span>",
-      //   name: "BDX",
-      //   payinConfirmations: 5,
-      //   protocol: "BDX",
-      //   ticker: "bdx",
-      //   transactionUrl: "https://explorer.beldex.io/tx/%1$s",
-      //   value: "bdx"
-      // },
       sendAmount: 0.01,
       getAmount: "",
       agree: "no",
@@ -680,16 +556,12 @@ export default {
       destinationTagValue: "",
       refundAddress: "",
       routes: "mainPage",
-      // routes: "",
-
       exechangeRateType: "float",
       recipientAddress: { error: false, val: "" },
-      // sendAmounType:,
-      // receiveAmountType:bdxCoinDetails,
-      blockChainDetails: { senderChain: "", receiverchain: "" },
       refreshFixedExchangeRate: "",
+      refreshFloatExchangeRate: "",
       minMaxWarningContent: "",
-
+      bdxCoinDetails: {},
       sendAmounType: {
         label:
           "<span>BTC<span class='currency-name ft-regular'> -Bitcoin<span><span>",
@@ -699,7 +571,6 @@ export default {
         label: "BDX<span class='currency-name ft-regular'> -Beldex<span>",
         value: "bdx"
       },
-
       sendAmounTypeOption: ""
     };
   },
@@ -711,6 +582,7 @@ export default {
 
   beforeDestroy() {
     clearInterval(this.refreshFixedExchangeRate);
+    clearInterval(this.refreshFloatExchangeRate);
   },
   methods: {
     navigation(page, step) {
@@ -725,9 +597,6 @@ export default {
         to: this.receiveAmountType.value
       };
       this.$gateway.send("swap", "get_min_max", data);
-    },
-    updateSendAmount(value) {
-      console.log("updateSendAmount ::", value);
     },
     keyHandler(evt) {
       if (
@@ -763,9 +632,9 @@ export default {
       this.getExchangeRate();
     },
     swapCurrencyType() {
-      [this.sendAmounType.value, this.receiveAmountType.value] = [
-        this.receiveAmountType.value,
-        this.sendAmounType.value
+      [this.sendAmounType, this.receiveAmountType] = [
+        this.receiveAmountType,
+        this.sendAmounType
       ];
       this.$store.commit("gateway/set_pairsMinMax", {
         result: [{ from: "", to: "", minAmountFloat: 0, maxAmountFloat: 0 }]
@@ -778,15 +647,11 @@ export default {
         this.pairsMinMax.minAmountFloat &&
         Number(amount) < Number(this.pairsMinMax.minAmountFloat)
       ) {
-        // this.minMaxWarningContent = `Minimum amount is <span class='validMinMaxAmount'>${this.pairsMinMax.minAmountFloat} ${this.pairsMinMax.from}</span>`;
         this.minMaxWarningContent = "min";
       } else if (
         this.pairsMinMax.maxAmountFloat &&
         Number(amount) > Number(this.pairsMinMax.maxAmountFloat)
       ) {
-        // this.minMaxWarningContent = `Maximum amount is <span class='validMinMaxAmount'> ${
-        //   this.pairsMinMax.maxAmountFloat + " " + this.pairsMinMax.from
-        // }</span>`;
         this.minMaxWarningContent = "max";
       } else {
         this.minMaxWarningContent = "";
@@ -800,38 +665,26 @@ export default {
         to: this.receiveAmountType.value,
         amountFrom: this.sendAmount
       };
-      // let data = {
-      //   from: "btc",
-      //   to: "eth",
-      //   amountFrom: "1"
-      // };
       clearInterval(this.refreshFixedExchangeRate);
+      clearInterval(this.refreshFloatExchangeRate);
       this.exechangeRateType = "float";
-      // console.log('before if')
-      // if(Number(this.sendAmount) >= Number(this.pairsMinMax.minAmountFloat) && Number(this.sendAmount) <= Number(this.pairsMinMax.maxAmountFloat))
-      // {
       this.$gateway.send("swap", "exchange_amount", data);
-      // console.log('after if')
 
-      // }
+      this.refreshFloatExchangeRate = setInterval(() => {
+        this.$gateway.send("swap", "exchange_amount", data);
+      }, 30000);
     },
     getFixedExchangeAmount() {
       this.$store.commit("gateway/set_exchangeAmount", { result: [] });
-      // let data = {
-      //   from: this.sendAmounType,
-      //   to: this.receiveAmountType,
-      //   amountFrom: this.sendAmount
-      // };
       let data = {
-        from: "eth",
-        to: "bdx",
-        amountFrom: "0.1"
+        from: this.sendAmounType,
+        to: this.receiveAmountType,
+        amountFrom: this.sendAmount
       };
+
       this.$gateway.send("swap", "fixed_exchange_amount", data);
-      let count = 1;
       this.refreshFixedExchangeRate = setInterval(() => {
         this.$gateway.send("swap", "fixed_exchange_amount", data);
-        console.log("count ::", count++);
       }, 30000);
 
       this.exechangeRateType = "fixed";
@@ -840,16 +693,13 @@ export default {
     recipientAddressValidator() {
       let params = {
         address: this.recipientAddress.val,
-        currency: this.receiveAmountType
-        // currency: "eth",
-        // address: "0x410afe72a5f18cce5f758c731bb2a9b90e74e5c7"
+        currency: this.receiveAmountType.value
       };
       if (this.recipientAddress.val) {
         this.$gateway.send("swap", "validate_address", params);
       }
     },
     next() {
-      // console.log('pairsMinMax ::',this.pairsMinMax)
       let refundAdderss =
         this.exechangeRateType === "fixed" ? this.refundAddress : true;
       if (
@@ -862,6 +712,8 @@ export default {
         this.$gateway.send("wallet", "set_stepperPosition", {
           data: 2
         });
+        clearInterval(this.refreshFixedExchangeRate);
+        clearInterval(this.refreshFloatExchangeRate);
       } else {
         this.$q.notify({
           type: "negative",
@@ -871,12 +723,11 @@ export default {
       }
     },
     createtxn() {
-      // this.navigation("txnCompleted", 4);
       let data = {
-        from: "btc",
-        to: "eth",
-        address: "0x410afe72a5f18cce5f758c731bb2a9b90e74e5c7",
-        amountFrom: "0.1"
+        from: this.sendAmounType.value,
+        to: this.receiveAmountType.value,
+        address: this.recipientAddress.val,
+        amountFrom: this.sendAmount
       };
       this.$gateway.send("swap", "create_transaction", data);
       this.navigation("settlement", 3);
@@ -884,5 +735,3 @@ export default {
   }
 };
 </script>
-
-<style lang="scss"></style>

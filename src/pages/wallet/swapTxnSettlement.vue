@@ -81,7 +81,7 @@
             <span class="ft-medium">{{ createdTxnDetails.payinAddress }}</span
             ><br />
             <span class="ft-semibold" style="color: #00ad07"
-              >blockchain : bitcoin</span
+              >blockchain : {{ sendChainDetails.blockchain }}</span
             >
           </div>
           <div>
@@ -118,55 +118,35 @@
         <div class="ft-semibold" style="margin-top: 14px; margin-bottom: 9px">
           Transaction details
         </div>
-        <!-- <table style="width: 100%" class="txn-fee-details">
-          <tr>
-            <td>You send</td>
-            <td>0 BTC</td>
-          </tr>
-          <tr>
-            <td>Exchange rate</td>
-            <td>1 BTC ~ ... ETH</td>
-          </tr>
-          <tr>
-            <td>Service fee 0.25%</td>
-            <td>0 ETH</td>
-          </tr>
-          <tr>
-            <td>Network fee</td>
-            <td>0 ETH</td>
-          </tr>
-          <tr>
-            <td>You Get</td>
-            <td>~ 0 ETH</td>
-          </tr>
-        </table> -->
-
         <table style="width: 100%" class="txn-fee-details">
           <tr>
             <td>You send</td>
-            <td>{{ this.sendAmount > 0 ? this.sendAmount : 0 }} BTC</td>
+            <td>
+              {{
+                createdTxnDetails.amountExpectedFrom > 0
+                  ? createdTxnDetails.amountExpectedFrom
+                  : 0
+              }}
+              BTC
+            </td>
           </tr>
           <tr v-if="createdTxnDetails.type == 'float'">
             <td>Exchange rate</td>
-            <td>
+            <td class="uppercase">
               1
-              {{ exchangeData.from ? exchangeData.from.toUpperCase() : "" }}
+              {{ exchangeData.from ? exchangeData.from : "" }}
               ~ {{ exchangeData.rate }}
-              {{ exchangeData.to ? exchangeData.to.toUpperCase() : "" }}
+              {{ exchangeData.to ? exchangeData.to : "" }}
             </td>
           </tr>
           <tr v-else>
             <td>Fixed rate</td>
             <td>
-              <span
+              <span class="uppercase"
                 >1
-                {{
-                  exchange_amount.from ? exchange_amount.from.toUpperCase() : ""
-                }}
+                {{ exchange_amount.from ? exchange_amount.from : "" }}
                 ~ {{ exchange_amount.result }}
-                {{
-                  exchange_amount.to ? exchange_amount.to.toUpperCase() : ""
-                }}</span
+                {{ exchange_amount.to ? exchange_amount.to : "" }}</span
               ><br />
               <span class="fixed-rate-hint"
                 >The fixed rate is updated every 30 Seconds</span
@@ -175,9 +155,9 @@
           </tr>
           <tr v-if="createdTxnDetails.type == 'float'">
             <td>Service fee 0.25%</td>
-            <td>
+            <td class="uppercase">
               {{ exchangeData.fee }}
-              {{ exchangeData.to ? exchangeData.to.toUpperCase() : "" }}
+              {{ exchangeData.to ? exchangeData.to : "" }}
             </td>
           </tr>
 
@@ -187,16 +167,16 @@
           </tr>
           <tr v-if="createdTxnDetails.type == 'float'">
             <td>Network fee</td>
-            <td>
+            <td class="uppercase">
               {{ exchangeData.networkFee }}
-              {{ exchangeData.to ? exchangeData.to.toUpperCase() : "" }}
+              {{ exchangeData.to ? exchangeData.to : "" }}
             </td>
           </tr>
           <tr>
             <td>You Get</td>
-            <td>
+            <td class="uppercase">
               ~ {{ exchangeData.amountTo }}
-              {{ exchangeData.to ? exchangeData.to.toUpperCase() : "" }}
+              {{ exchangeData.to ? exchangeData.to : "" }}
             </td>
           </tr>
         </table>
@@ -263,6 +243,10 @@ export default {
     exchangeData: {
       type: Object,
       required: true
+    },
+    sendChainDetails: {
+      type: Object,
+      require: true
     }
   },
 
@@ -282,6 +266,7 @@ export default {
   methods: {
     backTopayment() {
       this.$emit("goback");
+      clearInterval(this.timer);
       //  this.startAndStopTimer()
     },
     startAndStopTimer() {
