@@ -61,14 +61,7 @@ export class Swap {
         break;
 
       case "create_fixed_transaction":
-        this.createFixTransaction(
-          params.from,
-          params.to,
-          params.recipentAddress,
-          params.amount,
-          params.rateId,
-          params.refundAddress
-        );
+        this.createFixTransaction(params);
         break;
 
       case "transaction_history":
@@ -187,22 +180,26 @@ export class Swap {
     return;
   }
 
-  createFixTransaction(from, to, address, amountFrom, rateId, refundAddress) {
-    let params = {
-      from,
-      to,
-      address,
-      amountFrom,
-      rateId,
-      refundAddress
-    };
+  async createFixTransaction(params) {
+    // let params = {
+    //   from,
+    //   to,
+    //   address,
+    //   amountFrom,
+    //   rateId,
+    //   refundAddress
+    // };
     // from: "btc",
     // to: "eth",
     // address: "0x410afe72a5f18cce5f758c731bb2a9b90e74e5c7",
     // amountFrom: "0.1",
     // rateId: "xnsnh0&jcqJG4awmG8La0y5pLGIpIQ",
     // refundAddress: "bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh"
-    return this.sendRPC("createFixTransaction", params);
+
+    let data = await this.sendRPC("createFixTransaction", params);
+    console.log("createFixTransaction data::", data);
+    this.sendGateway("set_createdTxnDetails", data);
+    // return this.sendRPC("createFixTransaction", params);
   }
 
   getTransactionHistory(currency) {

@@ -45,7 +45,7 @@
             />
             <q-select
               v-model="sendAmounType"
-              :options="currencyList"
+              :options="currencyList.filter(item => item.enabledFrom)"
               borderless
               dense
               class="ft-semibold q-pl-sm dropdown-send-type"
@@ -146,7 +146,7 @@
             />
             <q-select
               v-model="receiveAmountType"
-              :options="currencyList"
+              :options="currencyList.filter(item => item.enabledTo)"
               borderless
               dense
               :menu-offset="[170, 10]"
@@ -196,9 +196,9 @@
               <td>Exchange rate</td>
               <td class="uppercase">
                 1
-                {{ exchange_amount.from ? exchange_amount.from : " ..." }}
-                ~ {{ exchange_amount.rate }}
-                {{ exchange_amount.to ? exchange_amount.to : "..." }}
+                {{ this.sendAmounType.name }}
+                ~ {{ exchange_amount.rate ? exchange_amount.rate : "..." }}
+                {{ this.receiveAmountType.name }}
               </td>
             </tr>
             <tr v-else>
@@ -206,9 +206,10 @@
               <td class="uppercase">
                 <span
                   >1
-                  {{ exchange_amount.from ? exchange_amount.from : "..." }}
-                  ~ {{ exchange_amount.result }}
-                  {{ exchange_amount.to ? exchange_amount.to : "..." }}</span
+                  {{ this.sendAmounType.name }}
+                  ~
+                  {{ exchange_amount.result ? exchange_amount.result : "..." }}
+                  {{ this.receiveAmountType.name }}</span
                 ><br />
                 <span class="fixed-rate-hint"
                   >The fixed rate is updated every 30 Seconds</span
@@ -218,8 +219,8 @@
             <tr v-if="this.exechangeRateType == 'float'">
               <td>Service fee 0.25%</td>
               <td class="uppercase">
-                {{ exchange_amount.fee }}
-                {{ exchange_amount.to ? exchange_amount.to : "..." }}
+                {{ exchange_amount.fee ? exchange_amount.fee : "..." }}
+                {{ this.receiveAmountType.name }}
               </td>
             </tr>
 
@@ -230,35 +231,66 @@
             <tr v-if="this.exechangeRateType == 'float'">
               <td>Network fee</td>
               <td class="uppercase">
-                {{ exchange_amount.networkFee }}
-                {{ exchange_amount.to ? exchange_amount.to : "..." }}
+                {{
+                  exchange_amount.networkFee
+                    ? exchange_amount.networkFee
+                    : "..."
+                }}
+                {{ this.receiveAmountType.name }}
               </td>
             </tr>
             <tr>
               <td>You Get</td>
               <td class="uppercase">
-                ~ {{ exchange_amount.amountTo }}
-                {{ exchange_amount.to ? exchange_amount.to : "..." }}
+                ~
+                {{
+                  exchange_amount.amountTo ? exchange_amount.amountTo : "..."
+                }}
+                {{ this.receiveAmountType.name }}
               </td>
             </tr>
           </table>
         </article>
       </section>
-      <section
-        v-if="this.receiveAmountType.fixRateEnabled"
-        class="exerate-wrapper q-mt-md"
-      >
-        <article class="flex row info-wrapper q-my-md">
+      <section>
+        <article
+          v-if="
+            this.sendAmounType.hasOwnProperty('notifications')
+              ? this.sendAmounType.notifications.payin
+              : false
+          "
+          class="flex row info-wrapper q-my-md"
+        >
           <div style="width: 4%; padding-top: 5px" class="flex justify-center">
             <q-icon name="o_info" size="14px" />
           </div>
           <div style="width: 95%">
-            Please do not forget to paste the XRP destination tag provided by
-            your wallet. If the tag is required by your wallet yet is missing in
-            your recipient data, your Ripples will not be delivered.
+            {{ this.sendAmounType.notifications.payin }}
           </div>
         </article>
-
+        <article
+          v-if="
+            this.receiveAmountType.hasOwnProperty('notifications')
+              ? this.receiveAmountType.notifications.payout
+              : false
+          "
+          class="flex row info-wrapper q-my-md"
+        >
+          <div style="width: 4%; padding-top: 5px" class="flex justify-center">
+            <q-icon name="o_info" size="14px" />
+          </div>
+          <div style="width: 95%">
+            {{ this.receiveAmountType.notifications.payout }}
+          </div>
+        </article>
+      </section>
+      <section
+        v-if="
+          this.receiveAmountType.fixRateEnabled &&
+            this.sendAmounType.fixRateEnabled
+        "
+        class="exerate-wrapper q-mt-md"
+      >
         <article
           :class="
             `flex row exerate-inner-wrapper q-py-md ${
@@ -374,14 +406,18 @@
       </article>
 
       <div
-        v-if="this.exechangeRateType === 'float'"
+        v-if="
+          this.exechangeRateType === 'float' &&
+            this.receiveAmountType.hasOwnProperty('extraIdName')
+        "
         class="destination-tag-wrapper q-mt-md"
       >
         <span class="ft-Light hint"
-          >Please specify the Destination Tag for your XRP receiving address if
-          your wallet provides it. Your transaction will not go through if you
-          omit it. If your wallet doesn’t require a Destination Tag, remove the
-          tick.</span
+          >Please specify the {{ this.receiveAmountType.extraIdName }} for your
+          <sapn class="uppercase">{{ this.receiveAmountType.value }}</sapn>
+          receiving address if your wallet provides it. Your transaction will
+          not go through if you omit it. If your wallet doesn’t require a
+          {{ this.receiveAmountType.extraIdName }}, remove the tick.</span
         ><br />
         <q-checkbox
           v-model="destinationTag"
@@ -390,14 +426,14 @@
           false-value="no"
           size="xs"
         ></q-checkbox>
-        <span>My wallet requires Destination Tag</span>
+        <span>My wallet requires {{ this.receiveAmountType.extraIdName }}</span>
       </div>
 
       <q-input
         v-if="destinationTag === 'yes'"
         v-model="destinationTagValue"
         class="box-input"
-        placeholder="Enter Destination Tag"
+        :placeholder="`Enter ${this.receiveAmountType.extraIdName}`"
         borderless
         dense
       />
@@ -511,6 +547,7 @@ export default {
             (item.value = item.ticker);
           pushedData.push(item);
         });
+      // console.log('data coin::',JSON.stringify(pushedData))
       return pushedData;
     },
 
@@ -577,7 +614,11 @@ export default {
   created() {
     this.minMaxPair();
     this.$gateway.send("swap", "currency_list", {});
-    this.getExchangeRate();
+    if (this.exechangeRateType === "float") {
+      this.getExchangeRate();
+    } else {
+      this.getFixedExchangeAmount();
+    }
   },
 
   beforeDestroy() {
@@ -619,7 +660,12 @@ export default {
       //   this.receiveAmountType.value= "bdx";
       //   this.minMaxPair();
       // }
-      this.getExchangeRate();
+      if (this.exechangeRateType === "float") {
+        this.getExchangeRate();
+      } else {
+        this.getFixedExchangeAmount();
+      }
+      // this.getExchangeRate();
     },
     getAmountValidator() {
       // if (this.sendAmounType === "bdx" && this.receiveAmountType === "bdx") {
@@ -629,7 +675,12 @@ export default {
       //   this.sendAmounType.value = "bdx";
       //   this.minMaxPair();
       // }
-      this.getExchangeRate();
+      if (this.exechangeRateType === "float") {
+        this.getExchangeRate();
+      } else {
+        this.getFixedExchangeAmount();
+      }
+      // this.getExchangeRate();
     },
     swapCurrencyType() {
       [this.sendAmounType, this.receiveAmountType] = [
@@ -640,7 +691,12 @@ export default {
         result: [{ from: "", to: "", minAmountFloat: 0, maxAmountFloat: 0 }]
       });
       this.minMaxPair();
-      this.getExchangeRate();
+      if (this.exechangeRateType === "float") {
+        this.getExchangeRate();
+      } else {
+        this.getFixedExchangeAmount();
+      }
+      // this.getExchangeRate();
     },
     minMaxAmoutValidator(amount) {
       if (
@@ -665,25 +721,34 @@ export default {
         to: this.receiveAmountType.value,
         amountFrom: this.sendAmount
       };
-      clearInterval(this.refreshFixedExchangeRate);
-      clearInterval(this.refreshFloatExchangeRate);
+      this.clearAllintervals();
+
       this.exechangeRateType = "float";
       this.$gateway.send("swap", "exchange_amount", data);
-
+      let count = 1;
       this.refreshFloatExchangeRate = setInterval(() => {
+        console.log("Float ::", count++);
+
         this.$gateway.send("swap", "exchange_amount", data);
       }, 30000);
+    },
+    clearAllintervals() {
+      clearInterval(this.refreshFixedExchangeRate);
+      clearInterval(this.refreshFloatExchangeRate);
     },
     getFixedExchangeAmount() {
       this.$store.commit("gateway/set_exchangeAmount", { result: [] });
       let data = {
-        from: this.sendAmounType,
-        to: this.receiveAmountType,
+        from: this.sendAmounType.value,
+        to: this.receiveAmountType.value,
         amountFrom: this.sendAmount
       };
+      let count = 1;
+      this.clearAllintervals();
 
       this.$gateway.send("swap", "fixed_exchange_amount", data);
       this.refreshFixedExchangeRate = setInterval(() => {
+        console.log("Fixed ::", count++);
         this.$gateway.send("swap", "fixed_exchange_amount", data);
       }, 30000);
 
@@ -712,8 +777,7 @@ export default {
         this.$gateway.send("wallet", "set_stepperPosition", {
           data: 2
         });
-        clearInterval(this.refreshFixedExchangeRate);
-        clearInterval(this.refreshFloatExchangeRate);
+        this.clearAllintervals();
       } else {
         this.$q.notify({
           type: "negative",
