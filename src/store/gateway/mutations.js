@@ -97,3 +97,7 @@ export const set_validateAddress = (state, data) => {
 export const set_pairsMinMax = (state, data) => {
   state.pairsMinMax = data;
 };
+
+export const set_txnStatus = (state, data) => {
+  state.txnStatus = data;
+};

@@ -23,23 +23,23 @@
         <div class="col-6">
           <div class="ft-semibold title">Send funds to the address below</div>
           <div class="label q-mt-lg">Amount</div>
-          <div class="amount ft-semibold">
+          <div class="amount ft-semibold uppercase">
             {{
               createdTxnDetails.amountExpectedFrom +
                 " " +
-                createdTxnDetails.currencyTo
+                createdTxnDetails.currencyFrom
             }}
             <q-btn icon="edit" color="accent" class="edit-btn" />
           </div>
         </div>
         <div class="col-6 timer-wrapper">
           <div class="pad-wrap">
-            <div class="label">
+            <div class="label uppercase">
               Time left to send
               {{
                 createdTxnDetails.amountExpectedFrom +
                   " " +
-                  createdTxnDetails.currencyTo
+                  createdTxnDetails.currencyFrom
               }}
             </div>
             <div class="flex items-center">
@@ -80,8 +80,8 @@
           <div>
             <span class="ft-medium">{{ createdTxnDetails.payinAddress }}</span
             ><br />
-            <span class="ft-semibold" style="color: #00ad07"
-              >blockchain : {{ sendChainDetails.blockchain }}</span
+            <span class="ft-semibold uppercase" style="color: #00ad07"
+              >blockchain : {{ receiveChainDetails.blockchain }}</span
             >
           </div>
           <div>
@@ -244,8 +244,12 @@ export default {
       type: Object,
       required: true
     },
-    sendChainDetails: {
+    receiveChainDetails: {
       type: Object,
+      require: true
+    },
+    clearAllintervals: {
+      type: Function,
       require: true
     }
   },
@@ -266,11 +270,15 @@ export default {
   methods: {
     backTopayment() {
       this.$emit("goback");
+      this.$emit("clearAllintervals");
+
       clearInterval(this.timer);
       //  this.startAndStopTimer()
     },
     startAndStopTimer() {
-      setInterval(() => {
+      setTimeout(() => {
+        this.$emit("clearAllintervals");
+
         clearInterval(this.timer);
       }, 10800000);
       let momentTime = moment("2023-06-07 03:00:00");

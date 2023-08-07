@@ -27,7 +27,14 @@
         </div>
         <div class="flex row q-mt-md">
           <div class="col-1 q-pt-sm">
+            <q-spinner
+              v-if="statusDetails.result === 'confirming'"
+              color="primary"
+              size="2em"
+            />
+
             <svg
+              v-else
               width="20"
               height="20"
               viewBox="0 0 20 20"
@@ -58,13 +65,19 @@
               Once BDX is confirmed in the blockchain, we’ll start exchanging it
               to BNB
             </div>
-            <a class="explorer-link ">See input hash in explorer</a>
+            <a class="explorer-link">See input hash in explorer</a>
           </div>
         </div>
         <div class="hr-seperator q-my-md"></div>
         <div class="flex row q-mt-md">
           <div class="col-1 q-pt-sm">
+            <q-spinner
+              v-if="statusDetails.result === 'exchanging'"
+              color="primary"
+              size="2em"
+            />
             <svg
+              v-else
               width="22"
               height="22"
               viewBox="0 0 22 22"
@@ -90,7 +103,14 @@
         <div class="hr-seperator q-my-md"></div>
         <div class="flex row q-mt-md">
           <div class="col-1 q-pt-sm">
+            <q-spinner
+              v-if="statusDetails.result === 'sending'"
+              color="primary"
+              size="2em"
+            />
+
             <svg
+              v-else
               width="22"
               height="22"
               viewBox="0 0 22 22"
@@ -131,7 +151,7 @@
         </header>
         <div class="txn-preview-wrapper q-py-md">
           <div class="q-px-md">
-            <div class="ft-medium label  q-mb-xs">Transaction ID</div>
+            <div class="ft-medium label q-mb-xs">Transaction ID</div>
             <div class="ft-semibold content q-mb-sm">bcbf9e4b0703d65</div>
             <div class="ft-medium label q-mt-md q-mb-xs">
               Changelly address (BDX)
@@ -168,6 +188,9 @@
 export default {
   name: "SwapStatus",
   components: {},
+  props: {
+    statusDetails: { type: String, require: true }
+  },
 
   data() {
     return {

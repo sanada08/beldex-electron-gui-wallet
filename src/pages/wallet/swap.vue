@@ -472,10 +472,15 @@
       v-if="this.routes === 'settlement' && createdTxnDetails.status"
       :created-txn-details="createdTxnDetails.result"
       :exchange-data="this.exchange_amount"
-      :send-chain-details="this.sendAmounType"
+      :receive-chain-details="this.receiveAmountType"
+      @clearAllintervals="clearAllintervals"
       @goback="navigation('makePayment', 2)"
     />
-    <swapStatus v-if="this.routes === 'swapStatus'" />
+
+    <swapStatus
+      v-if="this.routes === 'swapStatus'"
+      :status-details="txnStatus"
+    />
     <SwapTxnCompeleted
       v-if="this.routes === 'txnCompleted'"
       @openHistory="navigation('txnHistory', 1)"
@@ -529,10 +534,19 @@ export default {
     currencyList(newValue) {
       if (newValue && newValue.length > 0) {
         let btcDetails = newValue.find(item => item.name === "BTC");
-        let bdxDetails = newValue.find(item => item.name === "BDX");
-        this.bdxCoinDetails = bdxDetails;
+        // let bdxDetails = newValue.find((item) => item.name === "BDX");
+        let EthDetails = newValue.find(item => item.name === "ETH");
+
+        // this.bdxCoinDetails = bdxDetails;
         this.sendAmounType = btcDetails;
-        this.receiveAmountType = bdxDetails;
+        // this.receiveAmountType = bdxDetails;
+        this.receiveAmountType = EthDetails;
+      }
+    },
+    createdTxnDetails(newTxn) {
+      console.log("newTxn ", newTxn);
+      if (newTxn.result) {
+        this.get_transaction_status();
       }
     }
   },
@@ -563,6 +577,8 @@ export default {
     },
 
     createdTxnDetails: state => state.gateway.createdTxnDetails,
+    txnStatus: state => state.gateway.txnStatus,
+
     isValidRecipientAddress: state =>
       state.gateway.RecipientAddressValidation.result,
     pairsMinMax: state => {
@@ -597,6 +613,7 @@ export default {
       recipientAddress: { error: false, val: "" },
       refreshFixedExchangeRate: "",
       refreshFloatExchangeRate: "",
+      refreshTxnStatus: "",
       minMaxWarningContent: "",
       bdxCoinDetails: {},
       sendAmounType: {
@@ -604,9 +621,13 @@ export default {
           "<span>BTC<span class='currency-name ft-regular'> -Bitcoin<span><span>",
         value: "btc"
       },
+      // receiveAmountType: {
+      //   label: "BDX<span class='currency-name ft-regular'> -Beldex<span>",
+      //   value: "bdx"
+      // },
       receiveAmountType: {
-        label: "BDX<span class='currency-name ft-regular'> -Beldex<span>",
-        value: "bdx"
+        label: "ETH<span class='currency-name ft-regular'> -Etherium<span>",
+        value: "eth"
       },
       sendAmounTypeOption: ""
     };
@@ -624,6 +645,7 @@ export default {
   beforeDestroy() {
     clearInterval(this.refreshFixedExchangeRate);
     clearInterval(this.refreshFloatExchangeRate);
+    clearInterval(this.refreshTxnStatus);
   },
   methods: {
     navigation(page, step) {
@@ -735,6 +757,7 @@ export default {
     clearAllintervals() {
       clearInterval(this.refreshFixedExchangeRate);
       clearInterval(this.refreshFloatExchangeRate);
+      clearInterval(this.refreshTxnStatus);
     },
     getFixedExchangeAmount() {
       this.$store.commit("gateway/set_exchangeAmount", { result: [] });
@@ -795,6 +818,24 @@ export default {
       };
       this.$gateway.send("swap", "create_transaction", data);
       this.navigation("settlement", 3);
+    },
+    get_transaction_status() {
+      // this.navigation("swapStatus", 4);
+      let data = {
+        id: this.createdTxnDetails.result.id //create transaction id
+      };
+      console.log("get_transaction_status data", data);
+      let count = 1;
+      this.refreshTxnStatus = setInterval(() => {
+        console.log("get status ::", count++);
+        this.$gateway.send("swap", "transaction_status", data);
+        if (this.txnStatus.hasOwnProperty("result")) {
+          console.log("txnStatustxnStatus ", this.txnStatus);
+          if (this.txnStatus.result !== "waiting") {
+            this.navigation("swapStatus", 4);
+          }
+        }
+      }, 30000);
     }
   }
 };

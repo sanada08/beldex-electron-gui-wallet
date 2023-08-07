@@ -69,7 +69,7 @@ export class Swap {
         break;
 
       case "transaction_status":
-        this.getTransactionStatus(params.transactionID);
+        this.getTransactionStatus(params);
         break;
 
       default:
@@ -218,12 +218,17 @@ export class Swap {
     return this.sendRPC("getTransactions", params);
   }
 
-  getTransactionStatus(transactionID) {
-    let params = {
-      id: transactionID //create transaction id
-    };
+  async getTransactionStatus(params) {
+    // let params = {
+    //   id: transactionID //create transaction id
+    // };
     // id: "yam9z4aanpqnchy4" //create transaction id
-    return this.sendRPC("getStatus", params);
+
+    let data = await this.sendRPC("getStatus", params);
+    console.log("getStatus data::", data);
+    this.sendGateway("set_txnStatus", data);
+
+    // return this.sendRPC("getStatus", params);
   }
 
   async sendRPC(method, params = {}) {

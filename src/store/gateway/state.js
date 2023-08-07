@@ -156,5 +156,6 @@ export default {
   exchangeAmount: [],
   createdTxnDetails: [],
   RecipientAddressValidation: true,
-  pairsMinMax: []
+  pairsMinMax: [],
+  txnStatus: []
 };

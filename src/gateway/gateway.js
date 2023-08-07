@@ -347,6 +347,9 @@ export class Gateway extends EventEmitter {
       case "set_pairsMinMax":
         this.app.store.commit("gateway/set_pairsMinMax", decrypted_data.data);
         break;
+      case "set_txnStatus":
+        this.app.store.commit("gateway/set_txnStatus", decrypted_data.data);
+        break;
     }
   }
 

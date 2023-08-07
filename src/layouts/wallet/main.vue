@@ -240,7 +240,23 @@
               <div
                 class="icon-wrapper q-mr-sm flex justify-center items-center no-wrap "
               >
-                <span class="position flex justify-center items-center">4</span>
+                <span
+                  class="position flex justify-center items-center "
+                  style="position: relative"
+                >
+                  <span v-if="this.stepperPosition < 4">4</span>
+                  <span
+                    v-if="this.stepperPosition === 4"
+                    class="dot flex"
+                  ></span>
+                  <!-- <q-icon
+                    v-if="this.stepperPosition > 4"
+                    name="check_circle"
+                    color="primary"
+                    size="xs"
+                  /> -->
+                </span>
+                <!-- <span class="position flex justify-center items-center">4</span> -->
               </div>
               <div class="menu-wrapper">
                 <span class="ft-semibold">Exchange</span><br />
