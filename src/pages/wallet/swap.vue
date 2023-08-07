@@ -474,13 +474,11 @@
       :exchange-data="this.exchange_amount"
       :receive-chain-details="this.receiveAmountType"
       @clearAllintervals="clearAllintervals"
-      @goback="navigation('makePayment', 2)"
+      @goback="navigation('swapStatus', 4)"
     />
+    <!-- @goback="navigation('makePayment', 2)" -->
 
-    <swapStatus
-      v-if="this.routes === 'swapStatus'"
-      :status-details="txnStatus"
-    />
+    <swapStatus v-if="this.routes === 'swapStatus'" />
     <SwapTxnCompeleted
       v-if="this.routes === 'txnCompleted'"
       @openHistory="navigation('txnHistory', 1)"
@@ -544,8 +542,9 @@ export default {
       }
     },
     createdTxnDetails(newTxn) {
-      console.log("newTxn ", newTxn);
       if (newTxn.result) {
+        console.log("newTxn ", newTxn);
+
         this.get_transaction_status();
       }
     }
@@ -821,17 +820,28 @@ export default {
     },
     get_transaction_status() {
       // this.navigation("swapStatus", 4);
+      // let data = {
+      //   id: this.createdTxnDetails.result.id //create transaction id
+      // };
       let data = {
-        id: this.createdTxnDetails.result.id //create transaction id
+        id: this.createdTxnDetails.result.id
       };
       console.log("get_transaction_status data", data);
       let count = 1;
       this.refreshTxnStatus = setInterval(() => {
         console.log("get status ::", count++);
-        this.$gateway.send("swap", "transaction_status", data);
+
+        // this.$gateway.send("swap", "transaction_history", data);
+
+        // this.$gateway.send("swap", "transaction_status", data);
+        this.$gateway.send("swap", "transaction_history", data);
         if (this.txnStatus.hasOwnProperty("result")) {
           console.log("txnStatustxnStatus ", this.txnStatus);
-          if (this.txnStatus.result !== "waiting") {
+          if (this.txnStatus.result[0].status !== "waiting") {
+            console.log(
+              "txnStatustxnStatus 2",
+              this.txnStatus.result[0].status
+            );
             this.navigation("swapStatus", 4);
           }
         }

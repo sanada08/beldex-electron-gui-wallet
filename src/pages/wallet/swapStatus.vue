@@ -23,12 +23,26 @@
         </header>
 
         <div class="progressBar flex items-center">
-          <div class="innerBar"></div>
+          <div
+            class="innerBar"
+            :style="{
+              width:
+                statusDetails.status === 'confirming'
+                  ? '25%'
+                  : statusDetails.status === 'exchanging'
+                  ? '50%'
+                  : statusDetails.status === 'sending'
+                  ? '75%'
+                  : statusDetails.status === 'sending'
+                  ? '100%'
+                  : '10%'
+            }"
+          ></div>
         </div>
         <div class="flex row q-mt-md">
           <div class="col-1 q-pt-sm">
             <q-spinner
-              v-if="statusDetails.result === 'confirming'"
+              v-if="statusDetails.status === 'confirming'"
               color="primary"
               size="2em"
             />
@@ -72,7 +86,7 @@
         <div class="flex row q-mt-md">
           <div class="col-1 q-pt-sm">
             <q-spinner
-              v-if="statusDetails.result === 'exchanging'"
+              v-if="statusDetails.status === 'exchanging'"
               color="primary"
               size="2em"
             />
@@ -104,7 +118,7 @@
         <div class="flex row q-mt-md">
           <div class="col-1 q-pt-sm">
             <q-spinner
-              v-if="statusDetails.result === 'sending'"
+              v-if="statusDetails.status === 'sending'"
               color="primary"
               size="2em"
             />
@@ -152,31 +166,41 @@
         <div class="txn-preview-wrapper q-py-md">
           <div class="q-px-md">
             <div class="ft-medium label q-mb-xs">Transaction ID</div>
-            <div class="ft-semibold content q-mb-sm">bcbf9e4b0703d65</div>
-            <div class="ft-medium label q-mt-md q-mb-xs">
-              Changelly address (BDX)
-            </div>
-            <div class="ft-semibold content q-mb-sm break-all">
-              79bf9e4b0703d65223af71f3318711d1bc5462588c901c09bda751447b69a0a179bf9e4b0703d65223af71f3318711d1bc5462588c901c
+            <div class="ft-semibold content q-mb-sm">
+              {{ statusDetails.id }}
             </div>
             <div class="ft-medium label q-mt-md q-mb-xs">
-              Recipient address (BNB)
+              Changelly address
+              <span class="uppercase">{{ statusDetails.currencyFrom }}</span>
             </div>
             <div class="ft-semibold content q-mb-sm break-all">
-              bnbf9e4b0703d65223af71f3318711d1bc5462588c901c09bda751447b69a0a1
+              {{ statusDetails.payinAddress }}
+            </div>
+            <div class="ft-medium label q-mt-md q-mb-xs">
+              Recipient address
+              <span class="uppercase">{{ statusDetails.currencyTo }}</span>
+            </div>
+            <div class="ft-semibold content q-mb-sm break-all">
+              {{ statusDetails.payoutAddress }}
             </div>
             <div class="ft-medium label q-mt-md q-mb-xs">Memo</div>
             <div class="ft-semibold content q-mb-sm break-all">400016891</div>
             <div class="ft-medium label q-mt-md q-mb-xs">Exchange Rate</div>
-            <div class="ft-semibold content q-mb-sm break-all">
-              1 BDX ~ 0.02812216 BNB
+            <div class="ft-semibold content q-mb-sm break-all uppercase">
+              1 {{ statusDetails.currencyFrom }} ~
+              {{ statusDetails.rate + " " + statusDetails.currencyTo }}
             </div>
           </div>
           <div
             class="flex row items-center q-mt-md q-pt-md q-px-md total-wrapper"
           >
             <div class="ft-medium label q-mr-sm">You Get</div>
-            <div class="content">~ 0.02812216 BNB</div>
+            <div class="content uppercase">
+              ~
+              {{
+                statusDetails.amountExpectedTo + " " + statusDetails.currencyTo
+              }}
+            </div>
           </div>
         </div>
       </article>
@@ -185,13 +209,27 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 export default {
   name: "SwapStatus",
   components: {},
-  props: {
-    statusDetails: { type: String, require: true }
-  },
+  // props: {
+  //   statusDetails: { type: String, require: true }
+  // },
 
+  computed: mapState({
+    statusDetails: state => {
+      let data = state.gateway.txnStatus;
+      let result = {};
+      if (data.hasOwnProperty("result")) {
+        if (data.status) {
+          result = data.result[0];
+        }
+      }
+      return result;
+    }
+  }),
   data() {
     return {
       isVisible: true

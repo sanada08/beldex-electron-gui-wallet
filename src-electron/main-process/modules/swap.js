@@ -65,7 +65,7 @@ export class Swap {
         break;
 
       case "transaction_history":
-        this.getTransactionHistory(params.currency);
+        this.getTransactionHistory(params);
         break;
 
       case "transaction_status":
@@ -202,20 +202,27 @@ export class Swap {
     // return this.sendRPC("createFixTransaction", params);
   }
 
-  getTransactionHistory(currency) {
-    let params = {
-      currency,
-      // "address": "0x410afe72a5f18cce5f758c731bb2a9b90e74e5c7",
-      // "extraId": "<<payin extraId to search>>",
-      limit: 10,
-      offset: 10
-    };
+  async getTransactionHistory(params) {
+    // let params = {
+    //   currency,
+    //   // "address": "0x410afe72a5f18cce5f758c731bb2a9b90e74e5c7",
+    //   // "extraId": "<<payin extraId to search>>",
+    //   limit: 10,
+    //   offset: 10
+    // };
     // currency: "eth",
     // // "address": "0x410afe72a5f18cce5f758c731bb2a9b90e74e5c7",
     // // "extraId": "<<payin extraId to search>>",
     // limit: 10,
     // offset: 10
-    return this.sendRPC("getTransactions", params);
+    console.log("getTransactions data::", params);
+
+    let data = await this.sendRPC("getTransactions", params);
+    console.log("getTransactions data::", data);
+    this.sendGateway("set_txnStatus", data);
+
+    // this.sendGateway("getTransactions", data);
+    // return this.sendRPC("getTransactions", currency);
   }
 
   async getTransactionStatus(params) {
