@@ -154,8 +154,10 @@ export default {
 
   currencyList: [],
   exchangeAmount: [],
+  fixedExchangeRate: [],
   createdTxnDetails: [],
   RecipientAddressValidation: true,
+  refundAddressValidation: true,
   pairsMinMax: [],
   txnStatus: []
 };

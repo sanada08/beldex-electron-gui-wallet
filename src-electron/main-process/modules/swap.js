@@ -56,6 +56,10 @@ export class Swap {
         this.validateAddress(params);
         break;
 
+      case "refundAddressValidation":
+        this.refundAddressValidation(params);
+        break;
+
       case "create_transaction":
         this.createTransaction(params);
         break;
@@ -79,13 +83,13 @@ export class Swap {
   async getCurrencyList() {
     let currencyList = await this.sendRPC("getCurrenciesFull", {});
 
-    if (currencyList.status) {
-      let enabledCurrency = await currencyList.result.filter(currency => {
-        return currency.enabled == true;
-      });
-      this.sendGateway("set_currencyList", enabledCurrency);
-      return;
-    }
+    // if (currencyList.status) {
+    //   let enabledCurrency = await currencyList.result.filter(currency => {
+    //     return currency.enabled == true;
+    //   });
+    this.sendGateway("set_currencyList", currencyList);
+    //   return;
+    // }
     return;
   }
 
@@ -117,7 +121,7 @@ export class Swap {
 
     let data = await this.sendRPC("getFixRateForAmount", params);
     console.log("getFixRateForAmount", data);
-    this.sendGateway("set_exchangeAmount", data);
+    this.sendGateway("set_fixedExchangeRate", data);
 
     return;
   }
@@ -152,6 +156,16 @@ export class Swap {
     let data = await this.sendRPC("validateAddress", params);
     console.log("validateAddress data ", data);
     this.sendGateway("set_validateAddress", data);
+
+    // currency: "eth",
+    // address: "0x410afe72a5f18cce5f758c731bb2a9b90e74e5c7"
+    // return this.sendRPC("validateAddress", params);
+  }
+  async refundAddressValidation(params) {
+    console.log("validateRefundAddress ::", params);
+    let data = await this.sendRPC("validateAddress", params);
+    console.log("validateRefundAddress data ", data);
+    this.sendGateway("set_refundAddressValidation", data);
 
     // currency: "eth",
     // address: "0x410afe72a5f18cce5f758c731bb2a9b90e74e5c7"

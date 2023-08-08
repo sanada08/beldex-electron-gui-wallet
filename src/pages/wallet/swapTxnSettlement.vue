@@ -64,7 +64,7 @@
                 color="primary"
                 @click="
                   copyAddress({
-                    val: 'createdTxnDetails.id',
+                    val: createdTxnDetails.id,
                     from: 'Transaction ID'
                   })
                 "
@@ -100,12 +100,45 @@
               icon="qr_code_scanner"
               color="accent"
               class="qr-btn"
-              @click="showQR"
+              @click="showQR(createdTxnDetails.payinAddress)"
             />
           </div>
         </div>
       </article>
-
+      <article
+        v-if="createdTxnDetails.type == 'fixed'"
+        class="recipt-address-wrapper"
+      >
+        <div class="label">Refund address</div>
+        <div class="flex row justify-between q-mt-sm">
+          <div>
+            <span class="ft-medium">{{ createdTxnDetails.refundAddress }}</span
+            ><br />
+            <span class="ft-semibold uppercase" style="color: #00ad07"
+              >blockchain : {{ sendChainDetails.blockchain }}</span
+            >
+          </div>
+          <div>
+            <q-btn
+              label="Copy Address"
+              color="primary"
+              class="copy-adress-btn q-mr-xs"
+              @click="
+                copyAddress({
+                  val: createdTxnDetails.refundAddress,
+                  from: 'Recipient address'
+                })
+              "
+            />
+            <q-btn
+              icon="qr_code_scanner"
+              color="accent"
+              class="qr-btn"
+              @click="showQR(createdTxnDetails.refundAddress)"
+            />
+          </div>
+        </div>
+      </article>
       <article class="warning-wrapper q-mt-md">
         <q-icon name="o_info" size="14px" />
         <span class="q-ml-sm warn-txt"
@@ -134,9 +167,9 @@
             <td>Exchange rate</td>
             <td class="uppercase">
               1
-              {{ exchangeData.from ? exchangeData.from : "" }}
-              ~ {{ exchangeData.rate }}
-              {{ exchangeData.to ? exchangeData.to : "" }}
+              {{ floatingRate.from ? floatingRate.from : "" }}
+              ~ {{ floatingRate.rate }}
+              {{ floatingRate.to ? floatingRate.to : "" }}
             </td>
           </tr>
           <tr v-else>
@@ -144,9 +177,8 @@
             <td>
               <span class="uppercase"
                 >1
-                {{ exchange_amount.from ? exchange_amount.from : "" }}
-                ~ {{ exchange_amount.result }}
-                {{ exchange_amount.to ? exchange_amount.to : "" }}</span
+                {{ fixedRate.from }}
+                ~ {{ fixedRate.result }} {{ fixedRate.to }}</span
               ><br />
               <span class="fixed-rate-hint"
                 >The fixed rate is updated every 30 Seconds</span
@@ -156,8 +188,8 @@
           <tr v-if="createdTxnDetails.type == 'float'">
             <td>Service fee 0.25%</td>
             <td class="uppercase">
-              {{ exchangeData.fee }}
-              {{ exchangeData.to ? exchangeData.to : "" }}
+              {{ floatingRate.fee }}
+              {{ floatingRate.to ? floatingRate.to : "" }}
             </td>
           </tr>
 
@@ -168,15 +200,19 @@
           <tr v-if="createdTxnDetails.type == 'float'">
             <td>Network fee</td>
             <td class="uppercase">
-              {{ exchangeData.networkFee }}
-              {{ exchangeData.to ? exchangeData.to : "" }}
+              {{ floatingRate.networkFee }}
+              {{ floatingRate.to ? floatingRate.to : "" }}
             </td>
           </tr>
           <tr>
             <td>You Get</td>
+            <td v-if="createdTxnDetails.type == 'float'" class="uppercase">
+              ~ {{ floatingRate.amountTo }}
+              {{ floatingRate.to ? floatingRate.to : "" }}
+            </td>
             <td class="uppercase">
-              ~ {{ exchangeData.amountTo }}
-              {{ exchangeData.to ? exchangeData.to : "" }}
+              ~ {{ fixedRate.amountTo }}
+              {{ fixedRate.to }}
             </td>
           </tr>
         </table>
@@ -225,6 +261,7 @@ const { clipboard } = require("electron");
 const moment = require("moment");
 
 import QrcodeVue from "qrcode.vue";
+// import { mapState } from "vuex";
 
 export default {
   name: "SwapTxnSettlement",
@@ -240,11 +277,19 @@ export default {
       type: Object,
       require: true
     },
-    exchangeData: {
+    floatingRate: {
+      type: Object,
+      required: true
+    },
+    fixedRate: {
       type: Object,
       required: true
     },
     receiveChainDetails: {
+      type: Object,
+      require: true
+    },
+    sendChainDetails: {
       type: Object,
       require: true
     },
@@ -253,6 +298,32 @@ export default {
       require: true
     }
   },
+  //   computed: mapState({
+
+  //     createdTxnDetails: (state) => state.gateway.createdTxnDetails,
+
+  //     exchangeData: (state) => {
+
+  //       let fixedRate = state.gateway.fixedExchangeRate;
+  //       let floatRate = state.gateway.exchangeAmount;
+  //       console.log('exchangeData :: settle fixedRate' ,fixedRate)
+  //       console.log('exchangeData :: settle floatRate' ,floatRate)
+  //  console.log('exchangeData createdTxnDetails',this.createdTxnDetails)
+  //  console.log('exchangeData createdTxnDetails2',createdTxnDetails)
+
+  //       let result = {};
+  //       if (this.createdTxnDetails.type == "fixed") {
+  //         if (data.hasOwnProperty("result")) {
+  //           result = fixedRate.result[0];
+  //         }
+  //       } else {
+  //         if (data.hasOwnProperty("result")) {
+  //           result = floatRate.result[0];
+  //         }
+  //       }
+  //       return result;
+  //     }
+  //   }),
 
   data() {
     return {
@@ -274,6 +345,7 @@ export default {
 
       clearInterval(this.timer);
       //  this.startAndStopTimer()
+      // console.log("exchangeData ::", exchangeData);
     },
     startAndStopTimer() {
       setTimeout(() => {
@@ -281,17 +353,33 @@ export default {
 
         clearInterval(this.timer);
       }, 10800000);
-      let momentTime = moment("2023-06-07 03:00:00");
+      let momentTime;
+
+      // console.log("fixed rate time", this.fixedRate);
+
+      // if (this.createdTxnDetails.type == "float") {
+      momentTime = moment("2023-06-07 03:00:00");
+      // } else {
+      //   let payTill = moment(this.fixedRate.payTill).format(
+      //     "YYYY-MM-DD h:mm:ss"
+      //   );
+      //   console.log(
+      //   "date",
+      //   payTill
+      // );
+      //   momentTime = moment(payTill);
+      // }
+
       this.timer = setInterval(() => {
         let momentA = momentTime.subtract(1, "seconds");
 
         this.reduceTime = momentA.format("HH:mm:ss").toString();
       }, 1000);
     },
-    showQR() {
+    showQR(address) {
       // event.stopPropagation();
       this.QR.visible = true;
-      this.QR.address = this.createdTxnDetails.payinAddress;
+      this.QR.address = address;
 
       // this.QR.address='bcbf9e4b0703d65223af71f3318711d1bc5462588c901c09bda751447b69a0a1'
       // clearInterval(this.timer);

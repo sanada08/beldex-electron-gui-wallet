@@ -35,7 +35,9 @@
             {{ this.exchangeData.amountFrom + " " + this.exchangeData.from }}
           </div>
           <div class="ft-semibold expand-txt">
-            blockchain : {{ sendChainDetails.blockchain }}
+            blockchain :<span class="uppercase">{{
+              sendChainDetails.blockchain
+            }}</span>
           </div>
         </div>
         <div class="col-6">
@@ -47,7 +49,8 @@
             {{ this.exchangeData.amountTo + " " + this.exchangeData.to }}
           </div>
           <div class="ft-semibold expand-txt">
-            blockchain : {{ receiveChainDtails.blockchain }}
+            blockchain :
+            <span class="uppercase">{{ receiveChainDtails.blockchain }} </span>
           </div>
         </div>
       </article>
@@ -88,6 +91,12 @@
           </div>
           <div class="ft-medium recipt-address">
             {{ this.recipientAddress }}
+          </div>
+          <div v-if="this.refundAddress" class="q-mb-sm">
+            Refund address
+          </div>
+          <div v-if="this.refundAddress" class="ft-medium recipt-address">
+            {{ this.refundAddress }}
           </div>
         </div>
         <div class="col-6">
@@ -140,6 +149,11 @@ export default {
     recipientAddress: {
       type: String,
       required: true
+    },
+    refundAddress: {
+      type: String,
+      required: false,
+      default: undefined
     },
     sendChainDetails: {
       type: Object,

@@ -93,6 +93,9 @@ export const set_createdTxnDetails = (state, data) => {
 export const set_validateAddress = (state, data) => {
   state.RecipientAddressValidation = data;
 };
+export const set_refundAddressValidation = (state, data) => {
+  state.refundAddressValidation = data;
+};
 
 export const set_pairsMinMax = (state, data) => {
   state.pairsMinMax = data;
@@ -100,4 +103,7 @@ export const set_pairsMinMax = (state, data) => {
 
 export const set_txnStatus = (state, data) => {
   state.txnStatus = data;
+};
+export const set_fixedExchangeRate = (state, data) => {
+  state.fixedExchangeRate = data;
 };

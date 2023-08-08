@@ -350,6 +350,19 @@ export class Gateway extends EventEmitter {
       case "set_txnStatus":
         this.app.store.commit("gateway/set_txnStatus", decrypted_data.data);
         break;
+      case "set_fixedExchangeRate":
+        this.app.store.commit(
+          "gateway/set_fixedExchangeRate",
+          decrypted_data.data
+        );
+        break;
+
+      case "set_refundAddressValidation":
+        this.app.store.commit(
+          "gateway/set_refundAddressValidation",
+          decrypted_data.data
+        );
+        break;
     }
   }
 
