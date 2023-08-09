@@ -159,5 +159,6 @@ export default {
   RecipientAddressValidation: true,
   refundAddressValidation: true,
   pairsMinMax: [],
-  txnStatus: []
+  txnStatus: [],
+  txnHistory: []
 };

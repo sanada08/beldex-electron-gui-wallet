@@ -19,7 +19,7 @@
         <div class="ft-semibold q-ml-md header-txt">History</div>
       </div>
 
-      <q-btn color="primary" class="downloadCsv-btn">
+      <q-btn color="primary" class="downloadCsv-btn" @click="downloadCsv">
         <svg
           width="18"
           height="16"
@@ -54,7 +54,11 @@
           <th>Receiver</th>
           <th>Amount Received</th>
         </tr>
-        <tr @click="isVisible = false">
+        <tr
+          v-for="(item, i) in this.txnHistory"
+          :key="i"
+          @click="setTxnDetails(i)"
+        >
           <td class="cursor">
             <svg
               width="28"
@@ -69,15 +73,30 @@
               />
             </svg>
           </td>
-          <td class="ft-medium cursor">28 Apr 2023, 20:14:15</td>
+          <td class="ft-medium cursor">
+            {{ convertHumanReadableFormat(item.createdAt) }}
+          </td>
 
-          <td class="ft-semibold cursor">774BDX</td>
-          <td class="ft-medium cursor">1 BDX = 0.00000116BTC</td>
-          <td class="ft-medium cursor">142...hzy</td>
-          <td class="ft-semibold cursor">0.00063271 BTC</td>
+          <td class="ft-semibold cursor">{{ item.amountExpectedFrom }}</td>
+          <td class="ft-medium cursor uppercase">
+            1 {{ item.currencyFrom }} ~ {{ item.rate }} {{ item.currencyTo }}
+          </td>
+          <td class="ft-medium cursor">
+            {{
+              item.payoutAddress.substr(0, 6) +
+                "...." +
+                item.payoutAddress.substr(
+                  item.payoutAddress.length - 6,
+                  item.payoutAddress.length
+                )
+            }}
+          </td>
+          <td class="ft-semibold cursor uppercase">
+            {{ item.amountExpectedTo + " " + item.currencyTo }}
+          </td>
         </tr>
 
-        <tr>
+        <!-- <tr>
           <td>
             <svg
               width="28"
@@ -98,9 +117,9 @@
           <td class="ft-medium">1 BDX = 0.00000116BTC</td>
           <td class="ft-medium">142...hzy</td>
           <td class="ft-semibold">0.00063271 BTC</td>
-        </tr>
+        </tr> -->
 
-        <tr>
+        <!-- <tr>
           <td>
             <svg
               width="28"
@@ -120,7 +139,7 @@
           <td class="ft-medium">1 BDX = 0.00000116BTC</td>
           <td class="ft-medium">142...hzy</td>
           <td class="ft-semibold">0.00063271 BTC</td>
-        </tr>
+        </tr> -->
       </table>
     </section>
 
@@ -131,11 +150,18 @@
     <!-- </q-toolbar>
       </q-header> -->
   </div>
-  <SwapTxnDetails v-else @goback="isVisible = true" />
+  <SwapTxnDetails
+    v-else
+    :txn-details="this.txnDetails"
+    @goback="isVisible = true"
+  />
 </template>
 
 <script>
+const moment = require("moment");
+import { mapState } from "vuex";
 import SwapTxnDetails from "./swapTxnDetails.vue";
+
 export default {
   name: "SwapTxnHistory",
   components: {
@@ -147,16 +173,105 @@ export default {
       required: true
     }
   },
-
   data() {
     return {
-      isVisible: true
+      isVisible: true,
+      refreshTxnHistory: "",
+      txnDetails: ""
     };
   },
+  created() {
+    this.get_transaction_History();
+  },
+  computed: mapState({
+    txnHistory: state => {
+      console.log("txnHistory ::", state.gateway.txnHistory.result);
+      return state.gateway.txnHistory.result;
+    }
+  }),
 
   methods: {
     backToSwap() {
       this.$emit("goback");
+    },
+    convertHumanReadableFormat(date) {
+      return moment(date / 1000).format("DD MMM YYYY, h:mm:ss");
+    },
+    setTxnDetails(index) {
+      this.txnDetails = this.txnHistory[index];
+      this.isVisible = false;
+    },
+    downloadCsv() {
+      let customizeCsv = [];
+      let csv = "";
+      this.txnHistory.length > 0 &&
+        this.txnHistory.map(item => {
+          let csvObj = {};
+          csvObj.Status = item.status;
+          csvObj.Date = moment(item.createdAt / 1000).format(
+            "DD MMM YYYY-h:mm:ss"
+          );
+          csvObj.Exchange_Amount = item.amountExpectedFrom;
+          csvObj.Exchange_rate = item.rate;
+          csvObj.Receiver = item.payoutAddress;
+          csvObj.Amount_Received = item.amountExpectedTo;
+          customizeCsv.push(csvObj);
+        });
+      // Loop the array of objects
+      for (let row = 0; row < customizeCsv.length; row++) {
+        let keysAmount = Object.keys(customizeCsv[row]).length;
+        let keysCounter = 0;
+        // If this is the first row, generate the headings
+        if (row === 0) {
+          // Loop each property of the object
+          for (let key in customizeCsv[row]) {
+            // This is to not add a comma at the last cell
+            // The '\r\n' adds a new line
+            csv += key + (keysCounter + 1 < keysAmount ? "," : "\r\n");
+            keysCounter++;
+          }
+        } else {
+          for (let key in customizeCsv[row]) {
+            csv +=
+              customizeCsv[row][key] +
+              (keysCounter + 1 < keysAmount ? "," : "\r\n");
+            keysCounter++;
+          }
+        }
+
+        keysCounter = 0;
+      }
+
+      const anchor = document.createElement("a");
+      anchor.href = "data:text/csv;charset=utf-8," + encodeURIComponent(csv);
+      anchor.target = "_blank";
+      anchor.download = "Transaction report.csv";
+      anchor.click();
+    },
+    get_transaction_History() {
+      let data = {
+        // id: this.createdTxnDetails.result.id
+      };
+      console.log("get_transaction_history data", data);
+      // let count = 1;
+      // this.refreshTxnHistory = setInterval(() => {
+      //   console.log("get status ::", count++);
+
+      // this.$gateway.send("swap", "transaction_history", data);
+
+      // this.$gateway.send("swap", "transaction_status", data);
+      this.$gateway.send("swap", "transaction_history", data);
+      //   if (this.txnStatus.hasOwnProperty("result")) {
+      //     console.log("txnStatustxnStatus ", this.txnStatus);
+      //     if (this.txnStatus.result[0].status !== "waiting") {
+      //       console.log(
+      //         "txnStatustxnStatus 2",
+      //         this.txnStatus.result[0].status
+      //       );
+      //       this.navigation("swapStatus", 4);
+      //     }
+      //   }
+      // }, 30000);
     }
   }
 };

@@ -950,7 +950,7 @@ export default {
         // this.$gateway.send("swap", "transaction_history", data);
 
         // this.$gateway.send("swap", "transaction_status", data);
-        this.$gateway.send("swap", "transaction_history", data);
+        this.$gateway.send("swap", "transaction_status", data);
         if (this.txnStatus.hasOwnProperty("result")) {
           console.log("txnStatustxnStatus ", this.txnStatus);
           if (this.txnStatus.result[0].status !== "waiting") {

@@ -210,7 +210,7 @@
               ~ {{ floatingRate.amountTo }}
               {{ floatingRate.to ? floatingRate.to : "" }}
             </td>
-            <td class="uppercase">
+            <td v-else class="uppercase">
               ~ {{ fixedRate.amountTo }}
               {{ fixedRate.to }}
             </td>

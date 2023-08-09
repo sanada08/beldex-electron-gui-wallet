@@ -233,7 +233,7 @@ export class Swap {
 
     let data = await this.sendRPC("getTransactions", params);
     console.log("getTransactions data::", data);
-    this.sendGateway("set_txnStatus", data);
+    this.sendGateway("set_txnHistory", data);
 
     // this.sendGateway("getTransactions", data);
     // return this.sendRPC("getTransactions", currency);
@@ -245,7 +245,9 @@ export class Swap {
     // };
     // id: "yam9z4aanpqnchy4" //create transaction id
 
-    let data = await this.sendRPC("getStatus", params);
+    // let data = await this.sendRPC("getStatus", params);
+    let data = await this.sendRPC("getTransactions", params);
+
     console.log("getStatus data::", data);
     this.sendGateway("set_txnStatus", data);
 

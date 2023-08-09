@@ -23,7 +23,7 @@
     <section class="q-mt-lg">
       <article class="txn-id-wrapper">
         <span class="txn-id-txt ft-medium">Transaction ID : </span>
-        <span class="ft-semibold">bcbf9e4b0703d65 </span>
+        <span class="ft-semibold">{{ txnDetails.id }} </span>
         <q-icon name="content_copy" color="primary" />
       </article>
 
@@ -48,11 +48,17 @@
       <article class="amount-details-wrapper flex row q-mt-md">
         <div class="col-md-5">
           <div class="amount-txt">Amount from</div>
-          <div class="ft-semibold amount-val">0.1 BTC</div>
+          <div class="ft-semibold amount-val">
+            {{ txnDetails.amountExpectedFrom }}
+            <span class="uppercase">{{ txnDetails.currencyFrom }}</span>
+          </div>
         </div>
         <div class="col-md-7">
-          <div class="amount-txt">Amount from</div>
-          <div class="ft-semibold amount-val">0.1 BTC</div>
+          <div class="amount-txt">Amount to</div>
+          <div class="ft-semibold amount-val">
+            {{ txnDetails.amountExpectedTo }}
+            <span class="uppercase">{{ txnDetails.currencyTo }}</span>
+          </div>
         </div>
       </article>
       <div class="hr-seperator q-my-md"></div>
@@ -60,7 +66,7 @@
       <article class="recipient-address-wrapper">
         <div class="label">Recipient address</div>
         <div class="address ft-semibold">
-          79bf9e4b0703d65223af71f3318711d1bc5462588c901c09bda751447b69a0a1
+          {{ txnDetails.payoutAddress }}
         </div>
       </article>
 
@@ -94,6 +100,10 @@ export default {
   props: {
     goback: {
       type: Function,
+      require: true
+    },
+    txnDetails: {
+      type: Object,
       require: true
     }
   },

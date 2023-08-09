@@ -107,3 +107,6 @@ export const set_txnStatus = (state, data) => {
 export const set_fixedExchangeRate = (state, data) => {
   state.fixedExchangeRate = data;
 };
+export const set_txnHistory = (state, data) => {
+  state.txnHistory = data;
+};
