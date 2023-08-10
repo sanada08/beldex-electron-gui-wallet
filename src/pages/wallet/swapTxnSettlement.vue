@@ -44,9 +44,7 @@
             </div>
             <div class="flex items-center">
               <q-icon name="timer" class="time-icon" />
-              <span ref="timer" class="ft-semibold q-ml-xs">{{
-                this.reduceTime
-              }}</span>
+              <span id="timer" ref="timer" class="ft-semibold q-ml-xs"></span>
             </div>
           </div>
           <div class="hr-seperator"></div>
@@ -219,8 +217,6 @@
       </article>
     </section>
 
-    <!-- QR Code -->
-    <!-- <template v-if="QR.address != null"> -->
     <template>
       <q-dialog v-model="QR.visible" :content-class="'qr-code-modal'">
         <q-card class="qr-code-card">
@@ -229,11 +225,6 @@
             style="background-color: white; border-radius: 10px"
           >
             <QrcodeVue ref="qr" :value="QR.address" size="240"></QrcodeVue>
-            <!-- <ContextMenu
-              :menu-items="menuItems"
-              @copyQR="copyQR()"
-              @saveQR="saveQR()"
-            /> -->
           </div>
 
           <q-card-actions class="q-mb-md" style="margin-right: 0">
@@ -246,22 +237,12 @@
         </q-card>
       </q-dialog>
     </template>
-
-    <!-- <div class="flex justify-center q-mt-sm">
-        <q-btn c color="primary" label="Confirm & Make payment" />
-      </div> -->
-
-    <!-- </q-toolbar>
-      </q-header> -->
   </div>
 </template>
 
 <script>
 const { clipboard } = require("electron");
-const moment = require("moment");
-
 import QrcodeVue from "qrcode.vue";
-// import { mapState } from "vuex";
 
 export default {
   name: "SwapTxnSettlement",
@@ -298,41 +279,17 @@ export default {
       require: true
     }
   },
-  //   computed: mapState({
-
-  //     createdTxnDetails: (state) => state.gateway.createdTxnDetails,
-
-  //     exchangeData: (state) => {
-
-  //       let fixedRate = state.gateway.fixedExchangeRate;
-  //       let floatRate = state.gateway.exchangeAmount;
-  //       console.log('exchangeData :: settle fixedRate' ,fixedRate)
-  //       console.log('exchangeData :: settle floatRate' ,floatRate)
-  //  console.log('exchangeData createdTxnDetails',this.createdTxnDetails)
-  //  console.log('exchangeData createdTxnDetails2',createdTxnDetails)
-
-  //       let result = {};
-  //       if (this.createdTxnDetails.type == "fixed") {
-  //         if (data.hasOwnProperty("result")) {
-  //           result = fixedRate.result[0];
-  //         }
-  //       } else {
-  //         if (data.hasOwnProperty("result")) {
-  //           result = floatRate.result[0];
-  //         }
-  //       }
-  //       return result;
-  //     }
-  //   }),
 
   data() {
     return {
       QR: {
         visible: false
       },
-      reduceTime: "",
       timer: ""
     };
+  },
+  beforeDestroy() {
+    clearInterval(this.timer);
   },
   mounted() {
     this.startAndStopTimer();
@@ -348,32 +305,39 @@ export default {
       // console.log("exchangeData ::", exchangeData);
     },
     startAndStopTimer() {
-      setTimeout(() => {
-        this.$emit("clearAllintervals");
+      clearInterval(this.timer);
+      var today;
+      let addTime;
 
-        clearInterval(this.timer);
-      }, 10800000);
-      let momentTime;
+      if (this.createdTxnDetails.type == "float") {
+        today = new Date();
+        addTime = today.setHours(today.getHours() + 3);
+      } else {
+        today = new Date(this.createdTxnDetails.payTill);
+        addTime = today.setHours(today.getHours());
+      }
+      var countDownDate = new Date(addTime).getTime();
+      // Update the count down every 1 second
+      this.timer = setInterval(function() {
+        // Get today's date and time
+        var now = new Date().getTime();
+        // Find the distance between now and the count down date
+        var distance = countDownDate - now;
+        // Time calculations for days, hours, minutes and seconds
+        var hours = Math.floor(
+          (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+        );
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        // Output the result in an element with id="timer"
+        document.getElementById("timer").innerHTML =
+          hours + "h " + minutes + "m " + seconds + "s ";
 
-      // console.log("fixed rate time", this.fixedRate);
-
-      // if (this.createdTxnDetails.type == "float") {
-      momentTime = moment("2023-06-07 03:00:00");
-      // } else {
-      //   let payTill = moment(this.fixedRate.payTill).format(
-      //     "YYYY-MM-DD h:mm:ss"
-      //   );
-      //   console.log(
-      //   "date",
-      //   payTill
-      // );
-      //   momentTime = moment(payTill);
-      // }
-
-      this.timer = setInterval(() => {
-        let momentA = momentTime.subtract(1, "seconds");
-
-        this.reduceTime = momentA.format("HH:mm:ss").toString();
+        // If the count down is over, write some text
+        if (distance < 0) {
+          clearInterval(this.timer);
+          document.getElementById("timer").innerHTML = "EXPIRED";
+        }
       }, 1000);
     },
     showQR(address) {

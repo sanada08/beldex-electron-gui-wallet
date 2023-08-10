@@ -512,6 +512,8 @@
       @openHistory="navigation('txnHistory', 1)"
       @newTxn="navigation('mainPage', 1)"
     />
+
+    <SwapUnderMaintenance v-if="this.routes === 'maintenance'" />
   </q-page>
 </template>
 
@@ -523,6 +525,7 @@ import SwapTxnHistory from "./swapTxnHistory.vue";
 import SwapTxnSettlement from "./swapTxnSettlement.vue";
 import swapStatus from "./swapStatus.vue";
 import SwapTxnCompeleted from "./swapTxnCompeleted.vue";
+import SwapUnderMaintenance from "./swapUnderMaintenance.vue";
 import { mapState } from "vuex";
 
 export default {
@@ -532,7 +535,8 @@ export default {
     SwapTxnHistory,
     SwapTxnSettlement,
     swapStatus,
-    SwapTxnCompeleted
+    SwapTxnCompeleted,
+    SwapUnderMaintenance
   },
   watch: {
     // whenever question changes, this function will run
@@ -661,6 +665,8 @@ export default {
       destinationTagValue: "",
       refundAddress: { error: false, val: "" },
       routes: "mainPage",
+      // routes: "",
+
       exechangeRateType: "float",
       recipientAddress: { error: false, val: "" },
       refreshFixedExchangeRate: "",
