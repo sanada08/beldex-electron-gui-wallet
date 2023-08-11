@@ -32,7 +32,11 @@
             You send
           </div>
           <div class="ft-semibold amount-txt uppercase">
-            {{ this.exchangeData.amountFrom + " " + this.exchangeData.from }}
+            {{
+              Number(this.exchangeData.amountFrom).toFixed(7) +
+                " " +
+                this.exchangeData.from
+            }}
           </div>
           <div class="ft-semibold expand-txt">
             blockchain :<span class="uppercase">{{
@@ -46,7 +50,11 @@
           </div>
           <div class="ft-semibold amount-txt uppercase">
             ~
-            {{ this.exchangeData.amountTo + " " + this.exchangeData.to }}
+            {{
+              Number(this.exchangeData.amountTo).toFixed(7) +
+                " " +
+                this.exchangeData.to
+            }}
           </div>
           <div class="ft-semibold expand-txt">
             blockchain :
@@ -62,7 +70,11 @@
             Exchange Fee
           </div>
           <div class="ft-semibold amount-txt uppercase">
-            {{ this.exchangeData.fee + " " + this.exchangeData.to }}
+            {{
+              Number(this.exchangeData.fee).toFixed(7) +
+                " " +
+                this.exchangeData.to
+            }}
           </div>
           <div class="ft-regular hint-txt">
             The exchange fee is already included in the displayed amount you’ll
@@ -74,7 +86,11 @@
             Network Fee
           </div>
           <div class="ft-semibold amount-txt uppercase">
-            {{ this.exchangeData.networkFee + " " + this.exchangeData.to }}
+            {{
+              Number(this.exchangeData.networkFee).toFixed(7) +
+                " " +
+                this.exchangeData.to
+            }}
           </div>
           <div class="ft-regular  hint-txt">
             The network fee is already included in the displayed amount you’ll
@@ -108,7 +124,7 @@
             {{
               this.exchangeData.from +
                 " ~ " +
-                this.exchangeData.rate +
+                Number(this.exchangeData.rate).toFixed(7) +
                 " " +
                 this.exchangeData.to
             }}

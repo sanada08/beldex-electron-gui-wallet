@@ -1,5 +1,8 @@
 <template>
   <q-page class="swap" style="min-height: unset">
+    <q-inner-loading :showing="swaploading">
+      <q-spinner color="primary" size="30" />
+    </q-inner-loading>
     <div v-if="this.routes === 'mainPage'">
       <div class="flex row justify-between">
         <header class="text-h6 ft-bold">Exchange</header>
@@ -208,7 +211,12 @@
               <td class="uppercase">
                 1
                 {{ this.sendAmounType.name }}
-                ~ {{ exchange_amount.rate ? exchange_amount.rate : "..." }}
+                ~
+                {{
+                  exchange_amount.rate
+                    ? Number(exchange_amount.rate).toFixed(7)
+                    : "..."
+                }}
                 {{ this.receiveAmountType.name }}
               </td>
             </tr>
@@ -220,7 +228,9 @@
                   {{ this.sendAmounType.name }}
                   ~
                   {{
-                    fixedExchangeRate.result ? fixedExchangeRate.result : "..."
+                    fixedExchangeRate.result
+                      ? Number(fixedExchangeRate.result).toFixed(7)
+                      : "..."
                   }}
                   {{ this.receiveAmountType.name }}</span
                 ><br />
@@ -232,7 +242,11 @@
             <tr v-if="this.exechangeRateType == 'float'">
               <td>Service fee 0.25%</td>
               <td class="uppercase">
-                {{ exchange_amount.fee ? exchange_amount.fee : "..." }}
+                {{
+                  exchange_amount.fee
+                    ? Number(exchange_amount.fee).toFixed(7)
+                    : "..."
+                }}
                 {{ this.receiveAmountType.name }}
               </td>
             </tr>
@@ -246,7 +260,7 @@
               <td class="uppercase">
                 {{
                   exchange_amount.networkFee
-                    ? exchange_amount.networkFee
+                    ? Number(exchange_amount.networkFee).toFixed(7)
                     : "..."
                 }}
                 {{ this.receiveAmountType.name }}
@@ -257,7 +271,9 @@
               <td v-if="this.exechangeRateType === 'float'" class="uppercase">
                 ~
                 {{
-                  exchange_amount.amountTo ? exchange_amount.amountTo : "..."
+                  exchange_amount.amountTo
+                    ? Number(exchange_amount.amountTo)
+                    : "..."
                 }}
                 {{ this.receiveAmountType.name }}
               </td>
@@ -265,7 +281,7 @@
                 ~
                 {{
                   fixedExchangeRate.amountTo
-                    ? fixedExchangeRate.amountTo
+                    ? Number(fixedExchangeRate.amountTo).toFixed(7)
                     : "..."
                 }}
                 {{ this.receiveAmountType.name }}
@@ -343,7 +359,7 @@
           <div class="col-10 flex items-center justify-between">
             <span class="ft-semibold content">Floating Exchange Rate</span
             ><br />
-            <span> ~ {{ exchange_amount.rate }} </span>
+            <span> ~ {{ Number(exchange_amount.rate).toFixed(7) }} </span>
           </div>
         </article>
 
@@ -376,7 +392,7 @@
           </div>
           <div class="col-10 flex items-center justify-between">
             <span class="ft-semibold content">Fixed Exchange Rate</span><br />
-            <span>~ {{ fixedExchangeRate.result }}</span>
+            <span>~ {{ Number(fixedExchangeRate.result).toFixed(7) }}</span>
           </div>
         </article>
       </section>
@@ -569,6 +585,7 @@ export default {
     },
     currencyList(newValue) {
       if (newValue && newValue.length > 0) {
+        this.swaploading = false;
         console.log("currencyList wathcer");
         let btcDetails = newValue.find(item => item.name === "BTC");
         // let bdxDetails = newValue.find((item) => item.name === "BDX");
@@ -590,6 +607,7 @@ export default {
     createdTxnDetails(newTxn) {
       if (newTxn.result) {
         console.log("newTxn ", newTxn);
+        this.swaploading = false;
 
         this.get_transaction_status();
       }
@@ -644,7 +662,8 @@ export default {
         result = state.gateway.pairsMinMax.result[0];
       }
       return result;
-    }
+    },
+    info: state => state.gateway.wallet.info
   }),
 
   validations: {
@@ -691,7 +710,8 @@ export default {
         label: "",
         value: ""
       },
-      sendAmounTypeOption: ""
+      sendAmounTypeOption: "",
+      swaploading: true
     };
   },
   created() {
@@ -917,9 +937,11 @@ export default {
         from: this.sendAmounType.value,
         to: this.receiveAmountType.value,
         address: this.recipientAddress.val,
-        amountFrom: this.sendAmount
+        amountFrom: this.sendAmount,
+        userbdxAddress: this.info.address
       };
       this.$gateway.send("swap", "create_transaction", data);
+      this.swaploading = true;
       this.navigation("settlement", 3);
     },
     create_fixed_transaction() {
@@ -938,6 +960,8 @@ export default {
         refundAddress: this.refundAddress.val
       };
       this.$gateway.send("swap", "create_fixed_transaction", data);
+      this.swaploading = true;
+
       this.navigation("settlement", 3);
     },
     get_transaction_status() {

@@ -188,7 +188,11 @@
             <div class="ft-medium label q-mt-md q-mb-xs">Exchange Rate</div>
             <div class="ft-semibold content q-mb-sm break-all uppercase">
               1 {{ statusDetails.currencyFrom }} ~
-              {{ statusDetails.rate + " " + statusDetails.currencyTo }}
+              {{
+                Number(statusDetails.rate).toFixed(7) +
+                  " " +
+                  statusDetails.currencyTo
+              }}
             </div>
           </div>
           <div

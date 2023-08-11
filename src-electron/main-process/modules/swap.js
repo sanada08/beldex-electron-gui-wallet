@@ -184,9 +184,11 @@ export class Swap {
     // };
     console.log("createTransaction ::", params);
 
+    console.log("createTransaction 1::", params.userbdxAddress);
+
     let data = await this.sendRPC("createTransaction", params);
     console.log("createTransaction datadata ::", data.result.id);
-    //await this.swapTxnHistory.updateTransactionDetails(data.result.id,address)
+    // await this.swapTxnHistory.updateTransactionDetails(data.result.id,params.userbdxAddress)
     this.sendGateway("set_createdTxnDetails", data);
 
     // from: "btc",

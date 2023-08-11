@@ -166,7 +166,7 @@
             <td class="uppercase">
               1
               {{ floatingRate.from ? floatingRate.from : "" }}
-              ~ {{ floatingRate.rate }}
+              ~ {{ Number(floatingRate.rate).toFixed(7) }}
               {{ floatingRate.to ? floatingRate.to : "" }}
             </td>
           </tr>
@@ -176,7 +176,8 @@
               <span class="uppercase"
                 >1
                 {{ fixedRate.from }}
-                ~ {{ fixedRate.result }} {{ fixedRate.to }}</span
+                ~ {{ Number(fixedRate.result).toFixed(7) }}
+                {{ fixedRate.to }}</span
               ><br />
               <span class="fixed-rate-hint"
                 >The fixed rate is updated every 30 Seconds</span
@@ -186,7 +187,7 @@
           <tr v-if="createdTxnDetails.type == 'float'">
             <td>Service fee 0.25%</td>
             <td class="uppercase">
-              {{ floatingRate.fee }}
+              {{ Number(floatingRate.fee).toFixed(7) }}
               {{ floatingRate.to ? floatingRate.to : "" }}
             </td>
           </tr>
@@ -198,7 +199,7 @@
           <tr v-if="createdTxnDetails.type == 'float'">
             <td>Network fee</td>
             <td class="uppercase">
-              {{ floatingRate.networkFee }}
+              {{ Number(floatingRate.networkFee).toFixed(7) }}
               {{ floatingRate.to ? floatingRate.to : "" }}
             </td>
           </tr>
