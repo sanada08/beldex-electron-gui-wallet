@@ -1,8 +1,10 @@
 import axios from "axios";
+const { SwapTxnHistory } = require("./swap_transaction_history");
 
 export class Swap {
   constructor(backend) {
     this.backend = backend;
+    this.swapTxnHistory = new SwapTxnHistory(this);
     this.wallet_state = {
       open: false
     };
@@ -183,7 +185,8 @@ export class Swap {
     console.log("createTransaction ::", params);
 
     let data = await this.sendRPC("createTransaction", params);
-    console.log("createTransaction datadata ::", data);
+    console.log("createTransaction datadata ::", data.result.id);
+    //await this.swapTxnHistory.updateTransactionDetails(data.result.id,address)
     this.sendGateway("set_createdTxnDetails", data);
 
     // from: "btc",
@@ -233,6 +236,7 @@ export class Swap {
 
     let data = await this.sendRPC("getTransactions", params);
     console.log("getTransactions data::", data);
+    //await this.swapTxnHistory.getOrderHistory(address)
     this.sendGateway("set_txnHistory", data);
 
     // this.sendGateway("getTransactions", data);
