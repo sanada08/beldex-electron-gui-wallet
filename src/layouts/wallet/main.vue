@@ -249,12 +249,12 @@
                     v-if="this.stepperPosition === 4"
                     class="dot flex"
                   ></span>
-                  <!-- <q-icon
+                  <q-icon
                     v-if="this.stepperPosition > 4"
                     name="check_circle"
                     color="primary"
                     size="xs"
-                  /> -->
+                  />
                 </span>
                 <!-- <span class="position flex justify-center items-center">4</span> -->
               </div>

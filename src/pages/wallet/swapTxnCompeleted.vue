@@ -8,25 +8,35 @@
     </header>
     <div class="flex row txn-id-wrapper q-px-md items-center">
       <div class="label q-mr-sm ft-medium">Transaction ID :</div>
-      <div class="q-mr-sm ft-semibold">bcbf9e4b0703d65</div>
+      <div class="q-mr-sm ft-semibold">{{ this.txnStatus.id }}</div>
       <q-btn
         flat
         icon="content_copy"
         color="primary"
         size="9px"
         class="copy-btn flex justify-center items-center"
-        @click="copyAddress('bcbf9e4b0703d65')"
+        @click="copyAddress(txnStatus.id)"
       />
     </div>
     <section class="receipt-wrapper">
       <article class="flex row q-mt-md">
         <div class="col-6">
           <div class="q-mb-sm label">Amount</div>
-          <div class="ft-semibold content">179 BDX</div>
+          <div class="ft-semibold content">
+            {{ this.txnStatus.amountExpectedFrom }}
+            <span class="uppercase q-ml-xs">{{
+              this.txnStatus.currencyFrom
+            }}</span>
+          </div>
         </div>
         <div class="col-6">
           <div class="q-mb-sm label">Amount to</div>
-          <div class="ft-semibold content">0.02822151 BNB</div>
+          <div class="ft-semibold content">
+            {{ this.txnStatus.amountExpectedTo }}
+            <span class="uppercase q-ml-xs">{{
+              this.txnStatus.currencyTo
+            }}</span>
+          </div>
         </div>
       </article>
       <div class="hr-seperator q-my-md"></div>
@@ -34,11 +44,23 @@
       <article class="flex row">
         <div class="col-6">
           <div class="q-mb-sm label">Amount received</div>
-          <div class="ft-semibold content">22 Jul 2023, 18:45:47</div>
+          <div class="ft-semibold content">
+            {{
+              this.momentdate(this.txnStatus.moneyReceived / 1000).format(
+                "DD MMM YYYY-h:mm:ss"
+              )
+            }}
+          </div>
         </div>
         <div class="col-6">
           <div class="q-mb-sm label">Amount Sent</div>
-          <div class="ft-semibold content">22 Jul 2023, 18:50:00</div>
+          <div class="ft-semibold content">
+            {{
+              this.momentdate(this.txnStatus.moneySent / 1000).format(
+                "DD MMM YYYY-h:mm:ss"
+              )
+            }}
+          </div>
         </div>
       </article>
       <div class="hr-seperator q-my-md"></div>
@@ -46,11 +68,24 @@
       <article class="flex row">
         <div class="col-6">
           <div class="q-mb-sm label">Exchange Rate</div>
-          <div class="ft-semibold content">1 BDX ~ 0.00016151 BNB</div>
+          <div class="ft-semibold content">
+            1<span class="uppercase q-ml-xs">{{
+              this.txnStatus.currencyFrom
+            }}</span>
+            ~ {{ this.txnStatus.rate
+            }}<span class="uppercase q-ml-xs">{{
+              this.txnStatus.currencyTo
+            }}</span>
+          </div>
         </div>
         <div class="col-6">
           <div class="q-mb-sm label">Network fee</div>
-          <div class="ft-semibold content">0.00068934 BNB</div>
+          <div class="ft-semibold content">
+            {{ this.txnStatus.networkFee }}
+            <span class="uppercase q-ml-xs">{{
+              this.txnStatus.currencyTo
+            }}</span>
+          </div>
         </div>
       </article>
       <div class="hr-seperator q-my-md"></div>
@@ -59,19 +94,27 @@
         <div class="col-6">
           <div class="q-mb-sm label">Recipient address</div>
           <div class="ft-medium content break-all" style="width: 85%">
-            79bf9e4b0703d65223af71f3318711d1bc5462588c901c09bda751447b69a0a1
+            {{ this.txnStatus.payoutAddress }}
           </div>
         </div>
         <div class="col-6">
-          <div class="q-mb-sm label">Memo</div>
-          <div class="ft-semibold content">400016891</div>
+          <div class="q-mb-sm label">
+            {{ this.txnStatus.payoutExtraIdName }}
+          </div>
+          <div class="ft-semibold content">
+            {{ this.txnStatus.payoutExtraId }}
+          </div>
         </div>
       </article>
       <div class="hr-seperator q-my-md"></div>
 
       <article>
         <div class="flex row justify-center">
-          <q-btn outline class="hash-btn">
+          <q-btn
+            outline
+            class="hash-btn"
+            @click="inputHash(txnStatus.payinHash)"
+          >
             <svg
               width="22"
               height="22"
@@ -89,7 +132,11 @@
             </svg>
             <span class="ft-medium q-ml-sm">Input Hash</span>
           </q-btn>
-          <q-btn outline class="hash-btn q-ml-md">
+          <q-btn
+            outline
+            class="hash-btn q-ml-md"
+            @click="outputHash(txnStatus.payoutHash)"
+          >
             <svg
               width="22"
               height="22"
@@ -130,6 +177,7 @@
 
 <script>
 const { clipboard } = require("electron");
+const moment = require("moment");
 
 export default {
   name: "SwapTxnCompeleted",
@@ -142,12 +190,17 @@ export default {
     newTxn: {
       type: Function,
       required: false
+    },
+    txnStatus: {
+      type: Object,
+      required: true
     }
   },
 
   data() {
     return {
-      isVisible: true
+      isVisible: true,
+      momentdate: moment
     };
   },
 
@@ -159,6 +212,12 @@ export default {
         timeout: 1000,
         message: "Transaction ID is copied!"
       });
+    },
+    inputHash(hash) {
+      console.log("input hash", hash);
+    },
+    outputHash(hash) {
+      console.log("outhash", hash);
     }
   }
 };

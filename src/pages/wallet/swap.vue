@@ -525,6 +525,7 @@
     <swapStatus v-if="this.routes === 'swapStatus'" />
     <SwapTxnCompeleted
       v-if="this.routes === 'txnCompleted'"
+      :txn-status="this.txnStatus.result[0]"
       @openHistory="navigation('txnHistory', 1)"
       @newTxn="navigation('mainPage', 1)"
     />
@@ -566,7 +567,7 @@ export default {
       }
     },
     isValidRefundAddress(isValidRefundAddress) {
-      console.log("isValidRefundAddress  fn", isValidRefundAddress);
+      // console.log("isValidRefundAddress  fn", isValidRefundAddress);
       if (isValidRefundAddress) {
         if (isValidRefundAddress.result) {
           this.refundAddress.error = false;
@@ -588,20 +589,21 @@ export default {
         this.swaploading = false;
         console.log("currencyList wathcer");
         let btcDetails = newValue.find(item => item.name === "BTC");
-        // let bdxDetails = newValue.find((item) => item.name === "BDX");
-        // if (bdxDetails.enabled === true) {
-        //   this.bdxCoinDetails = bdxDetails;
-        //   this.receiveAmountType = bdxDetails;
-        // } else {
-        let EthDetails = newValue.find(item => item.name === "ETH");
-        this.receiveAmountType = EthDetails;
-        // }
-
+        let bdxDetails = newValue.find(item => item.name === "BDX");
         this.sendAmounType = btcDetails;
 
-        this.minMaxPair();
-        this.getExchangeRate();
-        this.getFixedExchangeAmount();
+        if (bdxDetails.enabled === true) {
+          this.bdxCoinDetails = bdxDetails;
+          this.receiveAmountType = bdxDetails;
+
+          this.minMaxPair();
+          this.getExchangeRate();
+          this.getFixedExchangeAmount();
+        } else {
+          // let EthDetails = newValue.find(item => item.name === "ETH");
+          // this.receiveAmountType = EthDetails;
+          this.navigation("maintenance", 1);
+        }
       }
     },
     createdTxnDetails(newTxn) {
@@ -610,6 +612,22 @@ export default {
         this.swaploading = false;
 
         this.get_transaction_status();
+      }
+    },
+    txnStatus(newStatus) {
+      if (newStatus.hasOwnProperty("result")) {
+        console.log("txnStatustxnStatus ", newStatus);
+        if (newStatus.result[0].status === "finished") {
+          this.clearAllintervals();
+          this.navigation("txnCompleted", 5);
+        }
+        if (
+          newStatus.result[0].status === "confirming" ||
+          newStatus.result[0].status === "exchanging"
+        ) {
+          console.log("txnStatustxnStatus 2", newStatus.result[0].status);
+          this.navigation("swapStatus", 4);
+        }
       }
     }
   },
@@ -967,12 +985,13 @@ export default {
     },
     get_transaction_status() {
       // this.navigation("swapStatus", 4);
-      // let data = {
-      //   id: this.createdTxnDetails.result.id //create transaction id
-      // };
       let data = {
-        id: this.createdTxnDetails.result.id
+        id: "eukaew8lktw5nlwn" //create transaction id
       };
+
+      // let data = {
+      //   id: this.createdTxnDetails.result.id
+      // };
       console.log("get_transaction_status data", data);
       let count = 1;
       this.refreshTxnStatus = setInterval(() => {
@@ -982,16 +1001,6 @@ export default {
 
         // this.$gateway.send("swap", "transaction_status", data);
         this.$gateway.send("swap", "transaction_status", data);
-        if (this.txnStatus.hasOwnProperty("result")) {
-          console.log("txnStatustxnStatus ", this.txnStatus);
-          if (this.txnStatus.result[0].status !== "waiting") {
-            console.log(
-              "txnStatustxnStatus 2",
-              this.txnStatus.result[0].status
-            );
-            this.navigation("swapStatus", 4);
-          }
-        }
       }, 30000);
     }
   }
