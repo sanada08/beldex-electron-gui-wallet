@@ -102,7 +102,7 @@ export class Swap {
     //   address,
     //   amountFrom
     // };
-    console.log("getExchangeAmount ::", params);
+    console.log("params get:", params);
     let data = await this.sendRPC("getExchangeAmount", params);
     console.log("getExchangeAmount", data.result);
 
@@ -119,7 +119,7 @@ export class Swap {
     // from: "btc",
     // to: "eth",
     // amountFrom: "0.1"
-    console.log("getFixRateForAmount ::", params);
+    console.log("params get-fix:", params);
 
     let data = await this.sendRPC("getFixRateForAmount", params);
     console.log("getFixRateForAmount", data);
@@ -184,11 +184,15 @@ export class Swap {
     // };
     console.log("createTransaction ::", params);
 
-    console.log("createTransaction 1::", params.userbdxAddress);
-
+    console.log("createTransaction 1::", params.walletAddress);
+    let walletAddress = params.walletAddress;
+    delete params["walletAddress"];
     let data = await this.sendRPC("createTransaction", params);
     console.log("createTransaction datadata ::", data.result.id);
-    // await this.swapTxnHistory.updateTransactionDetails(data.result.id,params.userbdxAddress)
+    await this.swapTxnHistory.updateTransactionDetails(
+      data.result.id,
+      walletAddress
+    );
     this.sendGateway("set_createdTxnDetails", data);
 
     // from: "btc",
@@ -236,13 +240,15 @@ export class Swap {
     // offset: 10
     console.log("getTransactions data::", params);
 
-    let data = await this.sendRPC("getTransactions", params);
-    console.log("getTransactions data::", data);
-    //await this.swapTxnHistory.getOrderHistory(address)
-    this.sendGateway("set_txnHistory", data);
-
-    // this.sendGateway("getTransactions", data);
-    // return this.sendRPC("getTransactions", currency);
+    let response = await this.sendRPC("getTransactions", params);
+    let actualTransactions = await this.swapTxnHistory.getOrderHistory(
+      params.walletAddress
+    );
+    let data = response.result;
+    const finalTxnHistory = await actualTransactions.map(id =>
+      data.find(el => el.id == id)
+    );
+    this.sendGateway("set_txnHistory", finalTxnHistory);
   }
 
   async getTransactionStatus(params) {

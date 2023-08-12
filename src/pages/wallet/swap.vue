@@ -938,7 +938,7 @@ export default {
         to: this.receiveAmountType.value,
         address: this.recipientAddress.val,
         amountFrom: this.sendAmount,
-        userbdxAddress: this.info.address
+        walletAddress: this.info.address
       };
       this.$gateway.send("swap", "create_transaction", data);
       this.swaploading = true;
@@ -957,7 +957,8 @@ export default {
         address: this.recipientAddress.val,
         amountFrom: this.sendAmount,
         rateId: this.fixedExchangeRate.id,
-        refundAddress: this.refundAddress.val
+        refundAddress: this.refundAddress.val,
+        walletAddress: this.info.address
       };
       this.$gateway.send("swap", "create_fixed_transaction", data);
       this.swaploading = true;

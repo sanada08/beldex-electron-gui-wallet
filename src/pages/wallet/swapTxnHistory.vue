@@ -185,9 +185,10 @@ export default {
   },
   computed: mapState({
     txnHistory: state => {
-      console.log("txnHistory ::", state.gateway.txnHistory.result);
-      return state.gateway.txnHistory.result;
-    }
+      console.log("txnHistory ::", state.gateway.txnHistory);
+      return state.gateway.txnHistory;
+    },
+    info: state => state.gateway.wallet.info
   }),
 
   methods: {
@@ -251,6 +252,7 @@ export default {
     get_transaction_History() {
       let data = {
         // id: this.createdTxnDetails.result.id
+        walletAddress: this.info.address
       };
       console.log("get_transaction_history data", data);
       // let count = 1;
