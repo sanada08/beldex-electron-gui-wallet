@@ -64,8 +64,9 @@ h1, h2, h3, h4, h5, h6, img, .q-list-header, .q-header, .q-menu .q-item-label, .
 .ellipsis
     text-overflow ellipsis
     overflow hidden
+
 .uppercase
-    text-transform: uppercase;
+    text-transform uppercase
 
 .q-field
     margin 20px 0
@@ -1505,29 +1506,68 @@ body
     width 300px
     height 300px
 
-    .currency-name
-        color #77778B !important
-        font-size 12px
+.currency-name
+    color #77778B !important
+    font-size 12px
 
 .swapdropDown-option
     display flex !important
     flex-direction row !important
     justify-content flex-start
     align-items center
+    cursor pointer
 
+.swapdropDown-option:hover {
+    background-color: #484866 !important;
+    border-radius:10px
+}
 .swap
     color white
     height calc(100vh - 405px)
     overflow-y auto
 
+    .optionView
+        position relative
+
+        .innerWrapper
+            position absolute
+            height 271px
+            width: 347px;
+            background-color #32324A
+            z-index 1
+            overflow: auto
+            right: 0;
+            border-radius: 10px;
+            margin-top: 10px;
+    .search-input
+        background-color: #242433;
+        outline: none;
+        border: none;
+        width: 100%
+        color: white
+
+            
+    .currency-btn
+        min-width unset
+        max-width :unset
+        min-height: 40px;
+        font-size 16px
+        outline: none
+        border:none
+        display: flex
+        cursor pointer
+    .current-name
+       max-width: 135px
     .history-btn
         min-width 100px
         height 40px
         font-size 16px
+
     .validMinMaxAmount
-        text-decoration: underline
-        text-transform: uppercase
+        text-decoration underline
+        text-transform uppercase
         cursor pointer
+
     .txn-fee-details
         border 1.5px solid #484856
         border-radius 10px
@@ -1556,8 +1596,9 @@ body
 
     .dropdown-send-type
         background-color #40405E
-        max-width 136px
+    
         border-radius 7px
+        color: white
 
         .currency-name
             color #77778B !important
@@ -1675,18 +1716,21 @@ body
         word-break break-all
         width 86%
         font-size 12px
-.swapUnderMaintenance
-    height: calc(100vh - 466px);
-    .coin-name
-        color:#20D030
-    .maintatance-txt
-        color: white
-        font-size: 20px
-    .info-txt
-        color: #82828D
-        font-size: 16px;
-        text-align: center
 
+.swapUnderMaintenance
+    height calc(100vh - 466px)
+
+    .coin-name
+        color #20D030
+
+    .maintatance-txt
+        color white
+        font-size 20px
+
+    .info-txt
+        color #82828D
+        font-size 16px
+        text-align center
 
 .swapTxnHistory
     .downloadCsv-btn
@@ -1952,6 +1996,7 @@ body
     .header-txt
         color #20D030
         font-size 20px
+
     .copy-btn
         width 30px
         height 30px
@@ -1959,7 +2004,7 @@ body
     .txn-id-wrapper
         background-color $beldex-disable-grey
         border-radius 10px
-        height: 50px
+        height 50px
 
         .label
             color $beldex-font-grey
@@ -1975,23 +2020,23 @@ body
 
     .hash-btn
         color white
-        width: 200px
-        font-size: 16px
-        height: 45px
+        width 200px
+        font-size 16px
+        height 45px
 
         .q-btn__wrapper:before
             border 2px solid #41415B !important
 
-
     .action-btn
         font-family "Poppins-Medium" !important
         min-width unset
+        width 200px
+        font-size 16px
+        height 45px
 
-        width: 200px
-        font-size: 16px
-        height: 45px
         .q-icon
-           font-size:  1.2em
+            font-size 1.2em
+
         .on-left
             margin-right 5px
 

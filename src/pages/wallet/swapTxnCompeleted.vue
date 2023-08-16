@@ -135,7 +135,7 @@
           <q-btn
             outline
             class="hash-btn q-ml-md"
-            @click="outputHash(txnStatus.payoutHash)"
+            @click="outputHash(txnStatus.payoutHashLink)"
           >
             <svg
               width="22"
@@ -178,6 +178,7 @@
 <script>
 const { clipboard } = require("electron");
 const moment = require("moment");
+import { mapState } from "vuex";
 
 export default {
   name: "SwapTxnCompeleted",
@@ -203,6 +204,9 @@ export default {
       momentdate: moment
     };
   },
+  computed: mapState({
+    Currencylist: state => state.gateway.currencyList.result
+  }),
 
   methods: {
     copyAddress(txnId) {
@@ -214,10 +218,19 @@ export default {
       });
     },
     inputHash(hash) {
-      console.log("input hash", hash);
+      let payInCurrency = this.Currencylist.find(
+        item => item.ticker === this.txnStatus.currencyFrom
+      );
+      let url = payInCurrency.transactionUrl;
+      url = url.slice(0, url.lastIndexOf("/") - (url.length - 1)) + hash;
+
+      this.$gateway.send("core", "open_url", { url });
+
+      // console.log("input hash", url);
     },
-    outputHash(hash) {
-      console.log("outhash", hash);
+    outputHash(url) {
+      console.log("outhash", url);
+      this.$gateway.send("core", "open_url", { url });
     }
   }
 };

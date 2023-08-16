@@ -46,7 +46,22 @@
               @keydown="keyHandler"
               @blur="$v.sendAmount.$touch"
             />
-            <q-select
+            <Dropdown
+              :filter-currecy-list="
+                this.filtercurrency.filter(
+                  item => item.enabledFrom && item.enabled
+                )
+              "
+              :send-amoun-type-value="this.sendAmounType"
+              @sendAmounType="value => (sendAmounType = value)"
+              @sendAmountValidator="sendAmountValidator"
+              @searchCurrency="val => searchCurrency(val)"
+            />
+            <!-- <q-btn class="currency-btn dropdown-send-type" @click="isVisible=true" >
+              <div v-html="sendAmounType.label"></div>
+            </q-btn> -->
+
+            <!-- <q-select
               v-model="sendAmounType"
               :options="
                 currencyList.filter(item => item.enabledFrom && item.enabled)
@@ -60,6 +75,7 @@
               @input="value => sendAmountValidator(value)"
             >
               <template v-slot:option="scope">
+            
                 <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
                   <q-item-section class="swapdropDown-option">
                     <q-img
@@ -80,8 +96,48 @@
                   </q-item-section>
                 </q-item>
               </template>
-            </q-select>
+            </q-select> -->
           </OxenField>
+
+          <!-- <div class="optionView">
+            <div class="innerWrapper q-px-lg">
+              
+              <OxenField class="q-mt-md ft-regular" label="Search">
+                <input
+                  :value="searchTxt"
+                  class="search-input"
+                  @input="(event) => this.searchCurrency(event.target.value)"
+                />
+              </OxenField>
+              <div
+                v-for="currency in this.filtercurrency"
+                :key="currency.value"
+                @click="sendAmountValidator(currency)"
+              >
+                <q-item-section
+                  class="swapdropDown-option q-mt-md"
+                  v-if="currency.enabledFrom && currency.enabled"
+                >
+                  <q-img
+                    class="q-mr-sm"
+                    :src="currency.image"
+                    style="
+                      height: 20px;
+                      max-width: 20px;
+                      filter: grayscale(150);
+                    "
+                  />
+                  <q-item-label class="ft-bold q-mr-xs"
+                    >{{ currency.name }}
+                  </q-item-label>
+                  <q-item-label class="currency-name ft-regular">
+                    - {{ currency.fullName }}</q-item-label
+                  >
+                </q-item-section>
+              </div>
+            </div>
+          </div> -->
+
           <span class="q-mt-xs">
             <span v-if="this.minMaxWarningContent === 'min'"
               >Minimum amount is
@@ -89,7 +145,7 @@
                 class="validMinMaxAmount"
                 @click="
                   sendAmount =
-                    this.exechangeRateType === 'float'
+                    exechangeRateType === 'float'
                       ? pairsMinMax.minAmountFloat
                       : pairsMinMax.minAmountFixed
                 "
@@ -117,6 +173,9 @@
             <q-btn
               color="accent"
               class="swap-btn q-mt-sm"
+              :disable="
+                !sendAmounType.enabledTo || !receiveAmountType.enabledFrom
+              "
               @click="swapCurrencyType"
             >
               <svg
@@ -158,9 +217,20 @@
               :placeholder="0"
               disable
             />
-            <q-select
+            <Dropdown
+              :filter-currecy-list="
+                this.filtercurrency.filter(
+                  item => item.enabledTo && item.enabled
+                )
+              "
+              :send-amoun-type-value="this.receiveAmountType"
+              @sendAmounType="value => (receiveAmountType = value)"
+              @sendAmountValidator="getAmountValidator"
+              @searchCurrency="val => searchCurrency(val)"
+            />
+            <!-- <q-select
               v-model="receiveAmountType"
-              :options="currencyList.filter(item => item.enabledTo)"
+              :options="currencyList.filter((item) => item.enabledTo)"
               borderless
               dense
               :menu-offset="[170, 10]"
@@ -168,7 +238,7 @@
               class="ft-semibold q-pl-sm dropdown-send-type"
               popup-content-class="exchage-option"
               dropdown-icon="expand_more"
-              @input="value => getAmountValidator(value)"
+              @input="(value) => getAmountValidator(value)"
             >
               <template v-slot:option="scope">
                 <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
@@ -191,7 +261,7 @@
                   </q-item-section>
                 </q-item>
               </template>
-            </q-select>
+            </q-select> -->
           </OxenField>
         </article>
         <article style="width: 48%">
@@ -544,6 +614,7 @@ import swapStatus from "./swapStatus.vue";
 import SwapTxnCompeleted from "./swapTxnCompeleted.vue";
 import SwapUnderMaintenance from "./swapUnderMaintenance.vue";
 import { mapState } from "vuex";
+import Dropdown from "./currencyDropDown.vue";
 
 export default {
   components: {
@@ -553,7 +624,8 @@ export default {
     SwapTxnSettlement,
     swapStatus,
     SwapTxnCompeleted,
-    SwapUnderMaintenance
+    SwapUnderMaintenance,
+    Dropdown
   },
   watch: {
     // whenever question changes, this function will run
@@ -587,6 +659,8 @@ export default {
     currencyList(newValue) {
       if (newValue && newValue.length > 0) {
         this.swaploading = false;
+        this.filtercurrency = newValue;
+
         console.log("currencyList wathcer");
         let btcDetails = newValue.find(item => item.name === "BTC");
         let bdxDetails = newValue.find(item => item.name === "BDX");
@@ -606,11 +680,11 @@ export default {
         }
       }
     },
+
     createdTxnDetails(newTxn) {
       if (newTxn.result) {
         console.log("newTxn ", newTxn);
         this.swaploading = false;
-
         this.get_transaction_status();
       }
     },
@@ -695,6 +769,7 @@ export default {
   },
   data() {
     return {
+      filtercurrency: [],
       sendAmount: 0.01,
       getAmount: "",
       agree: "no",
@@ -729,7 +804,8 @@ export default {
         value: ""
       },
       sendAmounTypeOption: "",
-      swaploading: true
+      swaploading: true,
+      searchTxt: ""
     };
   },
   created() {
@@ -754,6 +830,18 @@ export default {
         to: this.receiveAmountType.value
       };
       this.$gateway.send("swap", "get_min_max", data);
+    },
+    searchCurrency(txt) {
+      // console.log("searchCurrency searchCurrency searchCurrency", txt);
+      this.searchTxt = txt;
+      if (this.searchTxt) {
+        this.filtercurrency = this.currencyList.filter(item =>
+          item.value.includes(this.searchTxt)
+        );
+      } else {
+        this.filtercurrency = this.currencyList;
+      }
+      // console.log("searchCurrency ::", txt);
     },
     keyHandler(evt) {
       if (
@@ -813,6 +901,7 @@ export default {
       });
       this.minMaxPair();
       // if (this.exechangeRateType === "float") {
+      this.clearAllintervals();
       this.getExchangeRate();
       // } else {
       this.getFixedExchangeAmount();
@@ -851,6 +940,8 @@ export default {
       }
     },
     getExchangeRate() {
+      clearInterval(this.refreshFloatExchangeRate);
+
       this.$store.commit("gateway/set_exchangeAmount", { result: [] });
 
       let data = {
@@ -858,7 +949,6 @@ export default {
         to: this.receiveAmountType.value,
         amountFrom: this.sendAmount
       };
-      clearInterval(this.refreshFloatExchangeRate);
       this.$gateway.send("swap", "exchange_amount", data);
       let count = 1;
       this.refreshFloatExchangeRate = setInterval(() => {
@@ -867,12 +957,17 @@ export default {
         this.$gateway.send("swap", "exchange_amount", data);
       }, 30000);
     },
+    // floatInterval() {
+    //   this.refreshFloatExchangeRate = setInterval(this.getExchangeRate, 30000);
+    // },
     clearAllintervals() {
       clearInterval(this.refreshFixedExchangeRate);
       clearInterval(this.refreshFloatExchangeRate);
       clearInterval(this.refreshTxnStatus);
     },
     getFixedExchangeAmount() {
+      clearInterval(this.refreshFixedExchangeRate);
+
       this.$store.commit("gateway/set_fixedExchangeRate", { result: [] });
       let data = {
         from: this.sendAmounType.value,
@@ -888,6 +983,14 @@ export default {
         this.$gateway.send("swap", "fixed_exchange_amount", data);
       }, 30000);
     },
+
+    // fixedInterval() {
+    //   // let count = 1;
+    //   this.refreshFixedExchangeRate = setInterval(
+    //     this.getFixedExchangeAmount(),
+    //     30000
+    //   );
+    // },
     exchangeData() {
       let result;
       if (this.exechangeRateType === "float") {
