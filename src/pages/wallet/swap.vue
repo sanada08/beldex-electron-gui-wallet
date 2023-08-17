@@ -432,7 +432,14 @@
           <div class="col-10 flex items-center justify-between">
             <span class="ft-semibold content">Floating Exchange Rate</span>
             <br />
-            <span>~ {{ Number(exchange_amount.rate).toFixed(7) }}</span>
+            <span
+              >~
+              {{
+                exchange_amount.rate
+                  ? Number(exchange_amount.rate).toFixed(7)
+                  : ""
+              }}</span
+            >
           </div>
         </article>
 
@@ -466,7 +473,14 @@
           <div class="col-10 flex items-center justify-between">
             <span class="ft-semibold content">Fixed Exchange Rate</span>
             <br />
-            <span>~ {{ Number(fixedExchangeRate.result).toFixed(7) }}</span>
+            <span
+              >~
+              {{
+                fixedExchangeRate.result
+                  ? Number(fixedExchangeRate.result).toFixed(7)
+                  : ""
+              }}</span
+            >
           </div>
         </article>
       </section>
@@ -529,7 +543,7 @@
       >
         <span class="ft-Light hint">
           Please specify the {{ this.receiveAmountType.extraIdName }} for your
-          <sapn class="uppercase">{{ this.receiveAmountType.value }}</sapn>
+          <span class="uppercase">{{ this.receiveAmountType.value }}</span>
           receiving address if your wallet provides it. Your transaction will
           not go through if you omit it. If your wallet doesn’t require a
           {{ this.receiveAmountType.extraIdName }}, remove the tick.
@@ -584,7 +598,11 @@
     />
     <SwapTxnHistory
       v-if="this.routes === 'txnHistory'"
-      @goback="navigation('mainPage', 1)"
+      @goback="
+        () => {
+          navigation('mainPage', 1), clearState();
+        }
+      "
     />
     <SwapTxnSettlement
       v-if="this.routes === 'settlement' && createdTxnDetails.status"
@@ -598,7 +616,10 @@
     />
     <!-- @goback="navigation('makePayment', 2)" -->
 
-    <swapStatus v-if="this.routes === 'swapStatus'" />
+    <swapStatus
+      v-if="this.routes === 'swapStatus'"
+      @toHistory="navigation('txnHistory', 1)"
+    />
     <SwapTxnCompeleted
       v-if="this.routes === 'txnCompleted'"
       :txn-status="this.txnStatus.result[0]"
@@ -670,8 +691,9 @@ export default {
 
         console.log("currencyList wathcer");
         let btcDetails = newValue.find(item => item.name === "BTC");
-        let bdxDetails = newValue.find(item => item.name === "BNB");
+        let bdxDetails = newValue.find(item => item.name === "BDX");
         this.sendAmounType = btcDetails;
+        this.btcCoinDetails = btcDetails;
 
         if (bdxDetails.enabled === true) {
           this.bdxCoinDetails = bdxDetails;
@@ -794,6 +816,7 @@ export default {
       refreshTxnStatus: "",
       minMaxWarningContent: "",
       bdxCoinDetails: {},
+      btcCoinDetails: {},
       sendAmounType: {
         label:
           "<span>BTC<span class='currency-name ft-regular'> -Bitcoin<span><span>",
@@ -862,32 +885,51 @@ export default {
       }
     },
     sendAmountValidator() {
-      // if (
-      //   this.sendAmounType.value === "bdx" &&
-      //   this.receiveAmountType.value === "bdx"
-      // ) {
-      //   this.receiveAmountType.value = "eth";
-      this.minMaxPair();
-      // } else if (this.sendAmounType.value !== "bdx") {
-      //   this.receiveAmountType.value= "bdx";
-      //   this.minMaxPair();
+      if (
+        this.sendAmounType.value === "bdx" &&
+        this.receiveAmountType.value === "bdx"
+      ) {
+        this.receiveAmountType = this.btcCoinDetails;
+      } else if (this.sendAmounType.value === this.receiveAmountType.value) {
+        // this.sendAmounType = this.bdxCoinDetails;
+        this.receiveAmountType = this.bdxCoinDetails;
+      } else if (this.sendAmounType.value !== "bdx") {
+        this.receiveAmountType = this.bdxCoinDetails;
+      }
+      // else if (this.sendAmounType.value !== "bdx") {
+      //   this.receiveAmountType= this.bdxCoinDetails;
       // }
+      this.minMaxPair();
+
       // if (this.exechangeRateType === "float") {
       this.clearAllintervals();
       this.getExchangeRate();
       // } else {
-      this.getFixedExchangeAmount();
+      // this.getFixedExchangeAmount();
+
+      if (this.sendAmounType.fixRateEnabled) {
+        this.getFixedExchangeAmount();
+      } else {
+        this.exechangeRateType = "float";
+        // clearInterval(this.refreshFixedExchangeRate);
+      }
       // }
       // this.getExchangeRate();
     },
     getAmountValidator() {
-      // if (this.sendAmounType === "bdx" && this.receiveAmountType === "bdx") {
-      //   this.sendAmounType.value = "eth";
+      // console.log('getAmountValidator in swap',this.sendAmounType.value, this.receiveAmountType.value)
+      if (
+        this.sendAmounType.value === "bdx" &&
+        this.receiveAmountType.value === "bdx"
+      ) {
+        this.sendAmounType = this.btcCoinDetails;
+      } else if (this.sendAmounType.value === this.receiveAmountType.value) {
+        this.sendAmounType = this.bdxCoinDetails;
+        // this.receiveAmountType = this.bdxCoinDetails;
+      } else if (this.receiveAmountType !== "bdx") {
+        this.sendAmounType = this.bdxCoinDetails;
+      }
       this.minMaxPair();
-      // } else if (this.receiveAmountType !== "bdx") {
-      //   this.sendAmounType.value = "bdx";
-      //   this.minMaxPair();
-      // }
       // if (this.exechangeRateType === "float") {
       this.clearAllintervals();
       this.getExchangeRate();
@@ -949,6 +991,12 @@ export default {
         }
       }
     },
+    clearState() {
+      this.recipientAddress.val = "";
+      this.agree = "no";
+      this.sendAmount = 0.01;
+    },
+
     getExchangeRate() {
       clearInterval(this.refreshFloatExchangeRate);
 

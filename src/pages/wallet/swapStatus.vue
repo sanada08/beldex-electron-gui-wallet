@@ -6,7 +6,7 @@
       <article class="col-md-7">
         <header class="flex row items-center q-mb-md justify-between">
           <div class="flex items-center back-arrow-btn">
-            <svg
+            <!-- <svg
               width="26"
               height="26"
               viewBox="0 0 26 26"
@@ -17,8 +17,8 @@
                 d="M13 -6.10352e-05C5.8201 -6.10352e-05 0 5.82008 0 13C0 20.18 5.8201 26.0001 13 26.0001C20.1799 26.0001 26 20.18 26 13C26 5.82008 20.1799 -6.10352e-05 13 -6.10352e-05ZM18.2 14.3H10.9382L13 16.3618C13.507 16.8688 13.507 17.6931 13 18.2001C12.493 18.7071 11.6688 18.7071 11.1618 18.2001L6.8809 13.9191C6.3726 13.4108 6.3726 12.5879 6.8809 12.0809L11.1618 7.79999C11.6688 7.29299 12.493 7.29299 13 7.79999C13.507 8.30699 13.507 9.1312 13 9.6382L10.9382 11.7H18.2C18.9176 11.7 19.5 12.2824 19.5 13C19.5 13.7176 18.9176 14.3 18.2 14.3Z"
                 fill="white"
               />
-            </svg>
-            <div class="ft-semibold q-ml-md header-txt">Exchanging</div>
+            </svg> -->
+            <div class="ft-semibold  header-txt">Exchanging</div>
           </div>
         </header>
 
@@ -49,28 +49,16 @@
 
             <svg
               v-else
-              width="20"
-              height="20"
-              viewBox="0 0 20 20"
+              width="22"
+              height="22"
+              viewBox="0 0 28 28"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <g id="Frame 4">
-                <g id="Ellipse 154">
-                  <mask id="path-1-inside-1_1504_4124" fill="white">
-                    <path
-                      d="M20 10C20 7.91491 19.3482 5.88198 18.1359 4.18558C16.9235 2.48918 15.2112 1.21417 13.2385 0.538915C11.2658 -0.13634 9.13133 -0.178064 7.13373 0.419579C5.13613 1.01722 3.3753 2.22434 2.09757 3.87206C0.819844 5.51978 0.089127 7.5257 0.00763957 9.60919C-0.0738478 11.6927 0.497971 13.7495 1.64311 15.492C2.78824 17.2345 4.44941 18.5755 6.39423 19.3273C8.33905 20.0791 10.4702 20.2042 12.4897 19.6851L11.9445 17.5642C10.3673 17.9696 8.70278 17.8719 7.18385 17.2847C5.66492 16.6975 4.36752 15.6502 3.47316 14.2893C2.5788 12.9284 2.1322 11.322 2.19584 9.69477C2.25948 8.06754 2.83018 6.5009 3.8281 5.214C4.82603 3.92711 6.20125 2.98434 7.7614 2.51757C9.32156 2.0508 10.9886 2.08339 12.5293 2.61077C14.07 3.13816 15.4074 4.13395 16.3542 5.45886C17.3011 6.78377 17.8101 8.37152 17.8101 10H20Z"
-                    />
-                  </mask>
-                  <path
-                    d="M20 10C20 7.91491 19.3482 5.88198 18.1359 4.18558C16.9235 2.48918 15.2112 1.21417 13.2385 0.538915C11.2658 -0.13634 9.13133 -0.178064 7.13373 0.419579C5.13613 1.01722 3.3753 2.22434 2.09757 3.87206C0.819844 5.51978 0.089127 7.5257 0.00763957 9.60919C-0.0738478 11.6927 0.497971 13.7495 1.64311 15.492C2.78824 17.2345 4.44941 18.5755 6.39423 19.3273C8.33905 20.0791 10.4702 20.2042 12.4897 19.6851L11.9445 17.5642C10.3673 17.9696 8.70278 17.8719 7.18385 17.2847C5.66492 16.6975 4.36752 15.6502 3.47316 14.2893C2.5788 12.9284 2.1322 11.322 2.19584 9.69477C2.25948 8.06754 2.83018 6.5009 3.8281 5.214C4.82603 3.92711 6.20125 2.98434 7.7614 2.51757C9.32156 2.0508 10.9886 2.08339 12.5293 2.61077C14.07 3.13816 15.4074 4.13395 16.3542 5.45886C17.3011 6.78377 17.8101 8.37152 17.8101 10H20Z"
-                    stroke="#20D030"
-                    stroke-width="4"
-                    stroke-linejoin="round"
-                    mask="url(#path-1-inside-1_1504_4124)"
-                  />
-                </g>
-              </g>
+              <path
+                d="M14.0007 2.33334C7.56765 2.33334 2.33398 7.56701 2.33398 14C2.33398 20.433 7.56765 25.6667 14.0007 25.6667C20.4337 25.6667 25.6673 20.433 25.6673 14C25.6673 12.6863 25.4386 11.4266 25.0361 10.2471L23.1471 12.1361C23.2696 12.7381 23.334 13.3618 23.334 14C23.334 19.1462 19.1468 23.3333 14.0007 23.3333C8.85448 23.3333 4.66732 19.1462 4.66732 14C4.66732 8.85384 8.85448 4.66668 14.0007 4.66668C15.9058 4.66668 17.6779 5.24288 19.1572 6.22755L20.8275 4.5573C18.9048 3.1643 16.5498 2.33334 14.0007 2.33334ZM24.8424 3.84181L12.834 15.8503L8.99219 12.0085L7.34245 13.6582L12.834 19.1498L26.4922 5.49155L24.8424 3.84181Z"
+                fill="#159B24"
+              />
             </svg>
           </div>
           <div class="col-11">
@@ -79,7 +67,9 @@
               Once BDX is confirmed in the blockchain, we’ll start exchanging it
               to BNB
             </div>
-            <a class="explorer-link">See input hash in explorer</a>
+            <a class="explorer-link" @click="inputHash(statusDetails.payinHash)"
+              >See input hash in explorer</a
+            >
           </div>
         </div>
         <div class="hr-seperator q-my-md"></div>
@@ -90,6 +80,19 @@
               color="primary"
               size="2em"
             />
+            <svg
+              v-else-if="statusDetails.status === 'sending'"
+              width="22"
+              height="22"
+              viewBox="0 0 28 28"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14.0007 2.33334C7.56765 2.33334 2.33398 7.56701 2.33398 14C2.33398 20.433 7.56765 25.6667 14.0007 25.6667C20.4337 25.6667 25.6673 20.433 25.6673 14C25.6673 12.6863 25.4386 11.4266 25.0361 10.2471L23.1471 12.1361C23.2696 12.7381 23.334 13.3618 23.334 14C23.334 19.1462 19.1468 23.3333 14.0007 23.3333C8.85448 23.3333 4.66732 19.1462 4.66732 14C4.66732 8.85384 8.85448 4.66668 14.0007 4.66668C15.9058 4.66668 17.6779 5.24288 19.1572 6.22755L20.8275 4.5573C18.9048 3.1643 16.5498 2.33334 14.0007 2.33334ZM24.8424 3.84181L12.834 15.8503L8.99219 12.0085L7.34245 13.6582L12.834 19.1498L26.4922 5.49155L24.8424 3.84181Z"
+                fill="#159B24"
+              />
+            </svg>
             <svg
               v-else
               width="22"
@@ -122,7 +125,19 @@
               color="primary"
               size="2em"
             />
-
+            <svg
+              v-else-if="statusDetails.status === 'finished'"
+              width="22"
+              height="22"
+              viewBox="0 0 28 28"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14.0007 2.33334C7.56765 2.33334 2.33398 7.56701 2.33398 14C2.33398 20.433 7.56765 25.6667 14.0007 25.6667C20.4337 25.6667 25.6673 20.433 25.6673 14C25.6673 12.6863 25.4386 11.4266 25.0361 10.2471L23.1471 12.1361C23.2696 12.7381 23.334 13.3618 23.334 14C23.334 19.1462 19.1468 23.3333 14.0007 23.3333C8.85448 23.3333 4.66732 19.1462 4.66732 14C4.66732 8.85384 8.85448 4.66668 14.0007 4.66668C15.9058 4.66668 17.6779 5.24288 19.1572 6.22755L20.8275 4.5573C18.9048 3.1643 16.5498 2.33334 14.0007 2.33334ZM24.8424 3.84181L12.834 15.8503L8.99219 12.0085L7.34245 13.6582L12.834 19.1498L26.4922 5.49155L24.8424 3.84181Z"
+                fill="#159B24"
+              />
+            </svg>
             <svg
               v-else
               width="22"
@@ -154,7 +169,9 @@
           <div class="desc q-mt-sm">
             You can initiate a new transaction.<br />
             You can always check the status of this transaction in transaction
-            <a class="history-tag">history</a>
+            <a class="history-tag" @click="() => this.$emit('toHistory')"
+              >history</a
+            >
             .
           </div>
         </div>
@@ -183,8 +200,12 @@
             <div class="ft-semibold content q-mb-sm break-all">
               {{ statusDetails.payoutAddress }}
             </div>
-            <div class="ft-medium label q-mt-md q-mb-xs">Memo</div>
-            <div class="ft-semibold content q-mb-sm break-all">400016891</div>
+            <div class="ft-medium label q-mt-md q-mb-xs">
+              {{ statusDetails.payoutExtraIdName }}
+            </div>
+            <div class="ft-semibold content q-mb-sm break-all">
+              {{ statusDetails.payoutExtraId }}
+            </div>
             <div class="ft-medium label q-mt-md q-mb-xs">Exchange Rate</div>
             <div class="ft-semibold content q-mb-sm break-all uppercase">
               1 {{ statusDetails.currencyFrom }} ~
@@ -218,9 +239,10 @@ import { mapState } from "vuex";
 export default {
   name: "SwapStatus",
   components: {},
-  // props: {
-  //   statusDetails: { type: String, require: true }
-  // },
+  props: {
+    // statusDetails: { type: String, require: true }
+    toHistory: { type: Function, require: true }
+  },
 
   computed: mapState({
     statusDetails: state => {
@@ -232,7 +254,9 @@ export default {
         }
       }
       return result;
-    }
+    },
+
+    Currencylist: state => state.gateway.currencyList.result
   }),
   data() {
     return {
@@ -240,6 +264,18 @@ export default {
     };
   },
 
-  methods: {}
+  methods: {
+    inputHash(hash) {
+      let payInCurrency = this.Currencylist.find(
+        item => item.ticker === this.statusDetails.currencyFrom
+      );
+      let url = payInCurrency.transactionUrl;
+      url = url.slice(0, url.lastIndexOf("/") - (url.length - 1)) + hash;
+
+      this.$gateway.send("core", "open_url", { url });
+
+      // console.log("input hash", url);
+    }
+  }
 };
 </script>

@@ -1509,6 +1509,13 @@ body
 .currency-name
     color #77778B !important
     font-size 12px
+.currency-proto
+    background-color: #242433;
+    font-size: 12px;
+    padding: 5px;
+    color: #77778b;
+    border-radius: 7px;
+
 
 .swapdropDown-option
     display flex !important
@@ -1517,10 +1524,10 @@ body
     align-items center
     cursor pointer
 
-.swapdropDown-option:hover {
-    background-color: #484866 !important;
-    border-radius:10px
-}
+.swapdropDown-option:hover
+    background-color #484866 !important
+    border-radius 10px
+
 .swap
     color white
     height calc(100vh - 405px)
@@ -1532,32 +1539,34 @@ body
         .innerWrapper
             position absolute
             height 271px
-            width: 347px;
+            width 347px
             background-color #32324A
             z-index 1
-            overflow: auto
-            right: 0;
-            border-radius: 10px;
-            margin-top: 10px;
-    .search-input
-        background-color: #242433;
-        outline: none;
-        border: none;
-        width: 100%
-        color: white
+            overflow auto
+            right 0
+            border-radius 10px
+            margin-top 10px
 
-            
+    .search-input
+        background-color #242433
+        outline none
+        border none
+        width 100%
+        color white
+
     .currency-btn
         min-width unset
-        max-width :unset
-        min-height: 40px;
+        max-width unset
+        min-height 40px
         font-size 16px
-        outline: none
-        border:none
-        display: flex
+        outline none
+        border none
+        display flex
         cursor pointer
+
     .current-name
-       max-width: 135px
+        max-width 135px
+
     .history-btn
         min-width 100px
         height 40px
@@ -1596,9 +1605,8 @@ body
 
     .dropdown-send-type
         background-color #40405E
-    
         border-radius 7px
-        color: white
+        color white
 
         .currency-name
             color #77778B !important
@@ -1955,6 +1963,7 @@ body
             background-color #20D030
             width 70%
             height 3px
+            transition width 2s
 
     .sub-title
         color #EBEBEB
@@ -1966,6 +1975,7 @@ body
 
     .explorer-link
         text-decoration underline
+        cursor: pointer
 
     .hr-seperator
         height 1px
@@ -1978,6 +1988,7 @@ body
     .history-tag
         color white
         text-decoration underline
+        cursor pointer
 
     .txn-preview-wrapper
         border 1px solid $beldex-border-grey

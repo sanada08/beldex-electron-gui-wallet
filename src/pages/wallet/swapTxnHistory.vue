@@ -59,7 +59,7 @@
           :key="i"
           @click="setTxnDetails(i)"
         >
-          <td class="cursor">
+          <td v-if="item" class="cursor">
             <svg
               width="28"
               height="28"
@@ -73,15 +73,17 @@
               />
             </svg>
           </td>
-          <td class="ft-medium cursor">
+          <td v-if="item" class="ft-medium cursor">
             {{ convertHumanReadableFormat(item.createdAt) }}
           </td>
 
-          <td class="ft-semibold cursor">{{ item.amountExpectedFrom }}</td>
-          <td class="ft-medium cursor uppercase">
+          <td v-if="item" class="ft-semibold cursor">
+            {{ item.amountExpectedFrom }}
+          </td>
+          <td v-if="item" class="ft-medium cursor uppercase">
             1 {{ item.currencyFrom }} ~ {{ item.rate }} {{ item.currencyTo }}
           </td>
-          <td class="ft-medium cursor">
+          <td v-if="item" class="ft-medium cursor">
             {{
               item.payoutAddress.substr(0, 6) +
                 "...." +
@@ -91,7 +93,7 @@
                 )
             }}
           </td>
-          <td class="ft-semibold cursor uppercase">
+          <td v-if="item" class="ft-semibold cursor uppercase">
             {{ item.amountExpectedTo + " " + item.currencyTo }}
           </td>
         </tr>
@@ -150,6 +152,16 @@
     <!-- </q-toolbar>
       </q-header> -->
   </div>
+  <SwapTxnCompeleted
+    v-else-if="this.txnDetails.status === 'finished'"
+    :txn-status="this.txnDetails"
+    from="history"
+    @goback="
+      () => {
+        (isVisible = true), (txnDetails = '');
+      }
+    "
+  />
   <SwapTxnDetails
     v-else
     :txn-details="this.txnDetails"
@@ -161,16 +173,18 @@
 const moment = require("moment");
 import { mapState } from "vuex";
 import SwapTxnDetails from "./swapTxnDetails.vue";
+import SwapTxnCompeleted from "./swapTxnCompeleted.vue";
 
 export default {
   name: "SwapTxnHistory",
   components: {
-    SwapTxnDetails
+    SwapTxnDetails,
+    SwapTxnCompeleted
   },
   props: {
     goback: {
       type: Function,
-      required: true
+      required: false
     }
   },
   data() {
@@ -252,6 +266,7 @@ export default {
     get_transaction_History() {
       let data = {
         // id: this.createdTxnDetails.result.id
+        // id:'eukaew8lktw5nlwn',
         walletAddress: this.info.address
       };
       console.log("get_transaction_history data", data);

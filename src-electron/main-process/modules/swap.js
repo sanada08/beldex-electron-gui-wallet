@@ -245,9 +245,14 @@ export class Swap {
       params.walletAddress
     );
     let data = response.result;
+    console.log("getTransactions1", data);
+    console.log("getTransactions2", actualTransactions);
+
     const finalTxnHistory = await actualTransactions.map(id =>
       data.find(el => el.id == id)
     );
+    console.log("getTransactions3", finalTxnHistory);
+
     this.sendGateway("set_txnHistory", finalTxnHistory);
   }
 
