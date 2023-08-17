@@ -193,6 +193,7 @@ export class Swap {
       data.result.id,
       walletAddress
     );
+
     this.sendGateway("set_createdTxnDetails", data);
 
     // from: "btc",
@@ -226,34 +227,36 @@ export class Swap {
   }
 
   async getTransactionHistory(params) {
-    // let params = {
-    //   currency,
-    //   // "address": "0x410afe72a5f18cce5f758c731bb2a9b90e74e5c7",
-    //   // "extraId": "<<payin extraId to search>>",
-    //   limit: 10,
-    //   offset: 10
-    // };
     // currency: "eth",
     // // "address": "0x410afe72a5f18cce5f758c731bb2a9b90e74e5c7",
     // // "extraId": "<<payin extraId to search>>",
     // limit: 10,
     // offset: 10
-    console.log("getTransactions data::", params);
 
-    let response = await this.sendRPC("getTransactions", params);
     let actualTransactions = await this.swapTxnHistory.getOrderHistory(
       params.walletAddress
     );
-    let data = response.result;
-    console.log("getTransactions1", data);
-    console.log("getTransactions2", actualTransactions);
+    let orderHistory = [];
+    let finalorderHistory = [];
+    for (let i = 0; i < actualTransactions.length / 10; i++) {
+      console.log(i, i * 10, (i + 1) * 10);
+      let ids = actualTransactions.slice(i * 10, (i + 1) * 10);
+      let params = {
+        id: ids
+      };
+      let response = await this.sendRPC("getTransactions", params);
+      for (let j = 0; j < response.result.length; j++) {
+        orderHistory.push(response.result[j]);
+      }
+    }
+    for (let k = 0; k < orderHistory.length; k++) {
+      const element = orderHistory.find(e => e.id == actualTransactions[k]);
+      finalorderHistory.push(element);
+    }
+    // console.log("orderHistory:orderHistory:", orderHistory)
+    // console.log("finalorderHistory:", finalorderHistory)
 
-    const finalTxnHistory = await actualTransactions.map(id =>
-      data.find(el => el.id == id)
-    );
-    console.log("getTransactions3", finalTxnHistory);
-
-    this.sendGateway("set_txnHistory", finalTxnHistory);
+    this.sendGateway("set_txnHistory", orderHistory);
   }
 
   async getTransactionStatus(params) {
