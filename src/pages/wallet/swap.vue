@@ -24,7 +24,7 @@
               fill="white"
             />
           </svg>
-          <span class="q-ml-xs"> History </span>
+          <span class="q-ml-xs">History</span>
         </q-btn>
       </div>
 
@@ -59,7 +59,7 @@
             />
             <!-- <q-btn class="currency-btn dropdown-send-type" @click="isVisible=true" >
               <div v-html="sendAmounType.label"></div>
-            </q-btn> -->
+            </q-btn>-->
 
             <!-- <q-select
               v-model="sendAmounType"
@@ -96,7 +96,7 @@
                   </q-item-section>
                 </q-item>
               </template>
-            </q-select> -->
+            </q-select>-->
           </OxenField>
 
           <!-- <div class="optionView">
@@ -136,11 +136,11 @@
                 </q-item-section>
               </div>
             </div>
-          </div> -->
+          </div>-->
 
           <span class="q-mt-xs">
-            <span v-if="this.minMaxWarningContent === 'min'"
-              >Minimum amount is
+            <span v-if="this.minMaxWarningContent === 'min'">
+              Minimum amount is
               <span
                 class="validMinMaxAmount"
                 @click="
@@ -149,25 +149,27 @@
                       ? pairsMinMax.minAmountFloat
                       : pairsMinMax.minAmountFixed
                 "
-                >{{
+              >
+                {{
                   this.exechangeRateType === "float"
                     ? this.pairsMinMax.minAmountFloat
                     : this.pairsMinMax.minAmountFixed +
                       " " +
                       this.pairsMinMax.from
-                }}</span
-              ></span
-            >
+                }}
+              </span>
+            </span>
             <span
               v-if="this.minMaxWarningContent === 'max'"
               @click="sendAmount = pairsMinMax.maxAmountFloat"
-              >Maximum amount is
+            >
+              Maximum amount is
               <span class="validMinMaxAmount">
                 {{
                   this.pairsMinMax.maxAmountFloat + " " + this.pairsMinMax.from
-                }}</span
-              ></span
-            >
+                }}
+              </span>
+            </span>
           </span>
           <div class="flex justify-end">
             <q-btn
@@ -261,7 +263,7 @@
                   </q-item-section>
                 </q-item>
               </template>
-            </q-select> -->
+            </q-select>-->
           </OxenField>
         </article>
         <article style="width: 48%">
@@ -293,8 +295,8 @@
             <tr v-else>
               <td>Fixed rate</td>
               <td class="uppercase">
-                <span
-                  >1
+                <span>
+                  1
                   {{ this.sendAmounType.name }}
                   ~
                   {{
@@ -302,8 +304,9 @@
                       ? Number(fixedExchangeRate.result).toFixed(7)
                       : "..."
                   }}
-                  {{ this.receiveAmountType.name }}</span
-                ><br />
+                  {{ this.receiveAmountType.name }}
+                </span>
+                <br />
                 <span class="fixed-rate-hint"
                   >The fixed rate is updated every 30 Seconds</span
                 >
@@ -408,7 +411,7 @@
           @click="exechangeRateType = 'float'"
         >
           <div class="col-1 flex justify-center items-center">
-            <span class="flex justify-center items-center icon" style="">
+            <span class="flex justify-center items-center icon" style>
               <svg
                 width="18"
                 height="18"
@@ -427,9 +430,9 @@
             </span>
           </div>
           <div class="col-10 flex items-center justify-between">
-            <span class="ft-semibold content">Floating Exchange Rate</span
-            ><br />
-            <span> ~ {{ Number(exchange_amount.rate).toFixed(7) }} </span>
+            <span class="ft-semibold content">Floating Exchange Rate</span>
+            <br />
+            <span>~ {{ Number(exchange_amount.rate).toFixed(7) }}</span>
           </div>
         </article>
 
@@ -442,7 +445,7 @@
           @click="exechangeRateType = 'fixed'"
         >
           <div class="col-1 flex justify-center items-center">
-            <span class="flex justify-center items-center icon" style="">
+            <span class="flex justify-center items-center icon" style>
               <svg
                 width="18"
                 height="18"
@@ -461,7 +464,8 @@
             </span>
           </div>
           <div class="col-10 flex items-center justify-between">
-            <span class="ft-semibold content">Fixed Exchange Rate</span><br />
+            <span class="ft-semibold content">Fixed Exchange Rate</span>
+            <br />
             <span>~ {{ Number(fixedExchangeRate.result).toFixed(7) }}</span>
           </div>
         </article>
@@ -523,13 +527,14 @@
         "
         class="destination-tag-wrapper q-mt-md"
       >
-        <span class="ft-Light hint"
-          >Please specify the {{ this.receiveAmountType.extraIdName }} for your
+        <span class="ft-Light hint">
+          Please specify the {{ this.receiveAmountType.extraIdName }} for your
           <sapn class="uppercase">{{ this.receiveAmountType.value }}</sapn>
           receiving address if your wallet provides it. Your transaction will
           not go through if you omit it. If your wallet doesn’t require a
-          {{ this.receiveAmountType.extraIdName }}, remove the tick.</span
-        ><br />
+          {{ this.receiveAmountType.extraIdName }}, remove the tick.
+        </span>
+        <br />
         <q-checkbox
           v-model="destinationTag"
           color="secondary"
@@ -556,10 +561,11 @@
           false-value="no"
           size="sm"
         ></q-checkbox>
-        <span
-          >I agree with <a href="">Terms of Use</a>,
-          <a href="">Privacy Policy</a> and <a href="">AML/KYC</a></span
-        >
+        <span>
+          I agree with
+          <a href>Terms of Use</a>, <a href>Privacy Policy</a> and
+          <a href>AML/KYC</a>
+        </span>
       </div>
 
       <div class="flex justify-center q-my-lg">
@@ -649,6 +655,7 @@ export default {
       }
     },
     sendAmount(newvalue) {
+      this.clearAllintervals();
       this.getExchangeRate();
       this.getFixedExchangeAmount();
       this.minMaxAmoutValidator(newvalue);
@@ -663,7 +670,7 @@ export default {
 
         console.log("currencyList wathcer");
         let btcDetails = newValue.find(item => item.name === "BTC");
-        let bdxDetails = newValue.find(item => item.name === "BDX");
+        let bdxDetails = newValue.find(item => item.name === "BNB");
         this.sendAmounType = btcDetails;
 
         if (bdxDetails.enabled === true) {
@@ -671,6 +678,7 @@ export default {
           this.receiveAmountType = bdxDetails;
 
           this.minMaxPair();
+          this.clearAllintervals();
           this.getExchangeRate();
           this.getFixedExchangeAmount();
         } else {
@@ -865,6 +873,7 @@ export default {
       //   this.minMaxPair();
       // }
       // if (this.exechangeRateType === "float") {
+      this.clearAllintervals();
       this.getExchangeRate();
       // } else {
       this.getFixedExchangeAmount();
@@ -880,6 +889,7 @@ export default {
       //   this.minMaxPair();
       // }
       // if (this.exechangeRateType === "float") {
+      this.clearAllintervals();
       this.getExchangeRate();
       // } else {
       // this.getFixedExchangeAmount();
@@ -888,7 +898,7 @@ export default {
         this.getFixedExchangeAmount();
       } else {
         this.exechangeRateType = "float";
-        clearInterval(this.refreshFixedExchangeRate);
+        // clearInterval(this.refreshFixedExchangeRate);
       }
     },
     swapCurrencyType() {
@@ -949,6 +959,8 @@ export default {
         to: this.receiveAmountType.value,
         amountFrom: this.sendAmount
       };
+      console.log("getExchangeRate..........");
+      // clearInterval(this.refreshFloatExchangeRate);
       this.$gateway.send("swap", "exchange_amount", data);
       let count = 1;
       this.refreshFloatExchangeRate = setInterval(() => {
@@ -957,9 +969,6 @@ export default {
         this.$gateway.send("swap", "exchange_amount", data);
       }, 30000);
     },
-    // floatInterval() {
-    //   this.refreshFloatExchangeRate = setInterval(this.getExchangeRate, 30000);
-    // },
     clearAllintervals() {
       clearInterval(this.refreshFixedExchangeRate);
       clearInterval(this.refreshFloatExchangeRate);
@@ -1088,13 +1097,13 @@ export default {
     },
     get_transaction_status() {
       // this.navigation("swapStatus", 4);
-      let data = {
-        id: "eukaew8lktw5nlwn" //create transaction id
-      };
-
       // let data = {
-      //   id: this.createdTxnDetails.result.id
+      //   id: "eukaew8lktw5nlwn" //create transaction id
       // };
+
+      let data = {
+        id: this.createdTxnDetails.result.id
+      };
       console.log("get_transaction_status data", data);
       let count = 1;
       this.refreshTxnStatus = setInterval(() => {

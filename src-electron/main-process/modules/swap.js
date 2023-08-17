@@ -287,7 +287,7 @@ export class Swap {
         body,
         { httpsAgent: agent }
       );
-      console.log("signature:", signature.data.signature);
+      // console.log("signature:", signature.data.signature);
 
       let headers = {
         headers: {
