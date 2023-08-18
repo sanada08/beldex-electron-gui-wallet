@@ -33,7 +33,7 @@
           </div>
           <div class="ft-semibold amount-txt uppercase">
             {{
-              Number(this.exchangeData.amountFrom).toFixed(7) +
+              Number(this.exchangeData.amountFrom).toFixed(8) +
                 " " +
                 this.exchangeData.from
             }}
@@ -51,7 +51,7 @@
           <div class="ft-semibold amount-txt uppercase">
             ~
             {{
-              Number(this.exchangeData.amountTo).toFixed(7) +
+              Number(this.exchangeData.amountTo).toFixed(8) +
                 " " +
                 this.exchangeData.to
             }}
@@ -71,7 +71,7 @@
           </div>
           <div class="ft-semibold amount-txt uppercase">
             {{
-              Number(this.exchangeData.fee).toFixed(7) +
+              Number(this.exchangeData.fee).toFixed(8) +
                 " " +
                 this.exchangeData.to
             }}
@@ -87,7 +87,7 @@
           </div>
           <div class="ft-semibold amount-txt uppercase">
             {{
-              Number(this.exchangeData.networkFee).toFixed(7) +
+              Number(this.exchangeData.networkFee).toFixed(8) +
                 " " +
                 this.exchangeData.to
             }}
@@ -124,7 +124,7 @@
             {{
               this.exchangeData.from +
                 " ~ " +
-                Number(this.exchangeData.rate).toFixed(7) +
+                Number(this.exchangeData.rate).toFixed(8) +
                 " " +
                 this.exchangeData.to
             }}

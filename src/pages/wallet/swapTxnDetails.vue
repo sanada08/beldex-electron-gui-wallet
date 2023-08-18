@@ -42,7 +42,9 @@
           />
         </svg> -->
         <q-icon name="history" size="md" color="#fffe3" class="status-icon" />
-        <span class="ft-semibold paid-status q-ml-sm">Not Paid</span>
+        <span class="ft-semibold paid-status q-ml-sm">{{
+          txnDetails.status
+        }}</span>
       </article>
 
       <article class="amount-details-wrapper flex row q-mt-md">

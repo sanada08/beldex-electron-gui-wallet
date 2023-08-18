@@ -1571,11 +1571,14 @@ body
         min-width 100px
         height 40px
         font-size 16px
-
-    .validMinMaxAmount
-        text-decoration underline
-        text-transform uppercase
-        cursor pointer
+   .validMinMaxAmount-wrapper
+        background-color: #514526
+        padding: 10px 15px;
+        border-radius: 10px
+        .validMinMaxAmount
+            text-decoration underline
+            text-transform uppercase
+            cursor pointer
 
     .txn-fee-details
         border 1.5px solid #484856
@@ -1670,6 +1673,9 @@ body
     .terms-condition
         color white
         text-align center
+        a
+         cursor pointer
+         text-decoration: underline
 
     .terms-condition, .destination-tag-wrapper
         .q-checkbox__inner--truthy

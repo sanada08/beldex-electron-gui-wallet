@@ -210,7 +210,7 @@
             <div class="ft-semibold content q-mb-sm break-all uppercase">
               1 {{ statusDetails.currencyFrom }} ~
               {{
-                Number(statusDetails.rate).toFixed(7) +
+                Number(statusDetails.rate).toFixed(8) +
                   " " +
                   statusDetails.currencyTo
               }}

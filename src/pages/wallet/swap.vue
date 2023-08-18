@@ -138,7 +138,13 @@
             </div>
           </div>-->
 
-          <span class="q-mt-xs">
+          <div
+            v-if="
+              this.minMaxWarningContent === 'min' ||
+                this.minMaxWarningContent === 'max'
+            "
+            class="q-mt-xs validMinMaxAmount-wrapper"
+          >
             <span v-if="this.minMaxWarningContent === 'min'">
               Minimum amount is
               <span
@@ -153,10 +159,9 @@
                 {{
                   this.exechangeRateType === "float"
                     ? this.pairsMinMax.minAmountFloat
-                    : this.pairsMinMax.minAmountFixed +
-                      " " +
-                      this.pairsMinMax.from
+                    : this.pairsMinMax.minAmountFixed
                 }}
+                {{ this.pairsMinMax.from }}
               </span>
             </span>
             <span
@@ -166,12 +171,15 @@
               Maximum amount is
               <span class="validMinMaxAmount">
                 {{
-                  this.pairsMinMax.maxAmountFloat + " " + this.pairsMinMax.from
+                  this.exechangeRateType === "float"
+                    ? this.pairsMinMax.maxAmountFloat
+                    : this.pairsMinMax.maxAmountFixed
                 }}
+                {{ this.pairsMinMax.from }}
               </span>
             </span>
-          </span>
-          <div class="flex justify-end">
+          </div>
+          <div v-else class="flex justify-end">
             <q-btn
               color="accent"
               class="swap-btn q-mt-sm"
@@ -286,7 +294,7 @@
                 ~
                 {{
                   exchange_amount.rate
-                    ? Number(exchange_amount.rate).toFixed(7)
+                    ? Number(exchange_amount.rate).toFixed(8)
                     : "..."
                 }}
                 {{ this.receiveAmountType.name }}
@@ -301,7 +309,7 @@
                   ~
                   {{
                     fixedExchangeRate.result
-                      ? Number(fixedExchangeRate.result).toFixed(7)
+                      ? Number(fixedExchangeRate.result).toFixed(8)
                       : "..."
                   }}
                   {{ this.receiveAmountType.name }}
@@ -317,7 +325,7 @@
               <td class="uppercase">
                 {{
                   exchange_amount.fee
-                    ? Number(exchange_amount.fee).toFixed(7)
+                    ? Number(exchange_amount.fee).toFixed(8)
                     : "..."
                 }}
                 {{ this.receiveAmountType.name }}
@@ -333,7 +341,7 @@
               <td class="uppercase">
                 {{
                   exchange_amount.networkFee
-                    ? Number(exchange_amount.networkFee).toFixed(7)
+                    ? Number(exchange_amount.networkFee).toFixed(8)
                     : "..."
                 }}
                 {{ this.receiveAmountType.name }}
@@ -354,7 +362,7 @@
                 ~
                 {{
                   fixedExchangeRate.amountTo
-                    ? Number(fixedExchangeRate.amountTo).toFixed(7)
+                    ? Number(fixedExchangeRate.amountTo).toFixed(8)
                     : "..."
                 }}
                 {{ this.receiveAmountType.name }}
@@ -436,7 +444,7 @@
               >~
               {{
                 exchange_amount.rate
-                  ? Number(exchange_amount.rate).toFixed(7)
+                  ? Number(exchange_amount.rate).toFixed(8)
                   : ""
               }}</span
             >
@@ -477,7 +485,7 @@
               >~
               {{
                 fixedExchangeRate.result
-                  ? Number(fixedExchangeRate.result).toFixed(7)
+                  ? Number(fixedExchangeRate.result).toFixed(8)
                   : ""
               }}</span
             >
@@ -504,6 +512,7 @@
       <OxenField
         class="q-mt-md ft-regular"
         label="Recipient Address"
+        :protocol="this.receiveAmountType.protocol"
         :error="this.recipientAddress.error"
       >
         <q-input
@@ -577,13 +586,33 @@
         ></q-checkbox>
         <span>
           I agree with
-          <a href>Terms of Use</a>, <a href>Privacy Policy</a> and
-          <a href>AML/KYC</a>
+          <a @click="openExternalLink('https://changelly.com/terms-of-use')"
+            >Terms of Use</a
+          >
+          and
+          <a @click="openExternalLink('https://changelly.com/privacy-policy')"
+            >Privacy Policy</a
+          >
+          <!-- <a href>AML/KYC</a> -->
         </span>
       </div>
 
       <div class="flex justify-center q-my-lg">
-        <q-btn label="Next" color="primary" @click="this.next" />
+        <q-btn
+          label="Next"
+          color="primary"
+          :disable="
+            !(
+              this.sendAmount > 0 &&
+              this.agree === 'yes' &&
+              this.isValidRecipientAddress &&
+              (this.exechangeRateType === 'fixed'
+                ? this.isValidRefundAddress
+                : true)
+            )
+          "
+          @click="this.next"
+        />
       </div>
     </div>
     <SwapConfirmPayment
@@ -612,9 +641,8 @@
       :receive-chain-details="this.receiveAmountType"
       :send-chain-details="this.sendAmounType"
       @clearAllintervals="clearAllintervals"
-      @goback="navigation('swapStatus', 4)"
     />
-    <!-- @goback="navigation('makePayment', 2)" -->
+    <!-- @goback="navigation('swapStatus', 4)" -->
 
     <swapStatus
       v-if="this.routes === 'swapStatus'"
@@ -677,9 +705,10 @@ export default {
     },
     sendAmount(newvalue) {
       this.clearAllintervals();
-      this.getExchangeRate();
-      this.getFixedExchangeAmount();
       this.minMaxAmoutValidator(newvalue);
+      this.getExchangeRate();
+      this.validateFixedIsEnabled();
+      // this.getFixedExchangeAmount();
     },
     pairsMinMax() {
       this.minMaxAmoutValidator(this.sendAmount);
@@ -702,7 +731,9 @@ export default {
           this.minMaxPair();
           this.clearAllintervals();
           this.getExchangeRate();
-          this.getFixedExchangeAmount();
+          this.validateFixedIsEnabled();
+
+          // this.getFixedExchangeAmount();
         } else {
           // let EthDetails = newValue.find(item => item.name === "ETH");
           // this.receiveAmountType = EthDetails;
@@ -907,7 +938,10 @@ export default {
       // } else {
       // this.getFixedExchangeAmount();
 
-      if (this.sendAmounType.fixRateEnabled) {
+      if (
+        this.sendAmounType.fixRateEnabled &&
+        this.receiveAmountType.fixRateEnabled
+      ) {
         this.getFixedExchangeAmount();
       } else {
         this.exechangeRateType = "float";
@@ -922,6 +956,7 @@ export default {
         this.sendAmounType.value === "bdx" &&
         this.receiveAmountType.value === "bdx"
       ) {
+        // console.log('bdx =')
         this.sendAmounType = this.btcCoinDetails;
       } else if (this.sendAmounType.value === this.receiveAmountType.value) {
         this.sendAmounType = this.bdxCoinDetails;
@@ -936,7 +971,10 @@ export default {
       // } else {
       // this.getFixedExchangeAmount();
       // }
-      if (this.receiveAmountType.fixRateEnabled) {
+      if (
+        this.sendAmounType.fixRateEnabled &&
+        this.receiveAmountType.fixRateEnabled
+      ) {
         this.getFixedExchangeAmount();
       } else {
         this.exechangeRateType = "float";
@@ -955,8 +993,10 @@ export default {
       // if (this.exechangeRateType === "float") {
       this.clearAllintervals();
       this.getExchangeRate();
+      this.validateFixedIsEnabled();
+
       // } else {
-      this.getFixedExchangeAmount();
+      // this.getFixedExchangeAmount();
       // }
       // this.getExchangeRate();
     },
@@ -996,7 +1036,10 @@ export default {
       this.agree = "no";
       this.sendAmount = 0.01;
     },
-
+    openExternalLink(url) {
+      console.log("openExternalLink", url);
+      this.$gateway.send("core", "open_url", { url });
+    },
     getExchangeRate() {
       clearInterval(this.refreshFloatExchangeRate);
 
@@ -1022,6 +1065,7 @@ export default {
       clearInterval(this.refreshFloatExchangeRate);
       clearInterval(this.refreshTxnStatus);
     },
+
     getFixedExchangeAmount() {
       clearInterval(this.refreshFixedExchangeRate);
 
@@ -1040,7 +1084,15 @@ export default {
         this.$gateway.send("swap", "fixed_exchange_amount", data);
       }, 30000);
     },
-
+    validateFixedIsEnabled() {
+      if (
+        this.sendAmounType.fixRateEnabled &&
+        this.receiveAmountType.fixRateEnabled
+      ) {
+        console.log("validateFixedIsEnabled validateFixedIsEnabled");
+        this.getFixedExchangeAmount();
+      }
+    },
     // fixedInterval() {
     //   // let count = 1;
     //   this.refreshFixedExchangeRate = setInterval(

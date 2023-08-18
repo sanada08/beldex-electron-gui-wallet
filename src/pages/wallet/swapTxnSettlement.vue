@@ -1,6 +1,6 @@
 <template>
   <div class="txnSettlement">
-    <header class="flex row items-center q-mb-md">
+    <!-- <header class="flex row items-center q-mb-md">
       <div class="flex items-center back-arrow-btn" @click="this.backTopayment">
         <svg
           width="26"
@@ -17,7 +17,7 @@
       </div>
 
       <div class="ft-semibold q-ml-md header-txt">Back</div>
-    </header>
+    </header> -->
     <section class="q-mt-lg">
       <article class="fund-details-wrapper flex row">
         <div class="col-6">
@@ -166,7 +166,7 @@
             <td class="uppercase">
               1
               {{ floatingRate.from ? floatingRate.from : "" }}
-              ~ {{ Number(floatingRate.rate).toFixed(7) }}
+              ~ {{ Number(floatingRate.rate).toFixed(8) }}
               {{ floatingRate.to ? floatingRate.to : "" }}
             </td>
           </tr>
@@ -176,7 +176,7 @@
               <span class="uppercase"
                 >1
                 {{ fixedRate.from }}
-                ~ {{ Number(fixedRate.result).toFixed(7) }}
+                ~ {{ Number(fixedRate.result).toFixed(8) }}
                 {{ fixedRate.to }}</span
               ><br />
               <span class="fixed-rate-hint"
@@ -187,7 +187,7 @@
           <tr v-if="createdTxnDetails.type == 'float'">
             <td>Service fee 0.25%</td>
             <td class="uppercase">
-              {{ Number(floatingRate.fee).toFixed(7) }}
+              {{ Number(floatingRate.fee).toFixed(8) }}
               {{ floatingRate.to ? floatingRate.to : "" }}
             </td>
           </tr>
@@ -199,7 +199,7 @@
           <tr v-if="createdTxnDetails.type == 'float'">
             <td>Network fee</td>
             <td class="uppercase">
-              {{ Number(floatingRate.networkFee).toFixed(7) }}
+              {{ Number(floatingRate.networkFee).toFixed(8) }}
               {{ floatingRate.to ? floatingRate.to : "" }}
             </td>
           </tr>
