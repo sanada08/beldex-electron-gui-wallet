@@ -1,8 +1,8 @@
 <template>
   <div v-if="isVisible" class="swapTxnHistory">
-    <!-- <q-inner-loading :showing="(this.txnHistory?false:true)" :dark="theme == 'dark'">
+    <q-inner-loading :showing="this.txnHistory.length > 0 ? false : true">
       <q-spinner color="primary" size="30" />
-    </q-inner-loading> -->
+    </q-inner-loading>
     <!-- <q-header>
         <q-toolbar top> -->
     <header class="flex row items-center q-mb-md justify-between">
@@ -205,6 +205,20 @@
       }
     "
   />
+  <!-- :floating-rate="this.exchange_amount"
+    :fixed-rate="this.fixedExchangeRate"
+    :receive-chain-details="this.receiveAmountType"
+    :send-chain-details="this.sendAmounType"
+    @clearAllintervals="clearAllintervals" -->
+  <swapWaitingTxnHistory
+    v-else-if="this.txnDetails.status === 'waiting'"
+    :txn-details="this.txnDetails"
+    @goback="
+      () => {
+        (isVisible = true), (txnDetails = '');
+      }
+    "
+  />
   <SwapTxnDetails
     v-else
     :txn-details="this.txnDetails"
@@ -214,6 +228,7 @@
 
 <script>
 const moment = require("moment");
+import swapWaitingTxnHistory from "./swapWaitingTxnHistory.vue";
 import { mapState } from "vuex";
 import SwapTxnDetails from "./swapTxnDetails.vue";
 import SwapTxnCompeleted from "./swapTxnCompeleted.vue";
@@ -222,7 +237,8 @@ export default {
   name: "SwapTxnHistory",
   components: {
     SwapTxnDetails,
-    SwapTxnCompeleted
+    SwapTxnCompeleted,
+    swapWaitingTxnHistory
   },
   props: {
     goback: {
@@ -243,7 +259,12 @@ export default {
   computed: mapState({
     txnHistory: state => {
       console.log("txnHistory ::", state.gateway.txnHistory);
-      return state.gateway.txnHistory;
+      let sortedHistory = state.gateway.txnHistory.sort(function(a, b) {
+        // Turn your strings into dates, and then subtract them
+        // to get a value that is either negative, positive, or zero.
+        return new Date(b.createdAt / 1000) - new Date(a.createdAt / 1000);
+      });
+      return sortedHistory;
     },
     info: state => state.gateway.wallet.info
   }),

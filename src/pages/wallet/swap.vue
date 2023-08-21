@@ -510,11 +510,17 @@
       <header class="ft-bold q-mt-md">Wallet Address</header>
 
       <OxenField
-        class="q-mt-md ft-regular"
+        class="q-mt-md ft-regular address-wrapper"
         label="Recipient Address"
-        :protocol="this.receiveAmountType.protocol"
         :error="this.recipientAddress.error"
+        error-label="Please enter valid address"
       >
+        <div class="q-pr-sm">
+          <span class="proto ft-semibold ">{{
+            this.receiveAmountType.protocol
+          }}</span>
+        </div>
+
         <q-input
           v-model="recipientAddress.val"
           borderless
@@ -527,10 +533,16 @@
       </OxenField>
       <article v-if="this.exechangeRateType === 'fixed'">
         <OxenField
-          class="q-mt-md ft-regular"
+          class="q-mt-md ft-regular address-wrapper"
           label="Refund wallet Address"
           :error="this.refundAddress.error"
+          error-label="Please enter valid address"
         >
+          <div class="q-pr-sm">
+            <span class="proto ft-semibold ">{{
+              this.sendAmounType.protocol
+            }}</span>
+          </div>
           <q-input
             v-model="refundAddress.val"
             borderless
@@ -605,7 +617,7 @@
             !(
               this.sendAmount > 0 &&
               this.agree === 'yes' &&
-              this.isValidRecipientAddress &&
+              this.isValidRecipientAddress.result &&
               (this.exechangeRateType === 'fixed'
                 ? this.isValidRefundAddress
                 : true)
@@ -1111,6 +1123,9 @@ export default {
     },
 
     recipientAddressValidator() {
+      this.$store.commit("gateway/set_validateAddress", {
+        result: false
+      });
       let params = {
         address: this.recipientAddress.val,
         currency: this.receiveAmountType.value
@@ -1136,10 +1151,14 @@ export default {
     next() {
       let refundAdderss =
         this.exechangeRateType === "fixed" ? this.isValidRefundAddress : true;
+      // console.log("next",this.sendAmount > 0 &&
+      // this.agree === "yes" &&
+      // this.isValidRecipientAddress.result &&
+      // refundAdderss,this.isValidRecipientAddress)
       if (
         this.sendAmount > 0 &&
         this.agree === "yes" &&
-        this.isValidRecipientAddress &&
+        this.isValidRecipientAddress.result &&
         refundAdderss
       ) {
         this.clearAllintervals();

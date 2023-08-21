@@ -17,9 +17,6 @@
           {{ starred ? "Remove favourite" : "Add favourite" }}
         </q-tooltip>
       </q-btn>
-      <span v-if="protocol" class="proto ft-semibold q-ml-sm">{{
-        protocol
-      }}</span>
     </div>
     <div class="content row items-center" :class="{ error }">
       <slot></slot>
@@ -79,11 +76,6 @@ export default {
       type: Function,
       required: false,
       default: undefined
-    },
-    protocol: {
-      type: String,
-      required: false,
-      default: undefined
     }
   },
   data() {
@@ -120,13 +112,7 @@ export default {
       }
     }
   }
-  .proto {
-    background-color: #40405e;
-    font-size: 12px;
-    padding: 5px 15px;
-    color: white;
-    border-radius: 5px;
-  }
+
   .content {
     border-radius: 3px;
     padding: 6px 8px;

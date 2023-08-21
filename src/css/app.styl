@@ -1509,13 +1509,13 @@ body
 .currency-name
     color #77778B !important
     font-size 12px
-.currency-proto
-    background-color: #242433;
-    font-size: 12px;
-    padding: 5px;
-    color: #77778b;
-    border-radius: 7px;
 
+.currency-proto
+    background-color #242433
+    font-size 12px
+    padding 5px
+    color #77778b
+    border-radius 7px
 
 .swapdropDown-option
     display flex !important
@@ -1532,6 +1532,19 @@ body
     color white
     height calc(100vh - 405px)
     overflow-y auto
+
+    .address-wrapper
+        .error-label
+            color: red
+            margin-top: 2px
+            font-size: 12px
+
+        .proto
+            background-color $beldex-disable-grey
+            font-size 12px
+            padding 5px 15px
+            color white
+            border-radius 5px
 
     .optionView
         position relative
@@ -1571,136 +1584,139 @@ body
         min-width 100px
         height 40px
         font-size 16px
-   .validMinMaxAmount-wrapper
-        background-color: #514526
-        padding: 10px 15px;
-        border-radius: 10px
-        .validMinMaxAmount
-            text-decoration underline
-            text-transform uppercase
-            cursor pointer
 
-    .txn-fee-details
-        border 1.5px solid #484856
-        border-radius 10px
-        border-collapse separate
-        border-spacing 0
+.validMinMaxAmount-wrapper
+    background-color #514526
+    padding 10px 15px
+    border-radius 10px
 
+    .validMinMaxAmount
+        text-decoration underline
+        text-transform uppercase
+        cursor pointer
+
+.txn-fee-details
+    border 1.5px solid #484856
+    border-radius 10px
+    border-collapse separate
+    border-spacing 0
+
+    td
+        padding 10px 12px
+
+        .fixed-rate-hint
+            color #AFAFBE
+            font-size 10px
+
+    td:nth-child(1)
+        border-right 1.5px solid #484856
+        width 44%
+
+    tr:nth-child(1)
         td
-            padding 10px 12px
+            padding-top 16px
 
-            .fixed-rate-hint
-                color #AFAFBE
-                font-size 10px
+    tr:last-child
+        td
+            border-top 1.5px solid #484856
+            word-break break-all
 
-        td:nth-child(1)
-            border-right 1.5px solid #484856
-            width 44%
+.dropdown-send-type
+    background-color #40405E
+    border-radius 7px
+    color white
 
-        tr:nth-child(1)
-            td
-                padding-top 16px
-
-        tr:last-child
-            td
-                border-top 1.5px solid #484856
-                word-break break-all
-
-    .dropdown-send-type
-        background-color #40405E
-        border-radius 7px
-        color white
-
-        .currency-name
-            color #77778B !important
-            font-size 12px
-
-    .swap-btn
-        min-width unset
-        width 38px
-        height 38px
-
-        .q-btn__wrapper
-            padding unset
-            min-height unset
-
-    .fee-expand
-        border 1px solid #41415B
-
-    .drp-content
-        background-color #242433
-        border-radius 10px
-
-        .q-card__section--vert
-            padding-top 0
-
-    .exerate-wrapper
-        .exerate-inner-wrapper
-            border 1.2px solid #41415B
-            border-radius 10px
-            background-color $beldex-disable-grey
-            cursor pointer
-
-            .icon
-                width 30px
-                height 30px
-                background-color #40405E
-                border-radius 20px
-
-            .content
-                color #77778B
-                font-size 1.14188rem
-
-        .active
-            border-color #00AD07
-
-            .content
-                color white !important
-
-    .info-wrapper
-        border 1px solid #41415B
-        padding 10px
-        border-radius 10px
-        color $beldex-font-grey
-
-    .support-protocal-box
-        background-color $beldex-disable-grey
-        width 30px
-        text-align center
+    .currency-name
+        color #77778B !important
         font-size 12px
-        border-radius 4px
 
-    .terms-condition
+.swap-btn
+    min-width unset
+    width 38px
+    height 38px
+
+    .q-btn__wrapper
+        padding unset
+        min-height unset
+
+.fee-expand
+    border 1px solid #41415B
+
+.drp-content
+    background-color #242433
+    border-radius 10px
+
+    .q-card__section--vert
+        padding-top 0
+
+.exerate-wrapper
+    .exerate-inner-wrapper
+        border 1.2px solid #41415B
+        border-radius 10px
+        background-color $beldex-disable-grey
+        cursor pointer
+
+        .icon
+            width 30px
+            height 30px
+            background-color #40405E
+            border-radius 20px
+
+        .content
+            color #77778B
+            font-size 1.14188rem
+
+    .active
+        border-color #00AD07
+
+        .content
+            color white !important
+
+.info-wrapper
+    border 1px solid #41415B
+    padding 10px
+    border-radius 10px
+    color $beldex-font-grey
+
+.support-protocal-box
+    background-color $beldex-disable-grey
+    width 30px
+    text-align center
+    font-size 12px
+    border-radius 4px
+
+.terms-condition
+    color white
+    text-align center
+
+    a
+        cursor pointer
+        text-decoration underline
+
+.terms-condition, .destination-tag-wrapper
+    .q-checkbox__inner--truthy
+        .q-checkbox__bg
+            background-color transparent
+            border-color #20D030
+
+        .q-checkbox__svg
+            color #20D030
+
+    a
         color white
-        text-align center
-        a
-         cursor pointer
-         text-decoration: underline
 
-    .terms-condition, .destination-tag-wrapper
-        .q-checkbox__inner--truthy
-            .q-checkbox__bg
-                background-color transparent
-                border-color #20D030
+.destination-tag-wrapper
+    border 1px solid #41415B
+    padding 10px 30px
+    border-radius 10px
 
-            .q-checkbox__svg
-                color #20D030
+    .hint
+        color #EBEBEB
 
-        a
-            color white
-
-    .destination-tag-wrapper
-        border 1px solid #41415B
-        padding 10px 30px
-        border-radius 10px
-
-        .hint
-            color #EBEBEB
-
-    .box-input
-        border 1px solid #41415B
-        border-radius 10px
-        padding 7px 10px
+.box-input
+    border 1px solid #41415B
+    border-radius 10px
+    padding 7px 10px
 
 .confirmPayment
     padding 13px 25px
@@ -1823,6 +1839,7 @@ body
 
         .address
             font-size .9rem
+            word-break: break-all;
 
     .warning-wrapper
         background-color #514526
@@ -1981,7 +1998,7 @@ body
 
     .explorer-link
         text-decoration underline
-        cursor: pointer
+        cursor pointer
 
     .hr-seperator
         height 1px
