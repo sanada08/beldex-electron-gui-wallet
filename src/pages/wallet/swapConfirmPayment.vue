@@ -33,15 +33,13 @@
           </div>
           <div class="ft-semibold amount-txt uppercase">
             {{
-              Number(this.exchangeData.amountFrom).toFixed(8) +
+              Number(this.exchangeData.amountFrom) +
                 " " +
                 this.exchangeData.from
             }}
           </div>
           <div class="ft-semibold expand-txt">
-            blockchain :<span class="uppercase">{{
-              sendChainDetails.blockchain
-            }}</span>
+            blockchain: <span>{{ sendChainDetails.blockchain }}</span>
           </div>
         </div>
         <div class="col-6">
@@ -57,8 +55,8 @@
             }}
           </div>
           <div class="ft-semibold expand-txt">
-            blockchain :
-            <span class="uppercase">{{ receiveChainDtails.blockchain }} </span>
+            blockchain:
+            <span>{{ receiveChainDtails.blockchain }} </span>
           </div>
         </div>
       </article>
@@ -67,7 +65,7 @@
       <article class="flex row">
         <div v-if="this.exchangeData.fee" class="col-6">
           <div class="q-mb-sm">
-            Exchange Fee
+            Exchange fee
           </div>
           <div class="ft-semibold amount-txt uppercase">
             {{
@@ -83,7 +81,7 @@
         </div>
         <div class="col-6">
           <div class="q-mb-sm">
-            Network Fee
+            Network fee
           </div>
           <div class="ft-semibold amount-txt uppercase">
             {{

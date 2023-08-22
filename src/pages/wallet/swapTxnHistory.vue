@@ -4,7 +4,7 @@
       <q-spinner color="primary" size="30" />
     </q-inner-loading>
     <!-- <q-header>
-        <q-toolbar top> -->
+    <q-toolbar top>-->
     <header class="flex row items-center q-mb-md justify-between">
       <div class="flex items-center back-arrow-btn" @click="backToSwap">
         <svg
@@ -52,10 +52,10 @@
         <tr>
           <th>Status</th>
           <th>Date</th>
-          <th>Exchange Amt</th>
+          <th>Exchange amount</th>
           <th>Exchange rate</th>
           <th>Receiver</th>
-          <th>Amount Received</th>
+          <th>Amount received</th>
         </tr>
         <tr
           v-for="(item, i) in this.txnHistory"
@@ -124,20 +124,22 @@
             {{ item.amountExpectedFrom }}
           </td>
           <td v-if="item" class="ft-medium cursor uppercase">
-            1 {{ item.currencyFrom }} ~ {{ item.rate }} {{ item.currencyTo }}
+            1 {{ item.currencyFrom }} ≈ {{ Number(item.rate).toFixed(4) }}
+            {{ item.currencyTo }}
           </td>
           <td v-if="item" class="ft-medium cursor">
             {{
-              item.payoutAddress.substr(0, 6) +
-                "...." +
+              item.payoutAddress.substr(0, 3) +
+                ".." +
                 item.payoutAddress.substr(
-                  item.payoutAddress.length - 6,
+                  item.payoutAddress.length - 3,
                   item.payoutAddress.length
                 )
             }}
           </td>
           <td v-if="item" class="ft-semibold cursor uppercase">
-            {{ item.amountExpectedTo + " " + item.currencyTo }}
+            {{ amountReceived(item) }}
+            <!-- ≈ {{ Number(item.amountExpectedTo).toFixed(4) + " " + item.currencyTo }} -->
           </td>
         </tr>
 
@@ -162,7 +164,7 @@
           <td class="ft-medium">1 BDX = 0.00000116BTC</td>
           <td class="ft-medium">142...hzy</td>
           <td class="ft-semibold">0.00063271 BTC</td>
-        </tr> -->
+        </tr>-->
 
         <!-- <tr>
           <td>
@@ -184,16 +186,16 @@
           <td class="ft-medium">1 BDX = 0.00000116BTC</td>
           <td class="ft-medium">142...hzy</td>
           <td class="ft-semibold">0.00063271 BTC</td>
-        </tr> -->
+        </tr>-->
       </table>
     </section>
 
     <!-- <div class="flex justify-center q-mt-sm">
         <q-btn c color="primary" label="Confirm & Make payment" />
       </div>
-   -->
+    -->
     <!-- </q-toolbar>
-      </q-header> -->
+    </q-header>-->
   </div>
   <SwapTxnCompeleted
     v-else-if="this.txnDetails.status === 'finished'"
@@ -209,7 +211,7 @@
     :fixed-rate="this.fixedExchangeRate"
     :receive-chain-details="this.receiveAmountType"
     :send-chain-details="this.sendAmounType"
-    @clearAllintervals="clearAllintervals" -->
+  @clearAllintervals="clearAllintervals"-->
   <swapWaitingTxnHistory
     v-else-if="this.txnDetails.status === 'waiting'"
     :txn-details="this.txnDetails"
@@ -277,6 +279,16 @@ export default {
     convertHumanReadableFormat(date) {
       return moment(date / 1000).format("DD MMM YYYY, h:mm:ss");
     },
+    amountReceived(item) {
+      if (item.status == "finished") {
+        return `${Number(item.amountExpectedTo).toFixed(4) +
+          " " +
+          item.currencyTo}`;
+      }
+      return `≈ ${Number(item.amountExpectedTo).toFixed(4) +
+        " " +
+        item.currencyTo}`;
+    },
     setTxnDetails(index) {
       this.txnDetails = this.txnHistory[index];
       this.isVisible = false;
@@ -325,7 +337,7 @@ export default {
       const anchor = document.createElement("a");
       anchor.href = "data:text/csv;charset=utf-8," + encodeURIComponent(csv);
       anchor.target = "_blank";
-      anchor.download = "Transaction report.csv";
+      anchor.download = "Transaction_report.csv";
       anchor.click();
     },
     get_transaction_History() {
