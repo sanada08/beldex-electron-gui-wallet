@@ -76,7 +76,9 @@
         <div class="label">Recipient address</div>
         <div class="flex row justify-between q-mt-sm">
           <div>
-            <span class="ft-medium">{{ createdTxnDetails.payinAddress }}</span
+            <span class="ft-medium" style="word-break: break-all">{{
+              createdTxnDetails.payinAddress
+            }}</span
             ><br />
             <span class="ft-semibold uppercase" style="color: #00ad07"
               >blockchain : {{ receiveChainDetails.blockchain }}</span
@@ -110,7 +112,9 @@
         <div class="label">Refund address</div>
         <div class="flex row justify-between q-mt-sm">
           <div>
-            <span class="ft-medium">{{ createdTxnDetails.refundAddress }}</span
+            <span class="ft-medium" style="word-break: break-all">{{
+              createdTxnDetails.refundAddress
+            }}</span
             ><br />
             <span class="ft-semibold uppercase" style="color: #00ad07"
               >blockchain : {{ sendChainDetails.blockchain }}</span

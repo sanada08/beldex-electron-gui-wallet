@@ -33,16 +33,28 @@
         </div>
         <div class="col-6 timer-wrapper">
           <div class="pad-wrap">
-            <div class="label uppercase">
+            <div v-if="!this.timeIsExpire" class="label uppercase">
               Time left to send
               {{
                 txnDetails.amountExpectedFrom + " " + txnDetails.currencyFrom
               }}
             </div>
+
             <div class="flex items-center">
               <q-icon name="timer" class="time-icon" />
               <span id="timer" ref="timer" class="ft-semibold q-ml-xs"></span>
             </div>
+            <div v-if="this.timeIsExpire" class="label">
+              The guaranteed rate has been terminated
+            </div>
+            <q-btn
+              v-if="this.timeIsExpire"
+              label="Start Over"
+              color="primary"
+              class="start-btn q-mt-sm"
+              icon="refresh"
+              @click="() => this.$emit('backToSwap')"
+            />
           </div>
           <div class="hr-seperator"></div>
           <div class="pad-wrap">
@@ -179,7 +191,7 @@
           <tr v-if="txnDetails.type == 'float'">
             <td>Service fee 0.25%</td>
             <td class="uppercase">
-              {{ txnDetails.fee ? Number(txnDetails.fee).toFixed(8) : "..." }}
+              {{ txnDetails.fee ? Number(txnDetails.fee).toFixed(8) : "0" }}
               {{ txnDetails.currencyTo ? txnDetails.currencyTo : "" }}
             </td>
           </tr>
@@ -252,6 +264,10 @@ export default {
     txnDetails: {
       type: Object,
       require: true
+    },
+    backToSwap: {
+      type: Function,
+      require: true
     }
   },
   computed: mapState({
@@ -266,7 +282,8 @@ export default {
       chainDetails: {
         send: "",
         receive: ""
-      }
+      },
+      timeIsExpire: false
     };
   },
   beforeDestroy() {
@@ -274,7 +291,7 @@ export default {
   },
   mounted() {
     this.startAndStopTimer();
-    // console.log("SwapTxnSettlement ::", this.txnDetails);
+    // console.log("SwapTxnSettlement ::",);
     this.set_chainDetails();
   },
 
@@ -319,10 +336,13 @@ export default {
         // If the count down is over, write some text
         if (distance < 0) {
           clearInterval(this.timer);
-          document.getElementById("timer").innerHTML = "EXPIRED";
+          document.getElementById("timer").innerHTML = "00:00:00";
+          this.timeIsExpire = true;
+          console.log(this.timeIsExpire);
         }
       }, 1000);
     },
+
     set_chainDetails() {
       let sendChain = this.currencyList.find(
         item => item.ticker === this.txnDetails.currencyFrom

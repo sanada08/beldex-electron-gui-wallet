@@ -218,6 +218,7 @@
         (isVisible = true), (txnDetails = '');
       }
     "
+    @backToSwap="backToSwap"
   />
   <SwapTxnDetails
     v-else

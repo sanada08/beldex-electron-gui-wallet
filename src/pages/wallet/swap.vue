@@ -513,23 +513,24 @@
         class="q-mt-md ft-regular address-wrapper"
         label="Recipient Address"
         :error="this.recipientAddress.error"
-        error-label="Please enter valid address"
+        error-label="Invalid Address"
       >
         <div class="q-pr-sm">
           <span class="proto ft-semibold ">{{
             this.receiveAmountType.protocol
           }}</span>
         </div>
-
+        <!-- @blur="() => this.recipientAddressValidator()" -->
         <q-input
-          v-model="recipientAddress.val"
+          :value="recipientAddress.val"
           borderless
           dense
           :placeholder="
             `Enter your ${this.receiveAmountType.name} recipient address`
           "
-          @blur="() => this.recipientAddressValidator()"
+          @input="val => this.recipientAddressValidator(val)"
         />
+        <q-spinner v-if="this.recipientLoader" color="primary" size="2em" />
       </OxenField>
       <article v-if="this.exechangeRateType === 'fixed'">
         <OxenField
@@ -697,11 +698,14 @@ export default {
   watch: {
     // whenever question changes, this function will run
     isValidRecipientAddress(newisValidRecipientAddress) {
+      // console.log('newisValidRecipientAddress',newisValidRecipientAddress)
       if (newisValidRecipientAddress) {
         if (newisValidRecipientAddress.result) {
+          this.recipientLoader = false;
           this.recipientAddress.error = false;
         } else {
           this.recipientAddress.error = true;
+          this.recipientLoader = false;
         }
       }
     },
@@ -879,7 +883,8 @@ export default {
       },
       sendAmounTypeOption: "",
       swaploading: true,
-      searchTxt: ""
+      searchTxt: "",
+      recipientLoader: false
     };
   },
   created() {
@@ -964,6 +969,9 @@ export default {
     },
     getAmountValidator() {
       // console.log('getAmountValidator in swap',this.sendAmounType.value, this.receiveAmountType.value)
+      this.recipientAddress = { val: "", error: false };
+      // this.recipientAddress.error = false;
+
       if (
         this.sendAmounType.value === "bdx" &&
         this.receiveAmountType.value === "bdx"
@@ -998,6 +1006,10 @@ export default {
         this.receiveAmountType,
         this.sendAmounType
       ];
+      // this.recipientAddress.val = '';
+      // this.recipientAddress.error = false;
+      this.recipientAddress = { val: "", error: false };
+
       this.$store.commit("gateway/set_pairsMinMax", {
         result: [{ from: "", to: "", minAmountFloat: 0, maxAmountFloat: 0 }]
       });
@@ -1122,7 +1134,9 @@ export default {
       return result;
     },
 
-    recipientAddressValidator() {
+    recipientAddressValidator(val) {
+      this.recipientAddress.val = val;
+      this.recipientLoader = true;
       this.$store.commit("gateway/set_validateAddress", {
         result: false
       });
