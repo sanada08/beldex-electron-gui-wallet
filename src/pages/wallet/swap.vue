@@ -655,8 +655,8 @@
       :receive-chain-details="this.receiveAmountType"
       :send-chain-details="this.sendAmounType"
       @clearAllintervals="clearAllintervals"
+      @goback="navigation('mainPage', 1)"
     />
-    <!-- @goback="navigation('swapStatus', 4)" -->
 
     <swapStatus
       v-if="this.routes === 'swapStatus'"

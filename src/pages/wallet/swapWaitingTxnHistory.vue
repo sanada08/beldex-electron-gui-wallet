@@ -42,7 +42,8 @@
 
             <div class="flex items-center">
               <q-icon name="timer" class="time-icon" />
-              <span id="timer" ref="timer" class="ft-semibold q-ml-xs"></span>
+              <!-- <span id="timer" ref="timer" class="ft-semibold q-ml-xs"> </span> -->
+              <span class="ft-semibold q-ml-xs">{{ this.clock }}</span>
             </div>
             <div v-if="this.timeIsExpire" class="label">
               The guaranteed rate has been terminated
@@ -283,7 +284,8 @@ export default {
         send: "",
         receive: ""
       },
-      timeIsExpire: false
+      timeIsExpire: false,
+      clock: ""
     };
   },
   beforeDestroy() {
@@ -317,8 +319,9 @@ export default {
         addTime = today.setHours(today.getHours());
       }
       var countDownDate = new Date(addTime).getTime();
+
       // Update the count down every 1 second
-      this.timer = setInterval(function() {
+      this.timer = setInterval(() => {
         // Get today's date and time
         var now = new Date().getTime();
         // Find the distance between now and the count down date
@@ -330,17 +333,21 @@ export default {
         var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
         var seconds = Math.floor((distance % (1000 * 60)) / 1000);
         // Output the result in an element with id="timer"
-        document.getElementById("timer").innerHTML =
-          hours + "h " + minutes + "m " + seconds + "s ";
+        // document.getElementById("timer").innerHTML =
+        //   hours + "h " + minutes + "m " + seconds + "s ";
+        this.clock = hours + "h " + minutes + "m " + seconds + "s ";
 
         // If the count down is over, write some text
         if (distance < 0) {
-          clearInterval(this.timer);
-          document.getElementById("timer").innerHTML = "00:00:00";
+          // document.getElementById("timer").innerHTML = "00:00:00";
+          this.clock = "00:00:00";
           this.timeIsExpire = true;
-          console.log(this.timeIsExpire);
+          this.clearintervals();
         }
       }, 1000);
+    },
+    clearintervals() {
+      clearInterval(this.timer);
     },
 
     set_chainDetails() {
