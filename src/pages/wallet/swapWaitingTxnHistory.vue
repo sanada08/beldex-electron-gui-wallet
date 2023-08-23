@@ -162,7 +162,7 @@
                   ? txnDetails.amountExpectedFrom
                   : 0
               }}
-              BTC
+              <span class="uppercase">{{ txnDetails.currencyFrom }}</span>
             </td>
           </tr>
           <tr v-if="txnDetails.type == 'float'">

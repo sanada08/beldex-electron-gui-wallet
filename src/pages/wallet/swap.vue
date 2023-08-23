@@ -545,14 +545,15 @@
             }}</span>
           </div>
           <q-input
-            v-model="refundAddress.val"
+            :value="refundAddress.val"
             borderless
             dense
             :placeholder="
               `Enter your ${this.sendAmounType.name} recipient address`
             "
-            @blur="() => this.refundAddressValidator()"
+            @input="val => this.refundAddressValidator(val)"
           />
+          <q-spinner v-if="this.refundLoader" color="primary" size="2em" />
         </OxenField>
       </article>
 
@@ -620,7 +621,7 @@
               this.agree === 'yes' &&
               this.isValidRecipientAddress.result &&
               (this.exechangeRateType === 'fixed'
-                ? this.isValidRefundAddress
+                ? this.isValidRefundAddress.result
                 : true)
             )
           "
@@ -713,8 +714,11 @@ export default {
       // console.log("isValidRefundAddress  fn", isValidRefundAddress);
       if (isValidRefundAddress) {
         if (isValidRefundAddress.result) {
+          this.refundLoader = false;
           this.refundAddress.error = false;
         } else {
+          this.refundLoader = false;
+
           this.refundAddress.error = true;
         }
       }
@@ -884,7 +888,8 @@ export default {
       sendAmounTypeOption: "",
       swaploading: true,
       searchTxt: "",
-      recipientLoader: false
+      recipientLoader: false,
+      refundLoader: false
     };
   },
   created() {
@@ -941,9 +946,10 @@ export default {
       } else if (this.sendAmounType.value === this.receiveAmountType.value) {
         // this.sendAmounType = this.bdxCoinDetails;
         this.receiveAmountType = this.bdxCoinDetails;
-      } else if (this.sendAmounType.value !== "bdx") {
-        this.receiveAmountType = this.bdxCoinDetails;
       }
+      // else if (this.sendAmounType.value !== "bdx") {
+      //   this.receiveAmountType = this.bdxCoinDetails;
+      // }
       // else if (this.sendAmounType.value !== "bdx") {
       //   this.receiveAmountType= this.bdxCoinDetails;
       // }
@@ -970,6 +976,8 @@ export default {
     getAmountValidator() {
       // console.log('getAmountValidator in swap',this.sendAmounType.value, this.receiveAmountType.value)
       this.recipientAddress = { val: "", error: false };
+      this.refundAddress = { val: "", error: false };
+
       // this.recipientAddress.error = false;
 
       if (
@@ -981,9 +989,10 @@ export default {
       } else if (this.sendAmounType.value === this.receiveAmountType.value) {
         this.sendAmounType = this.bdxCoinDetails;
         // this.receiveAmountType = this.bdxCoinDetails;
-      } else if (this.receiveAmountType !== "bdx") {
-        this.sendAmounType = this.bdxCoinDetails;
       }
+      //else if (this.receiveAmountType !== "bdx") {
+      //this.sendAmounType = this.bdxCoinDetails;
+      //}
       this.minMaxPair();
       // if (this.exechangeRateType === "float") {
       this.clearAllintervals();
@@ -1009,6 +1018,7 @@ export default {
       // this.recipientAddress.val = '';
       // this.recipientAddress.error = false;
       this.recipientAddress = { val: "", error: false };
+      this.refundAddress = { val: "", error: false };
 
       this.$store.commit("gateway/set_pairsMinMax", {
         result: [{ from: "", to: "", minAmountFloat: 0, maxAmountFloat: 0 }]
@@ -1148,7 +1158,12 @@ export default {
         this.$gateway.send("swap", "validate_address", params);
       }
     },
-    refundAddressValidator() {
+    refundAddressValidator(val) {
+      this.refundAddress.val = val;
+      this.refundLoader = true;
+      this.$store.commit("gateway/set_refundAddressValidation", {
+        result: false
+      });
       let params = {
         address: this.refundAddress.val,
         currency: this.sendAmounType.value
@@ -1164,7 +1179,9 @@ export default {
     },
     next() {
       let refundAdderss =
-        this.exechangeRateType === "fixed" ? this.isValidRefundAddress : true;
+        this.exechangeRateType === "fixed"
+          ? this.isValidRefundAddress.result
+          : true;
       // console.log("next",this.sendAmount > 0 &&
       // this.agree === "yes" &&
       // this.isValidRecipientAddress.result &&

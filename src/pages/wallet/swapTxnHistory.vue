@@ -137,7 +137,11 @@
                 )
             }}
           </td>
-          <td v-if="item" class="ft-semibold cursor uppercase">
+          <td
+            v-if="item"
+            class="ft-semibold cursor uppercase"
+            :style="{ color: item.status == 'finished' && '#20D030' }"
+          >
             {{ amountReceived(item) }}
             <!-- ≈ {{ Number(item.amountExpectedTo).toFixed(4) + " " + item.currencyTo }} -->
           </td>

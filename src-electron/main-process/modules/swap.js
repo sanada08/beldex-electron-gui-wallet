@@ -188,7 +188,8 @@ export class Swap {
     let walletAddress = params.walletAddress;
     delete params["walletAddress"];
     let data = await this.sendRPC("createTransaction", params);
-    console.log("createTransaction datadata ::", data.result.id);
+
+    console.log("createTransaction datadata ::", data.result);
     await this.swapTxnHistory.updateTransactionDetails(
       data.result.id,
       walletAddress

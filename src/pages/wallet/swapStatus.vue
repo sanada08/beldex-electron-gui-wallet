@@ -18,7 +18,7 @@
                 fill="white"
               />
             </svg> -->
-            <div class="ft-semibold  header-txt">Exchanging</div>
+            <div class="ft-semibold header-txt">Exchanging</div>
           </div>
         </header>
 
@@ -64,8 +64,10 @@
           <div class="col-11">
             <div class="sub-title ft-semibold">Confirming in progress</div>
             <div class="desc q-mb-md">
-              Once BDX is confirmed in the blockchain, we’ll start exchanging it
-              to BNB
+              Once
+              <span class="uppercase">{{ statusDetails.currencyFrom }}</span> is
+              confirmed in the blockchain, we’ll start exchanging it to
+              <span class="uppercase">{{ statusDetails.currencyTo }}</span>
             </div>
             <a class="explorer-link" @click="inputHash(statusDetails.payinHash)"
               >See input hash in explorer</a
@@ -111,7 +113,12 @@
             </svg>
           </div>
           <div class="col-11">
-            <div class="sub-title ft-semibold">Exchanging BDX to BNB</div>
+            <div class="sub-title ft-semibold">
+              Exchanging
+              <span class="uppercase">{{ statusDetails.currencyFrom }}</span> to
+              <span class="uppercase">{{ statusDetails.currencyTo }}</span>
+              <div class="sub-title ft-semibold">Exchanging BDX to BNB</div>
+            </div>
             <div class="desc">
               The process will take a few minutes. please wait.
             </div>

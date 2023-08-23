@@ -162,7 +162,9 @@
                   ? createdTxnDetails.amountExpectedFrom
                   : 0
               }}
-              BTC
+              <span class="uppercase">{{
+                createdTxnDetails.currencyFrom
+              }}</span>
             </td>
           </tr>
           <tr v-if="createdTxnDetails.type == 'float'">
@@ -172,6 +174,9 @@
               {{ floatingRate.from ? floatingRate.from : "" }}
               ~ {{ Number(floatingRate.rate).toFixed(8) }}
               {{ floatingRate.to ? floatingRate.to : "" }}
+              <!-- {{ createdTxnDetails.currencyFrom  }}
+              ~ {{ Number(floatingRate.rate).toFixed(8) }}
+              {{ createdTxnDetails.currencyTo}} -->
             </td>
           </tr>
           <tr v-else>
