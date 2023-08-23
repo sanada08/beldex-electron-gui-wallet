@@ -62,7 +62,7 @@
       </article>
       <div class="hr-seperator"></div>
 
-      <article class="flex row">
+      <article v-if="!this.refundAddress" class="flex row">
         <div v-if="this.exchangeData.fee" class="col-6">
           <div class="q-mb-sm">
             Exchange fee
@@ -96,24 +96,52 @@
           </div>
         </div>
       </article>
-      <div class="hr-seperator"></div>
+      <div v-if="!this.refundAddress" class="hr-seperator"></div>
 
       <article class="flex row">
-        <div class="col-6">
-          <div class="q-mb-sm">
+        <div :class="[this.refundAddress ? 'col-12' : 'col-6']">
+          <div v-if="this.refundAddress" class="q-mb-sm">
+            <div class="">
+              Guarantee Rate
+            </div>
+            <div class="ft-semibold amount-txt uppercase">
+              1
+              {{
+                this.exchangeData.from +
+                  " ~ " +
+                  Number(this.exchangeData.rate).toFixed(8) +
+                  " " +
+                  this.exchangeData.to
+              }}
+            </div>
+          </div>
+          <div class="q-mt-sm">
             Recipient address
           </div>
-          <div class="ft-medium recipt-address">
+          <div
+            :class="[
+              this.refundAddress
+                ? 'ft-semibold amount-txt'
+                : 'ft-medium recipt-address'
+            ]"
+          >
             {{ this.recipientAddress }}
           </div>
-          <div v-if="this.refundAddress" class="q-mb-sm">
+          <div v-if="this.refundAddress" class="q-mt-sm">
             Refund address
           </div>
-          <div v-if="this.refundAddress" class="ft-medium recipt-address">
+          <div
+            v-if="this.refundAddress"
+            :class="[
+              this.refundAddress
+                ? 'ft-semibold amount-txt'
+                : 'ft-medium recipt-address'
+            ]"
+          >
             {{ this.refundAddress }}
           </div>
         </div>
-        <div class="col-6">
+        <div v-if="!this.refundAddress" class="col-6">
           <div class="q-mb-sm">
             Exchange rate
           </div>
@@ -131,7 +159,10 @@
       </article>
     </section>
 
-    <div class="flex justify-center q-mt-lg">
+    <div
+      class="flex justify-center "
+      :class="[this.refundAddress ? 'q-mt-lg q-pt-xl' : 'q-mt-lg']"
+    >
       <q-btn
         color="primary"
         label="Confirm & Make payment"

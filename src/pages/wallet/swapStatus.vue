@@ -115,9 +115,10 @@
           <div class="col-11">
             <div class="sub-title ft-semibold">
               Exchanging
-              <span class="uppercase">{{ statusDetails.currencyFrom }}</span> to
+              <span class="uppercase ">{{ statusDetails.currencyFrom }}</span>
+              to
               <span class="uppercase">{{ statusDetails.currencyTo }}</span>
-              <div class="sub-title ft-semibold">Exchanging BDX to BNB</div>
+              <!-- <div class="sub-title ft-semibold">Exchanging BDX to BNB</div> -->
             </div>
             <div class="desc">
               The process will take a few minutes. please wait.

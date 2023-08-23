@@ -416,7 +416,7 @@
               this.exechangeRateType === 'float' ? 'active' : ''
             }`
           "
-          @click="exechangeRateType = 'float'"
+          @click="(exechangeRateType = 'float'), (refundAddress.val = '')"
         >
           <div class="col-1 flex justify-center items-center">
             <span class="flex justify-center items-center icon" style>
@@ -453,42 +453,62 @@
 
         <article
           :class="
-            `flex row exerate-inner-wrapper q-py-md q-mt-sm ${
+            ` exerate-inner-wrapper q-py-md q-mt-sm ${
               this.exechangeRateType === 'fixed' ? 'active' : ''
             }`
           "
-          @click="exechangeRateType = 'fixed'"
+          :style="{
+            cursor:
+              this.sendAmount < this.pairsMinMax.minAmountFixed && 'not-allowed'
+          }"
+          @click="
+            () => {
+              this.sendAmount > this.pairsMinMax.minAmountFixed
+                ? (exechangeRateType = 'fixed')
+                : '';
+            }
+          "
         >
-          <div class="col-1 flex justify-center items-center">
-            <span class="flex justify-center items-center icon" style>
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
+          <div class="flex row">
+            <div class="col-1 flex justify-center items-center">
+              <span class="flex justify-center items-center icon" style>
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g id="icons8-lock 3">
+                    <path
+                      id="Vector"
+                      d="M12 1C8.67619 1 6 3.67619 6 7V8C4.9 8 4 8.9 4 10V20C4 21.1 4.9 22 6 22H18C19.1 22 20 21.1 20 20V10C20 8.9 19.1 8 18 8V7C18 3.67619 15.3238 1 12 1ZM12 3C14.2762 3 16 4.72381 16 7V8H8V7C8 4.72381 9.72381 3 12 3ZM12 13C13.1 13 14 13.9 14 15C14 16.1 13.1 17 12 17C10.9 17 10 16.1 10 15C10 13.9 10.9 13 12 13Z"
+                      fill="#A9A9CD"
+                    />
+                  </g>
+                </svg>
+              </span>
+            </div>
+            <div class="col-10 flex items-center justify-between">
+              <span class="ft-semibold content">Fixed Exchange Rate</span>
+              <br />
+              <span
+                >~
+                {{
+                  fixedExchangeRate.result
+                    ? Number(fixedExchangeRate.result).toFixed(8)
+                    : ""
+                }}</span
               >
-                <g id="icons8-lock 3">
-                  <path
-                    id="Vector"
-                    d="M12 1C8.67619 1 6 3.67619 6 7V8C4.9 8 4 8.9 4 10V20C4 21.1 4.9 22 6 22H18C19.1 22 20 21.1 20 20V10C20 8.9 19.1 8 18 8V7C18 3.67619 15.3238 1 12 1ZM12 3C14.2762 3 16 4.72381 16 7V8H8V7C8 4.72381 9.72381 3 12 3ZM12 13C13.1 13 14 13.9 14 15C14 16.1 13.1 17 12 17C10.9 17 10 16.1 10 15C10 13.9 10.9 13 12 13Z"
-                    fill="#A9A9CD"
-                  />
-                </g>
-              </svg>
-            </span>
+            </div>
           </div>
-          <div class="col-10 flex items-center justify-between">
-            <span class="ft-semibold content">Fixed Exchange Rate</span>
-            <br />
-            <span
-              >~
-              {{
-                fixedExchangeRate.result
-                  ? Number(fixedExchangeRate.result).toFixed(8)
-                  : ""
-              }}</span
-            >
+          <div
+            v-if="this.sendAmount < this.pairsMinMax.minAmountFixed"
+            class="warningMsg"
+          >
+            The fixed rate minimum amount is
+            {{ this.pairsMinMax.minAmountFixed }}
+            <span class="uppercase">{{ this.sendAmounType.ticker }}</span>
           </div>
         </article>
       </section>
@@ -516,7 +536,7 @@
         error-label="Invalid Address"
       >
         <div class="q-pr-sm">
-          <span class="proto ft-semibold ">{{
+          <span class="proto ft-semibold">{{
             this.receiveAmountType.protocol
           }}</span>
         </div>
@@ -540,7 +560,7 @@
           error-label="Please enter valid address"
         >
           <div class="q-pr-sm">
-            <span class="proto ft-semibold ">{{
+            <span class="proto ft-semibold">{{
               this.sendAmounType.protocol
             }}</span>
           </div>
@@ -615,16 +635,7 @@
         <q-btn
           label="Next"
           color="primary"
-          :disable="
-            !(
-              this.sendAmount > 0 &&
-              this.agree === 'yes' &&
-              this.isValidRecipientAddress.result &&
-              (this.exechangeRateType === 'fixed'
-                ? this.isValidRefundAddress.result
-                : true)
-            )
-          "
+          :disable="!this.disableValidation()"
           @click="this.next"
         />
       </div>
@@ -655,7 +666,11 @@
       :receive-chain-details="this.receiveAmountType"
       :send-chain-details="this.sendAmounType"
       @clearAllintervals="clearAllintervals"
-      @goback="navigation('mainPage', 1)"
+      @goback="
+        () => {
+          navigation('mainPage', 1), clearState();
+        }
+      "
     />
 
     <swapStatus
@@ -666,7 +681,11 @@
       v-if="this.routes === 'txnCompleted'"
       :txn-status="this.txnStatus.result[0]"
       @openHistory="navigation('txnHistory', 1)"
-      @newTxn="navigation('mainPage', 1)"
+      @newTxn="
+        () => {
+          navigation('mainPage', 1), clearState();
+        }
+      "
     />
 
     <SwapUnderMaintenance v-if="this.routes === 'maintenance'" />
@@ -1066,9 +1085,36 @@ export default {
       }
     },
     clearState() {
-      this.recipientAddress.val = "";
+      this.recipientAddress = { val: "", error: false };
+      this.refundAdderss = { val: "", error: false };
       this.agree = "no";
       this.sendAmount = 0.01;
+      this.destinationTagValue = "";
+    },
+    disableValidation() {
+      console.log(
+        "this.isValidRecipientAddress ::",
+        this.isValidRecipientAddress
+      );
+      let fixed_validation;
+      if (this.exechangeRateType === "fixed") {
+        // let
+        // if(Object.hasOwn(this.isValidRefundAddress, 'result'))
+        // {
+        console.log("this.isValidRefundAddress", this.isValidRefundAddress);
+        fixed_validation = this.isValidRefundAddress.result;
+        // }
+      } else {
+        fixed_validation = true;
+      }
+      return (
+        this.sendAmount > 0 &&
+        this.agree === "yes" &&
+        (Object.hasOwn(this.isValidRecipientAddress, "result")
+          ? this.isValidRecipientAddress.result
+          : false) &&
+        fixed_validation
+      );
     },
     openExternalLink(url) {
       console.log("openExternalLink", url);
@@ -1147,6 +1193,7 @@ export default {
     recipientAddressValidator(val) {
       this.recipientAddress.val = val;
       this.recipientLoader = true;
+
       this.$store.commit("gateway/set_validateAddress", {
         result: false
       });

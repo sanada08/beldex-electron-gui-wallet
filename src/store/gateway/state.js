@@ -156,8 +156,8 @@ export default {
   exchangeAmount: [],
   fixedExchangeRate: [],
   createdTxnDetails: [],
-  RecipientAddressValidation: false,
-  refundAddressValidation: false,
+  RecipientAddressValidation: {},
+  refundAddressValidation: {},
   pairsMinMax: [],
   txnStatus: [],
   txnHistory: []

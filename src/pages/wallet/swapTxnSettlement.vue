@@ -29,7 +29,7 @@
                 " " +
                 createdTxnDetails.currencyFrom
             }}
-            <q-btn icon="edit" color="accent" class="edit-btn" />
+            <!-- <q-btn icon="edit" color="accent" class="edit-btn" /> -->
           </div>
         </div>
         <div class="col-6 timer-wrapper">
