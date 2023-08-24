@@ -102,9 +102,9 @@ export class Swap {
     //   address,
     //   amountFrom
     // };
-    console.log("params get:", params);
+    // console.log("params get:", params);
     let data = await this.sendRPC("getExchangeAmount", params);
-    console.log("getExchangeAmount", data.result);
+    // console.log("getExchangeAmount", data.result);
 
     this.sendGateway("set_exchangeAmount", data);
     return;
@@ -119,10 +119,10 @@ export class Swap {
     // from: "btc",
     // to: "eth",
     // amountFrom: "0.1"
-    console.log("params get-fix:", params);
+    // console.log("params get-fix:", params);
 
     let data = await this.sendRPC("getFixRateForAmount", params);
-    console.log("getFixRateForAmount", data);
+    // console.log("getFixRateForAmount", data);
     this.sendGateway("set_fixedExchangeRate", data);
 
     return;
@@ -286,6 +286,7 @@ export class Swap {
         method,
         params
       };
+
       const agent = new https.Agent({
         requestCert: true,
         rejectUnauthorized: false,
@@ -348,11 +349,15 @@ export class Swap {
           body,
           headers
         );
-        if (response.hasOwnProperty("error")) {
+        if (response.data.hasOwnProperty("error")) {
+          // if(method==='getPairsParams')
+          // {
+
+          // }
           return {
             status: false,
             method: method,
-            error: response
+            error: response.data
           };
         }
         return {
@@ -361,6 +366,8 @@ export class Swap {
           result: response.data.result
         };
       } catch (err) {
+        // console.log("error inner:", err.data);
+
         return {
           status: false,
           method: method

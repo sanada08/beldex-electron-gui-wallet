@@ -141,10 +141,19 @@
           <div
             v-if="
               this.minMaxWarningContent === 'min' ||
-                this.minMaxWarningContent === 'max'
+                this.minMaxWarningContent === 'max' ||
+                (this.pairsMinMax.from && !this.pairsMinMax.minAmountFloat)
             "
-            class="q-mt-xs validMinMaxAmount-wrapper"
+            class="q-mt-sm validMinMaxAmount-wrapper"
           >
+            <span
+              v-if="
+                this.pairsMinMax.from &&
+                  this.pairsMinMax.to &&
+                  !this.pairsMinMax.minAmountFloat
+              "
+              >Unsupported exchange pair</span
+            >
             <span v-if="this.minMaxWarningContent === 'min'">
               Minimum amount is
               <span
@@ -459,11 +468,13 @@
           "
           :style="{
             cursor:
-              this.sendAmount < this.pairsMinMax.minAmountFixed && 'not-allowed'
+              this.sendAmount < this.pairsMinMax.minAmountFixed ||
+              (this.fixedCreateTxnValidation() && 'not-allowed')
           }"
           @click="
             () => {
-              this.sendAmount > this.pairsMinMax.minAmountFixed
+              this.sendAmount > this.pairsMinMax.minAmountFixed &&
+              !this.fixedCreateTxnValidation()
                 ? (exechangeRateType = 'fixed')
                 : '';
             }
@@ -502,8 +513,16 @@
               >
             </div>
           </div>
+
+          <div v-if="this.fixedCreateTxnValidation()" class="warningMsg">
+            Your previous transaction is still processing. You can create a new
+            one in 15 minutes
+          </div>
           <div
-            v-if="this.sendAmount < this.pairsMinMax.minAmountFixed"
+            v-if="
+              this.sendAmount < this.pairsMinMax.minAmountFixed &&
+                !this.fixedCreateTxnValidation()
+            "
             class="warningMsg"
           >
             The fixed rate minimum amount is
@@ -693,6 +712,8 @@
 </template>
 
 <script>
+const moment = require("moment");
+
 import { required, decimal } from "vuelidate/lib/validators";
 import OxenField from "components/oxen_field";
 import SwapConfirmPayment from "./swapConfirmPayment.vue";
@@ -719,6 +740,11 @@ export default {
     // whenever question changes, this function will run
     isValidRecipientAddress(newisValidRecipientAddress) {
       // console.log('newisValidRecipientAddress',newisValidRecipientAddress)
+      if (!this.recipientAddress.val) {
+        this.recipientLoader = false;
+        this.recipientAddress.error = false;
+        return 0;
+      }
       if (newisValidRecipientAddress) {
         if (newisValidRecipientAddress.result) {
           this.recipientLoader = false;
@@ -731,6 +757,11 @@ export default {
     },
     isValidRefundAddress(isValidRefundAddress) {
       // console.log("isValidRefundAddress  fn", isValidRefundAddress);
+      if (!this.refundAddress.val) {
+        this.refundLoader = false;
+        this.refundAddress.error = false;
+        return 0;
+      }
       if (isValidRefundAddress) {
         if (isValidRefundAddress.result) {
           this.refundLoader = false;
@@ -850,6 +881,7 @@ export default {
     pairsMinMax: state => {
       let data = state.gateway.pairsMinMax;
       let result = {};
+      console.log("pairsMinMax", state.gateway.pairsMinMax);
       if (data.hasOwnProperty("result")) {
         result = state.gateway.pairsMinMax.result[0];
       }
@@ -909,6 +941,7 @@ export default {
       searchTxt: "",
       recipientLoader: false,
       refundLoader: false
+      // pairStatusContent:''
     };
   },
   created() {
@@ -1083,6 +1116,17 @@ export default {
           this.minMaxWarningContent = "";
         }
       }
+      if (
+        this.pairsMinMax.from &&
+        this.pairsMinMax.to &&
+        !this.pairsMinMax.minAmountFloat
+      ) {
+        // this.pairStatusContent='Unsupported exchange pair'
+        console.log("not found the pair");
+      }
+      // else{
+      //   this.pairStatusContent=''
+      // }
     },
     clearState() {
       this.recipientAddress = { val: "", error: false };
@@ -1090,6 +1134,24 @@ export default {
       this.agree = "no";
       this.sendAmount = 0.01;
       this.destinationTagValue = "";
+    },
+    fixedCreateTxnValidation() {
+      let previousTxnCreatedTime = localStorage.getItem("createdFixedTxnTime");
+      if (!previousTxnCreatedTime) {
+        return false;
+      }
+      let pdate = new Date(previousTxnCreatedTime);
+
+      if (moment(pdate).format("L") === moment().format("L")) {
+        pdate = pdate.setMinutes(pdate.getMinutes() + 15);
+        const currentTime = new Date();
+        const sub = pdate > currentTime;
+        console.log("createdFixedTxnTime ::", sub);
+
+        return sub;
+      } else {
+        return false;
+      }
     },
     disableValidation() {
       console.log(
@@ -1110,9 +1172,7 @@ export default {
       return (
         this.sendAmount > 0 &&
         this.agree === "yes" &&
-        (Object.hasOwn(this.isValidRecipientAddress, "result")
-          ? this.isValidRecipientAddress.result
-          : false) &&
+        this.isValidRecipientAddress.result &&
         fixed_validation
       );
     },
@@ -1156,7 +1216,7 @@ export default {
         amountFrom: this.sendAmount
       };
       let count = 1;
-      clearInterval(this.refreshFixedExchangeRate);
+      // clearInterval(this.refreshFixedExchangeRate);
 
       this.$gateway.send("swap", "fixed_exchange_amount", data);
       this.refreshFixedExchangeRate = setInterval(() => {
@@ -1289,8 +1349,8 @@ export default {
       };
       this.$gateway.send("swap", "create_fixed_transaction", data);
       this.swaploading = true;
-
       this.navigation("settlement", 3);
+      localStorage.setItem("createdFixedTxnTime", new Date());
     },
     get_transaction_status() {
       // this.navigation("swapStatus", 4);

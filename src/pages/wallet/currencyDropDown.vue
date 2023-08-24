@@ -26,6 +26,7 @@
               :value="searchTxt"
               class="search-input "
               placeholder="Search"
+              autofocus
               @input="event => this.set_searchCurrency(event.target.value)"
             />
           </OxenField>
