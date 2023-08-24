@@ -449,14 +449,14 @@
           <div class="col-10 flex items-center justify-between">
             <span class="ft-semibold content">Floating Exchange Rate</span>
             <br />
-            <span
-              >~
+            <span>
+              ~
               {{
                 exchange_amount.rate
                   ? Number(exchange_amount.rate).toFixed(8)
                   : ""
-              }}</span
-            >
+              }}
+            </span>
           </div>
         </article>
 
@@ -503,14 +503,13 @@
             <div class="col-10 flex items-center justify-between">
               <span class="ft-semibold content">Fixed Exchange Rate</span>
               <br />
-              <span
-                >~
+              <span>
                 {{
                   fixedExchangeRate.result
-                    ? Number(fixedExchangeRate.result).toFixed(8)
+                    ? ~`${Number(fixedExchangeRate.result).toFixed(8)}`
                     : ""
-                }}</span
-              >
+                }}
+              </span>
             </div>
           </div>
 
@@ -526,7 +525,7 @@
             class="warningMsg"
           >
             The fixed rate minimum amount is
-            {{ this.pairsMinMax.minAmountFixed }}
+            {{ Number(this.pairsMinMax.minAmountFixed).toFixed(0) }}
             <span class="uppercase">{{ this.sendAmounType.ticker }}</span>
           </div>
         </article>
@@ -555,9 +554,9 @@
         error-label="Invalid Address"
       >
         <div class="q-pr-sm">
-          <span class="proto ft-semibold">{{
-            this.receiveAmountType.protocol
-          }}</span>
+          <span class="proto ft-semibold">
+            {{ this.receiveAmountType.protocol }}
+          </span>
         </div>
         <!-- @blur="() => this.recipientAddressValidator()" -->
         <q-input
@@ -579,9 +578,9 @@
           error-label="Please enter valid address"
         >
           <div class="q-pr-sm">
-            <span class="proto ft-semibold">{{
-              this.sendAmounType.protocol
-            }}</span>
+            <span class="proto ft-semibold">
+              {{ this.sendAmounType.protocol }}
+            </span>
           </div>
           <q-input
             :value="refundAddress.val"
