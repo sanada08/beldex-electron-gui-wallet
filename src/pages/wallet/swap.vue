@@ -799,8 +799,22 @@ export default {
         this.sendAmounType = btcDetails;
         this.btcCoinDetails = btcDetails;
         let filterCoin = newValue.filter(
-          item => (item.enabled && item.name === "XMR") || item.name === "ZEC"
+          item =>
+            item.enabled &&
+            (item.name === "XMR" ||
+              item.name === "ZEC" ||
+              item.name === "DASH" ||
+              item.name === "ROSE" ||
+              item.name === "DCR" ||
+              item.name === "ZEN" ||
+              item.name === "NYM" ||
+              item.name === "XVG" ||
+              item.name === "ARRR" ||
+              item.name === "DUSK" ||
+              item.name === "FIRO" ||
+              item.name === "VTC")
         );
+
         filterCoin.unshift(bdxDetails);
         this.privacyCurrency = filterCoin;
         console.log("this.privacyCurrency ", this.privacyCurrency);
