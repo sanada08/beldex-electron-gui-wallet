@@ -791,8 +791,16 @@ export default {
     currencyList(newValue) {
       if (newValue && newValue.length > 0) {
         this.swaploading = false;
+        newValue.sort(function(a, b) {
+          if (a.name.toLowerCase() < b.name.toLowerCase()) {
+            return -1;
+          }
+          if (a.name.toLowerCase() > b.name.toLowerCase()) {
+            return 1;
+          }
+          return 0;
+        });
         this.filtercurrency = newValue;
-
         console.log("currencyList wathcer");
         let btcDetails = newValue.find(item => item.name === "BTC");
         let bdxDetails = newValue.find(item => item.name === "BDX");

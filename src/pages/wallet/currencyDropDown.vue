@@ -156,8 +156,12 @@ export default {
 
     toggleDropdown() {
       this.state = !this.state;
-      this.$refs.currency.focus();
-      console.log(this.$refs.currency);
+      this.$nextTick(() => {
+        // This callback will only be called after the
+        // DOM has been updated
+        this.$refs.currency.focus();
+      });
+      // console.log(this.$refs.currency);
     },
     close(e) {
       //   console.log("clsoe", e.target);
