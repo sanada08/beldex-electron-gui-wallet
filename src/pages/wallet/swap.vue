@@ -52,6 +52,9 @@
                   item => item.enabledFrom && item.enabled
                 )
               "
+              :privacy-currency="
+                this.privacyCurrency.filter(item => item.enabledFrom)
+              "
               :send-amoun-type-value="this.sendAmounType"
               @sendAmounType="value => (sendAmounType = value)"
               @sendAmountValidator="sendAmountValidator"
@@ -241,6 +244,9 @@
                 this.filtercurrency.filter(
                   item => item.enabledTo && item.enabled
                 )
+              "
+              :privacy-currency="
+                this.privacyCurrency.filter(item => item.enabledTo)
               "
               :send-amoun-type-value="this.receiveAmountType"
               @sendAmounType="value => (receiveAmountType = value)"
@@ -792,7 +798,12 @@ export default {
         let bdxDetails = newValue.find(item => item.name === "BDX");
         this.sendAmounType = btcDetails;
         this.btcCoinDetails = btcDetails;
-
+        let filterCoin = newValue.filter(
+          item => (item.enabled && item.name === "XMR") || item.name === "ZEC"
+        );
+        filterCoin.unshift(bdxDetails);
+        this.privacyCurrency = filterCoin;
+        console.log("this.privacyCurrency ", this.privacyCurrency);
         if (bdxDetails.enabled === true) {
           this.bdxCoinDetails = bdxDetails;
           this.receiveAmountType = bdxDetails;
@@ -939,7 +950,8 @@ export default {
       swaploading: true,
       searchTxt: "",
       recipientLoader: false,
-      refundLoader: false
+      refundLoader: false,
+      privacyCurrency: []
       // pairStatusContent:''
     };
   },

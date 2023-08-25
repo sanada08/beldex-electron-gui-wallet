@@ -23,13 +23,43 @@
         <div class="innerWrapper q-px-lg">
           <OxenField class="q-mt-md  q-mb-sm ft-regular ">
             <input
+              ref="currency"
               :value="searchTxt"
               class="search-input "
               placeholder="Search"
-              autofocus
               @input="event => this.set_searchCurrency(event.target.value)"
             />
           </OxenField>
+          <div v-if="!searchTxt">
+            <div>Privacy Currencies</div>
+            <div
+              v-for="currency in this.privacyCurrency"
+              :key="currency.ticker"
+              @click="set_amountValidator(currency)"
+            >
+              <q-item-section class="swapdropDown-option q-py-sm q-pl-md">
+                <q-img
+                  class="q-mr-sm"
+                  :src="currency.image"
+                  style="height: 20px; max-width: 20px; filter: grayscale(150)"
+                />
+                <q-item-label class="ft-bold q-mr-xs"
+                  >{{ currency.name }}
+                </q-item-label>
+                <q-item-label class="currency-name ft-regular">
+                  - {{ currency.fullName }}</q-item-label
+                >
+                <q-item-label
+                  v-if="currency.protocol"
+                  class="currency-proto ft-semibold q-ml-sm"
+                >
+                  {{ currency.protocol }}</q-item-label
+                >
+              </q-item-section>
+            </div>
+          </div>
+
+          <div v-if="!searchTxt">All Currencies</div>
 
           <div
             v-for="currency in this.filterCurrecyList"
@@ -73,6 +103,10 @@ export default {
   },
   props: {
     filterCurrecyList: {
+      type: Array,
+      require: true
+    },
+    privacyCurrency: {
       type: Array,
       require: true
     },
@@ -122,6 +156,8 @@ export default {
 
     toggleDropdown() {
       this.state = !this.state;
+      this.$refs.currency.focus();
+      console.log(this.$refs.currency);
     },
     close(e) {
       //   console.log("clsoe", e.target);
