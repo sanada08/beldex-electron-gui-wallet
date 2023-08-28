@@ -178,7 +178,12 @@
             </span>
             <span
               v-if="this.minMaxWarningContent === 'max'"
-              @click="sendAmount = pairsMinMax.maxAmountFloat"
+              @click="
+                sendAmount =
+                  exechangeRateType === 'float'
+                    ? pairsMinMax.maxAmountFloat
+                    : pairsMinMax.maxAmountFixed
+              "
             >
               Maximum amount is
               <span class="validMinMaxAmount">
@@ -233,7 +238,16 @@
 
           <OxenField class="ft-regular" label="You get">
             <q-input
-              v-model="exchange_amount.amountTo"
+              v-if="this.exechangeRateType === 'float'"
+              v-model="this.exchange_amount.amountTo"
+              borderless
+              dense
+              :placeholder="0"
+              disable
+            />
+            <q-input
+              v-else
+              v-model="this.fixedExchangeRate.amountTo"
               borderless
               dense
               :placeholder="0"
@@ -374,7 +388,6 @@
                 {{ this.receiveAmountType.name }}
               </td>
               <td v-else class="uppercase">
-                ~
                 {{
                   fixedExchangeRate.amountTo
                     ? Number(fixedExchangeRate.amountTo).toFixed(8)
@@ -474,13 +487,15 @@
           "
           :style="{
             cursor:
-              (this.sendAmount < this.pairsMinMax.minAmountFixed ||
-                this.fixedCreateTxnValidation()) &&
-              'not-allowed'
+              this.sendAmount <= Number(this.pairsMinMax.minAmountFixed) ||
+              this.sendAmount >= Number(this.pairsMinMax.maxAmountFixed)
+                ? 'not-allowed'
+                : ''
           }"
           @click="
             () => {
-              this.sendAmount > this.pairsMinMax.minAmountFixed &&
+              this.sendAmount > Number(this.pairsMinMax.minAmountFixed) &&
+              this.sendAmount < Number(this.pairsMinMax.maxAmountFixed) &&
               !this.fixedCreateTxnValidation()
                 ? (exechangeRateType = 'fixed')
                 : '';
@@ -1185,6 +1200,16 @@ export default {
       this.destinationTagValue = "";
     },
     fixedCreateTxnValidation() {
+      console.log(
+        "button",
+        this.sendAmount > Number(this.pairsMinMax.minAmountFixed),
+        this.sendAmount < Number(this.pairsMinMax.maxAmountFixed)
+      );
+      console.log(
+        "cursor validsation",
+        this.sendAmount > Number(this.pairsMinMax.minAmountFixed),
+        this.sendAmount < Number(this.pairsMinMax.maxAmountFixed)
+      );
       let previousTxnCreatedTime = localStorage.getItem("createdFixedTxnTime");
       if (!previousTxnCreatedTime) {
         return false;
