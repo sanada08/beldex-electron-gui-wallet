@@ -33,9 +33,9 @@
           </div>
           <div class="ft-semibold amount-txt uppercase">
             {{
-              Number(this.exchangeData.amountFrom) +
+              Number(this.floatingRate.amountFrom) +
                 " " +
-                this.exchangeData.from
+                this.floatingRate.from
             }}
           </div>
           <div class="ft-semibold expand-txt">
@@ -46,12 +46,23 @@
           <div class="q-mb-sm">
             You get
           </div>
-          <div class="ft-semibold amount-txt uppercase">
+          <div
+            v-if="exchangeType === 'float'"
+            class="ft-semibold amount-txt uppercase"
+          >
             ~
             {{
-              Number(this.exchangeData.amountTo).toFixed(8) +
+              Number(this.floatingRate.amountTo).toFixed(8) +
                 " " +
-                this.exchangeData.to
+                this.floatingRate.to
+            }}
+          </div>
+          <div v-else class="ft-semibold amount-txt uppercase">
+            ~
+            {{
+              Number(this.fixedRate.amountTo).toFixed(8) +
+                " " +
+                this.fixedRate.to
             }}
           </div>
           <div class="ft-semibold expand-txt">
@@ -63,15 +74,15 @@
       <div class="hr-seperator"></div>
 
       <article v-if="!this.refundAddress" class="flex row">
-        <div v-if="this.exchangeData.fee" class="col-6">
+        <div v-if="this.floatingRate.fee" class="col-6">
           <div class="q-mb-sm">
             Exchange fee
           </div>
           <div class="ft-semibold amount-txt uppercase">
             {{
-              Number(this.exchangeData.fee).toFixed(8) +
+              Number(this.floatingRate.fee).toFixed(8) +
                 " " +
-                this.exchangeData.to
+                this.floatingRate.to
             }}
           </div>
           <div class="ft-regular hint-txt">
@@ -85,9 +96,9 @@
           </div>
           <div class="ft-semibold amount-txt uppercase">
             {{
-              Number(this.exchangeData.networkFee).toFixed(8) +
+              Number(this.floatingRate.networkFee).toFixed(8) +
                 " " +
-                this.exchangeData.to
+                this.floatingRate.to
             }}
           </div>
           <div class="ft-regular  hint-txt">
@@ -107,11 +118,11 @@
             <div class="ft-semibold amount-txt uppercase">
               1
               {{
-                this.exchangeData.from +
+                this.fixedRate.from +
                   " ~ " +
-                  Number(this.exchangeData.rate).toFixed(8) +
+                  Number(this.fixedRate.result).toFixed(8) +
                   " " +
-                  this.exchangeData.to
+                  this.fixedRate.to
               }}
             </div>
           </div>
@@ -148,11 +159,11 @@
           <div class="ft-semibold amount-txt uppercase">
             1
             {{
-              this.exchangeData.from +
+              this.floatingRate.from +
                 " ~ " +
-                Number(this.exchangeData.rate).toFixed(8) +
+                Number(this.floatingRate.rate).toFixed(8) +
                 " " +
-                this.exchangeData.to
+                this.floatingRate.to
             }}
           </div>
         </div>
@@ -187,7 +198,15 @@ export default {
       type: Function,
       required: false
     },
-    exchangeData: {
+    exchangeType: {
+      type: String,
+      required: true
+    },
+    floatingRate: {
+      type: Object,
+      required: true
+    },
+    fixedRate: {
       type: Object,
       required: true
     },

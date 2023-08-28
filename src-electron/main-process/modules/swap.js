@@ -102,9 +102,10 @@ export class Swap {
     //   address,
     //   amountFrom
     // };
-    // console.log("params get:", params);
+    console.log("params get:", params);
     let data = await this.sendRPC("getExchangeAmount", params);
-    // console.log("getExchangeAmount", data.result);
+
+    console.log("getExchangeAmount", data);
 
     this.sendGateway("set_exchangeAmount", data);
     return;
@@ -119,10 +120,10 @@ export class Swap {
     // from: "btc",
     // to: "eth",
     // amountFrom: "0.1"
-    // console.log("params get-fix:", params);
+    console.log("params get-fix:", params);
 
     let data = await this.sendRPC("getFixRateForAmount", params);
-    // console.log("getFixRateForAmount", data);
+    console.log("getFixRateForAmount", data);
     this.sendGateway("set_fixedExchangeRate", data);
 
     return;

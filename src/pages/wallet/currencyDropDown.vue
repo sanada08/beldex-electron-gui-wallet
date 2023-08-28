@@ -46,12 +46,12 @@
                 <q-item-label class="ft-bold q-mr-xs"
                   >{{ currency.name }}
                 </q-item-label>
-                <q-item-label class="currency-name ft-regular">
+                <q-item-label class="currency-name ft-regular ">
                   - {{ currency.fullName }}</q-item-label
                 >
                 <q-item-label
                   v-if="currency.protocol"
-                  class="currency-proto ft-semibold q-ml-sm"
+                  class="currency-proto ft-semibold q-ml-sm "
                 >
                   {{ currency.protocol }}</q-item-label
                 >

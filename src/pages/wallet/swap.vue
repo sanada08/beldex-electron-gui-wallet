@@ -474,8 +474,9 @@
           "
           :style="{
             cursor:
-              this.sendAmount < this.pairsMinMax.minAmountFixed ||
-              (this.fixedCreateTxnValidation() && 'not-allowed')
+              (this.sendAmount < this.pairsMinMax.minAmountFixed ||
+                this.fixedCreateTxnValidation()) &&
+              'not-allowed'
           }"
           @click="
             () => {
@@ -512,7 +513,7 @@
               <span>
                 {{
                   fixedExchangeRate.result
-                    ? ~`${Number(fixedExchangeRate.result).toFixed(8)}`
+                    ? Number(fixedExchangeRate.result).toFixed(8)
                     : ""
                 }}
               </span>
@@ -531,7 +532,18 @@
             class="warningMsg"
           >
             The fixed rate minimum amount is
-            {{ Number(this.pairsMinMax.minAmountFixed).toFixed(0) }}
+            {{ Number(this.pairsMinMax.minAmountFixed) }}
+            <span class="uppercase">{{ this.sendAmounType.ticker }}</span>
+          </div>
+          <div
+            v-if="
+              this.sendAmount > Number(this.pairsMinMax.maxAmountFixed) &&
+                !this.fixedCreateTxnValidation()
+            "
+            class="warningMsg"
+          >
+            The fixed rate maximum amount is
+            {{ this.pairsMinMax.maxAmountFixed }}
             <span class="uppercase">{{ this.sendAmounType.ticker }}</span>
           </div>
         </article>
@@ -666,7 +678,9 @@
     </div>
     <SwapConfirmPayment
       v-if="this.routes === 'makePayment'"
-      :exchange-data="this.exchange_amount"
+      :exchange-type="this.exechangeRateType"
+      :floating-rate="this.exchange_amount"
+      :fixed-rate="this.fixedExchangeRate"
       :recipient-address="this.recipientAddress.val"
       :refund-address="this.refundAddress.val"
       :send-chain-details="this.sendAmounType"
@@ -900,6 +914,7 @@ export default {
       let result = {};
       if (data.hasOwnProperty("result")) {
         result = state.gateway.fixedExchangeRate.result[0];
+        console.log("fixedExchangeRate ::", result);
       }
       return result;
     },
@@ -1120,6 +1135,7 @@ export default {
       // this.getExchangeRate();
     },
     minMaxAmoutValidator(amount) {
+      console.log("this.pairsMinMax", this.pairsMinMax);
       if (this.exechangeRateType === "float") {
         if (
           this.pairsMinMax.minAmountFloat &&
@@ -1202,9 +1218,18 @@ export default {
       } else {
         fixed_validation = true;
       }
+
+      let receiveFund = "";
+      if (this.exechangeRateType === "float") {
+        receiveFund = this.exchange_amount.amountTo;
+      } else {
+        receiveFund = this.fixedExchangeRate.amountTo;
+      }
+
       return (
         this.sendAmount > 0 &&
         this.agree === "yes" &&
+        receiveFund > 0 &&
         this.isValidRecipientAddress.result &&
         fixed_validation
       );
