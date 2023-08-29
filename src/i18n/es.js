@@ -565,7 +565,7 @@ export default {
     chooseLanguage: "Elige lengua",
     yourWallets: "Sus Monederos",
     swap: {
-      exchange: "Exchange",
+      exchange: "Intercambio",
       history: "History",
       unsupportedpair: "Unsupported exchange pair",
       minimumAmt: "Minimum amount is",
@@ -608,7 +608,7 @@ export default {
       refundAddress: "Refund address",
       exchanging: "Exchanging",
       confirmingProcess: "Confirming in progress",
-      once: "Once",
+      Once: "Once",
       confirmedInBlockchain:
         " is confirmed in the blockchain, we’ll start exchanging it to",
       seenInputExplorer: "See input hash in explorer",
@@ -636,7 +636,17 @@ export default {
       status: "Status",
       date: "Date",
       exchangeAmount: "Exchange amount",
-      receiver: "Receiver"
+      receiver: "Receiver",
+      sendFundDisc: "Send funds to the address below",
+      timeLeft: "Time left to send",
+      guaranteedRateDisc: "The guaranteed rate has been terminated",
+      sendFundsAboveAddress:
+        "Please note that you can send funds to the address above only",
+      once: "once",
+      swapMaintenance: "Swap is temporarily undermaintenance",
+      tryAgainSomeTimes: "Please try again after some times",
+      afterYourFirstTxn: "After your first transaction",
+      youWillBeViewHere: "you will be able to view it here"
     }
   }
 };

@@ -17,10 +17,12 @@
       </article>
       <article class="q-mt-md">
         <div class="maintatance-txt ft-regular">
-          <span class="coin-name ft-bold">BDX</span> Swap is temporarily under
-          maintenance.
+          <span class="coin-name ft-bold"></span>
+          {{ this.$t("titles.swap.swapMaintenance") }}.
         </div>
-        <div class="info-txt">Please try again after some times.</div>
+        <div class="info-txt">
+          {{ this.$t("titles.swap.tryAgainSomeTimes") }}.
+        </div>
       </article>
     </section>
   </div>

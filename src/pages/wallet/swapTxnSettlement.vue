@@ -21,8 +21,10 @@
     <section class="q-mt-lg">
       <article class="fund-details-wrapper flex row">
         <div class="col-6">
-          <div class="ft-semibold title">Send funds to the address below</div>
-          <div class="label q-mt-lg">Amount</div>
+          <div class="ft-semibold title">
+            {{ this.$t("titles.swap.sendFundDisc") }}
+          </div>
+          <div class="label q-mt-lg">{{ this.$t("fieldLabels.amount") }}</div>
           <div class="amount ft-semibold uppercase">
             {{
               createdTxnDetails.amountExpectedFrom +
@@ -35,7 +37,7 @@
         <div class="col-6 timer-wrapper">
           <div class="pad-wrap">
             <div v-if="!this.timeIsExpire" class="label uppercase">
-              Time left to send
+              {{ this.$t("titles.swap.timeLeft") }}
               {{
                 createdTxnDetails.amountExpectedFrom +
                   " " +
@@ -49,7 +51,7 @@
               <span class="ft-semibold q-ml-xs">{{ this.clock }}</span>
             </div>
             <div v-if="this.timeIsExpire" class="label">
-              The guaranteed rate has been terminated
+              {{ this.$t("titles.swap.guaranteedRateDisc") }}
             </div>
             <q-btn
               v-if="this.timeIsExpire"
@@ -62,7 +64,7 @@
           </div>
           <div class="hr-seperator"></div>
           <div class="pad-wrap">
-            <div class="label">Transaction ID</div>
+            <div class="label">{{ this.$t("titles.swap.transactionID") }}</div>
             <div>
               <span class="ft-semibold q-mr-xs">{{
                 createdTxnDetails.id
@@ -86,7 +88,7 @@
       </article>
 
       <article class="recipt-address-wrapper">
-        <div class="label">Recipient address</div>
+        <div class="label">{{ this.$t("fieldLabels.recipientAddress") }}</div>
         <div class="flex row justify-between q-mt-sm">
           <div>
             <span class="ft-medium" style="word-break: break-all">{{
@@ -94,7 +96,8 @@
             }}</span
             ><br />
             <span class="ft-semibold uppercase" style="color: #00ad07"
-              >blockchain : {{ receiveChainDetails.blockchain }}</span
+              >{{ this.$t("titles.swap.blockchain") }}:
+              {{ receiveChainDetails.blockchain }}</span
             >
           </div>
           <div>
@@ -122,7 +125,7 @@
         v-if="createdTxnDetails.type == 'fixed'"
         class="recipt-address-wrapper"
       >
-        <div class="label">Refund address</div>
+        <div class="label">{{ this.$t("titles.swap.refundAddress") }}</div>
         <div class="flex row justify-between q-mt-sm">
           <div>
             <span class="ft-medium" style="word-break: break-all">{{
@@ -130,7 +133,8 @@
             }}</span
             ><br />
             <span class="ft-semibold uppercase" style="color: #00ad07"
-              >blockchain : {{ sendChainDetails.blockchain }}</span
+              >{{ this.$t("titles.swap.blockchain") }}:
+              {{ sendChainDetails.blockchain }}</span
             >
           </div>
           <div>
@@ -157,18 +161,18 @@
       <article class="warning-wrapper q-mt-md">
         <q-icon name="o_info" size="14px" />
         <span class="q-ml-sm warn-txt"
-          >Please note that you can send funds to the address above only
-          once.</span
+          >{{ this.$t("titles.swap.blockchain") }}
+          {{ this.$t("titles.swap.once") }}.</span
         >
       </article>
 
       <article style="width: 48%">
         <div class="ft-semibold" style="margin-top: 14px; margin-bottom: 9px">
-          Transaction details
+          {{ this.$t("titles.swap.transactionDetails") }}
         </div>
         <table style="width: 100%" class="txn-fee-details">
           <tr>
-            <td>You send</td>
+            <td>{{ this.$t("titles.swap.youSend") }}</td>
             <td>
               {{
                 createdTxnDetails.amountExpectedFrom > 0
@@ -181,7 +185,7 @@
             </td>
           </tr>
           <tr v-if="createdTxnDetails.type == 'float'">
-            <td>Exchange rate</td>
+            <td>{{ this.$t("titles.swap.exchangeRate") }}</td>
             <td class="uppercase">
               1
               {{ floatingRate.from ? floatingRate.from : "" }}
@@ -193,7 +197,7 @@
             </td>
           </tr>
           <tr v-else>
-            <td>Fixed rate</td>
+            <td>{{ this.$t("titles.swap.fixedRate") }}</td>
             <td>
               <span class="uppercase"
                 >1
@@ -201,13 +205,13 @@
                 ~ {{ Number(fixedRate.result).toFixed(8) }}
                 {{ fixedRate.to }}</span
               ><br />
-              <span class="fixed-rate-hint"
-                >The fixed rate is updated every 30 Seconds</span
-              >
+              <span class="fixed-rate-hint">{{
+                this.$t("titles.swap.fixedRateUpdateSec")
+              }}</span>
             </td>
           </tr>
           <tr v-if="createdTxnDetails.type == 'float'">
-            <td>Service fee 0.25%</td>
+            <td>{{ this.$t("titles.swap.serviceFee") }}</td>
             <td class="uppercase">
               {{ Number(floatingRate.fee).toFixed(8) }}
               {{ floatingRate.to ? floatingRate.to : "" }}
@@ -215,18 +219,20 @@
           </tr>
 
           <tr v-else>
-            <td>Fees</td>
-            <td style="font-size: 12px">All fees inclueded in the rate</td>
+            <td>{{ this.$t("titles.swap.fees") }}</td>
+            <td style="font-size: 12px">
+              {{ this.$t("titles.swap.allTheFees") }}
+            </td>
           </tr>
           <tr v-if="createdTxnDetails.type == 'float'">
-            <td>Network fee</td>
+            <td>{{ this.$t("titles.swap.networkFee") }}</td>
             <td class="uppercase">
               {{ Number(floatingRate.networkFee).toFixed(8) }}
               {{ floatingRate.to ? floatingRate.to : "" }}
             </td>
           </tr>
           <tr>
-            <td>You Get</td>
+            <td>{{ this.$t("titles.swap.youGet") }}</td>
             <td v-if="createdTxnDetails.type == 'float'" class="uppercase">
               ~ {{ floatingRate.amountTo }}
               {{ floatingRate.to ? floatingRate.to : "" }}

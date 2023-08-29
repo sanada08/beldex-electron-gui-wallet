@@ -68,7 +68,7 @@
               {{ this.$t("titles.swap.confirmingProcess") }}
             </div>
             <div class="desc q-mb-md">
-              {{ this.$t("titles.swap.once") }}
+              {{ this.$t("titles.swap.Once") }}
               <span class="uppercase">{{ statusDetails.currencyFrom }}</span>
               {{ this.$t("titles.swap.confirmedInBlockchain") }}
               <span class="uppercase">{{ statusDetails.currencyTo }}</span>

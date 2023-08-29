@@ -17,8 +17,12 @@
           {{ $t("strings.noTransactionsFound") }}
         </p>
 
-        <div class="hint-txt">After your first transaction,</div>
-        <div class="hint-txt">you will be able to view it here.</div>
+        <div class="hint-txt">
+          {{ this.$t("titles.swap.afterYourFirstTxn") }},
+        </div>
+        <div class="hint-txt">
+          {{ this.$t("titles.swap.youWillBeViewHere") }}.
+        </div>
       </section>
     </template>
     <section v-else-if="this.tx_list.length !== 0 && !this.txnDetails">
