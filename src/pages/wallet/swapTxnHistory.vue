@@ -19,7 +19,9 @@
             fill="white"
           />
         </svg>
-        <div class="ft-semibold q-ml-md header-txt">History</div>
+        <div class="ft-semibold q-ml-md header-txt">
+          {{ this.$t("titles.swap.history") }}
+        </div>
       </div>
 
       <q-btn color="primary" class="downloadCsv-btn" @click="downloadCsv">
@@ -43,19 +45,19 @@
             </clipPath>
           </defs>
         </svg>
-        <span class="q-ml-xs">Download CSV</span>
+        <span class="q-ml-xs">{{ this.$t("titles.swap.downloadCsv") }}</span>
       </q-btn>
     </header>
 
     <section class="q-mt-lg">
       <table style="width: 100%" class="txn-details-wrapper">
         <tr>
-          <th>Status</th>
-          <th>Date</th>
-          <th>Exchange amount</th>
-          <th>Exchange rate</th>
-          <th>Receiver</th>
-          <th>Amount received</th>
+          <th>{{ this.$t("titles.swap.status") }}</th>
+          <th>{{ this.$t("titles.swap.date") }}</th>
+          <th>{{ this.$t("titles.swap.exchangeAmount") }}</th>
+          <th>{{ this.$t("titles.swap.exchangeRate") }}</th>
+          <th>{{ this.$t("titles.swap.receiver") }}</th>
+          <th>{{ this.$t("titles.swap.amountReceived") }}</th>
         </tr>
         <tr
           v-for="(item, i) in this.txnHistory"

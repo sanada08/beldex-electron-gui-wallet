@@ -5,7 +5,9 @@
     </q-inner-loading>
     <div v-if="this.routes === 'mainPage'">
       <div class="flex row justify-between">
-        <header class="text-h6 ft-bold">Exchange</header>
+        <header class="text-h6 ft-bold">
+          {{ this.$t("titles.swap.exchange") }}
+        </header>
 
         <q-btn
           color="accent"
@@ -24,7 +26,7 @@
               fill="white"
             />
           </svg>
-          <span class="q-ml-xs">History</span>
+          <span class="q-ml-xs">{{ this.$t("titles.swap.history") }}</span>
         </q-btn>
       </div>
 
@@ -155,10 +157,10 @@
                   this.pairsMinMax.to &&
                   !this.pairsMinMax.minAmountFloat
               "
-              >Unsupported exchange pair</span
+              >{{ this.$t("titles.swap.unsupportedpair") }}</span
             >
             <span v-if="this.minMaxWarningContent === 'min'">
-              Minimum amount is
+              {{ this.$t("titles.swap.minimumAmt") }}
               <span
                 class="validMinMaxAmount"
                 @click="
@@ -185,7 +187,7 @@
                     : pairsMinMax.maxAmountFixed
               "
             >
-              Maximum amount is
+              {{ this.$t("titles.swap.maximumAmt") }}
               <span class="validMinMaxAmount">
                 {{
                   this.exechangeRateType === "float"
@@ -305,18 +307,18 @@
         </article>
         <article style="width: 48%">
           <div class="ft-semibold" style="margin-top: 14px; margin-bottom: 9px">
-            Transaction details
+            {{ this.$t("titles.swap.transactionDetails") }}
           </div>
           <table style="width: 100%" class="txn-fee-details">
             <tr>
-              <td>You send</td>
+              <td>{{ this.$t("titles.swap.youSend") }}</td>
               <td>
                 {{ this.sendAmount > 0 ? this.sendAmount : 0 }}
                 {{ this.sendAmounType.name }}
               </td>
             </tr>
             <tr v-if="this.exechangeRateType === 'float'">
-              <td>Exchange rate</td>
+              <td>{{ this.$t("titles.swap.exchangeRate") }}</td>
               <td class="uppercase">
                 1
                 {{ this.sendAmounType.name }}
@@ -330,7 +332,7 @@
               </td>
             </tr>
             <tr v-else>
-              <td>Fixed rate</td>
+              <td>{{ this.$t("titles.swap.fixedRate") }}</td>
               <td class="uppercase">
                 <span>
                   1
@@ -344,13 +346,13 @@
                   {{ this.receiveAmountType.name }}
                 </span>
                 <br />
-                <span class="fixed-rate-hint"
-                  >The fixed rate is updated every 30 Seconds</span
-                >
+                <span class="fixed-rate-hint">{{
+                  this.$t("titles.swap.fixedRateUpdateSec")
+                }}</span>
               </td>
             </tr>
             <tr v-if="this.exechangeRateType == 'float'">
-              <td>Service fee 0.25%</td>
+              <td>{{ this.$t("titles.swap.serviceFee") }}</td>
               <td class="uppercase">
                 {{
                   exchange_amount.fee
@@ -362,11 +364,13 @@
             </tr>
 
             <tr v-else>
-              <td>Fees</td>
-              <td style="font-size: 12px">All fees inclueded in the rate</td>
+              <td>{{ this.$t("titles.swap.fees") }}</td>
+              <td style="font-size: 12px">
+                {{ this.$t("titles.swap.allTheFees") }}
+              </td>
             </tr>
             <tr v-if="this.exechangeRateType == 'float'">
-              <td>Network fee</td>
+              <td>{{ this.$t("titles.swap.networkFee") }}</td>
               <td class="uppercase">
                 {{
                   exchange_amount.networkFee
@@ -377,7 +381,7 @@
               </td>
             </tr>
             <tr>
-              <td>You Get</td>
+              <td>{{ this.$t("titles.swap.youGet") }}</td>
               <td v-if="this.exechangeRateType === 'float'" class="uppercase">
                 ~
                 {{
@@ -466,7 +470,9 @@
             </span>
           </div>
           <div class="col-10 flex items-center justify-between">
-            <span class="ft-semibold content">Floating Exchange Rate</span>
+            <span class="ft-semibold content">{{
+              this.$t("titles.swap.floatingExchangeRate")
+            }}</span>
             <br />
             <span>
               ~
@@ -523,7 +529,9 @@
               </span>
             </div>
             <div class="col-10 flex items-center justify-between">
-              <span class="ft-semibold content">Fixed Exchange Rate</span>
+              <span class="ft-semibold content">{{
+                this.$t("titles.swap.fixedExchangeRate")
+              }}</span>
               <br />
               <span>
                 {{
@@ -536,8 +544,7 @@
           </div>
 
           <div v-if="this.fixedCreateTxnValidation()" class="warningMsg">
-            Your previous transaction is still processing. You can create a new
-            one in 15 minutes
+            {{ this.$t("titles.swap.stillProcessing") }}
           </div>
           <div
             v-if="
@@ -546,8 +553,9 @@
             "
             class="warningMsg"
           >
-            The fixed rate minimum amount is
+            {{ this.$t("titles.swap.minimumExchangeAmtAbove") }}
             {{ Number(this.pairsMinMax.minAmountFixed) }}
+            {{ this.$t("titles.swap.for") }}
             <span class="uppercase">{{ this.sendAmounType.ticker }}</span>
           </div>
           <div
@@ -557,8 +565,9 @@
             "
             class="warningMsg"
           >
-            The fixed rate maximum amount is
+            {{ this.$t("titles.swap.maximumExchangeAmtUnder") }}
             {{ this.pairsMinMax.maxAmountFixed }}
+            {{ this.$t("titles.swap.for") }}
             <span class="uppercase">{{ this.sendAmounType.ticker }}</span>
           </div>
         </article>
@@ -569,16 +578,16 @@
           <q-icon name="o_info" size="14px" />
         </div>
         <div v-if="this.exechangeRateType === 'float'" style="width: 95%">
-          The floating rate can change at any point due to market conditions, so
-          you might receive more or less crypto than expected.
+          {{ this.$t("titles.swap.floatingRateDisc") }}
         </div>
         <div v-else style="width: 95%">
-          With the fixed rate, you will receive the exact amount of crypto you
-          see on this screen.
+          {{ this.$t("titles.swap.fixedRateExactAmtDisc") }}
         </div>
       </div>
 
-      <header class="ft-bold q-mt-md">Wallet Address</header>
+      <header class="ft-bold q-mt-md">
+        {{ this.$t("titles.swap.walletAddress") }}
+      </header>
 
       <OxenField
         class="q-mt-md ft-regular address-wrapper"
@@ -587,9 +596,9 @@
         error-label="Invalid Address"
       >
         <div class="q-pr-sm">
-          <span class="proto ft-semibold">
-            {{ this.receiveAmountType.protocol }}
-          </span>
+          <span class="proto ft-semibold">{{
+            this.receiveAmountType.protocol
+          }}</span>
         </div>
         <!-- @blur="() => this.recipientAddressValidator()" -->
         <q-input
@@ -611,9 +620,9 @@
           error-label="Please enter valid address"
         >
           <div class="q-pr-sm">
-            <span class="proto ft-semibold">
-              {{ this.sendAmounType.protocol }}
-            </span>
+            <span class="proto ft-semibold">{{
+              this.sendAmounType.protocol
+            }}</span>
           </div>
           <q-input
             :value="refundAddress.val"
@@ -650,7 +659,10 @@
           false-value="no"
           size="xs"
         ></q-checkbox>
-        <span>My wallet requires {{ this.receiveAmountType.extraIdName }}</span>
+        <span
+          >{{ this.$t("titles.swap.myWalletRequire") }}
+          {{ this.receiveAmountType.extraIdName }}</span
+        >
       </div>
 
       <q-input
@@ -670,13 +682,14 @@
           size="sm"
         ></q-checkbox>
         <span>
-          I agree with
-          <a @click="openExternalLink('https://changelly.com/terms-of-use')"
-            >Terms of Use</a
-          >
-          and
-          <a @click="openExternalLink('https://changelly.com/privacy-policy')"
-            >Privacy Policy</a
+          {{ this.$t("titles.swap.agreeWith") }}
+          <a @click="openExternalLink('https://changelly.com/terms-of-use')">{{
+            this.$t("titles.swap.termOfUse")
+          }}</a>
+          {{ this.$t("titles.swap.and") }}
+          <a
+            @click="openExternalLink('https://changelly.com/privacy-policy')"
+            >{{ this.$t("titles.swap.privacyPolicy") }}</a
           >
           <!-- <a href>AML/KYC</a> -->
         </span>

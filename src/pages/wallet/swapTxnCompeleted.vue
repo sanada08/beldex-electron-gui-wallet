@@ -19,16 +19,22 @@
         />
       </svg>
 
-      <div class="ft-semibold q-ml-md" style="font-size: 1.3rem;">Back</div>
+      <div class="ft-semibold q-ml-md" style="font-size: 1.3rem;">
+        {{ this.$t("buttons.back") }}
+      </div>
     </div>
     <header class="flex row items-center q-mb-md">
       <div class="flex items-center">
         <q-icon name="o_check_circle" size="md" color="primary" />
-        <div class="ft-semibold q-ml-xs header-txt">Completed</div>
+        <div class="ft-semibold q-ml-xs header-txt">
+          {{ this.$t("titles.swap.completed") }}
+        </div>
       </div>
     </header>
     <div class="flex row txn-id-wrapper q-px-md items-center">
-      <div class="label q-mr-sm ft-medium">Transaction ID :</div>
+      <div class="label q-mr-sm ft-medium">
+        {{ this.$t("titles.swap.transactionID") }} :
+      </div>
       <div class="q-mr-sm ft-semibold">{{ this.txnStatus.id }}</div>
       <q-btn
         flat
@@ -42,21 +48,21 @@
     <section class="receipt-wrapper">
       <article class="flex row q-mt-md">
         <div class="col-6">
-          <div class="q-mb-sm label">Amount</div>
+          <div class="q-mb-sm label">{{ this.$t("fieldLabels.amount") }}</div>
           <div class="ft-semibold content">
             {{ this.txnStatus.amountExpectedFrom }}
-            <span class="uppercase q-ml-xs">{{
-              this.txnStatus.currencyFrom
-            }}</span>
+            <span class="uppercase q-ml-xs">
+              {{ this.txnStatus.currencyFrom }}
+            </span>
           </div>
         </div>
         <div class="col-6">
-          <div class="q-mb-sm label">Amount to</div>
+          <div class="q-mb-sm label">{{ this.$t("titles.swap.amountTo") }}</div>
           <div class="ft-semibold content">
             {{ this.txnStatus.amountExpectedTo }}
-            <span class="uppercase q-ml-xs">{{
-              this.txnStatus.currencyTo
-            }}</span>
+            <span class="uppercase q-ml-xs">
+              {{ this.txnStatus.currencyTo }}
+            </span>
           </div>
         </div>
       </article>
@@ -64,7 +70,9 @@
 
       <article class="flex row">
         <div class="col-6">
-          <div class="q-mb-sm label">Amount received</div>
+          <div class="q-mb-sm label">
+            {{ this.$t("titles.swap.amountReceived") }}
+          </div>
           <div class="ft-semibold content">
             {{
               this.momentdate(this.txnStatus.moneyReceived / 1000).format(
@@ -74,7 +82,9 @@
           </div>
         </div>
         <div class="col-6">
-          <div class="q-mb-sm label">Amount Sent</div>
+          <div class="q-mb-sm label">
+            {{ this.$t("titles.swap.amountSend") }}
+          </div>
           <div class="ft-semibold content">
             {{
               this.momentdate(this.txnStatus.moneySent / 1000).format(
@@ -88,24 +98,29 @@
 
       <article class="flex row">
         <div class="col-6">
-          <div class="q-mb-sm label">Exchange Rate</div>
+          <div class="q-mb-sm label">
+            {{ this.$t("titles.swap.exchangeRate") }}
+          </div>
           <div class="ft-semibold content">
-            1<span class="uppercase q-ml-xs">{{
-              this.txnStatus.currencyFrom
-            }}</span>
-            ~ {{ this.txnStatus.rate
-            }}<span class="uppercase q-ml-xs">{{
-              this.txnStatus.currencyTo
-            }}</span>
+            1
+            <span class="uppercase q-ml-xs">
+              {{ this.txnStatus.currencyFrom }}
+            </span>
+            ~ {{ this.txnStatus.rate }}
+            <span class="uppercase q-ml-xs">
+              {{ this.txnStatus.currencyTo }}
+            </span>
           </div>
         </div>
         <div class="col-6">
-          <div class="q-mb-sm label">Network fee</div>
+          <div class="q-mb-sm label">
+            {{ this.$t("titles.swap.networkFee") }}
+          </div>
           <div class="ft-semibold content">
             {{ this.txnStatus.networkFee }}
-            <span class="uppercase q-ml-xs">{{
-              this.txnStatus.currencyTo
-            }}</span>
+            <span class="uppercase q-ml-xs">
+              {{ this.txnStatus.currencyTo }}
+            </span>
           </div>
         </div>
       </article>
@@ -113,7 +128,9 @@
 
       <article class="flex row">
         <div class="col-6">
-          <div class="q-mb-sm label">Recipient address</div>
+          <div class="q-mb-sm label">
+            {{ this.$t("fieldLabels.recipientAddress") }}
+          </div>
           <div class="ft-medium content break-all" style="width: 85%">
             {{ this.txnStatus.payoutAddress }}
           </div>
@@ -151,7 +168,9 @@
                 />
               </g>
             </svg>
-            <span class="ft-medium q-ml-sm">Input Hash</span>
+            <span class="ft-medium q-ml-sm">{{
+              this.$t("titles.swap.inputHash")
+            }}</span>
           </q-btn>
           <q-btn
             outline
@@ -173,7 +192,9 @@
                 />
               </g>
             </svg>
-            <span class="ft-medium q-ml-sm">Output Hash</span>
+            <span class="ft-medium q-ml-sm">{{
+              this.$t("titles.swap.outputHash")
+            }}</span>
           </q-btn>
         </div>
         <div v-if="this.from !== 'history'" class="flex justify-center q-mt-md">

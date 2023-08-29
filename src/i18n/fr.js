@@ -565,6 +565,80 @@ export default {
       restoreViewOnly: "Restaurer un portefeuille en mode d'affichage seulement"
     },
     chooseLanguage: "Choisissez la langue",
-    yourWallets: "Vos portefeuilles"
+    yourWallets: "Vos portefeuilles",
+    swap: {
+      exchange: "Exchange",
+      history: "History",
+      unsupportedpair: "Unsupported exchange pair",
+      minimumAmt: "Minimum amount is",
+      maximumAmt: "Maximum amount is",
+      transactionDetails: "Transaction details",
+      youSend: "You send",
+      exchangeRate: "Exchange rate",
+      fixedRate: "Fixed rate",
+      fixedRateUpdateSec: "The fixed rate is updated every 30 Seconds",
+      serviceFee: "Service fee 0.25%",
+      fees: "Fees",
+      allTheFees: "All fees inclueded in the rate",
+      networkFee: "Network fee",
+      youGet: "You Get",
+      floatingExchangeRate: "Floating Exchange Rate",
+      fixedExchangeRate: "Fixed Exchange Rate",
+      stillProcessing:
+        "Your previous transaction is still processing. You can create a new one in 15 minutes",
+      minimumExchangeAmtAbove: "The minimum exchange amount is above",
+      for: "for",
+      maximumExchangeAmtUnder: "The maximum exchange amount is under",
+      floatingRateDisc:
+        "The floating rate can change at any point due to market conditions, so you might receive more or less crypto than expected.",
+      fixedRateExactAmtDisc:
+        "With the fixed rate, you will receive the exact amount of crypto you see on this screen.",
+      walletAddress: "Wallet Address",
+      myWalletRequire: "My wallet requires",
+      agreeWith: "I agree with",
+      termOfUse: "Terms of Use",
+      and: "and",
+      privacyPolicy: "Privacy Policy",
+      checkout: "Checkout",
+      blockchain: "blockchain",
+      exchangefee: "Exchange fee",
+      exchangeFeeIncluded:
+        " The exchange fee is already included in the displayed amount you’ll get",
+      networkFeeIncluded:
+        "The network fee is already included in the displayed amount you’ll get",
+      guaranteeFee: "Guarantee Rate",
+      refundAddress: "Refund address",
+      exchanging: "Exchanging",
+      confirmingProcess: "Confirming in progress",
+      once: "Once",
+      confirmedInBlockchain:
+        " is confirmed in the blockchain, we’ll start exchanging it to",
+      seenInputExplorer: "See input hash in explorer",
+      to: "to",
+      pleaseWait: "The process will take a few minutes. please wait.",
+      sendFundsToWallet: "Sending funds to your wallet",
+      waitHere: "You don’t have to wait here",
+      newTransaction: "You can initiate a new transaction.",
+      checkStatus:
+        "You can always check the status of this transaction in transaction",
+      // history: "history",
+      transactionPreview: "Transaction Preview",
+      transactionID: "Transaction ID",
+      changellyAddress: "Changelly address",
+      completed: "Completed",
+      amountTo: "Amount to",
+      amountReceived: "Amount received",
+      amountSend: "Amount Sent",
+      inputHash: "Input Hash",
+      outputHash: "Output Hash",
+      amountFrom: "Amount from",
+      paymentNotReceived:
+        "The funds were not received within 3 hours. Please check the rates and create a new transaction",
+      downloadCsv: "Download CSV",
+      status: "Status",
+      date: "Date",
+      exchangeAmount: "Exchange amount",
+      receiver: "Receiver"
+    }
   }
 };

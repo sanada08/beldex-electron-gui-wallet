@@ -18,7 +18,9 @@
                 fill="white"
               />
             </svg> -->
-            <div class="ft-semibold header-txt">Exchanging</div>
+            <div class="ft-semibold header-txt">
+              {{ this.$t("titles.swap.exchanging") }}
+            </div>
           </div>
         </header>
 
@@ -62,15 +64,19 @@
             </svg>
           </div>
           <div class="col-11">
-            <div class="sub-title ft-semibold">Confirming in progress</div>
+            <div class="sub-title ft-semibold">
+              {{ this.$t("titles.swap.confirmingProcess") }}
+            </div>
             <div class="desc q-mb-md">
-              Once
-              <span class="uppercase">{{ statusDetails.currencyFrom }}</span> is
-              confirmed in the blockchain, we’ll start exchanging it to
+              {{ this.$t("titles.swap.once") }}
+              <span class="uppercase">{{ statusDetails.currencyFrom }}</span>
+              {{ this.$t("titles.swap.confirmedInBlockchain") }}
               <span class="uppercase">{{ statusDetails.currencyTo }}</span>
             </div>
-            <a class="explorer-link" @click="inputHash(statusDetails.payinHash)"
-              >See input hash in explorer</a
+            <a
+              class="explorer-link"
+              @click="inputHash(statusDetails.payinHash)"
+              >{{ this.$t("titles.swap.seenInputExplorer") }}</a
             >
           </div>
         </div>
@@ -114,14 +120,14 @@
           </div>
           <div class="col-11">
             <div class="sub-title ft-semibold">
-              Exchanging
+              {{ this.$t("titles.swap.exchanging") }}
               <span class="uppercase ">{{ statusDetails.currencyFrom }}</span>
-              to
+              {{ this.$t("titles.swap.to") }}
               <span class="uppercase">{{ statusDetails.currencyTo }}</span>
               <!-- <div class="sub-title ft-semibold">Exchanging BDX to BNB</div> -->
             </div>
             <div class="desc">
-              The process will take a few minutes. please wait.
+              {{ this.$t("titles.swap.pleaseWait") }}
             </div>
           </div>
         </div>
@@ -165,44 +171,48 @@
           </div>
           <div class="col-11">
             <div class="sub-title ft-semibold">
-              Sending funds to your wallet
+              {{ this.$t("titles.swap.sendFundsToWallet") }}
             </div>
             <div class="desc">
-              The process will take a few minutes. please wait.
+              {{ this.$t("titles.swap.pleaseWait") }}
             </div>
           </div>
         </div>
         <div class="q-pa-md nav-history-wrapper q-mt-lg">
-          <div class="sub-title ft-semibold">You don’t have to wait here</div>
+          <div class="sub-title ft-semibold">
+            {{ this.$t("titles.swap.waitHere") }}
+          </div>
           <div class="desc q-mt-sm">
-            You can initiate a new transaction.<br />
-            You can always check the status of this transaction in transaction
-            <a class="history-tag" @click="() => this.$emit('toHistory')"
-              >history</a
-            >
+            {{ this.$t("titles.swap.newTransaction") }}<br />
+            {{ this.$t("titles.swap.checkStatus") }}
+            <a class="history-tag" @click="() => this.$emit('toHistory')">{{
+              this.$t("titles.swap.history")
+            }}</a>
             .
           </div>
         </div>
       </article>
       <article class="col-md-5 q-pa-sm">
         <header class="ft-semibold q-ml-md header-txt">
-          Transaction Preview
+          {{ this.$t("titles.swap.transactionPreview") }}
         </header>
         <div class="txn-preview-wrapper q-py-md">
           <div class="q-px-md">
-            <div class="ft-medium label q-mb-xs">Transaction ID</div>
+            <div class="ft-medium label q-mb-xs">
+              {{ this.$t("titles.swap.transactionID") }}
+            </div>
             <div class="ft-semibold content q-mb-sm">
               {{ statusDetails.id }}
             </div>
             <div class="ft-medium label q-mt-md q-mb-xs">
-              Changelly address
+              {{ this.$t("titles.swap.changellyAddress") }}
               <span class="uppercase">{{ statusDetails.currencyFrom }}</span>
             </div>
             <div class="ft-semibold content q-mb-sm break-all">
               {{ statusDetails.payinAddress }}
             </div>
             <div class="ft-medium label q-mt-md q-mb-xs">
-              Recipient address
+              {{ this.$t("fieldLabels.recipientAddress") }}
               <span class="uppercase">{{ statusDetails.currencyTo }}</span>
             </div>
             <div class="ft-semibold content q-mb-sm break-all">
@@ -214,7 +224,9 @@
             <div class="ft-semibold content q-mb-sm break-all">
               {{ statusDetails.payoutExtraId }}
             </div>
-            <div class="ft-medium label q-mt-md q-mb-xs">Exchange Rate</div>
+            <div class="ft-medium label q-mt-md q-mb-xs">
+              {{ this.$t("titles.swap.exchangeRate") }}
+            </div>
             <div class="ft-semibold content q-mb-sm break-all uppercase">
               1 {{ statusDetails.currencyFrom }} ~
               {{
@@ -227,7 +239,9 @@
           <div
             class="flex row items-center q-mt-md q-pt-md q-px-md total-wrapper"
           >
-            <div class="ft-medium label q-mr-sm">You Get</div>
+            <div class="ft-medium label q-mr-sm">
+              {{ this.$t("titles.swap.youGet") }}
+            </div>
             <div class="content uppercase">
               ~
               {{

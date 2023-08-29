@@ -16,13 +16,17 @@
             fill="white"
           />
         </svg>
-        <div class="ft-semibold q-ml-md header-txt">Back</div>
+        <div class="ft-semibold q-ml-md header-txt">
+          {{ this.$t("buttons.back") }}
+        </div>
       </div>
     </header>
 
     <section class="q-mt-lg">
       <article class="flex row txn-id-wrapper q-px-md items-center">
-        <span class="txn-id-txt ft-medium q-mr-sm">Transaction ID :</span>
+        <span class="txn-id-txt ft-medium q-mr-sm"
+          >{{ this.$t("titles.swap.transactionID") }} :</span
+        >
         <span class="ft-semibold q-mr-sm">{{ txnDetails.id }}</span>
         <q-btn
           style="height: 30px;width:30px;"
@@ -51,21 +55,21 @@
           />
         </svg>-->
         <q-icon name="history" size="md" color="#fffe3" class="status-icon" />
-        <span class="ft-semibold paid-status q-ml-sm">
-          {{ txnDetails.status }}
-        </span>
+        <span class="ft-semibold paid-status q-ml-sm">{{
+          txnDetails.status
+        }}</span>
       </article>
 
       <article class="amount-details-wrapper flex row q-mt-md">
         <div class="col-md-5">
-          <div class="amount-txt">Amount from</div>
+          <div class="amount-txt">{{ this.$t("titles.swap.amountFrom") }}</div>
           <div class="ft-semibold amount-val">
             {{ txnDetails.amountExpectedFrom }}
             <span class="uppercase">{{ txnDetails.currencyFrom }}</span>
           </div>
         </div>
         <div class="col-md-7">
-          <div class="amount-txt">Amount to</div>
+          <div class="amount-txt">{{ this.$t("titles.swap.amountTo") }}</div>
           <div class="ft-semibold amount-val">
             {{ txnDetails.amountExpectedTo }}
             <span class="uppercase">{{ txnDetails.currencyTo }}</span>
@@ -75,15 +79,14 @@
       <div class="hr-seperator q-my-md"></div>
 
       <article class="recipient-address-wrapper">
-        <div class="label">Recipient address</div>
+        <div class="label">{{ this.$t("fieldLabels.recipientAddress") }}</div>
         <div class="address ft-semibold">{{ txnDetails.payoutAddress }}</div>
       </article>
 
       <article class="warning-wrapper q-mt-md">
         <q-icon name="o_info" size="14px" />
         <span class="q-ml-sm warn-txt">
-          The funds were not received within 3 hours. Please check the rates and
-          create a new transaction
+          {{ this.$t("titles.swap.paymentNotReceived") }}
         </span>
       </article>
     </section>

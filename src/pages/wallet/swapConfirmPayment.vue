@@ -1,8 +1,8 @@
 <template>
   <div class="confirmPayment">
     <!-- <q-header>
-      <q-toolbar top> -->
-    <header class="flex row items-center  q-mb-md">
+    <q-toolbar top>-->
+    <header class="flex row items-center q-mb-md">
       <div
         class="flex items-center back-arrow-btn"
         @click="this.goToExchangepair"
@@ -22,15 +22,13 @@
       </div>
 
       <div class="ft-semibold q-ml-md header-txt">
-        Checkout
+        {{ this.$t("titles.swap.checkout") }}
       </div>
     </header>
     <section class="q-mt-lg">
       <article class="flex row">
         <div class="col-6">
-          <div class="q-mb-sm">
-            You send
-          </div>
+          <div class="q-mb-sm">{{ this.$t("titles.swap.youSend") }}</div>
           <div class="ft-semibold amount-txt uppercase">
             {{
               Number(this.floatingRate.amountFrom) +
@@ -39,13 +37,12 @@
             }}
           </div>
           <div class="ft-semibold expand-txt">
-            blockchain: <span>{{ sendChainDetails.blockchain }}</span>
+            {{ this.$t("titles.swap.blockchain") }}:
+            <span>{{ sendChainDetails.blockchain }}</span>
           </div>
         </div>
         <div class="col-6">
-          <div class="q-mb-sm">
-            You get
-          </div>
+          <div class="q-mb-sm">{{ this.$t("titles.swap.youGet") }}</div>
           <div
             v-if="exchangeType === 'float'"
             class="ft-semibold amount-txt uppercase"
@@ -66,8 +63,8 @@
             }}
           </div>
           <div class="ft-semibold expand-txt">
-            blockchain:
-            <span>{{ receiveChainDtails.blockchain }} </span>
+            {{ this.$t("titles.swap.blockchain") }}:
+            <span>{{ receiveChainDtails.blockchain }}</span>
           </div>
         </div>
       </article>
@@ -75,9 +72,7 @@
 
       <article v-if="!this.refundAddress" class="flex row">
         <div v-if="this.floatingRate.fee" class="col-6">
-          <div class="q-mb-sm">
-            Exchange fee
-          </div>
+          <div class="q-mb-sm">{{ this.$t("titles.swap.exchangefee") }}</div>
           <div class="ft-semibold amount-txt uppercase">
             {{
               Number(this.floatingRate.fee).toFixed(8) +
@@ -86,14 +81,11 @@
             }}
           </div>
           <div class="ft-regular hint-txt">
-            The exchange fee is already included in the displayed amount you’ll
-            get
+            {{ this.$t("titles.swap.exchangeFeeIncluded") }}
           </div>
         </div>
         <div class="col-6">
-          <div class="q-mb-sm">
-            Network fee
-          </div>
+          <div class="q-mb-sm">{{ this.$t("titles.swap.networkFee") }}</div>
           <div class="ft-semibold amount-txt uppercase">
             {{
               Number(this.floatingRate.networkFee).toFixed(8) +
@@ -101,9 +93,8 @@
                 this.floatingRate.to
             }}
           </div>
-          <div class="ft-regular  hint-txt">
-            The network fee is already included in the displayed amount you’ll
-            get
+          <div class="ft-regular hint-txt">
+            {{ this.$t("titles.swap.networkFeeIncluded") }}
           </div>
         </div>
       </article>
@@ -112,9 +103,7 @@
       <article class="flex row">
         <div :class="[this.refundAddress ? 'col-12' : 'col-6']">
           <div v-if="this.refundAddress" class="q-mb-sm">
-            <div class="">
-              Guarantee Rate
-            </div>
+            <div class>{{ this.$t("titles.swap.guaranteeFee") }}</div>
             <div class="ft-semibold amount-txt uppercase">
               1
               {{
@@ -127,7 +116,7 @@
             </div>
           </div>
           <div class="q-mt-sm">
-            Recipient address
+            {{ this.$t("fieldLabels.recipientAddress") }}
           </div>
           <div
             :class="[
@@ -139,7 +128,7 @@
             {{ this.recipientAddress }}
           </div>
           <div v-if="this.refundAddress" class="q-mt-sm">
-            Refund address
+            {{ this.$t("titles.swap.refundAddress") }}
           </div>
           <div
             v-if="this.refundAddress"
@@ -153,9 +142,7 @@
           </div>
         </div>
         <div v-if="!this.refundAddress" class="col-6">
-          <div class="q-mb-sm">
-            Exchange rate
-          </div>
+          <div class="q-mb-sm">{{ this.$t("titles.swap.exchangeRate") }}</div>
           <div class="ft-semibold amount-txt uppercase">
             1
             {{
@@ -171,7 +158,7 @@
     </section>
 
     <div
-      class="flex justify-center "
+      class="flex justify-center"
       :class="[this.refundAddress ? 'q-mt-lg q-pt-xl' : 'q-mt-lg']"
     >
       <q-btn
@@ -182,7 +169,7 @@
     </div>
 
     <!-- </q-toolbar>
-    </q-header> -->
+    </q-header>-->
   </div>
 </template>
 
