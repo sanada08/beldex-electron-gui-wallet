@@ -55,7 +55,6 @@
             }}
           </div>
           <div v-else class="ft-semibold amount-txt uppercase">
-            ~
             {{
               Number(this.fixedRate.amountTo).toFixed(8) +
                 " " +
@@ -108,7 +107,7 @@
               1
               {{
                 this.fixedRate.from +
-                  " ~ " +
+                  " = " +
                   Number(this.fixedRate.result).toFixed(8) +
                   " " +
                   this.fixedRate.to

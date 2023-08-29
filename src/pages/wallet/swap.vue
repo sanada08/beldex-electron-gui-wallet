@@ -337,7 +337,7 @@
                 <span>
                   1
                   {{ this.sendAmounType.name }}
-                  ~
+                  =
                   {{
                     fixedExchangeRate.result
                       ? Number(fixedExchangeRate.result).toFixed(8)
@@ -478,7 +478,7 @@
               ~
               {{
                 exchange_amount.rate
-                  ? Number(exchange_amount.rate).toFixed(8)
+                  ? Number(exchange_amount.amountTo).toFixed(8)
                   : ""
               }}
             </span>
@@ -536,7 +536,7 @@
               <span>
                 {{
                   fixedExchangeRate.result
-                    ? Number(fixedExchangeRate.result).toFixed(8)
+                    ? Number(fixedExchangeRate.amountTo).toFixed(8)
                     : ""
                 }}
               </span>
@@ -639,8 +639,8 @@
 
       <div
         v-if="
-          this.exechangeRateType === 'float' &&
-            this.receiveAmountType.hasOwnProperty('extraIdName')
+          // this.exechangeRateType === 'float' &&
+          this.receiveAmountType.hasOwnProperty('extraIdName')
         "
         class="destination-tag-wrapper q-mt-md"
       >
@@ -1105,7 +1105,8 @@ export default {
       // console.log('getAmountValidator in swap',this.sendAmounType.value, this.receiveAmountType.value)
       this.recipientAddress = { val: "", error: false };
       this.refundAddress = { val: "", error: false };
-
+      this.destinationTag = "no";
+      this.destinationTagValue = "";
       // this.recipientAddress.error = false;
 
       if (
@@ -1213,16 +1214,8 @@ export default {
       this.destinationTagValue = "";
     },
     fixedCreateTxnValidation() {
-      console.log(
-        "button",
-        this.sendAmount > Number(this.pairsMinMax.minAmountFixed),
-        this.sendAmount < Number(this.pairsMinMax.maxAmountFixed)
-      );
-      console.log(
-        "cursor validsation",
-        this.sendAmount > Number(this.pairsMinMax.minAmountFixed),
-        this.sendAmount < Number(this.pairsMinMax.maxAmountFixed)
-      );
+      // console.log('button',this.sendAmount > Number(this.pairsMinMax.minAmountFixed) , this.sendAmount < Number(this.pairsMinMax.maxAmountFixed),  )
+      // console.log('cursor validsation',this.sendAmount > Number(this.pairsMinMax.minAmountFixed) , this.sendAmount < Number(this.pairsMinMax.maxAmountFixed))
       let previousTxnCreatedTime = localStorage.getItem("createdFixedTxnTime");
       if (!previousTxnCreatedTime) {
         return false;
@@ -1263,13 +1256,21 @@ export default {
       } else {
         receiveFund = this.fixedExchangeRate.amountTo;
       }
+      let destiniTag;
+      if (this.destinationTag === "yes") {
+        destiniTag = this.destinationTagValue;
+      } else {
+        destiniTag = true;
+      }
 
       return (
         this.sendAmount > 0 &&
         this.agree === "yes" &&
         receiveFund > 0 &&
+        this.recipientAddress.val &&
         this.isValidRecipientAddress.result &&
-        fixed_validation
+        fixed_validation &&
+        destiniTag
       );
     },
     openExternalLink(url) {
@@ -1423,6 +1424,10 @@ export default {
         amountFrom: this.sendAmount,
         walletAddress: this.info.address
       };
+      if (this.destinationTag === "yes") {
+        data.extraId = this.destinationTagValue;
+      }
+      console.log("create_transaction", data);
       this.$gateway.send("swap", "create_transaction", data);
       this.swaploading = true;
       this.navigation("settlement", 3);
@@ -1443,6 +1448,10 @@ export default {
         refundAddress: this.refundAddress.val,
         walletAddress: this.info.address
       };
+      if (this.destinationTag === "yes") {
+        data.extraId = this.destinationTagValue;
+      }
+      console.log("create_fixed_transaction", data);
       this.$gateway.send("swap", "create_fixed_transaction", data);
       this.swaploading = true;
       this.navigation("settlement", 3);

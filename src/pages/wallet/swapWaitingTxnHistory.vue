@@ -187,7 +187,7 @@
               <span class="uppercase"
                 >1
                 {{ txnDetails.currencyFrom }}
-                ~ {{ Number(txnDetails.result).toFixed(8) }}
+                = {{ Number(txnDetails.result).toFixed(8) }}
                 {{ txnDetails.currencyTo }}</span
               ><br />
               <span class="fixed-rate-hint">{{
@@ -223,7 +223,7 @@
               {{ txnDetails.currencyTo ? txnDetails.currencyTo : "" }}
             </td>
             <td v-else class="uppercase">
-              ~ {{ txnDetails.amountExpectedTo }}
+              = {{ txnDetails.amountExpectedTo }}
               {{ txnDetails.currencyTo ? txnDetails.currencyTo : "" }}
             </td>
           </tr>

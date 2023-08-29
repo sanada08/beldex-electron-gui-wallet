@@ -228,7 +228,7 @@
               {{ this.$t("titles.swap.exchangeRate") }}
             </div>
             <div class="ft-semibold content q-mb-sm break-all uppercase">
-              1 {{ statusDetails.currencyFrom }} ~
+              1 {{ statusDetails.currencyFrom }} =
               {{
                 Number(statusDetails.rate).toFixed(8) +
                   " " +
@@ -243,7 +243,6 @@
               {{ this.$t("titles.swap.youGet") }}
             </div>
             <div class="content uppercase">
-              ~
               {{
                 statusDetails.amountExpectedTo + " " + statusDetails.currencyTo
               }}

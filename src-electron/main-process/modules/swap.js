@@ -221,9 +221,16 @@ export class Swap {
     // amountFrom: "0.1",
     // rateId: "xnsnh0&jcqJG4awmG8La0y5pLGIpIQ",
     // refundAddress: "bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh"
-
+    let walletAddress = params.walletAddress;
+    delete params["walletAddress"];
     let data = await this.sendRPC("createFixTransaction", params);
-    console.log("createFixTransaction data::", data);
+    console.log("walletAddress ::", data.result.id, walletAddress);
+
+    console.log("createFixTransaction data::", data, data.result.id);
+    await this.swapTxnHistory.updateTransactionDetails(
+      data.result.id,
+      walletAddress
+    );
     this.sendGateway("set_createdTxnDetails", data);
     // return this.sendRPC("createFixTransaction", params);
   }

@@ -1,8 +1,8 @@
 <template>
   <div v-if="isVisible" class="swapTxnHistory">
-    <q-inner-loading :showing="this.txnHistory.length > 0 ? false : true">
+    <!-- <q-inner-loading :showing="this.txnHistory.length > 0 ? false : true">
       <q-spinner color="primary" size="30" />
-    </q-inner-loading>
+    </q-inner-loading> -->
     <!-- <q-header>
     <q-toolbar top>-->
     <header class="flex row items-center q-mb-md justify-between">
@@ -24,7 +24,12 @@
         </div>
       </div>
 
-      <q-btn color="primary" class="downloadCsv-btn" @click="downloadCsv">
+      <q-btn
+        v-if="this.txnHistory.length > 0"
+        color="primary"
+        class="downloadCsv-btn"
+        @click="downloadCsv"
+      >
         <svg
           width="18"
           height="16"
@@ -49,7 +54,25 @@
       </q-btn>
     </header>
 
-    <section class="q-mt-lg">
+    <div v-if="this.txnHistory.length === 0">
+      <template>
+        <section
+          class="flex column justify-center items-center"
+          style="height: 39vh"
+        >
+          <div>
+            <img src="../../assets/images/No_transaction.svg" height="119px" />
+          </div>
+          <p class="q-pb-md q-pt-sm q-mb-none qtab-desc ft-semibold infoTxt">
+            {{ $t("strings.noTransactionsFound") }}
+          </p>
+
+          <div class="hint-txt">After your first transaction,</div>
+          <div class="hint-txt">you will be able to view it here.</div>
+        </section>
+      </template>
+    </div>
+    <section v-else class="q-mt-lg">
       <table style="width: 100%" class="txn-details-wrapper">
         <tr>
           <th>{{ this.$t("titles.swap.status") }}</th>

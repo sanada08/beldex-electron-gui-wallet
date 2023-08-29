@@ -121,7 +121,7 @@
           </div>
         </div>
       </article>
-      <article
+      <!-- <article
         v-if="createdTxnDetails.type == 'fixed'"
         class="recipt-address-wrapper"
       >
@@ -157,7 +157,7 @@
             />
           </div>
         </div>
-      </article>
+      </article> -->
       <article class="warning-wrapper q-mt-md">
         <q-icon name="o_info" size="14px" />
         <span class="q-ml-sm warn-txt"
@@ -202,7 +202,7 @@
               <span class="uppercase"
                 >1
                 {{ fixedRate.from }}
-                ~ {{ Number(fixedRate.result).toFixed(8) }}
+                = {{ Number(fixedRate.result).toFixed(8) }}
                 {{ fixedRate.to }}</span
               ><br />
               <span class="fixed-rate-hint">{{
@@ -238,7 +238,7 @@
               {{ floatingRate.to ? floatingRate.to : "" }}
             </td>
             <td v-else class="uppercase">
-              ~ {{ fixedRate.amountTo }}
+              {{ fixedRate.amountTo }}
               {{ fixedRate.to }}
             </td>
           </tr>

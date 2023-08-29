@@ -27,42 +27,53 @@ export class SwapTxnHistory {
   async updateTransactionDetails(txn_id, address) {
     try {
       const filePath = path.join(__dirname, "swap_transaction_history.json");
-      const data = fs.readFileSync(filePath);
-      let jsonData = JSON.parse(data);
       let tx_id = [`${txn_id}`];
-      if (_.isEmpty(jsonData)) {
-        jsonData = { [`${address}`]: tx_id };
-        const jsonString = JSON.stringify(jsonData);
-        fs.writeFileSync(filePath, jsonString, "utf-8", err => {
-          if (err) throw err;
-          console.log("Data added to file");
-        });
-        return;
-      } else {
-        if (_.has(jsonData, address)) {
-          let data = jsonData[`${address}`];
-          let checkAlreadyExits = data.find(function(element) {
-            return element == tx_id[0];
+      fs.readFile(filePath, "utf8", function readFileCallback(err, data) {
+        if (err) {
+          tx_id = [`${txn_id}`];
+          let data = { [`${address}`]: tx_id };
+          const jsonString = JSON.stringify(data);
+          fs.writeFile(filePath, jsonString, "utf8", err => {
+            console.log("er:", err);
           });
-          if (!checkAlreadyExits) {
-            data.push(`${tx_id}`);
+        } else {
+          let jsonData = JSON.parse(data);
+          tx_id = [`${txn_id}`];
+          if (_.isEmpty(jsonData)) {
+            jsonData = { [`${address}`]: tx_id };
             const jsonString = JSON.stringify(jsonData);
             fs.writeFileSync(filePath, jsonString, "utf-8", err => {
               if (err) throw err;
               console.log("Data added to file");
             });
+            return;
+          } else {
+            if (_.has(jsonData, address)) {
+              let data = jsonData[`${address}`];
+              let checkAlreadyExits = data.find(function(element) {
+                return element == tx_id[0];
+              });
+              if (!checkAlreadyExits) {
+                data.push(`${tx_id}`);
+                const jsonString = JSON.stringify(jsonData);
+                fs.writeFileSync(filePath, jsonString, "utf-8", err => {
+                  if (err) throw err;
+                  console.log("Data added to file");
+                });
+              }
+              return;
+            } else {
+              jsonData[`${address}`] = tx_id;
+              const jsonString = JSON.stringify(jsonData);
+              fs.writeFileSync(filePath, jsonString, "utf-8", err => {
+                if (err) throw err;
+                console.log("Data added to file");
+              });
+              return;
+            }
           }
-          return;
-        } else {
-          jsonData[`${address}`] = tx_id;
-          const jsonString = JSON.stringify(jsonData);
-          fs.writeFileSync(filePath, jsonString, "utf-8", err => {
-            if (err) throw err;
-            console.log("Data added to file");
-          });
-          return;
         }
-      }
+      });
     } catch (error) {
       console.error(error);
       throw error;
