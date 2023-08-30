@@ -1066,6 +1066,8 @@ export default {
       }
     },
     sendAmountValidator() {
+      this.refundAddress = { val: "", error: false };
+
       if (
         this.sendAmounType.value === "bdx" &&
         this.receiveAmountType.value === "bdx"
@@ -1251,9 +1253,12 @@ export default {
       }
 
       let receiveFund = "";
+      let refundAdd = "";
       if (this.exechangeRateType === "float") {
         receiveFund = this.exchange_amount.amountTo;
+        refundAdd = true;
       } else {
+        refundAdd = this.refundAddress.val;
         receiveFund = this.fixedExchangeRate.amountTo;
       }
       let destiniTag;
@@ -1267,6 +1272,7 @@ export default {
         this.sendAmount > 0 &&
         this.agree === "yes" &&
         receiveFund > 0 &&
+        refundAdd &&
         this.recipientAddress.val &&
         this.isValidRecipientAddress.result &&
         fixed_validation &&

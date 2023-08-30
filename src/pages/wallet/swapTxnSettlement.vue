@@ -36,13 +36,15 @@
         </div>
         <div class="col-6 timer-wrapper">
           <div class="pad-wrap">
-            <div v-if="!this.timeIsExpire" class="label uppercase">
+            <div v-if="!this.timeIsExpire" class="label ">
               {{ this.$t("titles.swap.timeLeft") }}
-              {{
-                createdTxnDetails.amountExpectedFrom +
-                  " " +
-                  createdTxnDetails.currencyFrom
-              }}
+              <span class="uppercase">
+                {{
+                  createdTxnDetails.amountExpectedFrom +
+                    " " +
+                    createdTxnDetails.currencyFrom
+                }}
+              </span>
             </div>
 
             <div class="flex items-center">
@@ -161,9 +163,8 @@
       <article class="warning-wrapper q-mt-md">
         <q-icon name="o_info" size="14px" />
         <span class="q-ml-sm warn-txt"
-          >{{ this.$t("titles.swap.blockchain") }}
-          {{ this.$t("titles.swap.once") }}.</span
-        >
+          >{{ this.$t("titles.swap.sendFundsAboveAddress") }}.
+        </span>
       </article>
 
       <article style="width: 48%">
