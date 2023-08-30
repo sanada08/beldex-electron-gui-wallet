@@ -255,6 +255,7 @@
     v-else
     :txn-details="this.txnDetails"
     @goback="isVisible = true"
+    @backToSwap="backToSwap"
   />
 </template>
 

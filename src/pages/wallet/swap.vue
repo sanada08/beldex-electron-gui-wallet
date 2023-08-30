@@ -612,31 +612,6 @@
         />
         <q-spinner v-if="this.recipientLoader" color="primary" size="2em" />
       </OxenField>
-      <article v-if="this.exechangeRateType === 'fixed'">
-        <OxenField
-          class="q-mt-md ft-regular address-wrapper"
-          label="Refund wallet Address"
-          :error="this.refundAddress.error"
-          error-label="Please enter valid address"
-        >
-          <div class="q-pr-sm">
-            <span class="proto ft-semibold">{{
-              this.sendAmounType.protocol
-            }}</span>
-          </div>
-          <q-input
-            :value="refundAddress.val"
-            borderless
-            dense
-            :placeholder="
-              `Enter your ${this.sendAmounType.name} recipient address`
-            "
-            @input="val => this.refundAddressValidator(val)"
-          />
-          <q-spinner v-if="this.refundLoader" color="primary" size="2em" />
-        </OxenField>
-      </article>
-
       <div
         v-if="
           // this.exechangeRateType === 'float' &&
@@ -670,6 +645,67 @@
         v-model="destinationTagValue"
         class="box-input"
         :placeholder="`Enter ${this.receiveAmountType.extraIdName}`"
+        borderless
+        dense
+      />
+      <article v-if="this.exechangeRateType === 'fixed'">
+        <OxenField
+          class="q-mt-md ft-regular address-wrapper"
+          label="Refund wallet Address"
+          :error="this.refundAddress.error"
+          error-label="Please enter valid address"
+        >
+          <div class="q-pr-sm">
+            <span class="proto ft-semibold">{{
+              this.sendAmounType.protocol
+            }}</span>
+          </div>
+          <q-input
+            :value="refundAddress.val"
+            borderless
+            dense
+            :placeholder="
+              `Enter your ${this.sendAmounType.name} recipient address`
+            "
+            @input="val => this.refundAddressValidator(val)"
+          />
+          <q-spinner v-if="this.refundLoader" color="primary" size="2em" />
+        </OxenField>
+      </article>
+
+      <div
+        v-if="
+          this.exechangeRateType === 'fixed' &&
+            this.sendAmounType.hasOwnProperty('extraIdName')
+        "
+        class="destination-tag-wrapper q-mt-md"
+      >
+        <span class="ft-Light hint">
+          Please specify the {{ this.sendAmounType.extraIdName }} for your
+          <span class="uppercase">{{ this.sendAmounType.value }}</span>
+          receiving address if your wallet provides it. Your transaction will
+          not go through if you omit it. If your wallet doesn’t require a
+          {{ this.sendAmounType.extraIdName }}, remove the tick.
+        </span>
+        <br />
+        <q-checkbox
+          v-model="destinationTag"
+          color="secondary"
+          true-value="yes"
+          false-value="no"
+          size="xs"
+        ></q-checkbox>
+        <span
+          >{{ this.$t("titles.swap.myWalletRequire") }}
+          {{ this.sendAmounType.extraIdName }}</span
+        >
+      </div>
+
+      <q-input
+        v-if="refundDestinationTag === 'yes'"
+        v-model="refundDestinationTagValue"
+        class="box-input"
+        :placeholder="`Enter ${this.sendAmounType.extraIdName}`"
         borderless
         dense
       />
@@ -734,7 +770,8 @@
       @clearAllintervals="clearAllintervals"
       @goback="
         () => {
-          navigation('mainPage', 1), clearState();
+          navigation('mainPage', 1);
+          clearState();
         }
       "
     />
@@ -749,7 +786,8 @@
       @openHistory="navigation('txnHistory', 1)"
       @newTxn="
         () => {
-          navigation('mainPage', 1), clearState();
+          navigation('mainPage', 1);
+          clearState();
         }
       "
     />
@@ -981,7 +1019,10 @@ export default {
       getAmount: "",
       agree: "no",
       destinationTag: "no",
+
       destinationTagValue: "",
+      refundDestinationTag: "no",
+      refundDestinationTagValue: "",
       refundAddress: { error: false, val: "" },
       routes: "mainPage",
       // routes: "",
@@ -1067,6 +1108,8 @@ export default {
     },
     sendAmountValidator() {
       this.refundAddress = { val: "", error: false };
+      this.refundDestinationTag = "no";
+      this.refundDestinationTagValue = "";
 
       if (
         this.sendAmounType.value === "bdx" &&
@@ -1148,6 +1191,8 @@ export default {
       ];
       // this.recipientAddress.val = '';
       // this.recipientAddress.error = false;
+      this.destinationTagValue = "";
+      this.refundDestinationTagValue = "";
       this.recipientAddress = { val: "", error: false };
       this.refundAddress = { val: "", error: false };
 
@@ -1210,10 +1255,21 @@ export default {
     },
     clearState() {
       this.recipientAddress = { val: "", error: false };
-      this.refundAdderss = { val: "", error: false };
+      this.refundAddress.val = "";
       this.agree = "no";
       this.sendAmount = 0.01;
+      this.destinationTag = "no";
       this.destinationTagValue = "";
+      this.refundDestinationTag = "no";
+      this.refundDestinationTagValue = "";
+      this.$store.commit("gateway/set_createdTxnDetails", {});
+      clearInterval(this.refreshTxnStatus);
+      console.log("cleaar all state");
+      this.minMaxPair();
+      // if (this.exechangeRateType === "float") {
+      this.clearAllintervals();
+      this.getExchangeRate();
+      this.validateFixedIsEnabled();
     },
     fixedCreateTxnValidation() {
       // console.log('button',this.sendAmount > Number(this.pairsMinMax.minAmountFixed) , this.sendAmount < Number(this.pairsMinMax.maxAmountFixed),  )
@@ -1262,10 +1318,16 @@ export default {
         receiveFund = this.fixedExchangeRate.amountTo;
       }
       let destiniTag;
-      if (this.destinationTag === "yes") {
+      if (this.refundDestinationTag === "yes") {
         destiniTag = this.destinationTagValue;
       } else {
         destiniTag = true;
+      }
+      let refundDestiniTag;
+      if (this.destinationTag === "yes") {
+        refundDestiniTag = this.refundDestinationTagValue;
+      } else {
+        refundDestiniTag = true;
       }
 
       return (
@@ -1276,7 +1338,8 @@ export default {
         this.recipientAddress.val &&
         this.isValidRecipientAddress.result &&
         fixed_validation &&
-        destiniTag
+        destiniTag &&
+        refundDestiniTag
       );
     },
     openExternalLink(url) {

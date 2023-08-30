@@ -32,7 +32,7 @@
           <div class="label q-mt-lg">{{ this.$t("fieldLabels.amount") }}</div>
           <div class="amount ft-semibold uppercase">
             {{ txnDetails.amountExpectedFrom + " " + txnDetails.currencyFrom }}
-            <q-btn icon="edit" color="accent" class="edit-btn" />
+            <!-- <q-btn icon="edit" color="accent" class="edit-btn" /> -->
           </div>
         </div>
         <div class="col-6 timer-wrapper">
@@ -116,7 +116,7 @@
           </div>
         </div>
       </article>
-      <article v-if="txnDetails.type == 'fixed'" class="recipt-address-wrapper">
+      <!-- <article v-if="txnDetails.type == 'fixed'" class="recipt-address-wrapper">
         <div class="label">{{ this.$t("titles.swap.refundAddress") }}</div>
         <div class="flex row justify-between q-mt-sm">
           <div>
@@ -147,7 +147,7 @@
             />
           </div>
         </div>
-      </article>
+      </article> -->
       <article class="warning-wrapper q-mt-md">
         <q-icon name="o_info" size="14px" />
         <span class="q-ml-sm warn-txt"
@@ -187,7 +187,7 @@
               <span class="uppercase"
                 >1
                 {{ txnDetails.currencyFrom }}
-                = {{ Number(txnDetails.result).toFixed(8) }}
+                = {{ Number(txnDetails.amountExpectedTo).toFixed(8) }}
                 {{ txnDetails.currencyTo }}</span
               ><br />
               <span class="fixed-rate-hint">{{
@@ -301,7 +301,7 @@ export default {
   },
   mounted() {
     this.startAndStopTimer();
-    // console.log("SwapTxnSettlement ::",);
+    console.log("SwapTxnSettlement ::", this.txnDetails);
     this.set_chainDetails();
   },
 
@@ -323,8 +323,8 @@ export default {
         today = new Date(this.txnDetails.createdAt / 1000);
         addTime = today.setHours(today.getHours() + 3);
       } else {
-        today = new Date(this.txnDetails.payTill);
-        addTime = today.setHours(today.getHours());
+        today = new Date(this.txnDetails.createdAt / 1000);
+        addTime = today.setMinutes(today.getMinutes() + 20);
       }
       var countDownDate = new Date(addTime).getTime();
 
@@ -348,7 +348,7 @@ export default {
         // If the count down is over, write some text
         if (distance < 0) {
           // document.getElementById("timer").innerHTML = "00:00:00";
-          this.clock = "00:00:00";
+          this.clock = "Expired";
           this.timeIsExpire = true;
           this.clearintervals();
         }

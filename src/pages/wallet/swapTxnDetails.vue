@@ -97,6 +97,7 @@
         label="Start Over"
         icon="refresh"
         class="start-over-btn"
+        @click="() => this.$emit('backToSwap')"
       />
     </div>
 
@@ -117,6 +118,10 @@ export default {
     },
     txnDetails: {
       type: Object,
+      require: true
+    },
+    backToSwap: {
+      type: Function,
       require: true
     }
   },
