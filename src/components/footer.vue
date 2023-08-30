@@ -7,9 +7,9 @@
     <div class="status-line row items-center">
       <div class="status row items-center">
         <span class="ft-medium">{{ $t("footer.status") }}:</span>
-        <span class="status-text ft-semibold" :class="[status]">
-          {{ $t(`footer.${status}`) }}
-        </span>
+        <span class="status-text ft-semibold" :class="[status]">{{
+          $t(`footer.${status}`)
+        }}</span>
       </div>
       <div class="row ft-medium">
         <template v-if="config_daemon.type !== 'remote'">
@@ -76,27 +76,19 @@ export default {
     },
     wallet_pct() {
       let pct;
-      console.log(
-        "this.config_daemon.type:",
-        this.config_daemon.type,
-        100 * this.wallet.info.height,
-        this.target_height,
-        this.wallet.info.height
-      );
       if (this.config_daemon.type == "local_remote") {
         if (this.wallet.info.height == this.target_height) {
           pct = ((100 * this.wallet.info.height) / this.target_height).toFixed(
             1
           );
         } else {
-          pct = ((100 * this.target_height) / this.wallet.info.height6).toFixed(
+          pct = ((100 * this.target_height) / this.wallet.info.height).toFixed(
             1
           );
         }
       } else {
         pct = ((100 * this.wallet.info.height) / this.target_height).toFixed(1);
       }
-      console.log("pctt:", pct);
       if (pct == 100.0 && this.wallet.info.height < this.target_height)
         return 99.9;
       else return pct;

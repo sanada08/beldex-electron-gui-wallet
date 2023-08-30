@@ -749,7 +749,6 @@ export default {
       newTransaction: "You can initiate a new transaction.",
       checkStatus:
         "You can always check the status of this transaction in transaction",
-      // history:"history",
       transactionPreview: "Transaction Preview",
       transactionID: "Transaction ID",
       changellyAddress: "Changelly address",
@@ -773,7 +772,7 @@ export default {
       sendFundsAboveAddress:
         "Please note that you can send funds to the address above only",
       once: "once",
-      swapMaintenance: "Swap is temporarily undermaintenance",
+      swapMaintenance: "Swap is temporarily under maintenance",
       tryAgainSomeTimes: "Please try again after some times",
       afterYourFirstTxn: "After your first transaction",
       youWillBeViewHere: "you will be able to view it here"
