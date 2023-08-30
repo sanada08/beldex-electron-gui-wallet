@@ -104,7 +104,7 @@
           </div>
           <div>
             <q-btn
-              label="Copy Address"
+              :label="$t('buttons.copyAddress')"
               color="primary"
               class="copy-adress-btn q-mr-xs"
               @click="

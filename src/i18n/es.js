@@ -565,6 +565,7 @@ export default {
     chooseLanguage: "Elige lengua",
     yourWallets: "Sus Monederos",
     swap: {
+      swap: "Intercambio",
       exchange: "Intercambio",
       history: "Historia",
       unsupportedpair: "Par de intercambio no admitido",
@@ -647,7 +648,17 @@ export default {
       tryAgainSomeTimes:
         "Por favor, inténtalo de nuevo después de algunas veces.",
       afterYourFirstTxn: "Después de su primera transacción",
-      youWillBeViewHere: "Lo podrás ver aquí"
+      youWillBeViewHere: "Lo podrás ver aquí",
+      openHistory: "Historia Abierta",
+      newTransactionBtn: "Nueva transacción",
+      exchangePair: "Par de intercambio",
+      exchangePairDisc: "Establecer el par de intercambio preferido",
+      walletAddressDisc:
+        "Complete los detalles de la dirección de la billetera criptográfica",
+      payment: "Pago",
+      paymentDisc: "Deposite el monto requerido para el cambio.",
+      exchangeDisc: "Espere a que se complete su transacción",
+      paymentConfirm: "Confirm & Make payment"
     }
   }
 };

@@ -162,7 +162,7 @@
     >
       <q-btn
         color="primary"
-        label="Confirm & Make payment"
+        :label="$t('titles.swap.paymentConfirm')"
         @click="this.makePayment"
       />
     </div>

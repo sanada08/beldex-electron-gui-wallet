@@ -34,7 +34,7 @@
         <article style="width: 49%">
           <OxenField
             class="q-mt-md ft-regular"
-            label="You send"
+            :label="$t('titles.swap.youSend')"
             :error="$v.sendAmount.$error"
           >
             <q-input
@@ -238,7 +238,7 @@
             </q-btn>
           </div>
 
-          <OxenField class="ft-regular" label="You get">
+          <OxenField class="ft-regular" :label="$t('titles.swap.youGet')">
             <q-input
               v-if="this.exechangeRateType === 'float'"
               v-model="this.exchange_amount.amountTo"
@@ -591,7 +591,7 @@
 
       <OxenField
         class="q-mt-md ft-regular address-wrapper"
-        label="Recipient Address"
+        :label="$t('fieldLabels.recipientAddress')"
         :error="this.recipientAddress.error"
         error-label="Invalid Address"
       >

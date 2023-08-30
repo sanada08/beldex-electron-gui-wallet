@@ -559,6 +559,7 @@ export default {
     chooseLanguage: "Escolha o seu idioma",
     yourWallets: "Suas carteiras",
     swap: {
+      swap: "Trocar",
       exchange: "Intercâmbio",
       history: "História",
       unsupportedpair: "Par de exchanges não suportado",
@@ -640,7 +641,17 @@ export default {
       swapMaintenance: "Swap está temporariamente em manutenção",
       tryAgainSomeTimes: "Por favor, tente novamente depois de alguns momentos",
       afterYourFirstTxn: "Após sua primeira transação",
-      youWillBeViewHere: "você poderá vê-lo aqui"
+      youWillBeViewHere: "você poderá vê-lo aqui",
+      openHistory: "Abrir histórico",
+      newTransactionBtn: "Nova transação",
+      exchangePair: "Par de troca",
+      exchangePairDisc: "Defina o par de exchange preferido",
+      walletAddressDisc:
+        "Preencha os detalhes do endereço da carteira criptografada",
+      payment: "Pagamento",
+      paymentDisc: "Deposite o valor necessário para a troca",
+      exchangeDisc: "Aguarde até que sua transação seja concluída",
+      paymentConfirm: "Confirmar y realizar el pago"
     }
   }
 };

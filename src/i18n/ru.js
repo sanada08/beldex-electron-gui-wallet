@@ -558,6 +558,7 @@ export default {
     chooseLanguage: "Выберите язык",
     yourWallets: "Ваши Кошельки",
     swap: {
+      swap: "Менять",
       exchange: "Обмен",
       history: "История",
       unsupportedpair: "Неподдерживаемая обменная пара",
@@ -639,7 +640,16 @@ export default {
       swapMaintenance: "Своп временно находится на обслуживании",
       tryAgainSomeTimes: "Пожалуйста, повторите попытку через несколько раз",
       afterYourFirstTxn: "После вашей первой транзакции",
-      youWillBeViewHere: "вы сможете просмотреть это здесь"
+      youWillBeViewHere: "вы сможете просмотреть это здесь",
+      openHistory: "Открыть историю",
+      newTransactionBtn: "Новая транзакция",
+      exchangePair: "Биржевая пара",
+      exchangePairDisc: "Установите предпочтительную обменную пару",
+      walletAddressDisc: "Заполните данные адреса криптокошелька",
+      payment: "Оплата",
+      paymentDisc: "Внесите необходимую для обмена сумму",
+      exchangeDisc: "Дождитесь завершения транзакции",
+      paymentConfirm: "Подтвердите и произведите оплату"
     }
   }
 };

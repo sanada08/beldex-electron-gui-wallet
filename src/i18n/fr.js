@@ -567,6 +567,7 @@ export default {
     chooseLanguage: "Choisissez la langue",
     yourWallets: "Vos portefeuilles",
     swap: {
+      swap: "Échanger",
       exchange: "Échange",
       history: "Histoire",
       unsupportedpair: "Paire d'échange non prise en charge",
@@ -649,7 +650,17 @@ export default {
       swapMaintenance: "Le swap est temporairement en maintenance",
       tryAgainSomeTimes: "Veuillez réessayer après quelques temps",
       afterYourFirstTxn: "Après votre première transaction",
-      youWillBeViewHere: "vous pourrez le voir ici"
+      youWillBeViewHere: "vous pourrez le voir ici",
+      openHistory: "Ouvrir l'historique",
+      newTransactionBtn: "Nouvelle opération",
+      exchangePair: "Paire d'échange",
+      exchangePairDisc: "Définir la paire d'échange préférée",
+      walletAddressDisc:
+        "Remplissez les détails de l'adresse du portefeuille crypto",
+      payment: "Paiement",
+      paymentDisc: "Déposez le montant requis pour l’échange",
+      exchangeDisc: "Attendez que votre transaction soit terminée",
+      paymentConfirm: "Confirmer et effectuer le paiement"
     }
   }
 };

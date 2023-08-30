@@ -199,13 +199,13 @@
         </div>
         <div v-if="this.from !== 'history'" class="flex justify-center q-mt-md">
           <q-btn
-            label="Open History"
+            :label="$t('titles.swap.openHistory')"
             color="accent"
             class="q-mr-md action-btn"
             @click="() => this.$emit('openHistory')"
           />
           <q-btn
-            label="New Transaction"
+            :label="$t('titles.swap.newTransactionBtn')"
             color="primary"
             icon="refresh"
             class="action-btn"

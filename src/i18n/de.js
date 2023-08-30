@@ -567,6 +567,7 @@ export default {
     chooseLanguage: "Sprache wählen",
     yourWallets: "Deine Wallets",
     swap: {
+      swap: "Tauschen",
       exchange: "Austausch",
       history: "Geschichte",
       unsupportedpair: "Nicht unterstütztes Austauschpaar",
@@ -647,7 +648,16 @@ export default {
       swapMaintenance: "Swap wird vorübergehend gewartet",
       tryAgainSomeTimes: "Bitte versuchen Sie es nach einiger Zeit noch einmal",
       afterYourFirstTxn: "Nach Ihrer ersten Transaktion",
-      youWillBeViewHere: "Sie können es hier ansehen"
+      youWillBeViewHere: "Sie können es hier ansehen",
+      openHistory: "Öffnen Sie den Verlauf",
+      newTransactionBtn: "Neue Transaktion",
+      exchangePair: "Tauschpaar",
+      exchangePairDisc: "Legen Sie das bevorzugte Börsenpaar fest",
+      walletAddressDisc: "Geben Sie die Adressdaten der Krypto-Wallet ein",
+      payment: "Zahlung",
+      paymentDisc: "Zahlen Sie den für den Umtausch erforderlichen Betrag ein",
+      exchangeDisc: "Warten Sie, bis Ihre Transaktion abgeschlossen ist",
+      paymentConfirm: "Bestätigen und Zahlung durchführen"
     }
   }
 };
