@@ -3,6 +3,7 @@
 const fs = require("fs");
 const _ = require("lodash");
 const path = require("upath");
+const os = require("os");
 
 export class SwapTxnHistory {
   constructor(backend) {
@@ -12,7 +13,13 @@ export class SwapTxnHistory {
   // let address = 'addr';
   async getOrderHistory(address) {
     try {
-      const filePath = path.join(__dirname, "swap_transaction_history.json");
+      let fileDir;
+      if (os.platform() === "win32") {
+        fileDir = `${os.homedir()}\\Documents\\Beldex`;
+      } else {
+        fileDir = path.join(os.homedir(), "Beldex");
+      }
+      const filePath = path.join(fileDir, "swap_transaction_history.json");
       const data = fs.readFileSync(filePath);
       let jsonData = JSON.parse(data);
       let transaction_id = jsonData[`${address}`];
@@ -26,7 +33,13 @@ export class SwapTxnHistory {
   // let address = 'addr';
   async updateTransactionDetails(txn_id, address) {
     try {
-      const filePath = path.join(__dirname, "swap_transaction_history.json");
+      let fileDir;
+      if (os.platform() === "win32") {
+        fileDir = `${os.homedir()}\\Documents\\Beldex`;
+      } else {
+        fileDir = path.join(os.homedir(), "Beldex");
+      }
+      const filePath = path.join(fileDir, "swap_transaction_history.json");
       let tx_id = [`${txn_id}`];
       fs.readFile(filePath, "utf8", function readFileCallback(err, data) {
         if (err) {
