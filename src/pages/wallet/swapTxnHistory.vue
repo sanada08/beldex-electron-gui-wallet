@@ -291,7 +291,7 @@ export default {
   },
   computed: mapState({
     txnHistory: state => {
-      console.log("txnHistory ::", state.gateway.txnHistory);
+      // console.log("txnHistory ::", state.gateway.txnHistory);
       let sortedHistory = state.gateway.txnHistory.sort(function(a, b) {
         // Turn your strings into dates, and then subtract them
         // to get a value that is either negative, positive, or zero.
@@ -376,7 +376,7 @@ export default {
         // id:'eukaew8lktw5nlwn',
         walletAddress: this.info.address
       };
-      console.log("get_transaction_history data", data);
+      // console.log("get_transaction_history data", data);
       // let count = 1;
       // this.refreshTxnHistory = setInterval(() => {
       //   console.log("get status ::", count++);

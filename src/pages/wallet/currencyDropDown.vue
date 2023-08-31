@@ -139,12 +139,12 @@ export default {
   methods: {
     set_searchCurrency(val) {
       this.searchTxt = val;
-      console.log("searchCurrency 1", val);
+      // console.log("searchCurrency 1", val);
       this.$emit("searchCurrency", val);
     },
 
     set_amountValidator(val) {
-      console.log("amountValidator", val);
+      // console.log("amountValidator", val);
       this.$emit("sendAmounType", val);
       this.$emit("sendAmountValidator");
       this.state = false;

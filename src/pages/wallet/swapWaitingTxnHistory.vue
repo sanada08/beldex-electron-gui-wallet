@@ -301,7 +301,7 @@ export default {
   },
   mounted() {
     this.startAndStopTimer();
-    console.log("SwapTxnSettlement ::", this.txnDetails);
+    // console.log("SwapTxnSettlement ::", this.txnDetails);
     this.set_chainDetails();
   },
 
@@ -365,7 +365,7 @@ export default {
       let receiveChain = this.currencyList.find(
         item => item.ticker === this.txnDetails.currencyTo
       );
-      console.log("set_chainDetails", sendChain);
+      // console.log("set_chainDetails", sendChain);
       (this.chainDetails.send = sendChain.blockchain),
         (this.chainDetails.receive = receiveChain.blockchain);
     },

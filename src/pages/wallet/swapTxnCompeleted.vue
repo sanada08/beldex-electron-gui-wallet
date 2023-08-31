@@ -280,7 +280,7 @@ export default {
       // console.log("input hash", url);
     },
     outputHash(url) {
-      console.log("outhash", url);
+      // console.log("outhash", url);
       this.$gateway.send("core", "open_url", { url });
     }
   }

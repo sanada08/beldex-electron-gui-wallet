@@ -84,6 +84,28 @@ export class Gateway extends EventEmitter {
 
     const key = restart ? "restart" : "exit";
 
+    if (restart) {
+      Dialog.create({
+        title: i18n.t(`dialog.${key}.title`),
+        message: msg,
+        ok: {
+          label: i18n.t(`dialog.${key}.ok`),
+          color: key !== "exit" ? "primary" : "red"
+        },
+        persistent: true
+      })
+        .onOk(() => {
+          this.closeDialog = false;
+          Loading.hide();
+          this.router.replace({ path: "/quit" });
+          ipcRenderer.send("confirmClose", restart);
+        })
+        .onCancel(() => {
+          // this.closeDialog = false;
+        });
+      return 0;
+    }
+
     Dialog.create({
       title: i18n.t(`dialog.${key}.title`),
       message: msg,

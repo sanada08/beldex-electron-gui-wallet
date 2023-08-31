@@ -88,7 +88,7 @@ export default {
           pct = ((100 * this.wallet.info.height) / this.target_height).toFixed(
             1
           );
-          console.log("pct 0", pct);
+          // console.log("pct 0", pct);
         }
       } else {
         pct = ((100 * this.wallet.info.height) / this.target_height).toFixed(1);

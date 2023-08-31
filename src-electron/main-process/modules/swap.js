@@ -102,10 +102,10 @@ export class Swap {
     //   address,
     //   amountFrom
     // };
-    console.log("params get:", params);
+    // console.log("params get:", params);
     let data = await this.sendRPC("getExchangeAmount", params);
 
-    console.log("getExchangeAmount", data);
+    // console.log("getExchangeAmount", data);
 
     this.sendGateway("set_exchangeAmount", data);
     return;
@@ -120,10 +120,10 @@ export class Swap {
     // from: "btc",
     // to: "eth",
     // amountFrom: "0.1"
-    console.log("params get-fix:", params);
+    // console.log("params get-fix:", params);
 
     let data = await this.sendRPC("getFixRateForAmount", params);
-    console.log("getFixRateForAmount", data);
+    // console.log("getFixRateForAmount", data);
     this.sendGateway("set_fixedExchangeRate", data);
 
     return;
@@ -136,9 +136,9 @@ export class Swap {
     // };
     // from: "btc",
     // to: "eth"
-    console.log("getPairsParams ::", params);
+    // console.log("getPairsParams ::", params);
     let data = await this.sendRPC("getPairsParams", params);
-    console.log("getPairsParams result ::", data);
+    // console.log("getPairsParams result ::", data);
     this.sendGateway("set_pairsMinMax", data);
     // return this.sendRPC("getPairsParams", params);
   }
@@ -155,9 +155,9 @@ export class Swap {
   }
 
   async validateAddress(params) {
-    console.log("validateAddress ::", params);
+    // console.log("validateAddress ::", params);
     let data = await this.sendRPC("validateAddress", params);
-    console.log("validateAddress data ", data);
+    // console.log("validateAddress data ", data);
     this.sendGateway("set_validateAddress", data);
 
     // currency: "eth",
@@ -165,9 +165,9 @@ export class Swap {
     // return this.sendRPC("validateAddress", params);
   }
   async refundAddressValidation(params) {
-    console.log("validateRefundAddress ::", params);
+    // console.log("validateRefundAddress ::", params);
     let data = await this.sendRPC("validateAddress", params);
-    console.log("validateRefundAddress data ", data);
+    // console.log("validateRefundAddress data ", data);
     this.sendGateway("set_refundAddressValidation", data);
 
     // currency: "eth",
@@ -183,14 +183,14 @@ export class Swap {
     //   // "extraId": "<<valid xrp extraId>>",
     //   amountFrom
     // };
-    console.log("createTransaction ::", params);
+    // console.log("createTransaction ::", params);
 
-    console.log("createTransaction 1::", params.walletAddress);
+    // console.log("createTransaction 1::", params.walletAddress);
     let walletAddress = params.walletAddress;
     delete params["walletAddress"];
     let data = await this.sendRPC("createTransaction", params);
 
-    console.log("createTransaction datadata ::", data.result);
+    // console.log("createTransaction datadata ::", data.result);
     await this.swapTxnHistory.updateTransactionDetails(
       data.result.id,
       walletAddress
@@ -224,9 +224,9 @@ export class Swap {
     let walletAddress = params.walletAddress;
     delete params["walletAddress"];
     let data = await this.sendRPC("createFixTransaction", params);
-    console.log("walletAddress ::", data.result.id, walletAddress);
+    // console.log("walletAddress ::", data.result.id, walletAddress);
 
-    console.log("createFixTransaction data::", data, data.result.id);
+    // console.log("createFixTransaction data::", data, data.result.id);
     await this.swapTxnHistory.updateTransactionDetails(
       data.result.id,
       walletAddress
@@ -248,7 +248,7 @@ export class Swap {
     let orderHistory = [];
     let finalorderHistory = [];
     for (let i = 0; i < actualTransactions.length / 10; i++) {
-      console.log(i, i * 10, (i + 1) * 10);
+      // console.log(i, i * 10, (i + 1) * 10);
       let ids = actualTransactions.slice(i * 10, (i + 1) * 10);
       let params = {
         id: ids
@@ -277,7 +277,7 @@ export class Swap {
     // let data = await this.sendRPC("getStatus", params);
     let data = await this.sendRPC("getTransactions", params);
 
-    console.log("getStatus data::", data);
+    // console.log("getStatus data::", data);
     this.sendGateway("set_txnStatus", data);
 
     // return this.sendRPC("getStatus", params);

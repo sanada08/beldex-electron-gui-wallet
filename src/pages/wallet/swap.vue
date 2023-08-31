@@ -403,7 +403,7 @@
           </table>
         </article>
       </section>
-      <section>
+      <!-- <section>
         <article
           v-if="
             this.sendAmounType.hasOwnProperty('notifications')
@@ -571,7 +571,7 @@
             <span class="uppercase">{{ this.sendAmounType.ticker }}</span>
           </div>
         </article>
-      </section>
+      </section> -->
 
       <div class="flex row info-wrapper q-mt-md">
         <div style="width: 4%; padding-top: 5px" class="flex justify-center">
@@ -881,7 +881,7 @@ export default {
           return 0;
         });
         this.filtercurrency = newValue;
-        console.log("currencyList wathcer");
+        // console.log("currencyList wathcer");
         let btcDetails = newValue.find(item => item.name === "BTC");
         let bdxDetails = newValue.find(item => item.name === "BDX");
         this.sendAmounType = btcDetails;
@@ -905,7 +905,7 @@ export default {
 
         filterCoin.unshift(bdxDetails);
         this.privacyCurrency = filterCoin;
-        console.log("this.privacyCurrency ", this.privacyCurrency);
+        // console.log("this.privacyCurrency ", this.privacyCurrency);
         if (bdxDetails.enabled === true) {
           this.bdxCoinDetails = bdxDetails;
           this.receiveAmountType = bdxDetails;
@@ -926,14 +926,14 @@ export default {
 
     createdTxnDetails(newTxn) {
       if (newTxn.result) {
-        console.log("newTxn ", newTxn);
+        // console.log("newTxn ", newTxn);
         this.swaploading = false;
         this.get_transaction_status();
       }
     },
     txnStatus(newStatus) {
       if (newStatus.hasOwnProperty("result")) {
-        console.log("txnStatustxnStatus ", newStatus);
+        // console.log("txnStatustxnStatus ", newStatus);
         if (newStatus.result[0].status === "finished") {
           this.clearAllintervals();
           this.navigation("txnCompleted", 5);
@@ -942,7 +942,7 @@ export default {
           newStatus.result[0].status === "confirming" ||
           newStatus.result[0].status === "exchanging"
         ) {
-          console.log("txnStatustxnStatus 2", newStatus.result[0].status);
+          // console.log("txnStatustxnStatus 2", newStatus.result[0].status);
           this.navigation("swapStatus", 4);
         }
       }
@@ -980,7 +980,7 @@ export default {
       let result = {};
       if (data.hasOwnProperty("result")) {
         result = state.gateway.fixedExchangeRate.result[0];
-        console.log("fixedExchangeRate ::", result);
+        // console.log("fixedExchangeRate ::", result);
       }
       return result;
     },
@@ -994,7 +994,7 @@ export default {
     pairsMinMax: state => {
       let data = state.gateway.pairsMinMax;
       let result = {};
-      console.log("pairsMinMax", state.gateway.pairsMinMax);
+      // console.log("pairsMinMax", state.gateway.pairsMinMax);
       if (data.hasOwnProperty("result")) {
         result = state.gateway.pairsMinMax.result[0];
       }
@@ -1211,7 +1211,7 @@ export default {
       // this.getExchangeRate();
     },
     minMaxAmoutValidator(amount) {
-      console.log("this.pairsMinMax", this.pairsMinMax);
+      // console.log("this.pairsMinMax", this.pairsMinMax);
       if (this.exechangeRateType === "float") {
         if (
           this.pairsMinMax.minAmountFloat &&
@@ -1241,14 +1241,14 @@ export default {
           this.minMaxWarningContent = "";
         }
       }
-      if (
-        this.pairsMinMax.from &&
-        this.pairsMinMax.to &&
-        !this.pairsMinMax.minAmountFloat
-      ) {
-        // this.pairStatusContent='Unsupported exchange pair'
-        console.log("not found the pair");
-      }
+      // if (
+      //   this.pairsMinMax.from &&
+      //   this.pairsMinMax.to &&
+      //   !this.pairsMinMax.minAmountFloat
+      // ) {
+      //   // this.pairStatusContent='Unsupported exchange pair'
+      //   console.log("not found the pair");
+      // }
       // else{
       //   this.pairStatusContent=''
       // }
@@ -1264,7 +1264,7 @@ export default {
       this.refundDestinationTagValue = "";
       this.$store.commit("gateway/set_createdTxnDetails", {});
       clearInterval(this.refreshTxnStatus);
-      console.log("cleaar all state");
+      // console.log("cleaar all state");
       this.minMaxPair();
       // if (this.exechangeRateType === "float") {
       this.clearAllintervals();
@@ -1284,7 +1284,7 @@ export default {
         pdate = pdate.setMinutes(pdate.getMinutes() + 15);
         const currentTime = new Date();
         const sub = pdate > currentTime;
-        console.log("createdFixedTxnTime ::", sub);
+        // console.log("createdFixedTxnTime ::", sub);
 
         return sub;
       } else {
@@ -1292,16 +1292,16 @@ export default {
       }
     },
     disableValidation() {
-      console.log(
-        "this.isValidRecipientAddress ::",
-        this.isValidRecipientAddress
-      );
+      // console.log(
+      //   "this.isValidRecipientAddress ::",
+      //   this.isValidRecipientAddress
+      // );
       let fixed_validation;
       if (this.exechangeRateType === "fixed") {
         // let
         // if(Object.hasOwn(this.isValidRefundAddress, 'result'))
         // {
-        console.log("this.isValidRefundAddress", this.isValidRefundAddress);
+        // console.log("this.isValidRefundAddress", this.isValidRefundAddress);
         fixed_validation = this.isValidRefundAddress.result;
         // }
       } else {
@@ -1343,7 +1343,7 @@ export default {
       );
     },
     openExternalLink(url) {
-      console.log("openExternalLink", url);
+      // console.log("openExternalLink", url);
       this.$gateway.send("core", "open_url", { url });
     },
     getExchangeRate() {
@@ -1356,12 +1356,12 @@ export default {
         to: this.receiveAmountType.value,
         amountFrom: this.sendAmount
       };
-      console.log("getExchangeRate..........");
+      // console.log("getExchangeRate..........");
       // clearInterval(this.refreshFloatExchangeRate);
       this.$gateway.send("swap", "exchange_amount", data);
-      let count = 1;
+      // let count = 1;
       this.refreshFloatExchangeRate = setInterval(() => {
-        console.log("Float ::", count++);
+        // console.log("Float ::", count++);
 
         this.$gateway.send("swap", "exchange_amount", data);
       }, 30000);
@@ -1381,12 +1381,12 @@ export default {
         to: this.receiveAmountType.value,
         amountFrom: this.sendAmount
       };
-      let count = 1;
+      // let count = 1;
       // clearInterval(this.refreshFixedExchangeRate);
 
       this.$gateway.send("swap", "fixed_exchange_amount", data);
       this.refreshFixedExchangeRate = setInterval(() => {
-        console.log("Fixed ::", count++);
+        // console.log("Fixed ::", count++);
         this.$gateway.send("swap", "fixed_exchange_amount", data);
       }, 30000);
     },
@@ -1395,7 +1395,7 @@ export default {
         this.sendAmounType.fixRateEnabled &&
         this.receiveAmountType.fixRateEnabled
       ) {
-        console.log("validateFixedIsEnabled validateFixedIsEnabled");
+        // console.log("validateFixedIsEnabled validateFixedIsEnabled");
         this.getFixedExchangeAmount();
       }
     },
@@ -1496,7 +1496,7 @@ export default {
       if (this.destinationTag === "yes") {
         data.extraId = this.destinationTagValue;
       }
-      console.log("create_transaction", data);
+      // console.log("create_transaction", data);
       this.$gateway.send("swap", "create_transaction", data);
       this.swaploading = true;
       this.navigation("settlement", 3);
@@ -1520,7 +1520,7 @@ export default {
       if (this.destinationTag === "yes") {
         data.extraId = this.destinationTagValue;
       }
-      console.log("create_fixed_transaction", data);
+      // console.log("create_fixed_transaction", data);
       this.$gateway.send("swap", "create_fixed_transaction", data);
       this.swaploading = true;
       this.navigation("settlement", 3);
@@ -1535,10 +1535,10 @@ export default {
       let data = {
         id: this.createdTxnDetails.result.id
       };
-      console.log("get_transaction_status data", data);
-      let count = 1;
+      // console.log("get_transaction_status data", data);
+      // let count = 1;
       this.refreshTxnStatus = setInterval(() => {
-        console.log("get status ::", count++);
+        // console.log("get status ::", count++);
 
         // this.$gateway.send("swap", "transaction_history", data);
 
