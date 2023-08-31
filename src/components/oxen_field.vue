@@ -5,6 +5,18 @@
       <span v-if="optional" class="optional"
         >({{ $t("fieldLabels.optional") }})</span
       >
+      <q-btn
+        v-if="enableStar"
+        v-model="starred"
+        class="q-ml-sm"
+        color="accent"
+        :icon="starred ? 'star' : 'star_border'"
+        @click="updateStarred"
+      >
+        <q-tooltip anchor="bottom right" self="top right" :offset="[0, 5]">
+          {{ starred ? "Remove favourite" : "Add favourite" }}
+        </q-tooltip>
+      </q-btn>
     </div>
     <div class="content row items-center" :class="{ error }">
       <slot></slot>
@@ -48,6 +60,22 @@ export default {
       type: Boolean,
       required: false,
       default: false
+    },
+    enableStar: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    starred: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+
+    updateStarred: {
+      type: Function,
+      required: false,
+      default: undefined
     }
   },
   data() {
@@ -60,9 +88,9 @@ export default {
 .oxen-field {
   .label {
     margin: 6px 0;
-    font-weight: bold;
-    font-size: 12px;
-
+    // font-weight: bold;
+    font-size: 16px;
+    // font-family: "Poppins-Medium";
     // Disable text selection
     -webkit-user-select: none;
     user-select: none;
@@ -72,7 +100,19 @@ export default {
       font-weight: 400;
       margin-left: 4px;
     }
+
+    .q-btn {
+      font-size: 11px;
+      min-width: unset !important;
+      width: 32px;
+      height: 30px;
+      border-radius: 7px;
+      .q-icon {
+        color: #2879fb;
+      }
+    }
   }
+
   .content {
     border-radius: 3px;
     padding: 6px 8px;

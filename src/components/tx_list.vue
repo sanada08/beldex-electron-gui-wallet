@@ -1,12 +1,25 @@
 <template>
   <div class="tx-list">
     <template v-if="tx_list_paged.length === 0">
-      <p class="q-pa-md q-mb-none tab-desc">
-        {{ $t("strings.noTransactionsFound") }}
-      </p>
+      <section
+        class="flex column justify-center items-center"
+        style="height: 39vh"
+      >
+        <div>
+          <img src="../assets/images/No_transaction.svg" height="119px" />
+        </div>
+        <p class="q-pb-md q-pt-sm q-mb-none qtab-desc ft-semibold infoTxt">
+          {{ $t("strings.noTransactionsFound") }}
+        </p>
+
+        <div class="hint-txt">After your first transaction,</div>
+        <div class="hint-txt">you will be able to view it here.</div>
+      </section>
     </template>
 
     <template v-else>
+      <!-- <section v-if="true"> -->
+
       <q-infinite-scroll ref="scroller" @load="loadMore">
         <q-list
           link
@@ -21,38 +34,80 @@
             :class="'tx-' + tx.type"
             @click.native="details(tx)"
           >
-            <q-item-section class="type">
-              <div>{{ tx.type | typeToString }}</div>
+            <q-item-section class="type flex items-center">
+              <div>
+                <!-- <img
+                  :src="txnTypeIndicate(tx.type)"
+                  width="20px"
+                  height="20px"
+                /> -->
+                <TxTypeIcon :type="tx.type" :tooltip="false" />
+              </div>
+              <!-- <div>{{ tx.type | typeToString }}</div> -->
             </q-item-section>
             <q-item-label class="main">
-              <q-item-label class="amount">
+              <q-item-label class="amount ft-semibold">
+                {{ "out" === tx.type ? "-" : "" }}
                 <FormatOxen :amount="tx.amount || 0" />
               </q-item-label>
-              <q-item-label caption>{{ tx.txid }}</q-item-label>
+              <q-item-label class="txn_id ft-Light" caption>
+                {{ tx.txid }}
+              </q-item-label>
             </q-item-label>
             <q-item-section class="meta">
-              <q-item-label>
-                <timeago
+              <q-item-label class="ft-small">
+                {{
+                  `${
+                    monthNames[new Date(tx.timestamp * 1000).getMonth()]
+                  } ${new Date(tx.timestamp * 1000).getDate()},${new Date(
+                    tx.timestamp * 1000
+                  ).getFullYear()}`
+                }}
+                <!-- <timeago
                   :datetime="tx.timestamp * 1000"
                   :auto-update="60"
                   :locale="$i18n.locale"
-                />
+                />-->
               </q-item-label>
-              <q-item-label caption>{{ formatHeight(tx) }}</q-item-label>
+              <q-item-label caption class="blk-height-txt ft-Light">
+                {{ formatHeight(tx) }}
+              </q-item-label>
             </q-item-section>
+
+            <div class="q-ml-lg q-mr-xs flex items-center">
+              <svg
+                width="9"
+                height="13"
+                viewBox="0 0 9 13"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M0.148438 1.87727V11.9944C0.148438 12.7651 0.855307 13.232 1.39581 12.8188L7.99948 7.76076C8.50103 7.37686 8.50103 6.49673 7.99948 6.11283L1.39581 1.05282C0.855307 0.638642 0.148438 1.10655 0.148438 1.87727Z"
+                  fill="#8787A8"
+                />
+              </svg>
+            </div>
+
             <ContextMenu
               :menu-items="menuItems"
               @copyTxId="copyTxId(tx.txid)"
               @showDetails="details(tx)"
               @openExplorer="openExplorer(tx.txid)"
             />
+            <div class="hr-separator" />
           </q-item>
+
           <QSpinnerDots slot="message" :size="40"></QSpinnerDots>
         </q-list>
       </q-infinite-scroll>
+      <!-- </section> -->
+      <!-- <section v-else> -->
+      <!-- <TxDetails ref="txDetails"/> -->
+      <!-- </section> -->
     </template>
 
-    <TxDetails ref="txDetails" />
+    <!-- <TxDetails  ref="txDetails"/> -->
   </div>
 </template>
 
@@ -60,11 +115,11 @@
 const { clipboard } = require("electron");
 import { mapState } from "vuex";
 import { QSpinnerDots } from "quasar";
-import TxDetails from "components/tx_details";
+// import TxDetails from "components/tx_details";
 import FormatOxen from "components/format_oxen";
 import { i18n } from "boot/i18n";
 import ContextMenu from "components/menus/contextmenu";
-
+import TxTypeIcon from "components/tx_type_icon";
 export default {
   name: "TxList",
   filters: {
@@ -94,9 +149,10 @@ export default {
   },
   components: {
     QSpinnerDots,
-    TxDetails,
+    // TxDetails,
     FormatOxen,
-    ContextMenu
+    ContextMenu,
+    TxTypeIcon
   },
   props: {
     limit: {
@@ -131,11 +187,28 @@ export default {
       { action: "copyTxId", i18n: "menuItems.copyTransactionId" },
       { action: "openExplorer", i18n: "menuItems.viewOnExplorer" }
     ];
+    const monthNames = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December"
+    ];
+
     return {
       page: 0,
       tx_list_filtered: [],
       tx_list_paged: [],
-      menuItems
+      menuItems,
+      monthNames,
+      isVisible: true
     };
   },
   computed: mapState({
@@ -245,6 +318,29 @@ export default {
         return valid;
       });
     },
+    // txnTypeIndicate(value) {
+    //   switch (value) {
+    //     case "in":
+    //       return require("../assets/images/recieve_icon.svg");
+    //     case "out":
+    //       return require("../assets/images/send_icon.svg");
+    //     case "failed":
+    //       return i18n.t("strings.transactions.types.failed");
+    //     case "pending":
+    //     case "pool":
+    //       return require("../assets/images/pending.svg");
+    //     case "miner":
+    //       return i18n.t("strings.transactions.types.miner");
+    //     case "mnode":
+    //       return i18n.t("strings.transactions.types.masterNode");
+    //     case "gov":
+    //       return i18n.t("strings.transactions.types.governance");
+    //     case "stake":
+    //       return i18n.t("strings.transactions.types.stake");
+    //     default:
+    //       return "-";
+    //   }
+    // },
     txContains(tx, value) {
       // The tx can be searchable using:
       // id, address, notes, amount, recipient name
@@ -287,24 +383,26 @@ export default {
       });
     },
     details(tx) {
-      this.$refs.txDetails.tx = tx;
-      this.$refs.txDetails.txNotes = tx.note;
-      this.$refs.txDetails.isVisible = true;
+      // console.log("txn details", tx);
+      this.$emit("submitTxDetails", tx);
+      // this.$refs.txDetails.tx = tx;
+      // this.$refs.txDetails.txNotes = tx.note;
+      // this.$refs.txDetails.isVisible = true;
     },
     formatHeight(tx) {
       let height = tx.height;
-      let confirms = Math.max(0, this.wallet_height - height);
+      // let confirms = Math.max(0, this.wallet_height - height);
       if (height == 0) return this.$t("strings.transactions.types.pending");
-      if (confirms < Math.max(10, tx.unlock_time - height))
-        return (
-          this.$t("strings.blockHeight") +
-          `: ${height} (${confirms} confirm${confirms == 1 ? "" : "s"})`
-        );
-      else
-        return (
-          this.$t("strings.blockHeight") +
-          `: ${height} (${this.$t("strings.transactionConfirmed")})`
-        );
+      // if (confirms < Math.max(1, tx.unlock_time - height))
+      //   return (
+      //     this.$t("strings.height") +
+      //     `: ${height} (${confirms} confirm${confirms == 1 ? "" : "s"})`
+      //   );
+      // else
+      return (
+        this.$t("strings.height") +
+        `: ${height} (${this.$t("strings.transactionConfirmed")})`
+      );
     },
     copyTxId(txid) {
       clipboard.writeText(txid);
@@ -329,26 +427,54 @@ export default {
 <style lang="scss">
 .tx-list {
   .oxen-list-item {
-    padding-top: 0;
-    padding-bottom: 0;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 0;
   }
+  .oxen-list-item:hover {
+    background-color: #2c2c43;
+  }
+
+  .infoTxt {
+    color: white;
+  }
+  // .q-item__label {
+  //   line-height: 1.2em !important;
+  //   max-width: 60%;
+  // }
   .transaction {
     .main {
       margin: 0;
       padding: 8px 10px;
+      width: 60%;
+      .amount {
+        color: #d1d1d3;
+        span {
+          color: #d1d1d3;
+        }
+      }
+      .txn_id {
+        font-size: 12 px;
+        color: #d1d1d3;
+      }
       div {
         overflow: hidden;
         text-overflow: ellipsis;
       }
     }
-
+    .blk-height-txt {
+      color: #afafbe;
+    }
     .type {
-      min-width: 100px;
-      max-width: 100px;
+      min-width: 45px;
+      max-width: 45px;
       div {
         margin-right: 8px;
       }
     }
+  }
+  .hint-txt {
+    color: #82828d;
   }
 }
 </style>

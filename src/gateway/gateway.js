@@ -84,17 +84,38 @@ export class Gateway extends EventEmitter {
 
     const key = restart ? "restart" : "exit";
 
+    // if (restart) {
+    //   Dialog.create({
+    //     title: i18n.t(`dialog.${key}.title`),
+    //     message: msg,
+    //     ok: {
+    //       label: i18n.t(`dialog.${key}.ok`),
+    //       color: key !== "exit" ? "primary" : "red"
+    //     },
+    //     persistent: true
+    //   })
+    //     .onOk(() => {
+    //       this.closeDialog = false;
+    //       Loading.hide();
+    //       this.router.replace({ path: "/quit" });
+    //       ipcRenderer.send("confirmClose", restart);
+    //     })
+    //     .onCancel(() => {
+    //       // this.closeDialog = false;
+    //     });
+    //   return 0;
+    // }
+
     Dialog.create({
       title: i18n.t(`dialog.${key}.title`),
       message: msg,
       ok: {
         label: i18n.t(`dialog.${key}.ok`),
-        color: "primary"
+        color: key !== "exit" ? "primary" : "red"
       },
       cancel: {
-        flat: true,
         label: i18n.t("dialog.buttons.cancel"),
-        color: "grey"
+        color: "accent"
       }
     })
       .onOk(() => {
@@ -290,6 +311,81 @@ export class Gateway extends EventEmitter {
       case "set_update_required":
         this.app.store.commit(
           "gateway/set_update_required",
+          decrypted_data.data
+        );
+        break;
+
+      case "set_router_path_rightpane":
+        this.app.store.commit(
+          "gateway/set_router_path_rightpane",
+          decrypted_data.data
+        );
+        break;
+
+      case "set_sender_address":
+        this.app.store.commit(
+          "gateway/set_sender_address",
+          decrypted_data.data
+        );
+        break;
+      case "set_mnDetails":
+        this.app.store.commit("gateway/set_mnDetails", decrypted_data.data);
+
+        break;
+      case "set_stepperPosition":
+        this.app.store.commit(
+          "gateway/set_stepperPosition",
+          decrypted_data.data
+        );
+
+        break;
+
+      case "set_currencyList":
+        // console.log("gateway 1");
+        this.app.store.commit("gateway/set_currencyList", decrypted_data.data);
+
+        break;
+      case "set_exchangeAmount":
+        // console.log("gateway 1");
+        this.app.store.commit(
+          "gateway/set_exchangeAmount",
+          decrypted_data.data
+        );
+
+        break;
+      case "set_createdTxnDetails":
+        // console.log("gateway 1");
+        this.app.store.commit(
+          "gateway/set_createdTxnDetails",
+          decrypted_data.data
+        );
+        break;
+      case "set_validateAddress":
+        this.app.store.commit(
+          "gateway/set_validateAddress",
+          decrypted_data.data
+        );
+        break;
+      case "set_pairsMinMax":
+        this.app.store.commit("gateway/set_pairsMinMax", decrypted_data.data);
+        break;
+      case "set_txnStatus":
+        this.app.store.commit("gateway/set_txnStatus", decrypted_data.data);
+        break;
+      case "set_txnHistory":
+        this.app.store.commit("gateway/set_txnHistory", decrypted_data.data);
+        break;
+
+      case "set_fixedExchangeRate":
+        this.app.store.commit(
+          "gateway/set_fixedExchangeRate",
+          decrypted_data.data
+        );
+        break;
+
+      case "set_refundAddressValidation":
+        this.app.store.commit(
+          "gateway/set_refundAddressValidation",
           decrypted_data.data
         );
         break;

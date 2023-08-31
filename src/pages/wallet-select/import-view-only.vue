@@ -89,7 +89,12 @@
       </q-field>
 
       <q-field>
-        <q-input v-model="wallet.password" type="password" float-label="Password" :dark="theme == 'dark'" />
+        <q-input
+          v-model="wallet.password"
+          type="password"
+          float-label="Password"
+          :dark="theme == 'dark'"
+        />
       </q-field>
 
       <q-field>
@@ -102,7 +107,11 @@
       </q-field>
 
       <q-field>
-        <q-btn color="primary" label="Restore view-only wallet" @click="restore_view_wallet" />
+        <q-btn
+          color="primary"
+          label="Restore view-only wallet"
+          @click="restore_view_wallet"
+        />
       </q-field>
     </div>
   </q-page>
@@ -225,7 +234,8 @@ export default {
       }
 
       this.$q.loading.show({
-        delay: 0
+        delay: 0,
+        spinnerColor: "positive"
       });
 
       this.$gateway.send("wallet", "restore_view_wallet", this.wallet);

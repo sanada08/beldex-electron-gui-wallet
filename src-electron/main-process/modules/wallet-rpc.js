@@ -1,5 +1,4 @@
 import child_process from "child_process";
-
 const request = require("request-promise");
 const queue = require("promise-queue");
 const nodeQueue = require("node-request-queue");
@@ -9,10 +8,12 @@ const fs = require("fs-extra");
 const path = require("upath");
 const crypto = require("crypto");
 const portscanner = require("portscanner");
+const { Swap } = require("./swap");
 
 export class WalletRPC {
   constructor(backend) {
     this.backend = backend;
+    this.swap = null;
     this.data_dir = null;
     this.wallet_dir = null;
     this.auth = [];
@@ -60,6 +61,7 @@ export class WalletRPC {
 
     this.agent = new http.Agent({ keepAlive: true, maxSockets: 10 });
     this.queue = new queue(1, Infinity);
+    this.swap = new Swap(this);
   }
 
   // this function will take an options object for testnet, data-dir, etc
@@ -447,6 +449,39 @@ export class WalletRPC {
         this.getBalance("getbalance");
         break;
 
+      case "set_router_path_rightpane":
+        // this.getBalance("getbalance");
+        this.set_rightPane_value(params.data);
+        // this.$store.commit("gateway/set_router_path_rightpane", {
+        //   path: "receive"
+        // });
+        break;
+
+      case "set_sender_address":
+        // this.getBalance("getbalance");
+        this.set_sender_address(params.data);
+        //   console.log("munavver");
+        // this.$store.commit("gateway/set_router_path_rightpane", {
+        //   path: "receive"
+        // });
+        break;
+
+      case "set_mnDetails":
+        // this.getBalance("getbalance");
+        this.set_mnDetails(params.data);
+        // this.$store.commit("gateway/set_router_path_rightpane", {
+        //   path: "receive"
+        // });
+        break;
+
+      case "set_stepperPosition":
+        // this.getBalance("getbalance");
+        this.set_stepperPosition(params.data);
+        // this.$store.commit("gateway/set_router_path_rightpane", {
+        //   path: "receive"
+        // });
+        break;
+
       default:
     }
   }
@@ -468,13 +503,11 @@ export class WalletRPC {
       agent: this.agent
     };
     this.getTransactions().then(wallet => {
-      console.log("get transfer data", wallet);
       this.sendGateway("set_wallet_data", wallet);
     });
     let rq = new nodeQueue(1000);
     rq.push(options);
     rq.on("resolved", response => {
-      // console.log("response method", response, method)
       if (method == "getbalance") {
         let walletData = {
           info: {
@@ -2392,6 +2425,18 @@ export class WalletRPC {
     });
   }
 
+  set_rightPane_value(val) {
+    this.sendGateway("set_router_path_rightpane", val);
+  }
+  set_sender_address(val) {
+    this.sendGateway("set_sender_address", val);
+  }
+  set_mnDetails(val) {
+    this.sendGateway("set_mnDetails", val);
+  }
+  set_stepperPosition(val) {
+    this.sendGateway("set_stepperPosition", val);
+  }
   exportKeyImages(password, filename = null) {
     crypto.pbkdf2(
       password,
@@ -2605,12 +2650,13 @@ export class WalletRPC {
     this.listWallets();
   }
 
-  listWallets(legacy = false) {
+  async listWallets(legacy = false) {
+    // let a = await this.swap.getCurrencyList();
+    // console.log("aaaa:",a)
     let wallets = {
       list: [],
       directories: []
     };
-
     let walletFiles = [];
     try {
       walletFiles = fs.readdirSync(this.wallet_dir);

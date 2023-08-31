@@ -2,30 +2,42 @@ export default {
   buttons: {
     // All button text is uppercased in the gui
     advanced: "ADVANCED",
+    addAddressBook: "Adicionar ao catálogo de endereços",
+    addWallet: "Adicionar Carteira",
+
     all: "TUDO",
     back: "ATRÁS",
     browse: "PESQUISAR",
     cancel: "CANCELAR",
     change: "MUDAR",
-    check: "CHECK",
-    clear: "CLEAR",
+    check: "Verificar",
+    clear: "clear",
+    clearAll: "Limpar tudo",
     close: "FECHAR",
     contacts: "CONTACTOS",
+    copy: "cópia de",
     copyAddress: "COPIAR ENDEREÇO",
     copySignature: "COPY SIGNATURE",
     createWallet: "CRIAR CARTEIRA",
     delete: "APAGAR",
     edit: "EDITAR",
+    editNotes: "Editar notas",
+
     export: "EXPORTAR",
-    generate: "GENERATE",
+    fromBlockheight: "Da altura do bloco",
+
+    generate: "Gerar",
     import: "IMPORTAR",
     importWallet: "IMPORTAR CARTEIRA | IMPORTAR CARTEIRAS",
+    min: "mín",
+    max: "máx.",
     next: "PRÓXIMO",
     openWallet: "ABRIR CARTEIRA",
     receive: "RECEBER",
     registerMasterNode: "REGISTAR NÓDULO DE SERVIÇO",
     rescan: "REEXAMINAR",
     restoreWallet: "RESTAURAR CARTEIRA",
+    refresh: "Atualizar",
     save: "SALVAR",
     saveTxNotes: "SALVAR NOTAS DE TX",
     selectLocation: "SELECIONAR LOCAL",
@@ -35,11 +47,12 @@ export default {
     masterNode: "NÓDULO DE SERVIÇO",
     settings: "CONFIGURAÇÕES",
     showQRCode: "MOSTRAR CÓDIGO QR",
-    showTxDetails: "MOSTRAR DETALHES DA TX",
+    showTxDetails: "Detalhes TXN",
     stake: "PARTICIPAÇÃO",
     sweepAll: "VARRER TUDO",
     unlock: "UNLOCK",
-    viewOnExplorer: "VISUALIZAR NO EXPLORADOR"
+    viewOnExplorer: "VISUALIZAR NO EXPLORADOR",
+    add: "Adicionar"
   },
   dialog: {
     // Generic buttons
@@ -73,13 +86,12 @@ export default {
     },
     deleteWallet: {
       title: "Apagar carteira",
-      message:
-        "Tem a certeza absoluta que pretende apagar a sua carteira?\nTenha a certeza que tem um backup da suas chaves privadas.\nESTE PROCESSO NÃO É REVERSÍVEL!",
+      message: "Tem certeza de que deseja excluir a carteira atual?",
       ok: "APAGAR"
     },
     exit: {
       title: "Sair",
-      message: "Tem a certeza que deseja sair?",
+      message: "Tem certeza de que deseja sair da carteira?",
       ok: "SAIR"
     },
     keyImages: {
@@ -94,7 +106,7 @@ export default {
       ok: "SIM"
     },
     password: {
-      title: "Palavra-passe",
+      title: "Digite sua senha da carteira",
       message: "Introduza a sua palavra-passe para continuar"
     },
     registerMasterNode: {
@@ -137,6 +149,8 @@ export default {
     switchWallet: {
       title: "Mudar de carteira",
       closeMessage: "Tem a certeza que deseja fechar a carteira actual?",
+      restartWalletMessage:
+        "Tem certeza de que deseja fechar e reiniciar a carteira?",
       restartMessage:
         "A carteira RPC está correntemente em sincronização. \nISe deseja mudar de carteira terá de reiniciar a aplicação. \nPerderá o progresso da sincronização e terá de reexaminar o blockchain."
     },
@@ -168,13 +182,15 @@ export default {
   },
   fieldLabels: {
     // Field labels are also all uppercased
-    address: "ENDEREÇO",
+    address: "Endereço",
+    recipientAddress: "Endereço do destinatário",
     amount: "QUANTIDADE",
     confirmPassword: "CONFIRMAR PALAVRA-PASSE",
     daemonLogLevel: "NÍVEL DE LOG PARA O SERVIÇO",
     daemonP2pPort: "PORTA P2P DO SERVIÇO",
     dataStoragePath: "DIRECTÓRIO DE ARMAZENAMENTO DOS DADOS",
-    filter: "FILTER",
+    data: "Data",
+    filter: "Filter",
     filterTransactionType: "FILTRAR POR TIPO DE TRANSAÇÃO",
     internalWalletPort: "PORTA INTERNA DA CARTEIRA",
     keyImages: {
@@ -187,11 +203,12 @@ export default {
     localDaemonPort: "PORTA LOCAL DO SERVIÇO",
     maxIncomingPeers: "NÚM. MAX DE PARES DE ENTRADA",
     maxOutgoingPeers: "NUM. MAX DE PARES DE SAÍDA",
-    message: "MESSAGE",
+    message: "Mensagem",
     mnemonicSeed: "SEMENTE MNEMÓNICA",
     name: "NOME",
     newWalletName: "NOME DA NOVA CARTEIRA",
     notes: "NOTAS",
+    addressBookNotes: "Notas do livro de endereços",
     optional: "OPCIONAL",
     password: "PALAVRA-PASSE",
     paymentId: "ID DE PAGAMENTO",
@@ -203,8 +220,10 @@ export default {
     seedLanguage: "LINGUA DA SEMENTE",
     masterNodeCommand: "COMANDO DO NÓDULO DE SERVIÇO",
     masterNodeKey: "CHAVE DO NÓDULO DE SERVIÇO",
-    signature: "SIGNATURE",
-    transactionId: "TRANSACTION ID",
+    signature: "Assinatura",
+    totalBalance: "Balanço total",
+    to: "Para",
+    transactionId: "ID da transação",
     walletFile: "FICHEIRO DA CARTEIRA",
     walletLogLevel: "NIVEL DE LOG DA CARTEIRA",
     walletName: "NOME DA CARTEIRA",
@@ -233,6 +252,7 @@ export default {
     about: "Sobre",
     changePassword: "Alterar Palavra-Passe",
     copyAddress: "Copiar Endereço",
+    copySeed: "Copiar Semente",
     copyQR: "Copiar código QR",
     copySeedWords: "Copiar palavras semente",
     copySpendKey: "Copiar chave de gasto",
@@ -315,7 +335,9 @@ export default {
       },
       negativeAmount: "Quantidade não pode ser negativa",
       newPasswordNoMatch: "Nova palavra-passe não coincide",
-      newPasswordSame: "Nova palavra-passe tem de ser diferente",
+      newPasswordSame:
+        "Não é possível usar a senha antiga. Defina uma senha diferente",
+      passwordFieldEmpty: "Por favor, insira sua senha!",
       notEnoughBalance: "Não existe saldo desbloqueado suficiente",
       passwordNoMatch: "Palavra-passe não coincidem",
       remoteCannotBeReached: "Não é possivel contactar o nódulo Remoto",
@@ -335,16 +357,29 @@ export default {
   },
   placeholders: {
     additionalNotes: "Notas adicionais",
+    addNotesOptional: "Adicionar notas (opcional)",
     addressBookName: "Nome que pertence a este endereço",
-    filterTx: "Enter an ID, name, address or amount",
+    addressOfSigner: "Endereço público da carteira do signatário",
+    beldexAddress: "Endereço Beldex",
+    enterAddress: "Insira o endereço",
+    enterName: "Insira o nome",
+    enteroldPassword: "Digite a senha antiga",
+    enterNewPassword: "Insira a nova senha",
+    reEnterPassword: "Digite novamente a senha",
+    filterTx: "Digite um ID, nome, endereço ou valor",
     hexCharacters: "{count} caracteres hexadecimais",
     mnemonicSeed: "25 (or 24) palavras semente mnemónicas",
     pasteTransactionId: "Paste transaction ID",
-    pasteTransactionProof: "Paste transaction proof",
+    pasteTransactionProof: "Colar prova de transação",
+    dataToSign: "Data you want to sign with your primary address's private key",
+
     proveOptionalMessage:
-      "Optional message against which the signature is signed",
-    recipientWalletAddress: "Recipient's wallet address",
+      "Mensagem opcional contra a qual a assinatura é assinada",
+    recipientWalletAddress: "Endereço da carteira do destinatário",
+    reEnterWalletPassword: "Digite novamente a senha",
     selectAFile: "Por favor selecione um ficheiro",
+    signature: "Assinatura para verificar",
+
     transactionNotes: "Notas adicionais para anexar à transação",
     walletName: "Um nome para a sua carteira",
     walletPassword: "Uma palavra-passe opcional para a carteira"
@@ -357,9 +392,10 @@ export default {
       myPrimaryAddress: "Meu endereço primario",
       myUnusedAddresses: "Meus endereços não utilizados",
       myUsedAddresses: "Meus endereços utilizados",
-      primaryAddress: "Endereço primario",
+      // primaryAddress: "Endereço primario",
       subAddress: "Sub-endereço",
-      subAddressIndex: "Índice {index}"
+      subAddressIndex: "Índice {index}",
+      primaryAccount: "Conta primária"
     },
     advancedOptions: "Opções Avançadas",
     bannedPeers: {
@@ -417,7 +453,8 @@ export default {
       slow: "Lento",
       normal: "Normal",
       fast: "Rápido",
-      fastest: "O Mais Rápido"
+      fastest: "O Mais Rápido",
+      flash: "clarão"
     },
     proveTransactionDescription:
       "Generate a proof of your incoming/outgoing payment by supplying the transaction ID, the recipient address and an optional message.\nFor the case of outgoing payments, you can get a 'Spend Proof' that proves the authorship of a transaction. In this case, you don't need to specify the recipient address.",
@@ -450,8 +487,8 @@ export default {
       timestamp: "Data e hora",
       types: {
         all: "Todos",
-        incoming: "Entradas",
-        outgoing: "Saídas",
+        incoming: "Receber",
+        outgoing: "Enviado",
         pending: "Pendentes",
         pendingIncoming: "Entradas pendentes",
         pendingOutgoing: "Saídas pendentes",
@@ -472,18 +509,28 @@ export default {
   titles: {
     addressBook: "Livro de endereços",
     addressDetails: "Detalhes do endereço",
+    contactBook: "Agenda de contatos",
+
     advanced: {
-      checkTransaction: "CHECK TRANSACTION",
-      prove: "PROVE"
+      checkTransaction: "Verificar Transação",
+      prove: "provar",
+      signAndVerify: "Assinar/Verificar",
+
+      sign: "Sinal",
+      verify: "Verificar"
     },
     changePassword: "Mudar palavra-passe",
-    configure: "Configure",
+    configure: "Definições de configuração",
     currentlyStakedNodes: "Currently staked nodes",
+    importFromFile: "Importar do arquivo",
     privateKeys: "Chaves privadas",
     rescanWallet: "Reexaminar carteira",
+    restoreFromSeed: "Restaurar da semente",
+
     masterNode: {
       registration: "REGISTO",
-      staking: "PARTICIPAÇÃO"
+      staking: "PARTICIPAÇÃO",
+      myStakes: "Minhas apostas"
     },
     settings: {
       title: "Configurações",
@@ -498,14 +545,113 @@ export default {
     wallet: {
       createNew: "Criar nova carteira",
       createdOrRestored: "Carteira criada/restaurada",
+      walletRestored: "Carteira Restaurada",
+      walletCreated: "Carteira criada",
+      walletImported: "Carteira importada",
       importFromFile: "Importar carteira a partir de ficheiro",
+      useExistingWallet: "Use Existing Wallet",
       importFromLegacyGUI:
         "Importar carteira a partir da antiga carteira GUI (legado)",
       importFromOldGUI: "Importar carteira a partir da antiga carteira GUI",
       restoreFromSeed: "Restaurar carteira a partir de semente",
       restoreViewOnly: "Restaurar carteira visualização-apenas"
     },
-    welcome: "Bem-vindo",
-    yourWallets: "Suas carteiras"
+    chooseLanguage: "Escolha o seu idioma",
+    yourWallets: "Suas carteiras",
+    swap: {
+      swap: "Trocar",
+      exchange: "Intercâmbio",
+      history: "História",
+      unsupportedpair: "Par de exchanges não suportado",
+      minimumAmt: "O valor mínimo é",
+      maximumAmt: "O valor máximo é",
+      transactionDetails: "Detalhes da transação",
+      youSend: "Você envia",
+      exchangeRate: "Taxa de câmbio",
+      fixedRate: "Taxa fixa",
+      fixedRateUpdateSec: "A taxa fixa é atualizada a cada 30 segundos",
+      serviceFee: "Taxa de serviço 0,25%",
+      fees: "Tarifas",
+      allTheFees: "Todas as taxas incluídas na tarifa",
+      networkFee: "Taxa de rede",
+      youGet: "Você consegue",
+      floatingExchangeRate: "Taxa de cambio flutuante",
+      fixedExchangeRate: "Taxa de câmbio fixa",
+      stillProcessing:
+        "Sua transação anterior ainda está em processamento. Você pode criar um novo em 15 minutos",
+      minimumExchangeAmtAbove: "O valor mínimo de troca está acima",
+      for: "para",
+      maximumExchangeAmtUnder: "O valor máximo de troca está abaixo",
+      floatingRateDisc:
+        "A taxa flutuante pode mudar a qualquer momento devido às condições do mercado, portanto você poderá receber mais ou menos criptografia do que o esperado.",
+      fixedRateExactAmtDisc:
+        "Com a taxa fixa, você receberá a quantidade exata de criptografia que vê nesta tela.",
+      walletAddress: "Endereço da carteira",
+      myWalletRequire: "Minha carteira exige",
+      agreeWith: "Eu concordo com",
+      termOfUse: "Termos de uso",
+      and: "e",
+      privacyPolicy: "política de Privacidade",
+      checkout: "Confira",
+      blockchain: "blockchain",
+      exchangefee: "Taxa de câmbio",
+      exchangeFeeIncluded:
+        "A taxa de troca já está incluída no valor exibido que você receberá",
+      networkFeeIncluded:
+        "A taxa de rede já está incluída no valor exibido que você receberá",
+      guaranteeFee: "Taxa Garantida",
+      refundAddress: "Endereço de reembolso",
+      exchanging: "Troca",
+      confirmingProcess: "Confirmação em andamento",
+      Once: "Onças",
+      confirmedInBlockchain:
+        " for confirmado no blockchain, começaremos a trocá-lo para",
+      seenInputExplorer: "Veja o hash de entrada no explorer",
+      to: "para",
+      pleaseWait: "O processo levará alguns minutos. por favor, aguarde.",
+      sendFundsToWallet: "Enviando fundos para sua carteira",
+      waitHere: "Você não precisa esperar aqui",
+      newTransaction: "Você pode iniciar uma nova transação.",
+      checkStatus:
+        "Você sempre pode verificar o status desta transação em transação",
+      // history: "history",
+      transactionPreview: "Visualização da transação",
+      transactionID: "ID da transação",
+      changellyAddress: "Endereço da mudança",
+      completed: "Concluído",
+      amountTo: "Valor para",
+      amountReceived: "Montante recebido",
+      amountSend: "Quantidade enviada",
+      inputHash: "Hash de entrada",
+      outputHash: "Hash de saída",
+      amountFrom: "Valor de",
+      paymentNotReceived:
+        "Os fundos não foram recebidos em 3 horas. Verifique as taxas e crie uma nova transação",
+      downloadCsv: "Baixar CSV",
+      status: "Status",
+      date: "Data",
+      exchangeAmount: "Valor de troca",
+      receiver: "Receptor",
+      sendFundDisc: "Envie fundos para o endereço abaixo",
+      timeLeft: "Tempo restante para enviar",
+      guaranteedRateDisc: "A taxa garantida foi encerrada",
+      sendFundsAboveAddress:
+        "Observe que você só pode enviar fundos para o endereço acima",
+      once: "uma vez",
+      swapMaintenance: "Swap está temporariamente em manutenção",
+      tryAgainSomeTimes: "Por favor, tente novamente depois de alguns momentos",
+      afterYourFirstTxn: "Após sua primeira transação",
+      youWillBeViewHere: "você poderá vê-lo aqui",
+      openHistory: "Abrir histórico",
+      newTransactionBtn: "Nova transação",
+      exchangePair: "Par de troca",
+      exchangePairDisc: "Defina o par de exchange preferido",
+      walletAddressDisc:
+        "Preencha os detalhes do endereço da carteira criptografada",
+      payment: "Pagamento",
+      paymentDisc: "Deposite o valor necessário para a troca",
+      exchangeDisc: "Aguarde até que sua transação seja concluída",
+      paymentConfirm: "Confirmar y realizar el pago"
+    }
   }
 };

@@ -1,10 +1,19 @@
 <template>
-  <div class="master-node-staking">
-    <div class="q-px-md q-pt-md">
-      <p class="tab-desc">
+  <div
+    :class="
+      `${
+        Object.keys(this.nodedetails).length === 0 ? 'master-node-staking' : ''
+      }`
+    "
+  >
+    <div
+      v-if="Object.keys(this.nodedetails).length === 0"
+      class="q-px-md q-pt-md"
+    >
+      <p class="tab-desc ft-Light">
         {{ $t("strings.masterNodeContributionDescription") }}
         <span
-          style="cursor: pointer; text-decoration: underline;"
+          style="cursor: pointer; text-decoration: underline"
           @click="oxenWebsite"
           >Beldex {{ $t("strings.website") }}.</span
         >
@@ -37,23 +46,24 @@
           borderless
           dense
           @blur="$v.master_node.amount.$touch"
+          @keydown="keyHandler"
         />
         <q-btn
-          color="primary"
+          class="minBtn"
           :text-color="theme == 'dark' ? 'white' : 'dark'"
           :label="$t('buttons.min')"
           :disable="!areButtonsEnabled()"
           @click="master_node.amount = minStake(master_node.key)"
         />
         <q-btn
-          color="primary"
+          color="secondary"
           :text-color="theme == 'dark' ? 'white' : 'dark'"
           :label="$t('buttons.max')"
           :disable="!areButtonsEnabled()"
           @click="master_node.amount = maxStake(master_node.key)"
         />
       </OxenField>
-      <div class="submit-button">
+      <div class="submit-button flex row justify-center">
         <q-btn
           :disable="!is_able_to_send"
           color="primary"
@@ -68,9 +78,13 @@
         />
       </div>
     </div>
+    <div
+      v-if="Object.keys(this.nodedetails).length === 0"
+      class="hr-separator"
+      style="margin: 10px 19px"
+    />
     <MasterNodeContribute
       :awaiting-master-nodes="awaiting_master_nodes"
-      class="contribute"
       @contribute="fillStakingFields"
     />
     <ConfirmTransactionDialog
@@ -138,6 +152,7 @@ export default {
     sweep_all_status: state => state.gateway.sweep_all_status,
     award_address: state => state.gateway.wallet.info.address,
     confirmSweepAll: state => state.gateway.sweep_all_status.code === 1,
+    nodedetails: state => state.gateway.mnDetails,
     is_ready() {
       return this.$store.getters["gateway/isReady"];
     },
@@ -299,6 +314,16 @@ export default {
       const operatorPortion = node.portions_for_operator;
       return (operatorPortion / 18446744073709551612) * 100;
     },
+    keyHandler(evt) {
+      if (
+        evt.key === "-" ||
+        evt.key === "+" ||
+        evt.key === "e" ||
+        evt.key === "E"
+      ) {
+        evt.preventDefault();
+      }
+    },
     getNodeWithPubKey() {
       const key = this.master_node.key;
       const nodeOfKey = this.awaiting_master_nodes.find(
@@ -350,9 +375,8 @@ export default {
             color: "primary"
           },
           cancel: {
-            flat: true,
             label: this.$t("dialog.buttons.cancel"),
-            color: "negative"
+            color: "accent"
           }
         })
         .onOk(() => {
@@ -385,7 +409,11 @@ export default {
         noPasswordMessage: this.$t("dialog.sweepAll.message"),
         ok: {
           label: this.$t("dialog.sweepAll.ok"),
-          color: "#35af3b"
+          color: "primary"
+        },
+        cancel: {
+          label: this.$t("dialog.buttons.cancel"),
+          color: "accent"
         }
       });
       passwordDialog
@@ -454,6 +482,11 @@ export default {
           label: this.$t("dialog.stake.ok"),
           color: "primary"
         },
+        cancel: {
+          label: this.$t("dialog.buttons.cancel"),
+          color: "accent"
+        },
+
         dark: this.theme == "dark",
         color: this.theme == "dark" ? "white" : "dark"
       });
@@ -483,25 +516,49 @@ export default {
 
 <style lang="scss">
 .master-node-staking {
+  border: unset;
+
   .submit-button {
     .q-btn:not(:first-child) {
       margin-left: 8px;
     }
   }
+  .tab-desc {
+    color: #afafbe;
+  }
+
+  .minBtn {
+    height: 40px;
+    background-color: #32324a;
+    border-radius: 10px;
+    margin-right: 10px;
+  }
+  .oxen-field .content {
+    min-height: 40px !important;
+  }
 }
 .contribute {
   margin-top: 16px;
   padding-left: 8px;
+  border: 1px solid #484856;
+  border-radius: 10px;
 }
+
 .master-node-stake-tab {
-  margin-top: 4px;
+  // margin-top: 4px;
   user-select: none;
+  min-height: 41vh;
   .header {
     font-weight: 450;
   }
   .q-item-sublabel,
   .q-list-header {
     font-size: 14px;
+  }
+}
+@media only screen and (max-height: 780px) {
+  .master-node-stake-tab {
+    min-height: 30vh;
   }
 }
 </style>

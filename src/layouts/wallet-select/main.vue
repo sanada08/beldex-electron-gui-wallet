@@ -2,7 +2,15 @@
   <q-layout view="hHh Lpr lFf">
     <q-header>
       <q-toolbar>
-        <template v-if="show_menu">
+        <!-- <div>
+          <img src="../../assets/images/Logo.png" />
+        </div> -->
+        <div class="main-title flex items-center">
+          <img src="../../assets/images/Logo.png" />
+          <span class="green q-mr-xs q-ml-sm">Beldex </span>
+          <span>Electron Wallet</span>
+        </div>
+        <!-- <template v-if="show_menu">
           <MainMenu :disable-switch-wallet="true" />
         </template>
         <template v-else>
@@ -22,8 +30,12 @@
           <img src="beldex.png" height="32" />
         </q-toolbar-title>
         <q-toolbar-title v-else class="flex items-center justify-center">{{
-          page_title
-        }}</q-toolbar-title>
+          page_title + "done"
+        }}</q-toolbar-title> -->
+
+        <template>
+          <MainMenu :disable-switch-wallet="true" />
+        </template>
       </q-toolbar>
     </q-header>
 
@@ -31,17 +43,17 @@
       <router-view ref="page" />
     </q-page-container>
 
-    <StatusFooter />
+    <!-- <StatusFooter /> -->
   </q-layout>
 </template>
 
 <script>
-import StatusFooter from "components/footer";
+// import StatusFooter from "components/footer";
 import MainMenu from "components/menus/mainmenu";
 
 export default {
   components: {
-    StatusFooter,
+    // StatusFooter,
     MainMenu
   },
   data() {

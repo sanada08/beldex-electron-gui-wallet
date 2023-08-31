@@ -1,13 +1,14 @@
 <template>
   <div class="prove-transaction">
     <div class="q-pa-md">
-      <div class="q-mb-lg tab-desc">
+      <div class="q-mb-lg tab-desc ft-medium">
         {{ $t("strings.proveTransactionDescription") }}
       </div>
       <div>
         <OxenField
           :label="$t('fieldLabels.transactionId')"
           :error="$v.txid.$error"
+          class="ft-medium"
         >
           <q-input
             v-model.trim="txid"
@@ -19,8 +20,8 @@
           />
         </OxenField>
         <OxenField
-          class="q-mt-md"
-          :label="$t('fieldLabels.address')"
+          class="q-mt-md ft-medium"
+          :label="$t('fieldLabels.recipientAddress')"
           :error="$v.address.$error"
           optional
         >
@@ -33,7 +34,11 @@
             @blur="$v.address.$touch"
           />
         </OxenField>
-        <OxenField class="q-mt-md" :label="$t('fieldLabels.message')" optional>
+        <OxenField
+          class="q-mt-md ft-medium"
+          :label="$t('fieldLabels.message')"
+          optional
+        >
           <q-input
             v-model.trim="message"
             :dark="theme == 'dark'"
@@ -42,7 +47,7 @@
             dense
           />
         </OxenField>
-        <div class="buttons submit-button">
+        <div class="buttons submit-button flex justify-center q-mt-lg">
           <q-btn
             color="primary"
             :label="$t('buttons.generate')"

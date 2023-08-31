@@ -1,14 +1,26 @@
 <template>
-  <div class="master-node-stake-tab">
-    <div class="q-pa-md">
-      <div class="q-pb-sm header">
-        <span v-if="master_nodes.length">
-          {{ $t("titles.currentlyStakedNodes") }}
-        </span>
-        <span v-else>{{
-          $t("strings.masterNodeStartStakingDescription")
+  <div v-if="isVisible" class="master-node-stake-tab">
+    <div :class="`q-pa-md ${master_nodes.length === 0 ? 'd-center' : ''}`">
+      <div
+        class="q-pb-sm header items-center  "
+        style="font-family: Poppins-Regular;
+               font-size: 16px;
+               display: flex;
+              justify-content: center;"
+      >
+        <span v-if="master_nodes.length">{{
+          $t("titles.currentlyStakedNodes")
         }}</span>
+        <span v-else style="color: #77778B;"
+          >{{ $t("strings.masterNodeStartStakingDescription") }}
+          <span style="font-family: Poppins-SemiBold;">{{
+            $t("titles.masterNode.staking")
+          }}</span
+          >&nbsp;
+          <span>{{ $t("strings.masterNodeStartStakingDescription1") }}</span>
+        </span>
       </div>
+      <div></div>
       <div v-if="master_nodes">
         <MasterNodeList
           :master-nodes="master_nodes"
@@ -23,13 +35,16 @@
       >
         <q-spinner color="primary" size="30" />
       </q-inner-loading>
-      <MasterNodeDetails
-        ref="masterNodeDetailsUnlock"
-        :action="unlockWarning"
-        action-i18n="buttons.unlock"
-      />
     </div>
   </div>
+  <MasterNodeDetails
+    v-else
+    ref="masterNodeDetailsUnlock"
+    :action="unlockWarning"
+    action-i18n="buttons.unlock"
+    :node="this.nodeDetails"
+    :goback="goback"
+  />
 </template>
 
 <script>
@@ -54,7 +69,9 @@ export default {
       { action: "viewOnExplorer", i18n: "menuItems.viewOnExplorer" }
     ];
     return {
-      menuItems
+      menuItems,
+      isVisible: true,
+      nodeDetails: ""
     };
   },
   computed: mapState({
@@ -113,9 +130,8 @@ export default {
                   color: "primary"
                 },
                 cancel: {
-                  flat: true,
                   label: this.$t("dialog.buttons.cancel"),
-                  color: this.theme == "dark" ? "white" : "dark"
+                  color: "accent"
                 },
                 style: "min-width: 500px; overflow-wrap: break-word;",
                 dark: this.theme == "dark",
@@ -147,8 +163,21 @@ export default {
   },
   methods: {
     details(node) {
-      this.$refs.masterNodeDetailsUnlock.isVisible = true;
-      this.$refs.masterNodeDetailsUnlock.node = node;
+      this.nodeDetails = node;
+      this.isVisible = false;
+
+      this.$gateway.send("wallet", "set_mnDetails", {
+        data: node
+      });
+
+      // this.$refs.masterNodeDetailsUnlock.isVisible = true;
+      // this.$refs.masterNodeDetailsUnlock.node = node;
+    },
+    goback() {
+      this.isVisible = true;
+      this.$gateway.send("wallet", "set_mnDetails", {
+        data: {}
+      });
     },
     unlockWarning(node, event) {
       const key = node.master_node_pubkey;
@@ -164,9 +193,8 @@ export default {
             color: "primary"
           },
           cancel: {
-            flat: true,
             label: this.$t("dialog.buttons.cancel"),
-            color: this.theme === "dark" ? "white" : "dark"
+            color: "accent"
           },
           dark: this.theme == "dark",
           color: this.theme == "dark" ? "white" : "dark"
@@ -247,4 +275,11 @@ export default {
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.d-center {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  height: 100%;
+}
+</style>
