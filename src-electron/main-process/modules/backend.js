@@ -132,8 +132,24 @@ export class Backend {
         port: "19091"
       },
       {
-        host: "rpcnode.stream",
-        port: "19091"
+        host: "publicnode1.rpcnode.stream",
+        port: "29095"
+      },
+      {
+        host: "publicnode2.rpcnode.stream",
+        port: "29095"
+      },
+      {
+        host: "publicnode3.rpcnode.stream",
+        port: "29095"
+      },
+      {
+        host: "publicnode4.rpcnode.stream",
+        port: "29095"
+      },
+      {
+        host: "publicnode5.rpcnode.stream",
+        port: "29095"
       }
     ];
 

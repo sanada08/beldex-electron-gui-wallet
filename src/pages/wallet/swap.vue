@@ -881,11 +881,19 @@ export default {
           return 0;
         });
         this.filtercurrency = newValue;
-        // console.log("currencyList wathcer");
-        let btcDetails = newValue.find(item => item.name === "BTC");
-        let bdxDetails = newValue.find(item => item.name === "BDX");
-        this.sendAmounType = btcDetails;
-        this.btcCoinDetails = btcDetails;
+        let fromCoin;
+        let toCoin;
+        let btcCoin = newValue.find(item => item.name === "BTC");
+        let bdxCoin = newValue.find(item => item.name === "BDX");
+        if (bdxCoin.enabledTo) {
+          fromCoin = btcCoin;
+          toCoin = bdxCoin;
+        } else {
+          fromCoin = bdxCoin;
+          toCoin = btcCoin;
+        }
+        this.sendAmounType = fromCoin;
+        this.btcCoinDetails = fromCoin;
         let filterCoin = newValue.filter(
           item =>
             item.enabled &&
@@ -903,12 +911,12 @@ export default {
               item.name === "VTC")
         );
 
-        filterCoin.unshift(bdxDetails);
+        filterCoin.unshift(toCoin);
         this.privacyCurrency = filterCoin;
         // console.log("this.privacyCurrency ", this.privacyCurrency);
-        if (bdxDetails.enabled === true) {
-          this.bdxCoinDetails = bdxDetails;
-          this.receiveAmountType = bdxDetails;
+        if (toCoin.enabled === true) {
+          this.bdxCoinDetails = toCoin;
+          this.receiveAmountType = toCoin;
 
           this.minMaxPair();
           this.clearAllintervals();
