@@ -309,6 +309,7 @@ export default {
   }
 
   .wallet-content {
+    width: 100%;
     text-align: center;
     // padding:0 1em;
     // padding: 0 1em 1em;
