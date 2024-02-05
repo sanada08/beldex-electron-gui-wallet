@@ -279,6 +279,14 @@ export default {
             }
           })
           .onOk(() => {
+            this.$store.commit("gateway/set_wallet_data", {
+              info: {
+                balance: 0,
+                unlocked_balance: 0,
+                height: 1
+              },
+              transactions: { tx_list: [] }
+            });
             this.$gateway.send("wallet", "rescan_blockchain");
           })
           .onDismiss(() => {})
