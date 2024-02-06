@@ -2129,7 +2129,12 @@ export class WalletRPC {
   }
 
   rescanBlockchain() {
+    clearInterval(this.heartbeat);
+    clearInterval(this.lnsHeartbeat);
+    this.wallet_state.balance = null;
+    this.wallet_state.unlocked_balance = null;
     this.sendRPC("rescan_blockchain");
+    this.startHeartbeat();
   }
 
   rescanSpent() {
