@@ -358,12 +358,16 @@ export class WalletRPC {
         break;
       case "purchase_bns":
         this.purchaseBNS(
+          params.years,
           params.password,
-          params.type,
+          // params.type,
           params.name,
           params.value,
           params.owner || "",
-          params.backup_owner || ""
+          params.backup_owner || "",
+          params.value_bchat || "",
+          params.value_belnet || "",
+          params.value_wallet || ""
         );
         break;
       case "bns_renew_mapping":
@@ -960,12 +964,11 @@ export class WalletRPC {
     }, 8000);
     this.heartbeatAction(true);
 
-    // disabled the BNS for the future release
-    // clearInterval(this.bnsHeartbeat);
-    // this.bnsHeartbeat = setInterval(() => {
-    //   this.updateLocalBNSRecords();
-    // }, 80000); // change from 30*1000 to 80000
-    // this.updateLocalBNSRecords();
+    clearInterval(this.bnsHeartbeat);
+    this.bnsHeartbeat = setInterval(() => {
+      this.updateLocalBNSRecords();
+    }, 80000); // change from 30*1000 to 80000
+    this.updateLocalBNSRecords();
   }
 
   heartbeatAction(extended = false) {
@@ -1083,16 +1086,25 @@ export class WalletRPC {
       // Pull out all our addresses from the data and make sure they're valid
       const results = addressData.result.addresses || [];
       const addresses = results.map(a => a.address).filter(a => !!a);
+      // console.log("updateLocalBNSRecords 1::", addresses);
+
       if (addresses.length === 0) return;
 
       const records = await this.backend.daemon.getBNSRecordsForOwners(
         addresses
       );
+      // console.log("updateLocalBNSRecords 2::", records);
 
       // We need to ensure that we decrypt any incoming records that we already have
       const currentRecords = this.wallet_state.bnsRecords;
+      // console.log("updateLocalBNSRecords 3::", currentRecords);
+
       const recordsToUpdate = { ...this.purchasedNames };
+      // console.log("updateLocalBNSRecords 4::", recordsToUpdate);
+
       const newRecords = records.map(record => {
+        // console.log("updateLocalBNSRecords 5::", record);
+
         // If we have a new record or we haven't decrypted our current record then we should return the new record
         const current = currentRecords.find(
           c => c.name_hash === record.name_hash
@@ -1112,6 +1124,7 @@ export class WalletRPC {
             ...record
           };
         }
+        console.log("updateLocalBNSRecords 6::", current, record);
 
         // Otherwise just update our current record with new information (in the case that owner or backup_owner was updated)
         return {
@@ -1136,7 +1149,7 @@ export class WalletRPC {
           }
         }
       }
-
+      // console.log("updateLocalBNSRecords 7::", newRecords);
       this.sendGateway("set_wallet_data", { bnsRecords: newRecords });
 
       // Decrypt the records serially
@@ -1249,6 +1262,7 @@ export class WalletRPC {
   */
   async decryptBNSRecord(type, name) {
     let _type = type;
+    // console.log("decryptBNSRecord 0::", _type);
     // type can initially be "belnet_1y" etc. on a purchase
     if (type.startsWith("belnet")) {
       _type = "belnet";
@@ -1267,7 +1281,7 @@ export class WalletRPC {
       } else {
         // if it's our record, we can cache it
         const _record = {
-          type: record.type,
+          // type: record.type,
           name: record.name
         };
         const params = {
@@ -1880,77 +1894,97 @@ export class WalletRPC {
     crypto.pbkdf2(password, this.auth[2], 1000, 64, "sha512", cryptoCallback);
   }
 
-  // purchaseBNS(password, type, name, value, owner, backupOwner) {
-  //   let _name = name.trim().toLowerCase();
-  //   const _owner = owner.trim() === "" ? null : owner;
-  //   const backup_owner = backupOwner.trim() === "" ? null : backupOwner;
+  purchaseBNS(
+    years,
+    password,
+    // params.type,
+    name,
+    value,
+    owner,
+    backupOwner,
+    bchatId,
+    belnetId,
+    walletAddress
+  ) {
+    let _name = name.trim().toLowerCase();
+    const _owner = owner.trim() === "" ? null : owner;
+    const backup_owner = backupOwner.trim() === "" ? null : backupOwner;
 
-  //   // the RPC accepts names with the .bdx already appeneded only
-  //   // can be belnet_1y, belnet_2y, belnet_5y, belnet_10y
-  //   if (type.startsWith("belnet")) {
-  //     _name = _name + ".bdx";
-  //     value = value + ".bdx";
-  //   }
+    // the RPC accepts names with the .bdx already appeneded only
+    // can be belnet_1y, belnet_2y, belnet_5y, belnet_10y
+    // if (type.startsWith("belnet")) {
+    //   _name = _name + ".bdx";
 
-  //   crypto.pbkdf2(
-  //     password,
-  //     this.auth[2],
-  //     1000,
-  //     64,
-  //     "sha512",
-  //     (err, password_hash) => {
-  //       if (err) {
-  //         this.sendGateway("set_bns_status", {
-  //           code: -1,
-  //           i18n: "notification.errors.internalError",
-  //           sending: false
-  //         });
-  //         return;
-  //       }
-  //       if (!this.isValidPasswordHash(password_hash)) {
-  //         this.sendGateway("set_bns_status", {
-  //           code: -1,
-  //           i18n: "notification.errors.invalidPassword",
-  //           sending: false
-  //         });
-  //         return;
-  //       }
+    //   value = value + ".bdx";
+    // }
 
-  //       const params = {
-  //         type,
-  //         owner: _owner,
-  //         backup_owner,
-  //         name: _name,
-  //         value
-  //       };
+    crypto.pbkdf2(
+      password,
+      this.auth[2],
+      1000,
+      64,
+      "sha512",
+      (err, password_hash) => {
+        if (err) {
+          this.sendGateway("set_bns_status", {
+            code: -1,
+            i18n: "notification.errors.internalError",
+            sending: false
+          });
+          return;
+        }
+        if (!this.isValidPasswordHash(password_hash)) {
+          this.sendGateway("set_bns_status", {
+            code: -1,
+            i18n: "notification.errors.invalidPassword",
+            sending: false
+          });
+          return;
+        }
 
-  //       this.sendRPC("bns_buy_mapping", params).then(data => {
-  //         if (data.hasOwnProperty("error")) {
-  //           let error =
-  //             data.error.message.charAt(0).toUpperCase() +
-  //             data.error.message.slice(1);
-  //           this.sendGateway("set_bns_status", {
-  //             code: -1,
-  //             message: error,
-  //             sending: false
-  //           });
-  //           return;
-  //         }
+        const params = {
+          years: years,
+          owner: _owner,
+          backup_owner: backup_owner,
+          name: _name,
+          value_bchat: bchatId,
 
-  //         this.purchasedNames[name.trim()] = type;
+          value_belnet: belnetId,
+          value_wallet: walletAddress
+        };
+        console.log("bns_buy_mapping 0::", params);
 
-  //         // Fetch new records and then get the decrypted record for the one we just inserted
-  //         setTimeout(() => this.updateLocalBNSRecords(), 5000);
+        this.sendRPC("bns_buy_mapping", params).then(data => {
+          // console.log("bns_buy_mapping 1::",data)
+          if (data.hasOwnProperty("error")) {
+            // console.log("bns_buy_mapping 2::", data.error)
 
-  //         this.sendGateway("set_bns_status", {
-  //           code: 0,
-  //           i18n: "notification.positive.namePurchased",
-  //           sending: false
-  //         });
-  //       });
-  //     }
-  //   );
-  // }
+            let error =
+              data.error.message.charAt(0).toUpperCase() +
+              data.error.message.slice(1);
+            this.sendGateway("set_bns_status", {
+              code: -1,
+              message: error,
+              sending: false
+            });
+            return;
+          }
+          // console.log("bns_buy_mapping 3::", this.purchasedNames[name.trim()] = years)
+
+          this.purchasedNames[name.trim()] = years;
+
+          // Fetch new records and then get the decrypted record for the one we just inserted
+          setTimeout(() => this.updateLocalBNSRecords(), 5000);
+
+          this.sendGateway("set_bns_status", {
+            code: 0,
+            i18n: "notification.positive.namePurchased",
+            sending: false
+          });
+        });
+      }
+    );
+  }
 
   updateBNSMapping(password, type, name, value, owner, backupOwner) {
     let _name = name.trim().toLowerCase();

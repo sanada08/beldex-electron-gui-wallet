@@ -1,7 +1,45 @@
 <template>
   <div class="bns-input-form">
+    <div class="prices">
+      <span class="pricelabel">
+        <span class="bnsname q-mr-sm">BNS</span
+        >{{ $t("strings.bns.prices") }}</span
+      >
+      <section class="flex row q-mt-xs q-gutter-sm">
+        <div
+          v-for="item in typeOptions"
+          :key="item.type"
+          :class="[record.years == item.value ? 'selected' : '']"
+          class="flex row tag items-center justify-between no-wrap"
+          @click="record.years = item.value"
+        >
+          <div>{{ item.label }}</div>
+          <div class="amount">{{ item.amount }}</div>
+        </div>
+        <!-- <div
+            class="flex row tag items-center justify-between  no-wrap"
+          >
+            <div>{{ $t("strings.bns.belnetName1Year") }}</div>
+            <div class="amount">15 BDX</div>
+          </div>
+          <div class="flex row tag items-center justify-between no-wrap">
+            <div>{{ $t("strings.bns.belnetNameXYears", { years: 2 }) }}</div>
+            <div class="amount">30 BDX</div>
+          </div>
+          <div class="flex row tag items-center justify-between no-wrap">
+            <div>{{ $t("strings.bns.belnetNameXYears", { years: 5 }) }}</div>
+            <div class="amount">60 BDX</div>
+          </div>
+          <div
+            class="flex row tag items-center justify-between q-mr-sm q-ml-sm no-wrap"
+          >
+            <div>{{ $t("strings.bns.belnetNameXYears", { years: 10 }) }}</div>
+            <div class="amount">90 BDX</div>
+          </div> -->
+      </section>
+    </div>
     <!-- Type -->
-    <div class="col q-mt-sm">
+    <!-- <div class="col q-mt-sm">
       <OxenField :label="$t('fieldLabels.bnsType')" :disable="updating">
         <q-select
           v-model.trim="record.type"
@@ -13,7 +51,7 @@
           dense
         />
       </OxenField>
-    </div>
+    </div> -->
     <!-- Name -->
     <div class="col q-mt-sm">
       <OxenField
@@ -21,6 +59,8 @@
         :disable="disableName"
         :error="$v.record.name.$error"
       >
+        <!-- :suffix="record.type === 'bchat' ? '' : '.bdx'" -->
+
         <q-input
           v-model.trim="record.name"
           :dark="theme == 'dark'"
@@ -28,14 +68,13 @@
           :disable="disableName"
           borderless
           dense
-          :suffix="record.type === 'bchat' ? '' : '.bdx'"
           @blur="$v.record.name.$touch"
         />
       </OxenField>
     </div>
 
     <!-- Value (Bchat ID, Wallet Address or .bdx address) -->
-    <div class="col q-mt-sm">
+    <!-- <div class="col q-mt-sm">
       <OxenField
         class="q-mt-md"
         :label="value_field_label"
@@ -52,7 +91,7 @@
           @blur="$v.record.value.$touch"
         />
       </OxenField>
-    </div>
+    </div> -->
 
     <!-- Owner -->
     <div class="col q-mt-sm">
@@ -93,13 +132,113 @@
         />
       </OxenField>
     </div>
-    <div class="buttons">
-      <q-btn
-        :disable="!is_able_to_send || disableSubmitButton || !can_update"
-        color="primary"
-        :label="submitLabel"
-        @click="submit()"
-      />
+    <!-- <BNSAddressSelection :parentValue="parentValue" @update-parent="updateParentValue" /> -->
+
+    <div class="idSelectorWrapper">
+      <section class="q-mt-md">
+        <div
+          class="flex row items-center no-wrap q-pa-sm q-mb-sm selectionBox"
+          :class="[bchatIdRef ? 'selected' : '']"
+        >
+          <q-checkbox
+            v-model="bchatIdRef"
+            style="width: 140px"
+            size="sm"
+            label="BChat ID"
+            color="green"
+          />
+          <OxenField class="full-width" optional>
+            <q-input
+              v-model="bchatId"
+              :disable="!bchatIdRef"
+              :dark="theme == 'dark'"
+              placeholder="BChat ID"
+              borderless
+              dense
+            />
+          </OxenField>
+          <!-- <q-radio
+          keep-color
+          v-model="selectedId"
+          val="BChat ID"
+          label="BChat ID"
+          color="green"
+        /> -->
+        </div>
+        <div
+          class="flex row items-center no-wrap q-pa-sm q-mb-sm selectionBox"
+          :class="[belnetIdRef ? 'selected' : '']"
+        >
+          <q-checkbox
+            v-model="belnetIdRef"
+            style="width: 140px"
+            size="sm"
+            label="Belnet ID"
+            color="green"
+          />
+          <OxenField class="full-width" optional>
+            <q-input
+              v-model="belnetId"
+              :disable="!belnetIdRef"
+              :dark="theme == 'dark'"
+              placeholder="Belnet ID"
+              borderless
+              dense
+            />
+          </OxenField>
+          <!-- <q-radio
+          keep-color
+          v-model="selectedId"
+          val="Belnet ID"
+          label="Belnet ID"
+          color="green"
+        /> -->
+        </div>
+        <div
+          class="flex row items-center no-wrap q-pa-sm q-mb-sm selectionBox"
+          :class="[addressRef ? 'selected' : '']"
+        >
+          <q-checkbox
+            v-model="addressRef"
+            style="width: 140px"
+            size="sm"
+            label="Address"
+            color="green"
+          />
+          <OxenField class="full-width" optional>
+            <q-input
+              v-model="address"
+              :disable="!addressRef"
+              :dark="theme == 'dark'"
+              placeholder="Address"
+              borderless
+              dense
+            />
+          </OxenField>
+          <!-- <q-radio
+          keep-color
+          v-model="selectedId"
+          val="Address"
+          label="Address"
+          color="green"
+        /> -->
+        </div>
+      </section>
+      <!-- <div class="col q-mt-sm">
+      <OxenField v-if="selectedId" class="q-mt-md" optional>
+        <q-input
+          :dark="theme == 'dark'"
+          :placeholder="selectedId"
+          borderless
+          dense
+        />
+      </OxenField>
+    </div> -->
+    </div>
+    <!-- :disable="!is_able_to_send || disableSubmitButton || !can_update ||!record.name" -->
+
+    <div class="buttons flex justify-center q-mt-sm">
+      <q-btn color="primary" :label="submitLabel" @click="submit()" />
       <q-btn
         v-if="showClearButton"
         color="accent"
@@ -110,6 +249,7 @@
   </div>
 </template>
 <script>
+import { ref } from "vue";
 import { mapState } from "vuex";
 import { required, maxLength } from "vuelidate/lib/validators";
 import {
@@ -126,6 +266,16 @@ export default {
   name: "BNSInputForm",
   components: {
     OxenField
+    // BNSAddressSelection
+  },
+  setup() {
+    // const selectedId = ref();
+    return {
+      // selectedId: ref(""),
+      bchatIdRef: ref(false),
+      belnetIdRef: ref(false),
+      addressRef: ref(false)
+    };
   },
   mixins: [WalletPassword],
   props: {
@@ -164,43 +314,66 @@ export default {
     }
   },
   data() {
-    let bchatOptions = [
-      { label: this.$t("strings.bns.bchatID"), value: "bchat" }
-    ];
+    // let bchatOptions = [
+    //   // {
+    //   //   label: this.$t("strings.bns.bchatID"),
+    //   //   value: "bchat",
+    //   //   amount: "15 bdx"
+    //   // }
+    // ];
     let belnetOptions = [
-      { label: this.$t("strings.bns.belnetName1Year"), value: "belnet_1y" },
       {
-        label: this.$t("strings.bns.belnetNameXYears", { years: 2 }),
-        value: "belnet_2y"
+        // label: this.$t("strings.bns.belnetName1Year"),
+        label: "1 Year",
+        value: "1y",
+        amount: "650 bdx"
       },
       {
-        label: this.$t("strings.bns.belnetNameXYears", { years: 5 }),
-        value: "belnet_5y"
+        // label: this.$t("strings.bns.belnetNameXYears", { years: 2 }),
+        label: "2 Year",
+        value: "2y",
+        amount: "1000 bdx"
       },
       {
-        label: this.$t("strings.bns.belnetNameXYears", { years: 10 }),
-        value: "belnet_10y"
+        // label: this.$t("strings.bns.belnetNameXYears", { years: 5 }),
+        label: "5 Year",
+        value: "5y",
+        amount: "2000 bdx"
+      },
+      {
+        // label: this.$t("strings.bns.belnetNameXYears", { years: 10 }),
+        label: "10 Year",
+        value: "10y",
+        amount: "4000 bdx"
       }
     ];
-    let typeOptions = [...bchatOptions, ...belnetOptions];
+    // let typeOptions = [...bchatOptions, ...belnetOptions];
+    let typeOptions = [...belnetOptions];
 
     const initialRecord = {
       // Belnet 1 year is valid on renew or purchase
-      type: typeOptions[1].value,
+      years: typeOptions[0].value,
+      type: "",
       name: "",
       value: "",
       owner: "",
       backup_owner: ""
     };
+    console.log("initialRecord ::", initialRecord);
     return {
       record: { ...initialRecord },
       typeOptions,
-      belnetOptions
+      belnetOptions,
+
+      bchatId: "",
+      belnetId: "",
+      address: ""
     };
   },
   computed: mapState({
     theme: state => state.gateway.app.config.appearance.theme,
     our_address: state => state.gateway.wallet.info.address,
+    info: state => state.gateway.wallet.info,
     is_able_to_send() {
       return this.$store.getters["gateway/isAbleToSend"];
     },
@@ -214,6 +387,7 @@ export default {
     can_update() {
       // if we are on update screen and there have been no changes, then not allowed
       // to click "update"
+
       if (this.updating === true) {
         const isOwnerDifferent =
           this.record.owner !== "" &&
@@ -224,6 +398,7 @@ export default {
         const isValueDifferent = this.record.value !== this.initialRecord.value;
         const different =
           isOwnerDifferent || isBackupOwnerDifferent || isValueDifferent;
+
         return different;
       }
       return true;
@@ -245,6 +420,7 @@ export default {
     },
     cleanRecord() {
       return {
+        years: "",
         type: "bchat",
         name: "",
         value: "",
@@ -273,6 +449,7 @@ export default {
     reset() {
       this.initialRecord = { ...this.cleanRecord };
       this.record = { ...this.cleanRecord };
+      (this.bchatId = ""), (this.belnetId = ""), (this.address = "");
       this.$v.$reset();
     },
     submit() {
@@ -290,7 +467,7 @@ export default {
         } else {
           message = "notification.errors.invalidNameFormat";
         }
-
+        // console.log("onsubmit ::", message);
         this.$q.notify({
           type: "negative",
           timeout: 3000,
@@ -298,19 +475,21 @@ export default {
         });
         return;
       }
+      // console.log("onsubmit :2:");
 
-      if (this.$v.record.value.$error) {
-        let message = "Invalid value provided";
-        if (this.record.type === "bchat") {
-          message = this.$t("notification.errors.invalidBchatId");
-        }
-        this.$q.notify({
-          type: "negative",
-          timeout: 3000,
-          message
-        });
-        return;
-      }
+      // if (this.$v.record.value.$error) {
+      //   let message = "Invalid value provided";
+      //   if (this.record.type === "bchat") {
+      //     message = this.$t("notification.errors.invalidBchatId");
+      //   }
+      //   this.$q.notify({
+      //     type: "negative",
+      //     timeout: 3000,
+      //     message
+      //   });
+      //   return;
+      // }
+      // console.log("onsubmit :3:");
 
       if (this.$v.record.backup_owner.$error) {
         this.$q.notify({
@@ -332,8 +511,11 @@ export default {
       // The validators validate on lowercase, need to submit as lowercase too
       const submitRecord = {
         ...this.record,
-        name: this.record.name.toLowerCase(),
-        value: this.record.value.toLowerCase()
+        name: this.record.name.toLowerCase() + ".bdx",
+        value: this.record.value.toLowerCase(),
+        value_bchat: this.bchatId,
+        value_belnet: this.belnetId,
+        value_wallet: this.address
       };
       // Send up the submission with the record
       this.$emit("onSubmit", submitRecord);
@@ -366,18 +548,34 @@ export default {
           return this.isAddress(value);
         }
       },
-      value: {
+      bchatId: {
         required,
         validate: function(value) {
           const _value = value.toLowerCase();
-          if (this.record.type === "bchat") {
-            return bchat_id(_value);
-          } else {
-            // full belnet address
-            return belnet_address(_value);
-          }
+
+          return bchat_id(_value);
         }
       },
+      belnetId: {
+        required,
+        validate: function(value) {
+          const _value = value.toLowerCase();
+
+          return belnet_address(_value);
+        }
+      },
+      // value: {
+      //   required,
+      //   validate: function (value) {
+      //     const _value = value.toLowerCase();
+      //     if (this.record.type === "bchat") {
+      //       return bchat_id(_value);
+      //     } else {
+      //       // full belnet address
+      //       return belnet_address(_value);
+      //     }
+      //   }
+      // },
       backup_owner: {
         validate: function(value) {
           return this.isAddress(value);
@@ -391,11 +589,21 @@ export default {
 <style lang="scss">
 .bns-input-form {
   .buttons {
-    margin-top: 6px;
+    margin-top: 20px;
 
     .q-btn:not(:first-child) {
       margin-left: 8px;
     }
+  }
+}
+.idSelectorWrapper {
+  .selectionBox {
+    background-color: #474766;
+    border-radius: 10px;
+    border: 2px solid #474766;
+  }
+  .selected {
+    border: 2px solid #00ad07;
   }
 }
 </style>

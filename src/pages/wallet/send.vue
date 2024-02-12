@@ -80,10 +80,11 @@
           </article>
           <OxenField :error="$v.newTx.address.$error">
             <q-input
-              v-model.trim="newTx.address"
+              v-model="newTx.address"
               :placeholder="address_placeholder"
               borderless
               dense
+              @input="applyAlphanumericMask"
               @blur="$v.newTx.address.$touch"
             />
             <!-- <q-btn color="secondary"  to="addressbook">
@@ -370,6 +371,11 @@ export default {
     },
     addAddress() {
       this.newTx.address_book.save = !this.newTx.address_book.save;
+    },
+    applyAlphanumericMask() {
+      // Remove non-alphanumeric characters using the regular expression
+      this.newTx.address = this.newTx.address.replace(/[\W_]/g, "");
+      // this.newTx.address = this.newTx.address.replace(/^[a-zA-Z0-9]*$/,"")
     },
     onConfirmTransaction() {
       // put the loading spinner up

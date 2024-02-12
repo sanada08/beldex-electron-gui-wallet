@@ -33,7 +33,7 @@ export default {
     min: "Min",
     next: "Next",
     openWallet: "Open Wallet",
-    purchase: "PURCHASE",
+    purchase: "Purchase",
     receive: "Receive",
     registerMasterNode: "Register Master Node",
     renew: "Renew",
@@ -54,7 +54,7 @@ export default {
     stake: "Stake",
     sweepAll: "Sweep All",
     unlock: "unlock",
-    update: "UPDATE",
+    update: "Update",
     verify: "Verify",
     viewOnExplorer: "View in explorer",
     //new wamp
@@ -526,7 +526,7 @@ export default {
       bchatID: "Bchat ID",
       belnetName1Year: "Belnet Name 1 year",
       belnetNameXYears: "Belnet Name {years} years",
-      prices: "BNS Prices:"
+      prices: "Prices :"
     },
     bnsPurchaseDescription:
       "Purchase or update an BNS record. If you purchase a name, it may take a minute or two for it to show up in the list.",
@@ -656,9 +656,9 @@ export default {
     privateKeys: "Private keys",
     rescanWallet: "Rescan Wallet",
     restoreFromSeed: "Restore from Seed",
-
+    bnsServices: "BNS Service",
     bns: {
-      purchase: "PURCHASE",
+      purchase: "Buy BNS",
       myBns: "MY BNS"
     },
     masterNode: {

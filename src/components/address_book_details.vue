@@ -86,6 +86,7 @@
               :placeholder="address_placeholder"
               borderless
               dense
+              @input="applyAlphanumericMask"
               @blur="$v.newEntry.address.$touch"
             />
             <!-- <q-btn
@@ -361,6 +362,11 @@ export default {
       //     address: this.entry.address
       //   }
       // });
+    },
+    applyAlphanumericMask() {
+      // Remove non-alphanumeric characters using the regular expression
+      this.newEntry.address = this.newEntry.address.replace(/[\W_]/g, "");
+      // this.newTx.address = this.newTx.address.replace(/^[a-zA-Z0-9]*$/,"")
     },
     edit() {
       this.mode = "edit";

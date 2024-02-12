@@ -90,6 +90,7 @@ export default {
       // receives the type and returns the records of that type
       const ourAddresses = this.ourAddresses;
       const records = state.gateway.wallet.bnsRecords;
+      // console.log("records_of_type ::",records)
       const ourRecords = records.filter(record => {
         return (
           record.type === type &&
@@ -163,10 +164,10 @@ export default {
       });
 
       let type = "bchat";
-      // bchat names cannot have a "." so this is safe
-      if (name.endsWith(".bdx")) {
-        type = "belnet";
-      }
+      // // bchat names cannot have a "." so this is safe
+      // if (name.endsWith(".bdx")) {
+      //   type = "belnet";
+      // }
 
       this.$gateway.send("wallet", "decrypt_record", {
         name,
