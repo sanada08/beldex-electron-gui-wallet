@@ -129,9 +129,10 @@
                   />
                 </article>
               </router>
+              <!-- v-if="tabs[tabs.length - 1].value === 'peers'" -->
               <routering
                 v-if="tabs[tabs.length - 1].value === 'peers'"
-                class="routering"
+                class="routering q-mt-md"
                 @click="page = 'peers'"
               >
                 <!-- <article
@@ -231,7 +232,9 @@
               {{
                 page === "language"
                   ? $t("titles.settings.tabs.language")
-                  : $t("titles.settings.title")
+                  : page === "peers"
+                  ? this.$t("titles.settings.tabs.peers")
+                  : this.$t("titles.settings.tabs.general")
               }}
             </q-toolbar-title>
           </div>
@@ -505,7 +508,9 @@ export default {
   }
   .version-wrapper,
   .version-wrapperwithpeer {
-    height: 75%;
+    position: absolute;
+    bottom: 28px;
+    // height: 75%;
     .version {
       display: flex;
       align-items: center;
@@ -519,9 +524,9 @@ export default {
       }
     }
   }
-  .version-wrapperwithpeer {
-    height: 67%;
-  }
+  // .version-wrapperwithpeer {
+  //   height: 67%;
+  // }
   .right-header {
     margin: 90px auto 0px 25px;
     color: white;
@@ -537,12 +542,12 @@ export default {
     .rightPane {
       height: 78vh;
     }
-    .version-wrapper {
-      height: 71%;
-    }
-    .version-wrapperwithpeer {
-      height: 58%;
-    }
+    // .version-wrapper {
+    //   height: 35%;
+    // }
+    // .version-wrapperwithpeer {
+    //   height: 58%;
+    // }
   }
   .routering {
     .selected {

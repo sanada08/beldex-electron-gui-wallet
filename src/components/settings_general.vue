@@ -2,7 +2,13 @@
   <div class="settings-general">
     <div class="daemonType">
       <div class="row justify-between q-mb-sm q-pb-sm daemonType">
-        <div>
+        <div
+          :class="
+            `daemonTitle-wrapper  ${
+              config_daemon.type === 'remote' ? 'active' : ''
+            }`
+          "
+        >
           <q-radio
             v-model="config_daemon.type"
             dense
@@ -11,7 +17,13 @@
             :label="$t('strings.daemon.remote.title')"
           />
         </div>
-        <div>
+        <div
+          :class="
+            `daemonTitle-wrapper  ${
+              config_daemon.type === 'local_remote' ? 'active' : ''
+            }`
+          "
+        >
           <q-radio
             v-model="config_daemon.type"
             dense
@@ -20,7 +32,13 @@
             :label="$t('strings.daemon.localRemote.title')"
           />
         </div>
-        <div>
+        <div
+          :class="
+            `daemonTitle-wrapper  ${
+              config_daemon.type === 'local' ? 'active' : ''
+            }`
+          "
+        >
           <q-radio
             v-model="config_daemon.type"
             dense
@@ -266,6 +284,7 @@
             max="65535"
             borderless
             dense
+            @keydown="keyHandler"
           />
         </OxenField>
         <OxenField
@@ -286,6 +305,7 @@
             max="65535"
             borderless
             dense
+            @keydown="keyHandler"
           />
         </OxenField>
         <OxenField
@@ -307,6 +327,7 @@
             max="65535"
             borderless
             dense
+            @keydown="keyHandler"
           />
         </OxenField>
         <OxenField
@@ -328,6 +349,7 @@
             max="65535"
             borderless
             dense
+            @keydown="keyHandler"
           />
         </OxenField>
       </div>
@@ -453,7 +475,16 @@
       v-if="!welcome"
       class="flex row align-center justify-center a-center q-mt-lg"
     >
-      <q-btn color="primary" :label="$t('buttons.save')" @click="save" />
+      <q-btn
+        color="primary"
+        :label="$t('buttons.save')"
+        :disabled="
+          config_daemon.type != 'local'
+            ? !this.config_daemon.remote_host || !this.config_daemon.remote_port
+            : !this.config_daemon.rpc_bind_port
+        "
+        @click="save"
+      />
     </div>
     <div v-if="welcome" class="flex row align-center justify-center q-mt-lg">
       <div class="a-center q-mr-lg">
@@ -562,6 +593,16 @@ export default {
       if (host) this.config_daemon.remote_host = host;
       if (port) this.config_daemon.remote_port = port;
     },
+    keyHandler(evt) {
+      if (
+        // evt.key === "-" ||
+        evt.key === "+" ||
+        evt.key === "e" ||
+        evt.key === "E"
+      ) {
+        evt.preventDefault();
+      }
+    },
     toString(value) {
       if (!value && typeof value !== "number") return "";
       return String(value);
@@ -591,6 +632,18 @@ export default {
       padding-right: 30px;
       margin: 0px;
       border-right: 2px solid #3e3e5b;
+    }
+    .daemonTitle-wrapper {
+      padding: 10px 0;
+      width: 33%;
+      text-align: center;
+      border-radius: 7px;
+    }
+    .daemonTitle-wrapper:hover {
+      background-color: #32324b;
+    }
+    .active {
+      background-color: #40405e;
     }
   }
   .daemonDiscription {

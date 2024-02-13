@@ -75,9 +75,24 @@ export default {
       else return pct;
     },
     wallet_pct() {
-      let pct = ((100 * this.wallet.info.height) / this.target_height).toFixed(
-        1
-      );
+      let pct;
+      if (this.config_daemon.type == "local_remote") {
+        if (this.wallet.info.height == this.target_height) {
+          pct = ((100 * this.wallet.info.height) / this.target_height).toFixed(
+            1
+          );
+        } else {
+          // pct = ((100 * this.target_height) / this.wallet.info.height).toFixed(
+          //   1
+          // );
+          pct = ((100 * this.wallet.info.height) / this.target_height).toFixed(
+            1
+          );
+          // console.log("pct 0", pct);
+        }
+      } else {
+        pct = ((100 * this.wallet.info.height) / this.target_height).toFixed(1);
+      }
       if (pct == 100.0 && this.wallet.info.height < this.target_height)
         return 99.9;
       else return pct;

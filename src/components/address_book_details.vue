@@ -37,22 +37,49 @@
             {{ $t("titles.addressBook") }}
           </q-toolbar-title>
 
-          <q-btn
+          <button
             v-if="mode == 'edit'"
             class="q-ml-sm add-btn delete-btn"
-            color="accent"
-            icon="edit"
-            size="14"
-            :label="$t('buttons.delete')"
             @click="openDeletePopUp()"
-          />
+          >
+            <svg
+              width="22"
+              height="22"
+              viewBox="0 0 22 22"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g id="icons8-delete 2">
+                <path
+                  id="Vector"
+                  d="M8.93213 1.375C7.8042 1.375 6.875 2.3042 6.875 3.43213V4.125H2.75V5.5H4.125V17.1875C4.125 18.3262 5.04883 19.25 6.1875 19.25H14.4375C15.5762 19.25 16.5 18.3262 16.5 17.1875V5.5H17.875V4.125H13.75V3.43213C13.75 2.3042 12.8208 1.375 11.6929 1.375H8.93213ZM8.93213 2.75H11.6929C12.0796 2.75 12.375 3.04541 12.375 3.43213V4.125H8.25V3.43213C8.25 3.04541 8.54541 2.75 8.93213 2.75ZM6.875 6.875H8.25V16.5H6.875V6.875ZM9.625 6.875H11V16.5H9.625V6.875ZM12.375 6.875H13.75V16.5H12.375V6.875Z"
+                  fill="white"
+                />
+              </g>
+            </svg>
+            <q-tooltip anchor="bottom right" self="top right" :offset="[0, 5]">
+              Delete Contact
+            </q-tooltip>
+          </button>
         </q-toolbar>
       </q-header>
-      <q-page class="detail-page" style="padding-top: 59px; min-height: unset">
+      <q-page style="padding-top: 59px; min-height: unset">
         <div class="address-book-modal">
+          <OxenField :label="$t('fieldLabels.name')">
+            <q-input
+              v-model.trim="newEntry.name"
+              :placeholder="$t('placeholders.enterName')"
+              borderless
+              :maxlength="20"
+              dense
+            />
+          </OxenField>
           <OxenField
             :label="$t('fieldLabels.address')"
             :error="$v.newEntry.address.$error"
+            :starred="newEntry.starred"
+            :update-starred="updateStarred"
+            :enable-star="true"
           >
             <q-input
               v-model.trim="newEntry.address"
@@ -61,21 +88,13 @@
               dense
               @blur="$v.newEntry.address.$touch"
             />
-            <q-btn
+            <!-- <q-btn
               v-model="newEntry.starred"
               flat
               round
               :icon="newEntry.starred ? 'star' : 'star_border'"
               @click="updateStarred"
-            />
-          </OxenField>
-          <OxenField :label="$t('fieldLabels.name')">
-            <q-input
-              v-model.trim="newEntry.name"
-              :placeholder="$t('placeholders.enterName')"
-              borderless
-              dense
-            />
+            /> -->
           </OxenField>
           <OxenField :label="$t('fieldLabels.notes')" optional>
             <q-input
@@ -101,7 +120,7 @@
           <q-btn
             class="q-ml-sm add-btn res_btn"
             color="primary"
-            :label="$t('buttons.add')"
+            :label="$t('buttons.save')"
             size="1.2em"
             @click="save()"
           />
@@ -152,12 +171,15 @@
             no-ripple
             icon="create"
             :disable="!is_ready"
-            label="Edit"
             size="md"
             @click="edit()"
-          />
+          >
+            <q-tooltip anchor="bottom right" self="top right" :offset="[0, 5]">
+              Edit Contact
+            </q-tooltip>
+          </q-btn>
           <!-- :label="$t('buttons.send')" -->
-
+          <!-- 
           <q-btn
             color="primary send_btn"
             :disabled="view_only"
@@ -165,7 +187,7 @@
             icon="north_east"
             size="md"
             @click="sendToAddress"
-          />
+          /> -->
         </q-toolbar>
       </q-header>
       <!-- <q-page-container> -->
@@ -200,6 +222,14 @@
             </div> -->
           </template>
         </div>
+
+        <q-btn
+          color="primary send_btn q-mt-lg"
+          :disabled="view_only"
+          label="Send"
+          icon="north_east"
+          @click="sendToAddress"
+        />
       </q-page>
     </q-layout>
   </section>
@@ -426,10 +456,11 @@ export default {
   }
   .edit_btn {
     background-color: #40405e;
-    height: 45px;
+    height: 36px;
     padding-right: 8px;
     border-radius: 9px;
     color: #fff;
+    width: 32px;
     .q-icon {
       font-size: 1.2em;
       color: #fff;
@@ -442,11 +473,12 @@ export default {
     min-width: unset;
     height: 45px;
     border-radius: 9px;
+    font-size: 19px;
     .q-icon {
       font-size: 1.2em;
     }
     .on-left {
-      margin-right: 1px;
+      margin-right: 5px;
     }
   }
   .q-toolbar {
@@ -471,11 +503,24 @@ export default {
   }
   .delete-btn {
     min-width: unset;
-    width: 7.5vw;
-    border-radius: 9px;
+    width: 34px;
+    height: 35px;
+    border: none;
+    border-radius: 6px;
+    background-color: #32324a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2), 0 2px 2px rgba(0, 0, 0, 0.14),
+      0 3px 1px -2px rgba(0, 0, 0, 0.12);
+    cursor: pointer;
     .on-left {
       margin-right: 1px;
     }
+  }
+  .delete-btn:hover {
+    background-color: #484866 !important ;
   }
   .oxen-field .label {
     font-family: "Poppins-Regular";
@@ -498,9 +543,9 @@ export default {
     background: unset !important;
   }
 }
-@media only screen and (max-height: 780px) {
-  .address-book-details .delete-btn {
-    width: unset;
-  }
-}
+// @media only screen and (max-height: 780px) {
+//   .address-book-details .delete-btn {
+//     width: unset;
+//   }
+// }
 </style>

@@ -165,7 +165,7 @@ module.exports = function() {
         publish: "github",
 
         linux: {
-          target: ["deb"],
+          target: ["deb", "AppImage"],
           icon: "src-electron/icon.png",
           category: "Finance"
         },

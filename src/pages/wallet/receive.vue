@@ -105,7 +105,10 @@
     <template v-if="QR.address != null">
       <q-dialog v-model="QR.visible" :content-class="'qr-code-modal'">
         <q-card class="qr-code-card">
-          <div class="text-center q-mb-sm q-pa-md" style="background: white">
+          <div
+            class="text-center  q-pa-md q-ma-lg "
+            style="background-color: white; border-radius: 10px;"
+          >
             <QrcodeVue ref="qr" :value="QR.address" size="240"></QrcodeVue>
             <ContextMenu
               :menu-items="menuItems"
@@ -113,7 +116,8 @@
               @saveQR="saveQR()"
             />
           </div>
-          <q-card-actions>
+
+          <q-card-actions class="q-mb-md " style="margin-right: 0;">
             <q-btn
               color="primary"
               :label="$t('buttons.close')"

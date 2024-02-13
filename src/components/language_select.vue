@@ -1,10 +1,10 @@
 <template>
   <section>
-    <div class="language-select column items-center justify-center q-mb-lg">
+    <div class="language-select column items-center justify-center q-mb-md">
       <!-- <h6 class="q-my-md" style="font-weight: 300">
       {{ $t("strings.selectLanguage") }}:
      </h6> -->
-      <div class="inner-box row justify-between q-mb-lg">
+      <div class="inner-box row justify-between q-mb-md">
         <q-btn
           v-for="option in options"
           :key="option.value"
@@ -66,7 +66,7 @@ export default {
     width: 83%;
     background-color: #32324a;
     /* height: 212px; */
-    padding: 36px;
+    padding: 36px 36px 5px 36px;
     border-radius: 10px;
 
     .flag-icon {

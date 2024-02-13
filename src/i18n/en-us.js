@@ -4,7 +4,7 @@ export default {
     advanced: "Advanced",
     addAddressBook: "Add to Address book",
     addWallet: "Add Wallet",
-    all: "ALL",
+    all: "All",
     back: "Back",
     browse: "Browse",
     cancel: "Cancel",
@@ -13,11 +13,11 @@ export default {
     clear: "Clear",
     clearAll: "Clear All",
     close: "Close",
-    contacts: "CONTACTS",
-    copyAddress: "COPY ADDRESS",
-    copyData: "COPY DATA",
+    contacts: "Contacts",
+    copyAddress: "Copy Address",
+    copyData: "Copy Data",
     copy: "Copy",
-    copySignature: "COPY SIGNATURE",
+    copySignature: "Copy Signature",
     createWallet: "Create Wallet",
     decrypt: "DECRYPT",
     delete: "Delete",
@@ -27,16 +27,16 @@ export default {
     fromBlockheight: "From Blockheight",
     generate: "Generate",
     import: "Import",
-    importWallet: "Import Wallet | IMPORT WALLETS",
-    bns: "BELDEX NAME SERVICE",
+    importWallet: "Import Wallet | Import Wallets",
+    bns: "BELDEX Name Service",
 
     min: "Min",
     next: "Next",
-    openWallet: "OPEN WALLET",
+    openWallet: "Open Wallet",
     purchase: "PURCHASE",
     receive: "Receive",
     registerMasterNode: "Register Master Node",
-    renew: "RENEW",
+    renew: "Renew",
     refresh: "Refresh",
     rescan: "Rescan",
     restoreWallet: "Restore Wallet",
@@ -46,14 +46,14 @@ export default {
     selectWalletFile: "Select File",
     send: "Send",
     sendCoins: "Send Coins",
-    masterNode: "MASTER NODES",
-    settings: "SETTINGS",
-    showQRCode: "SHOW QR CODE",
+    masterNode: "Master Node",
+    settings: "Settings",
+    showQRCode: "Show QR Code",
     showTxDetails: "TXN Details",
     sign: "Sign",
     stake: "Stake",
     sweepAll: "Sweep All",
-    unlock: "UNLOCK",
+    unlock: "unlock",
     update: "UPDATE",
     verify: "Verify",
     viewOnExplorer: "View in explorer",
@@ -66,15 +66,15 @@ export default {
     buttons: {
       ok: "OK",
       cancel: "Cancel",
-      open: "OPEN"
+      open: "Open"
     },
 
     // Dialogs
     banPeer: {
-      title: "Ban peer",
-      peerDetailsTitle: "Peer details",
+      title: "Ban Peer",
+      peerDetailsTitle: "Peer Details",
       message: "Enter length to ban peer in seconds.\nDefault 3600 = 1 hour.",
-      ok: "Ban peer"
+      ok: "Ban Peer"
     },
     copyAddress: {
       title: "Copy address",
@@ -91,15 +91,14 @@ export default {
       spendKey: "Spend Key"
     },
     deleteWallet: {
-      title: "Delete wallet",
-      message:
-        "Are you absolutely sure you want to delete your wallet?\nMake sure you have your private keys backed up.\n This proccess is not reversible!",
+      title: "Delete Wallet",
+      message: "Are you sure you want to delete the current wallet?",
       ok: "Delete"
     },
     exit: {
       title: "Exit",
       message: "Are you sure you want to Exit the wallet?",
-      ok: "Exit"
+      ok: "Exit Wallet"
     },
     keyImages: {
       title: "{type} Key Images",
@@ -113,13 +112,13 @@ export default {
       ok: "UPDATE"
     },
     noPassword: {
-      title: "No password set",
+      title: "No Password Set",
       message: "Are you sure you want to create a wallet with no password?",
       ok: "Yes"
     },
     password: {
-      title: "Password",
-      message: "Enter wallet password to continue."
+      title: "Enter your Wallet Password",
+      message: "Just click “Enter” if you haven’t set any password :)"
     },
     purchase: {
       title: "Purchase name",
@@ -134,21 +133,21 @@ export default {
     registerMasterNode: {
       title: "Register master node",
       message: "Do you want to register the master node?",
-      ok: "REGISTER"
+      ok: "Register"
     },
     rescan: {
       title: "Rescan wallet",
       message:
         "Warning: Some information about previous transactions\nsuch as the recipient's address will be lost.",
-      ok: "RESCAN"
+      ok: "Rescan"
     },
     restart: {
       title: "Restart",
       message: "Changes require restart. Would you like to restart now?",
-      ok: "Restart"
+      ok: "Restart Wallet"
     },
     showPrivateKeys: {
-      title: "Show private keys",
+      title: "Show Private Keys",
       message: "Do you want to view your private keys?",
       ok: "Show"
     },
@@ -160,12 +159,12 @@ export default {
     stake: {
       title: "Stake",
       message: "Do you want to stake?",
-      ok: "STAKE"
+      ok: "Stake"
     },
     sweepAll: {
       title: "Sweep all",
       message: "Do you want to sweep all?",
-      ok: "SWEEP ALL"
+      ok: "Sweep all"
     },
     sweepAllWarning: {
       title: "Sweep all warning",
@@ -182,7 +181,7 @@ export default {
         "Are you sure you want to close and Restart the wallet?"
     },
     transactionDetails: {
-      title: "Transaction details",
+      title: "Transaction Details",
       ok: "Close"
     },
     transfer: {
@@ -191,7 +190,7 @@ export default {
       ok: "Send"
     },
     confirmTransaction: {
-      title: "Confirm transaction",
+      title: "Confirm Sending",
       sendTo: "Send to",
       priority: "Priority"
     },
@@ -256,11 +255,11 @@ export default {
     restoreFromBlockHeight: "Restore from BlockHeight",
     restoreFromDate: "Restore from Date",
     seedLanguage: "Seed Language",
-    masterNodeCommand: "Master node command",
-    masterNodeKey: "Master node Key",
+    masterNodeCommand: "Master Node Command",
+    masterNodeKey: "Master Node Key",
     bchatId: "BCHAT ID",
     signature: "Signature",
-    transactionId: "Transaction Id",
+    transactionId: "Transaction ID",
     walletFile: "Wallet File",
     walletLogLevel: "Wallet Log Level",
     walletName: "Wallet Name",
@@ -271,8 +270,8 @@ export default {
     confirmNewPassword: "Confirm New Password",
     newPassword: "New Password",
     oldPassword: "Old Password",
-    rescanFullBlockchain: "Rescan full blockchain",
-    rescanSpentOutputs: "Rescan spent outputs",
+    rescanFullBlockchain: "Rescan Full Blockchain",
+    rescanSpentOutputs: "Rescan Spent Outputs",
     transactionNotes: "Transaction Notes",
     totalBalance: "Total Balance",
     chooseNetwork: "Choose a Network",
@@ -307,7 +306,7 @@ export default {
     copyMasterNodeKey: "Copy master node key",
     copyTransactionId: "Copy transaction ID",
     copyViewKey: "Copy view key",
-    createNewWallet: "Create new wallet",
+    createNewWallet: "Create New Wallet",
     deleteWallet: "Delete Wallet",
     exit: "Exit Wallet",
     importOldGUIWallet: "Import wallets from old GUI",
@@ -443,6 +442,9 @@ export default {
     belnetFullAddress: "Full belnet address to map BNS name to (without .bdx)",
     enterName: "Enter Name",
     enterAddress: "Enter Address",
+    enteroldPassword: "Enter old Password",
+    enterNewPassword: "Enter New Password",
+    reEnterPassword: "Re-Enter Password",
     mnemonicSeed: "Enter your Recovery seed",
     pasteTransactionId: "Paste transaction ID",
     pasteTransactionProof: "Paste transaction proof",
@@ -459,13 +461,13 @@ export default {
     reEnterWalletPassword: "Re-Enter Password"
   },
   strings: {
-    addAddressBookEntry: "Add address ",
+    addAddressBookEntry: "Add Address ",
     addressBookDetails: "Address book details",
     addressBookIsEmpty: "Address book is empty",
     addresses: {
       myPrimaryAddress: "My primary address",
-      myUnusedAddresses: "My unused addresses",
-      myUsedAddresses: "My used addresses",
+      myUnusedAddresses: "Unused Address",
+      myUsedAddresses: "Used addresses",
       // primaryAddress: "Primary address",
       subAddress: "Sub-address",
       subAddressIndex: "Index {index}",
@@ -534,15 +536,15 @@ export default {
     oxenBalance: "Balance",
     belnetNameDescription:
       "Purchase or update a name on Belnet. If you purchase a name it may take a minute or two for it to show up in the list. To learn more about belnet visit: ",
-    oxenUnlockedBalance: "Unlocked balance",
+    oxenUnlockedBalance: "Unlocked Balance",
     oxenUnlockedShort: "Unlocked",
     me: "Me",
-    noTransactionsFound: "No transactions yet",
+    noTransactionsFound: "No transactions yet!",
     notes: "Notes",
     numberOfUnspentOutputs: "Number of unspent outputs",
     operator: "Operator",
     paymentID: "Payment ID",
-    peerList: "Peer list",
+    peerList: "Peer List",
     priorityOptions: {
       automatic: "Automatic",
       slow: "Slow",
@@ -565,7 +567,7 @@ export default {
 
     seedWords: "Recovery Seed",
     walletCreated: "Wallet Created",
-    selectLanguage: "Select language",
+    selectLanguage: "Select a language",
     masterNodeContributionDescription:
       "Staking contributes to the safety of the Beldex network. For your contribution, you earn BDX. Once staked, you will have to wait either 15 or 30 days to have your BDX unlocked, depending on if a stake was unlocked by a contributor or the node was deregistered. To learn more about staking, please visit the documentation on the",
     masterNodeRegistrationDescription:
@@ -644,7 +646,7 @@ export default {
       verify: "Verify"
     },
     availableForContribution: "Master nodes available for contribution",
-    changePassword: "Change password",
+    changePassword: "Change Password",
     configure: "Configuration Settings",
     currentlyStakedNodes: "Currently staked nodes",
     bnsRecordDetails: "BNS record details",
@@ -652,7 +654,7 @@ export default {
     bnsBelnetRecords: "Belnet records",
     importFromFile: "Import from File",
     privateKeys: "Private keys",
-    rescanWallet: "Rescan wallet",
+    rescanWallet: "Rescan Wallet",
     restoreFromSeed: "Restore from Seed",
 
     bns: {
@@ -661,7 +663,7 @@ export default {
     },
     masterNode: {
       registration: "Registration",
-      staking: "Staking",
+      staking: "Stakings",
       myStakes: "My Stakes"
     },
 
@@ -674,16 +676,16 @@ export default {
         peers: "Peers"
       }
     },
-    transactionDetails: "Transaction details",
+    transactionDetails: "Transaction Details",
     details: "Details",
     transactions: "Transactions",
     wallet: {
-      createNew: "Create new wallet",
+      createNew: "Create New Wallet",
       createdOrRestored: "Wallet created/restored",
       walletRestored: "Wallet Restored",
       walletCreated: "Wallet Created",
       walletImported: "Wallet Imported",
-      importFromFile: "Import wallet from file",
+      importFromFile: "Import Wallet from File",
       useExistingWallet: "Use Existing Wallet",
       importFromLegacyGUI: "Import wallet from legacy GUI",
       importFromOldGUI: "Import wallet from old GUI",
@@ -691,6 +693,99 @@ export default {
       restoreViewOnly: "Restore view-only wallet"
     },
     chooseLanguage: "Choose Language",
-    yourWallets: "Your Wallets"
+    yourWallets: "Your Wallets",
+    swap: {
+      swap: "Swap",
+      exchange: "Exchange",
+      history: "History",
+      unsupportedpair: "Unsupported exchange pair",
+      minimumAmt: "Minimum amount is",
+      maximumAmt: "Maximum amount is",
+      transactionDetails: "Transaction details",
+      youSend: "You send",
+      exchangeRate: "Exchange rate",
+      fixedRate: "Fixed rate",
+      fixedRateUpdateSec: "The fixed rate is updated every 30 Seconds",
+      serviceFee: "Service fee 0.25%",
+      fees: "Fees",
+      allTheFees: "All fees inclueded in the rate",
+      networkFee: "Network fee",
+      youGet: "You Get",
+      floatingExchangeRate: "Floating Exchange Rate",
+      fixedExchangeRate: "Fixed Exchange Rate",
+      stillProcessing:
+        "Your previous transaction is still processing. You can create a new one in 15 minutes",
+      minimumExchangeAmtAbove: "The minimum exchange amount is above",
+      for: "for",
+      maximumExchangeAmtUnder: "The maximum exchange amount is under",
+      floatingRateDisc:
+        "The floating rate can change at any point due to market conditions, so you might receive more or less crypto than expected.",
+      fixedRateExactAmtDisc:
+        "With the fixed rate, you will receive the exact amount of crypto you see on this screen.",
+      walletAddress: "Wallet Address",
+      myWalletRequire: "My wallet requires",
+      agreeWith: "I agree with",
+      termOfUse: "Terms of Use",
+      and: "and",
+      privacyPolicy: "Privacy Policy",
+      checkout: "Checkout",
+      blockchain: "blockchain",
+      exchangefee: "Exchange fee",
+      exchangeFeeIncluded:
+        " The exchange fee is already included in the displayed amount you’ll get",
+      networkFeeIncluded:
+        "The network fee is already included in the displayed amount you’ll get",
+      guaranteeFee: "Guarantee Rate",
+      refundAddress: "Refund address",
+      exchanging: "Exchanging",
+      confirmingProcess: "Confirming in progress",
+      Once: "Once",
+      confirmedInBlockchain:
+        " is confirmed in the blockchain, we’ll start exchanging it to",
+      seenInputExplorer: "See input hash in explorer",
+      to: "to",
+      pleaseWait: "The process will take a few minutes. please wait.",
+      sendFundsToWallet: "Sending funds to your wallet",
+      waitHere: "You don’t have to wait here",
+      newTransaction: "You can initiate a new transaction.",
+      checkStatus:
+        "You can always check the status of this transaction in transaction",
+      transactionPreview: "Transaction Preview",
+      transactionID: "Transaction ID",
+      changellyAddress: "Changelly address",
+      completed: "Completed",
+      amountTo: "Amount to",
+      amountReceived: "Amount received",
+      amountSend: "Amount Sent",
+      inputHash: "Input Hash",
+      outputHash: "Output Hash",
+      amountFrom: "Amount from",
+      paymentNotReceived:
+        "The funds were not received within 3 hours. Please check the rates and create a new transaction",
+      downloadCsv: "Download CSV",
+      status: "Status",
+      date: "Date",
+      exchangeAmount: "Exchange amount",
+      receiver: "Receiver",
+      sendFundDisc: "Send funds to the address below",
+      timeLeft: "Time left to send",
+      guaranteedRateDisc: "The guaranteed rate has been terminated",
+      sendFundsAboveAddress:
+        "Please note that you can send funds to the address above only",
+      once: "once",
+      swapMaintenance: "Swap is temporarily under maintenance",
+      tryAgainSomeTimes: "Please try again after some times",
+      afterYourFirstTxn: "After your first transaction",
+      youWillBeViewHere: "you will be able to view it here",
+      openHistory: "Open History",
+      newTransactionBtn: "New Transaction",
+      exchangePair: "Exchange Pair",
+      exchangePairDisc: "Set the preferred exchange pair",
+      walletAddressDisc: "Fill in the crypto wallet address details",
+      payment: "Payment",
+      paymentDisc: "Deposit the amount required for the exchange",
+      exchangeDisc: "Wait for your transaction to be completed",
+      paymentConfirm: "Confirm & Make payment"
+    }
   }
 };

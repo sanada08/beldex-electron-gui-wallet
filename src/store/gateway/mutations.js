@@ -69,3 +69,44 @@ export const set_router_path_rightpane = (state, data) => {
 export const set_sender_address = (state, data) => {
   state.sender_address = data;
 };
+
+export const set_mnDetails = (state, data) => {
+  state.mnDetails = data;
+};
+
+export const set_stepperPosition = (state, data) => {
+  state.stepperPosition = data;
+};
+
+export const set_currencyList = (state, data) => {
+  state.currencyList = data;
+};
+
+export const set_exchangeAmount = (state, data) => {
+  state.exchangeAmount = data;
+};
+
+export const set_createdTxnDetails = (state, data) => {
+  state.createdTxnDetails = data;
+};
+
+export const set_validateAddress = (state, data) => {
+  state.RecipientAddressValidation = data;
+};
+export const set_refundAddressValidation = (state, data) => {
+  state.refundAddressValidation = data;
+};
+
+export const set_pairsMinMax = (state, data) => {
+  state.pairsMinMax = data;
+};
+
+export const set_txnStatus = (state, data) => {
+  state.txnStatus = data;
+};
+export const set_fixedExchangeRate = (state, data) => {
+  state.fixedExchangeRate = data;
+};
+export const set_txnHistory = (state, data) => {
+  state.txnHistory = data;
+};

@@ -35,19 +35,18 @@
             class="copy-icon"
             @click="isQRCodeVisible = true"
           />
-          <q-btn
-            class="q-ml-sm copy-icon"
+          <!-- <q-btn
+            class="q-ml-sm copy-icon green-icon"
             flat
             padding="sm"
             size="sm"
             icon="content_copy"
-            color="green"
             @click="copyAddress()"
-          />
+          /> -->
         </q-toolbar>
       </q-header>
       <!-- <q-page-container class="detail-page"> -->
-      <q-page class="detail-page" style="min-height: unset">
+      <q-page style="min-height: unset">
         <!-- <div class="layout-padding"> -->
         <div>
           <template v-if="address != null">
@@ -59,10 +58,10 @@
               :show-copy="false"
             /> -->
             <div class="address-section">
-              <div class="ft-medium label">
+              <div class="ft-medium label q-mt-md q-mb-xs">
                 Address
                 <q-btn
-                  class="q-ml-sm"
+                  class="q-ml-sm address-copy-btn"
                   flat
                   padding="sm"
                   size="sm"
@@ -124,7 +123,7 @@
                 <div class="ft-medium label q-mt-sm">
                   {{ $t("strings.oxenBalance") }}
                 </div>
-                <div class="value balance-box">N/A</div>
+                <div class="value balance-box">0</div>
                 <!-- </div>
                 </div> -->
                 <div class="flex row justify-between q-mt-md">
@@ -135,7 +134,7 @@
                       <span>{{ $t("strings.oxenUnlockedBalance") }}</span>
                     </div>
 
-                    <div class="value"><span>N/A</span></div>
+                    <div class="value"><span>0</span></div>
                   </div>
                   <!-- </div>
                   </div> -->
@@ -147,7 +146,7 @@
                       <!-- <span>{{ $t("strings.numberOfUnspentOutputs") }}</span> -->
                       <span>Unspent Outputs</span>
                     </div>
-                    <div class="value"><span>N/A</span></div>
+                    <div class="value"><span>0</span></div>
                   </div>
                   <!-- </div>
                   </div> -->
@@ -186,7 +185,10 @@
         :content-class="'qr-code-modal'"
       >
         <q-card class="qr-code-card">
-          <div class="text-center q-mb-sm q-pa-md" style="background: white">
+          <div
+            class="text-center  q-pa-md q-ma-lg"
+            style="background: white;border-radius: 10px;"
+          >
             <QrcodeVue ref="qr" :value="address.address" size="240">
             </QrcodeVue>
             <q-menu content-menu>
@@ -206,6 +208,7 @@
           </div>
           <q-card-actions>
             <q-btn
+              class="q-mb-md"
               color="primary"
               :label="$t('buttons.close')"
               @click="isQRCodeVisible = false"
@@ -297,16 +300,34 @@ export default {
 
 <style lang="scss">
 .address_details {
+  .q-layout {
+    background-color: unset;
+  }
   .q-toolbar {
     padding: 0;
     background-color: #242433;
   }
 
   .copy-icon {
-    background-color: #40405d;
+    background-color: #1f1f28;
     height: 35px;
     width: 35px;
-    border-radius: 10px;
+    border-radius: 7px;
+  }
+  .copy-icon:hover {
+    border-radius: 10px !important;
+  }
+
+  .green-icon {
+    .q-icon {
+      color: #20d030;
+    }
+  }
+
+  .address-copy-btn {
+    // .q-btn--flat {
+    height: unset !important;
+    // }
   }
   .address-section {
     color: white;

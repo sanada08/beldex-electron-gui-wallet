@@ -84,8 +84,7 @@ export default {
     },
     deleteWallet: {
       title: "Wallet löschen",
-      message:
-        "Bist du dir absolut sicher, dass du deine Wallet löschen willst?\n Bitte stelle sicher, dass du deinen Private Key gesichert hast.\n DIESER SCHRITT KANN NICHT RÜCKGÄNGIG GEMACHT WERDEN!",
+      message: "Sind Sie sicher, dass Sie das aktuelle Wallet löschen möchten?",
       ok: "LÖSCHEN"
     },
     exit: {
@@ -106,7 +105,7 @@ export default {
       ok: "JA"
     },
     password: {
-      title: "Passwort",
+      title: "Geben Sie Ihr Wallet-Passwort ein",
       message: "Wallet Passwort eingeben um fortzufahren"
     },
     registerMasterNode: {
@@ -366,6 +365,9 @@ export default {
     beldexAddress: "Beldex-Adresse",
     enterName: "Name eingeben",
     enterAddress: "Adresse eingeben",
+    enteroldPassword: "Geben Sie das alte Passwort ein",
+    enterNewPassword: "Neues Passwort eingeben",
+    reEnterPassword: "Kennwort erneut eingeben",
     filterTx:
       "Geben Sie eine ID, einen Namen, eine Adresse oder einen Betrag ein",
     hexCharacters: "{count} Hexadezimal Zeichen",
@@ -377,6 +379,8 @@ export default {
     proveOptionalMessage:
       "Optionale Nachricht, gegen die die Signatur signiert wird",
     recipientWalletAddress: "Wallet-Adresse des Empfängers",
+    reEnterWalletPassword: "Kennwort erneut eingeben",
+
     selectAFile: "Bitte Datei auswählen",
     signature: "Unterschrift zur Überprüfung",
     unsignedData: "Die Daten, wie sie vor dem Signieren aussehen sollten",
@@ -561,6 +565,99 @@ export default {
       restoreViewOnly: "Wiederherstellung Anzeige Wallet"
     },
     chooseLanguage: "Sprache wählen",
-    yourWallets: "Deine Wallets"
+    yourWallets: "Deine Wallets",
+    swap: {
+      swap: "Tauschen",
+      exchange: "Austausch",
+      history: "Geschichte",
+      unsupportedpair: "Nicht unterstütztes Austauschpaar",
+      minimumAmt: "Der Mindestbetrag beträgt",
+      maximumAmt: "Der Höchstbetrag beträgt",
+      transactionDetails: "Transaktionsdetails",
+      youSend: "Du sendest",
+      exchangeRate: "Tauschrate",
+      fixedRate: "Fester Zinssatz",
+      fixedRateUpdateSec: "Die feste Rate wird alle 30 Sekunden aktualisiert",
+      serviceFee: "Servicegebühr 0,25 %",
+      fees: "Gebühren",
+      allTheFees: "Alle Gebühren im Preis inbegriffen",
+      networkFee: "Netzwerkgebühr",
+      youGet: "Du erhältst",
+      floatingExchangeRate: "Variabler Wechselkurs",
+      fixedExchangeRate: "Fester Wechselkurs",
+      stillProcessing:
+        "Ihre vorherige Transaktion wird noch bearbeitet. Sie können in 15 Minuten ein neues erstellen",
+      minimumExchangeAmtAbove: "Der Mindestumtauschbetrag liegt oben",
+      for: "für",
+      maximumExchangeAmtUnder: "Der maximale Umtauschbetrag liegt unter",
+      floatingRateDisc:
+        "Der variable Zinssatz kann sich aufgrund der Marktbedingungen jederzeit ändern, sodass Sie möglicherweise mehr oder weniger Krypto als erwartet erhalten.",
+      fixedRateExactAmtDisc:
+        "Mit dem Festpreis erhalten Sie genau die Menge an Krypto, die Sie auf diesem Bildschirm sehen.",
+      walletAddress: "Wallet-Adresse",
+      myWalletRequire: "Mein Geldbeutel erfordert",
+      agreeWith: "Ich bin einverstanden mit",
+      termOfUse: "Terms of Use",
+      and: "Und",
+      privacyPolicy: "Datenschutzrichtlinie",
+      checkout: "Kasse",
+      blockchain: "Blockchain",
+      exchangefee: "Umtauschgebühr",
+      exchangeFeeIncluded:
+        "Die Umtauschgebühr ist in dem angezeigten Betrag, den Sie erhalten, bereits enthalten",
+      networkFeeIncluded:
+        "Die Netzwerkgebühr ist in dem angezeigten Betrag, den Sie erhalten, bereits enthalten",
+      guaranteeFee: "Garantierter Preis",
+      refundAddress: "Rückerstattungsadresse",
+      exchanging: "Austauschen",
+      confirmingProcess: "Bestätigung läuft",
+      Once: "Einmal",
+      confirmedInBlockchain:
+        "in der Blockchain bestätigt wird, beginnen wir mit dem Austausch",
+      seenInputExplorer: "Siehe Eingabe-Hash im Explorer",
+      to: "Zu",
+      pleaseWait: "Der Vorgang dauert einige Minuten. Bitte warten.",
+      sendFundsToWallet: "Senden Sie Geld an Ihre Brieftasche",
+      waitHere: "Hier müssen Sie nicht warten",
+      newTransaction: "Sie können eine neue Transaktion initiieren.",
+      checkStatus:
+        "Sie können den Status dieser Transaktion jederzeit in der Transaktion überprüfen",
+      transactionPreview: "Transaktionsvorschau",
+      transactionID: "Transaction ID",
+      changellyAddress: "Changelly-Adresse",
+      completed: "Vollendet",
+      amountTo: "Betragen",
+      amountReceived: "Erhaltener Betrag",
+      amountSend: "Gesendeter Betrag",
+      inputHash: "Eingabe-Hash",
+      outputHash: "Ausgabe-Hash",
+      amountFrom: "Betrag von",
+      paymentNotReceived:
+        "Das Geld ging nicht innerhalb von 3 Stunden ein. Bitte überprüfen Sie die Tarife und erstellen Sie eine neue Transaktion",
+      downloadCsv: "CSV herunterladen",
+      status: "Status",
+      date: "Datum",
+      exchangeAmount: "Umtauschbetrag",
+      receiver: "Empfängerin",
+      sendFundDisc: "Senden Sie Geld an die unten angegebene Adresse",
+      timeLeft: "Es bleibt noch Zeit zum Senden",
+      guaranteedRateDisc: "Der garantierte Tarif wurde gekündigt",
+      sendFundsAboveAddress:
+        "Bitte beachten Sie, dass Sie Geld nur an die oben genannte Adresse senden können",
+      once: "einmal",
+      swapMaintenance: "Swap wird vorübergehend gewartet",
+      tryAgainSomeTimes: "Bitte versuchen Sie es nach einiger Zeit noch einmal",
+      afterYourFirstTxn: "Nach Ihrer ersten Transaktion",
+      youWillBeViewHere: "Sie können es hier ansehen",
+      openHistory: "Öffnen Sie den Verlauf",
+      newTransactionBtn: "Neue Transaktion",
+      exchangePair: "Tauschpaar",
+      exchangePairDisc: "Legen Sie das bevorzugte Börsenpaar fest",
+      walletAddressDisc: "Geben Sie die Adressdaten der Krypto-Wallet ein",
+      payment: "Zahlung",
+      paymentDisc: "Zahlen Sie den für den Umtausch erforderlichen Betrag ein",
+      exchangeDisc: "Warten Sie, bis Ihre Transaktion abgeschlossen ist",
+      paymentConfirm: "Bestätigen und Zahlung durchführen"
+    }
   }
 };

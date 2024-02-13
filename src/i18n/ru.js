@@ -83,8 +83,7 @@ export default {
     },
     deleteWallet: {
       title: "Удалить кошелек",
-      message:
-        "Уверены, что хотите удалить кошелек?\nУбедитесь, что сохранили приватные ключи в надежном месте.\nЭТО НЕОБРАТИМЫЙ ПРОЦЕСС!",
+      message: "Вы уверены, что хотите удалить текущий кошелек?",
       ok: "УДАЛИТЬ"
     },
     exit: {
@@ -104,7 +103,7 @@ export default {
       ok: "СОЗДАТЬ"
     },
     password: {
-      title: "Пароль",
+      title: "Введите пароль своего кошелька",
       message: "Введите пароль кошелька"
     },
     registerMasterNode: {
@@ -360,7 +359,9 @@ export default {
     beldexAddress: "Белдекс Адрес",
     enterName: "Введите имя",
     enterAddress: "Введите адрес",
-
+    enteroldPassword: "Введите старый пароль",
+    enterNewPassword: "Введите новый пароль",
+    reEnterPassword: "Повторно введите пароль",
     filterTx: "Введите идентификатор, имя, адрес или сумму",
     hexCharacters: "Шестнадцатеричных символов: {count}",
     mnemonicSeed: "Seed-фраза, состоящая из 25 или 24 слов",
@@ -372,6 +373,7 @@ export default {
     proveOptionalMessage:
       "Необязательное сообщение, против которого подписывается подпись",
     recipientWalletAddress: "Адрес кошелька получателя",
+    reEnterWalletPassword: "Повторно введите пароль",
     selectAFile: "Пожалуйста, выберите файл",
     signature: "Подпись для проверки",
     unsignedData:
@@ -554,6 +556,100 @@ export default {
       restoreViewOnly: "Восстановить кошелек только-для-чтения"
     },
     chooseLanguage: "Выберите язык",
-    yourWallets: "Ваши Кошельки"
+    yourWallets: "Ваши Кошельки",
+    swap: {
+      swap: "Менять",
+      exchange: "Обмен",
+      history: "История",
+      unsupportedpair: "Неподдерживаемая обменная пара",
+      minimumAmt: "Минимальная сумма",
+      maximumAmt: "Максимальная сумма",
+      transactionDetails: "Детали транзакции",
+      youSend: "Вы отправляете",
+      exchangeRate: "Обменный курс",
+      fixedRate: "Фиксированная ставка",
+      fixedRateUpdateSec:
+        "Фиксированная скорость обновляется каждые 30 секунд.",
+      serviceFee: "Комиссия за обслуживание 0,25%",
+      fees: "Сборы",
+      allTheFees: "Все сборы включены в стоимость проживания",
+      networkFee: "Сетевая плата",
+      youGet: "Вы получаете",
+      floatingExchangeRate: "Плавающий обменный курс",
+      fixedExchangeRate: "Фиксированный обменный курс",
+      stillProcessing:
+        "Ваша предыдущая транзакция все еще обрабатывается. Создать новый можно за 15 минут.",
+      minimumExchangeAmtAbove: "Минимальная сумма обмена указана выше",
+      for: "для",
+      maximumExchangeAmtUnder: "Максимальная сумма обмена не превышает",
+      floatingRateDisc:
+        "Плавающая ставка может измениться в любой момент в зависимости от рыночных условий, поэтому вы можете получить больше или меньше криптовалюты, чем ожидалось.",
+      fixedRateExactAmtDisc:
+        "При фиксированной ставке вы получите именно ту сумму криптовалюты, которую видите на этом экране.",
+      walletAddress: "Адрес кошелька",
+      myWalletRequire: "Мой кошелек требует",
+      agreeWith: "я согласен с",
+      termOfUse: "Условия эксплуатации",
+      and: "и",
+      privacyPolicy: "политика конфиденциальности",
+      checkout: "Проверить",
+      blockchain: "блокчейн",
+      exchangefee: "Комиссия за обмен",
+      exchangeFeeIncluded:
+        "Комиссия за обмен уже включена в отображаемую сумму, которую вы получите.",
+      networkFeeIncluded:
+        "Комиссия за сеть уже включена в отображаемую сумму, которую вы получите.",
+      guaranteeFee: "Гарантированная ставка",
+      refundAddress: "Адрес возврата",
+      exchanging: "Обмен",
+      confirmingProcess: "Подтверждение в процессе",
+      Once: "Один раз",
+      confirmedInBlockchain:
+        "подтвержден в блокчейне, мы начнем его обменивать на",
+      seenInputExplorer: "Посмотреть входной хэш в проводнике",
+      to: "к",
+      pleaseWait: "Процесс займет несколько минут. пожалуйста, подождите.",
+      sendFundsToWallet: "Отправка средств на ваш кошелек",
+      waitHere: "Вам не придется ждать здесь",
+      newTransaction: "Вы можете инициировать новую транзакцию.",
+      checkStatus:
+        "Вы всегда можете проверить статус этой транзакции в транзакции",
+      transactionPreview: "Предварительный просмотр транзакции",
+      transactionID: "ID транзакции",
+      changellyAddress: "Адрес Чангли",
+      completed: "Завершенный",
+      amountTo: "Равняться",
+      amountReceived: "Полученная сумма",
+      amountSend: "Отправленная сумма",
+      inputHash: "Входной хеш",
+      outputHash: "Выходной хэш",
+      amountFrom: "Сумма от",
+      paymentNotReceived:
+        "Деньги не поступили в течение 3 часов. Пожалуйста, проверьте тарифы и создайте новую транзакцию.",
+      downloadCsv: "Скачать CSV-файл",
+      status: "Положение дел",
+      date: "Дата",
+      exchangeAmount: "Сумма обмена",
+      receiver: "Получатель",
+      sendFundDisc: "Отправьте средства на адрес ниже",
+      timeLeft: "Осталось время отправить",
+      guaranteedRateDisc: "Гарантированная ставка прекращена",
+      sendFundsAboveAddress:
+        "Обратите внимание, что вы можете отправить средства только на указанный выше адрес.",
+      once: "один раз",
+      swapMaintenance: "Своп временно находится на обслуживании",
+      tryAgainSomeTimes: "Пожалуйста, повторите попытку через несколько раз",
+      afterYourFirstTxn: "После вашей первой транзакции",
+      youWillBeViewHere: "вы сможете просмотреть это здесь",
+      openHistory: "Открыть историю",
+      newTransactionBtn: "Новая транзакция",
+      exchangePair: "Биржевая пара",
+      exchangePairDisc: "Установите предпочтительную обменную пару",
+      walletAddressDisc: "Заполните данные адреса криптокошелька",
+      payment: "Оплата",
+      paymentDisc: "Внесите необходимую для обмена сумму",
+      exchangeDisc: "Дождитесь завершения транзакции",
+      paymentConfirm: "Подтвердите и произведите оплату"
+    }
   }
 };

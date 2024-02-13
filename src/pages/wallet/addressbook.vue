@@ -5,12 +5,12 @@
         <div
           class="header row  q-pb-xs q-mx-md q-mb-none items-center non-selectable ft-semibold"
         >
-          <q-btn
+          <div
             v-if="from === 'send'"
             flat
             round
             dense
-            class="q-mr-sm"
+            class="flex items-center back-arrow-btn q-mr-sm"
             @click="setAddress({ address: '' })"
           >
             <svg
@@ -25,7 +25,7 @@
                 fill="white"
               />
             </svg>
-          </q-btn>
+          </div>
 
           {{
             from === "send"
@@ -51,11 +51,9 @@
             <q-item-section side>
               <article class="flex row">
                 <q-item-label class="flex justify-center star-icon">
-                  <q-icon
-                    size="24px"
-                    :name="entry.starred ? 'star' : 'star_border'"
-                  />
+                  <q-icon size="24px" :name="entry.starred ? 'star' : ''" />
                   <q-tooltip
+                    v-if="entry.starred === 'star'"
                     anchor="bottom right"
                     self="top right"
                     :offset="[0, 5]"
@@ -70,26 +68,6 @@
                 @click="sendToAddress(entry, $event)"
               /> -->
                 </q-item-label>
-
-                <div v-if="from !== 'send'" class="copy-icon q-ml-sm">
-                  <q-btn
-                    flat
-                    padding="sm"
-                    size="sm"
-                    icon="content_copy"
-                    class="q-mr-sm"
-                    color="green"
-                    @click="copyAddress(entry)"
-                  >
-                    <q-tooltip
-                      anchor="bottom right"
-                      self="top right"
-                      :offset="[0, 5]"
-                    >
-                      {{ $t("menuItems.copyAddress") }}
-                    </q-tooltip>
-                  </q-btn>
-                </div>
               </article>
             </q-item-section>
             <q-item-section
@@ -104,6 +82,26 @@
                 entry.name
               }}</q-item-label>
             </q-item-section>
+
+            <div v-if="from !== 'send'" class="copy-icon q-ml-sm">
+              <q-btn
+                flat
+                padding="sm"
+                size="sm"
+                icon="content_copy"
+                class="q-mr-sm"
+                color="green"
+                @click="copyAddress(entry)"
+              >
+                <q-tooltip
+                  anchor="bottom right"
+                  self="top right"
+                  :offset="[0, 5]"
+                >
+                  {{ $t("menuItems.copyAddress") }}
+                </q-tooltip>
+              </q-btn>
+            </div>
             <ContextMenu
               v-if="from !== 'send'"
               :menu-items="menuItems"
@@ -231,12 +229,16 @@ export default {
 
   .oxen-list-item {
     cursor: pointer;
-    padding: 12px;
+    padding: 12px 2px;
     background-color: unset;
     border: none;
+    margin: 0;
 
     .q-item-sublabel {
       font-size: 14px;
+    }
+    .q-item__section--side {
+      padding-right: 5px;
     }
 
     .q-item-label {
@@ -261,12 +263,13 @@ export default {
   }
   .star-icon {
     width: 35px;
-    background-color: #1f1f28;
+    // background-color: #1f1f28;
     height: 35px;
     border-radius: 10px;
     display: flex;
     align-items: center;
     color: #2879fb;
+    cursor: default;
   }
 
   .copy-icon {
@@ -275,6 +278,9 @@ export default {
       height: 35px;
       width: 35px;
       border-radius: 10px;
+    }
+    .q-btn--flat:hover {
+      border-radius: 10px !important;
     }
   }
   .address-label {

@@ -86,8 +86,7 @@ export default {
     },
     deleteWallet: {
       title: "Apagar carteira",
-      message:
-        "Tem a certeza absoluta que pretende apagar a sua carteira?\nTenha a certeza que tem um backup da suas chaves privadas.\nESTE PROCESSO NÃO É REVERSÍVEL!",
+      message: "Tem certeza de que deseja excluir a carteira atual?",
       ok: "APAGAR"
     },
     exit: {
@@ -107,7 +106,7 @@ export default {
       ok: "SIM"
     },
     password: {
-      title: "Palavra-passe",
+      title: "Digite sua senha da carteira",
       message: "Introduza a sua palavra-passe para continuar"
     },
     registerMasterNode: {
@@ -364,6 +363,9 @@ export default {
     beldexAddress: "Endereço Beldex",
     enterAddress: "Insira o endereço",
     enterName: "Insira o nome",
+    enteroldPassword: "Digite a senha antiga",
+    enterNewPassword: "Insira a nova senha",
+    reEnterPassword: "Digite novamente a senha",
     filterTx: "Digite um ID, nome, endereço ou valor",
     hexCharacters: "{count} caracteres hexadecimais",
     mnemonicSeed: "25 (or 24) palavras semente mnemónicas",
@@ -374,6 +376,7 @@ export default {
     proveOptionalMessage:
       "Mensagem opcional contra a qual a assinatura é assinada",
     recipientWalletAddress: "Endereço da carteira do destinatário",
+    reEnterWalletPassword: "Digite novamente a senha",
     selectAFile: "Por favor selecione um ficheiro",
     signature: "Assinatura para verificar",
 
@@ -554,6 +557,101 @@ export default {
       restoreViewOnly: "Restaurar carteira visualização-apenas"
     },
     chooseLanguage: "Escolha o seu idioma",
-    yourWallets: "Suas carteiras"
+    yourWallets: "Suas carteiras",
+    swap: {
+      swap: "Trocar",
+      exchange: "Intercâmbio",
+      history: "História",
+      unsupportedpair: "Par de exchanges não suportado",
+      minimumAmt: "O valor mínimo é",
+      maximumAmt: "O valor máximo é",
+      transactionDetails: "Detalhes da transação",
+      youSend: "Você envia",
+      exchangeRate: "Taxa de câmbio",
+      fixedRate: "Taxa fixa",
+      fixedRateUpdateSec: "A taxa fixa é atualizada a cada 30 segundos",
+      serviceFee: "Taxa de serviço 0,25%",
+      fees: "Tarifas",
+      allTheFees: "Todas as taxas incluídas na tarifa",
+      networkFee: "Taxa de rede",
+      youGet: "Você consegue",
+      floatingExchangeRate: "Taxa de cambio flutuante",
+      fixedExchangeRate: "Taxa de câmbio fixa",
+      stillProcessing:
+        "Sua transação anterior ainda está em processamento. Você pode criar um novo em 15 minutos",
+      minimumExchangeAmtAbove: "O valor mínimo de troca está acima",
+      for: "para",
+      maximumExchangeAmtUnder: "O valor máximo de troca está abaixo",
+      floatingRateDisc:
+        "A taxa flutuante pode mudar a qualquer momento devido às condições do mercado, portanto você poderá receber mais ou menos criptografia do que o esperado.",
+      fixedRateExactAmtDisc:
+        "Com a taxa fixa, você receberá a quantidade exata de criptografia que vê nesta tela.",
+      walletAddress: "Endereço da carteira",
+      myWalletRequire: "Minha carteira exige",
+      agreeWith: "Eu concordo com",
+      termOfUse: "Termos de uso",
+      and: "e",
+      privacyPolicy: "política de Privacidade",
+      checkout: "Confira",
+      blockchain: "blockchain",
+      exchangefee: "Taxa de câmbio",
+      exchangeFeeIncluded:
+        "A taxa de troca já está incluída no valor exibido que você receberá",
+      networkFeeIncluded:
+        "A taxa de rede já está incluída no valor exibido que você receberá",
+      guaranteeFee: "Taxa Garantida",
+      refundAddress: "Endereço de reembolso",
+      exchanging: "Troca",
+      confirmingProcess: "Confirmação em andamento",
+      Once: "Onças",
+      confirmedInBlockchain:
+        " for confirmado no blockchain, começaremos a trocá-lo para",
+      seenInputExplorer: "Veja o hash de entrada no explorer",
+      to: "para",
+      pleaseWait: "O processo levará alguns minutos. por favor, aguarde.",
+      sendFundsToWallet: "Enviando fundos para sua carteira",
+      waitHere: "Você não precisa esperar aqui",
+      newTransaction: "Você pode iniciar uma nova transação.",
+      checkStatus:
+        "Você sempre pode verificar o status desta transação em transação",
+      // history: "history",
+      transactionPreview: "Visualização da transação",
+      transactionID: "ID da transação",
+      changellyAddress: "Endereço da mudança",
+      completed: "Concluído",
+      amountTo: "Valor para",
+      amountReceived: "Montante recebido",
+      amountSend: "Quantidade enviada",
+      inputHash: "Hash de entrada",
+      outputHash: "Hash de saída",
+      amountFrom: "Valor de",
+      paymentNotReceived:
+        "Os fundos não foram recebidos em 3 horas. Verifique as taxas e crie uma nova transação",
+      downloadCsv: "Baixar CSV",
+      status: "Status",
+      date: "Data",
+      exchangeAmount: "Valor de troca",
+      receiver: "Receptor",
+      sendFundDisc: "Envie fundos para o endereço abaixo",
+      timeLeft: "Tempo restante para enviar",
+      guaranteedRateDisc: "A taxa garantida foi encerrada",
+      sendFundsAboveAddress:
+        "Observe que você só pode enviar fundos para o endereço acima",
+      once: "uma vez",
+      swapMaintenance: "Swap está temporariamente em manutenção",
+      tryAgainSomeTimes: "Por favor, tente novamente depois de alguns momentos",
+      afterYourFirstTxn: "Após sua primeira transação",
+      youWillBeViewHere: "você poderá vê-lo aqui",
+      openHistory: "Abrir histórico",
+      newTransactionBtn: "Nova transação",
+      exchangePair: "Par de troca",
+      exchangePairDisc: "Defina o par de exchange preferido",
+      walletAddressDisc:
+        "Preencha os detalhes do endereço da carteira criptografada",
+      payment: "Pagamento",
+      paymentDisc: "Deposite o valor necessário para a troca",
+      exchangeDisc: "Aguarde até que sua transação seja concluída",
+      paymentConfirm: "Confirmar y realizar el pago"
+    }
   }
 };

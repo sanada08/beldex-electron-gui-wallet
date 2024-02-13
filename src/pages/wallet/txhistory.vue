@@ -8,7 +8,7 @@
         {{ $t("titles.transactions") }}
       </div>
       <section
-        class="flex column justify-center items-center empty-txn-wrapper"
+        class="flex column justify-center no-wrap items-center empty-txn-wrapper"
       >
         <div>
           <img src="../../assets/images/No_transaction.svg" height="119px" />
@@ -17,8 +17,12 @@
           {{ $t("strings.noTransactionsFound") }}
         </p>
 
-        <div class="hint-txt">After your first transaction,</div>
-        <div class="hint-txt">you will be able to view it here.</div>
+        <div class="hint-txt">
+          {{ this.$t("titles.swap.afterYourFirstTxn") }},
+        </div>
+        <div class="hint-txt">
+          {{ this.$t("titles.swap.youWillBeViewHere") }}.
+        </div>
       </section>
     </template>
     <section v-else-if="this.tx_list.length !== 0 && !this.txnDetails">
@@ -31,10 +35,7 @@
         <!-- <section class="searchBox flex row col-8">
           <article class="flex row items-center col-10"> -->
         <section class="searchBox flex row no-wrap">
-          <article
-            class="flex row items-center no-wrap  q-ml-lg"
-            style="width:75%; "
-          >
+          <article class="flex row items-center no-wrap  q-ml-lg">
             <div class="col-1 filter-txt ft-semibold">
               {{ $t("fieldLabels.filter") }}
             </div>
@@ -57,9 +58,10 @@
               dense
               emit-value
               map-options
-              class="ft-semibold q-pl-sm"
+              class="ft-semibold q-pa-xs"
               popup-content-class="txn-option"
               dropdown-icon="tune"
+              :menu-offset="[100, 10]"
             />
           </OxenField>
         </section>
@@ -161,17 +163,19 @@ export default {
     &:not(.disable):not(.disable-hover) {
       .content:hover {
         // background: #1c1c26;
-        background: #41415b;
+        background: #484866 !important;
         // border: unset;
       }
     }
   }
   .empty-txn-wrapper {
-    height: 39vh;
+    // height: 39vh;
+    height: calc(100vh - 464px);
   }
   @media only screen and (max-height: 780px) {
     .empty-txn-wrapper {
-      height: 32vh;
+      // height: 32vh;
+      height: calc(100vh - 468px);
     }
   }
 }
@@ -185,8 +189,8 @@ export default {
   font-size: 16px;
 }
 .searchBox .oxen-field .content {
-  min-height: 45px !important;
-  height: 45px !important;
+  min-height: 58px !important;
+  height: 58px !important;
   background-color: #32324a;
   margin-bottom: unset !important;
 }
@@ -197,7 +201,7 @@ export default {
   color: #82828d;
 }
 .txn-option {
-  width: 175px;
+  width: 155px;
   font-family: "Poppins-Regular";
 }
 </style>

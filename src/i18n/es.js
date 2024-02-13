@@ -86,8 +86,7 @@ export default {
     },
     deleteWallet: {
       title: "Eliminar monedero",
-      message:
-        "¿Está absolutamente seguro de querer eliminar su monedero?\nAsegúrese de tener una copia de seguridad de sus claves privadas antes de proceder.\n¡ESTE PROCESO NO ES REVERSIBLE!",
+      message: "¿Está seguro de que desea eliminar la billetera actual?",
       ok: "ELIMINAR"
     },
     exit: {
@@ -107,7 +106,7 @@ export default {
       ok: "SÍ"
     },
     password: {
-      title: "Contraseña",
+      title: "Ingrese su contraseña de billetera",
       message: "Introduzca la contraseña del monedero para continuar."
     },
     registerMasterNode: {
@@ -367,6 +366,9 @@ export default {
     beldexAddress: "Dirección de Beldex",
     enterName: "Ingrese su nombre",
     enterAddress: "Ingresa la direccion",
+    enteroldPassword: "Ingrese la contraseña anterior",
+    enterNewPassword: "Ingrese nueva clave",
+    reEnterPassword: "Escriba la contraseña otra vez",
     filterTx: "Introduzca un ID, nombre, dirección o cantidad",
     hexCharacters: "{count} caracteres hexadecimales",
     mnemonicSeed: "Semilla mnemónica de 25 (o 24) palabras",
@@ -376,6 +378,7 @@ export default {
     pasteTransactionProof: "Pegar prueba de la transacción",
     proveOptionalMessage: "Mensaje opcional contra el qué se firma la firma",
     recipientWalletAddress: "Dirección del monedero de destino",
+    reEnterWalletPassword: "Escriba la contraseña otra vez",
     selectAFile: "Seleccione un archivo por favor",
     transactionNotes: "Notas adicionales para agregar a la transacción",
     signature: "Signature to verify",
@@ -560,6 +563,102 @@ export default {
       restoreViewOnly: "Restaurar monedero de solo visualización"
     },
     chooseLanguage: "Elige lengua",
-    yourWallets: "Sus Monederos"
+    yourWallets: "Sus Monederos",
+    swap: {
+      swap: "Intercambio",
+      exchange: "Intercambio",
+      history: "Historia",
+      unsupportedpair: "Par de intercambio no admitido",
+      minimumAmt: "La cantidad mínima es",
+      maximumAmt: "La cantidad máxima es",
+      transactionDetails: "Detalles de la transacción",
+      youSend: "Usted envía",
+      exchangeRate: "Tipo de cambio",
+      fixedRate: "Tipo de interés fijo",
+      fixedRateUpdateSec: "La tarifa fija se actualiza cada 30 segundos.",
+      serviceFee: "Tarifa de servicio 0,25%",
+      fees: "Honorarios",
+      allTheFees: "Todos los honorarios incluidos en la tarifa.",
+      networkFee: "Tarifa de red",
+      youGet: "Usted obtiene",
+      floatingExchangeRate: "Tipo de cambio flotante",
+      fixedExchangeRate: "Tipo de cambio fijo",
+      stillProcessing:
+        "Su transacción anterior aún se está procesando. Puedes crear uno nuevo en 15 minutos.",
+      minimumExchangeAmtAbove: "El monto mínimo de cambio está por encima",
+      for: "para",
+      maximumExchangeAmtUnder: "El importe máximo de cambio está por debajo",
+      floatingRateDisc:
+        "La tasa flotante puede cambiar en cualquier momento debido a las condiciones del mercado, por lo que es posible que reciba más o menos criptomonedas de lo esperado.",
+      fixedRateExactAmtDisc:
+        "Con la tasa fija, recibirás la cantidad exacta de criptomonedas que ves en esta pantalla.",
+      walletAddress: "Dirección de billetera",
+      myWalletRequire: "mi billetera requiere",
+      agreeWith: "estoy de acuerdo con",
+      termOfUse: "Condiciones de uso",
+      and: "y",
+      privacyPolicy: "política de privacidad",
+      checkout: "Verificar",
+      blockchain: "cadena de bloques",
+      exchangefee: "Tarifa de cambio",
+      exchangeFeeIncluded:
+        "La tarifa de cambio ya está incluida en el monto mostrado que recibirás",
+      networkFeeIncluded:
+        "La tarifa de red ya está incluida en el monto mostrado que recibirás",
+      guaranteeFee: "Tarifa Garantizada",
+      refundAddress: "Dirección de reembolso",
+      exchanging: "Intercambio",
+      confirmingProcess: "Confirmando en progreso",
+      Once: "Una vez",
+      confirmedInBlockchain:
+        "está confirmado en la cadena de bloques, comenzaremos a intercambiarlo con",
+      seenInputExplorer: "Ver hash de entrada en el explorador",
+      to: "a",
+      pleaseWait: "El proceso tardará unos minutos. espere por favor.",
+      sendFundsToWallet: "Enviar fondos a su billetera",
+      waitHere: "No tienes que esperar aquí.",
+      newTransaction: "Puede iniciar una nueva transacción.",
+      checkStatus:
+        "Siempre puedes verificar el estado de esta transacción en transacción",
+      // history: "history",
+      transactionPreview: "Vista previa de la transacción",
+      transactionID: "ID de transacción",
+      changellyAddress: "dirección cambiante",
+      completed: "Terminada",
+      amountTo: "Cantidad a",
+      amountReceived: "Cantidad recibida",
+      amountSend: "Cantidad enviada",
+      inputHash: "hash de entrada",
+      outputHash: "Hash de salida",
+      amountFrom: "Cantidad de",
+      paymentNotReceived:
+        "Los fondos no se recibieron en 3 horas. Por favor verifique las tarifas y cree una nueva transacción",
+      downloadCsv: "Descargar CSV",
+      status: "Estado",
+      date: "fechas",
+      exchangeAmount: "Monto del cambio",
+      receiver: "Receptor",
+      sendFundDisc: "Envíe fondos a la siguiente dirección",
+      timeLeft: "Tiempo restante para enviar",
+      guaranteedRateDisc: "La tarifa garantizada ha sido cancelada",
+      sendFundsAboveAddress:
+        "Tenga en cuenta que solo puede enviar fondos a la dirección anterior",
+      once: "una vez",
+      swapMaintenance: "El intercambio está temporalmente en mantenimiento",
+      tryAgainSomeTimes:
+        "Por favor, inténtalo de nuevo después de algunas veces.",
+      afterYourFirstTxn: "Después de su primera transacción",
+      youWillBeViewHere: "Lo podrás ver aquí",
+      openHistory: "Historia Abierta",
+      newTransactionBtn: "Nueva transacción",
+      exchangePair: "Par de intercambio",
+      exchangePairDisc: "Establecer el par de intercambio preferido",
+      walletAddressDisc:
+        "Complete los detalles de la dirección de la billetera criptográfica",
+      payment: "Pago",
+      paymentDisc: "Deposite el monto requerido para el cambio.",
+      exchangeDisc: "Espere a que se complete su transacción",
+      paymentConfirm: "Confirm & Make payment"
+    }
   }
 };

@@ -1,11 +1,12 @@
 <template>
   <div class="wallet-settings">
-    <q-btn icon-right="menu" size="md" flat>
+    <q-btn icon-right="menu " size="17px" flat>
       <q-menu anchor="bottom right" self="top right">
-        <q-list separator class="menu-list">
+        <q-list separator class="menu-list wallet-settings-wrapper">
           <q-item
             v-close-popup
             clickable
+            class="q-mx-md q-my-sm"
             :disabled="!is_ready"
             @click.native="getPrivateKeys()"
           >
@@ -17,6 +18,7 @@
           <q-item
             v-close-popup
             clickable
+            class="q-mx-md q-my-sm"
             :disabled="!is_ready"
             @click.native="showModal('change_password')"
           >
@@ -28,7 +30,7 @@
               {{ $t("menuItems.changePassword") }}
             </q-item-label>
           </q-item>
-          <q-item
+          <!-- <q-item
             v-close-popup
             clickable
             :disabled="!is_ready"
@@ -41,10 +43,11 @@
               />
               {{ $t("menuItems.rescanWallet") }}
             </q-item-label>
-          </q-item>
+          </q-item> -->
           <q-item
             v-close-popup
             clickable
+            class="q-mx-md q-my-sm"
             :disabled="!is_ready"
             @click.native="showModal('key_image')"
           >
@@ -59,6 +62,7 @@
           <q-item
             v-close-popup
             clickable
+            class="q-mx-md q-my-sm"
             :disabled="!is_ready"
             @click.native="deleteWallet()"
           >
@@ -180,7 +184,7 @@
     </q-dialog>
 
     <!-- RESCAN MODAL -->
-    <q-dialog v-model="modals.rescan.visible" minimized>
+    <!-- <q-dialog v-model="modals.rescan.visible" minimized>
       <div class="modal rescan-modal">
         <div class="a-ma-lg modal-header ft-bold">
           {{ $t("titles.rescanWallet") }}
@@ -208,7 +212,7 @@
               />
             </div>
           </div>
-          <!-- <div class="q-mt-lg radio-btn-box-non-select flex items-center ft-semibold q-pl-md "   > -->
+          <div class="q-mt-lg radio-btn-box-non-select flex items-center ft-semibold q-pl-md "   >
           <div class="r-btn-wrapper">
             <div
               :class="[
@@ -245,7 +249,7 @@
           </div>
         </div>
       </div>
-    </q-dialog>
+    </q-dialog> -->
 
     <!-- KEY IMAGE MODAL -->
     <q-dialog
@@ -395,7 +399,7 @@
               v-model="modals.change_password.old_password"
               type="password"
               borderless
-              placeholder="Enter old Password"
+              :placeholder="$t('placeholders.enteroldPassword')"
             />
           </OxenField>
 
@@ -404,7 +408,7 @@
               v-model="modals.change_password.new_password"
               type="password"
               borderless
-              placeholder="Enter New Password"
+              :placeholder="$t('placeholders.enterNewPassword')"
             />
           </OxenField>
 
@@ -416,7 +420,7 @@
               v-model="modals.change_password.new_password_confirm"
               type="password"
               borderless
-              placeholder="Re-Enter Password"
+              :placeholder="$t('placeholders.reEnterPassword')"
             />
           </OxenField>
 
@@ -457,10 +461,10 @@ export default {
         private_keys: {
           visible: false
         },
-        rescan: {
-          visible: false,
-          type: "full"
-        },
+        // rescan: {
+        //   visible: false,
+        //   type: "full"
+        // },
         key_image: {
           visible: false,
           type: "Export",
@@ -532,9 +536,11 @@ export default {
     );
   },
   methods: {
-    showModal(which) {
+    async showModal(which) {
       if (!this.is_ready) return;
       this.modals[which].visible = true;
+      // const hasPassword =  await this.hasPassword();
+      // console.log('hasPasswordhasPassword ::',hasPassword)
     },
     hideModal(which) {
       this.modals[which].visible = false;
@@ -627,31 +633,31 @@ export default {
         });
       }, 500);
     },
-    rescanWallet() {
-      this.hideModal("rescan");
-      if (this.modals.rescan.type == "full") {
-        this.$q
-          .dialog({
-            title: this.$t("dialog.rescan.title"),
-            message: this.$t("dialog.rescan.message"),
-            ok: {
-              label: this.$t("buttons.rescan"),
-              color: "primary"
-            },
-            cancel: {
-              color: "accent",
-              label: this.$t("dialog.buttons.cancel")
-            }
-          })
-          .onOk(() => {
-            this.$gateway.send("wallet", "rescan_blockchain");
-          })
-          .onDismiss(() => {})
-          .onCancel(() => {});
-      } else {
-        this.$gateway.send("wallet", "rescan_spent");
-      }
-    },
+    // rescanWallet() {
+    //   this.hideModal("rescan");
+    //   if (this.modals.rescan.type == "full") {
+    //     this.$q
+    //       .dialog({
+    //         title: this.$t("dialog.rescan.title"),
+    //         message: this.$t("dialog.rescan.message"),
+    //         ok: {
+    //           label: this.$t("buttons.rescan"),
+    //           color: "primary"
+    //         },
+    //         cancel: {
+    //           color: "accent",
+    //           label: this.$t("dialog.buttons.cancel")
+    //         }
+    //       })
+    //       .onOk(() => {
+    //         this.$gateway.send("wallet", "rescan_blockchain");
+    //       })
+    //       .onDismiss(() => {})
+    //       .onCancel(() => {});
+    //   } else {
+    //     this.$gateway.send("wallet", "rescan_spent");
+    //   }
+    // },
     selectKeyImageExportPath() {
       this.$refs.keyImageExportSelect.click();
     },
@@ -710,7 +716,7 @@ export default {
       let new_password_confirm = this.modals.change_password
         .new_password_confirm;
 
-      if (!old_password || !new_password || !new_password_confirm) {
+      if (!new_password || !new_password_confirm) {
         this.$q.notify({
           type: "negative",
           timeout: 1000,
@@ -718,6 +724,30 @@ export default {
         });
         return;
       }
+      // if (!old_password) {
+      //   this.$q.notify({
+      //     type: "negative",
+      //     timeout: 1000,
+      //     message: "Please enter old password"
+      //   });
+      //   return;
+      // }
+      // if (!new_password) {
+      //   this.$q.notify({
+      //     type: "negative",
+      //     timeout: 1000,
+      //     message: "Please enter new password"
+      //   });
+      //   return;
+      // }
+      // if (!new_password_confirm) {
+      //   this.$q.notify({
+      //     type: "negative",
+      //     timeout: 1000,
+      //     message: "Please enter confirm password"
+      //   });
+      //   return;
+      // }
       if (new_password == old_password) {
         this.$q.notify({
           type: "negative",
@@ -806,6 +836,18 @@ export default {
 </script>
 
 <style lang="scss">
+.wallet-settings-wrapper {
+  .q-item-type + .q-item-type {
+    border: unset !important;
+  }
+  .q-item {
+    padding: 0;
+  }
+  .q-hoverable:hover > .q-focus-helper {
+    background-color: #40405e !important;
+    border-radius: 10px;
+  }
+}
 .q-placeholder {
   color: #fff;
 }

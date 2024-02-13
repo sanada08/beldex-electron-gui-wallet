@@ -1,5 +1,6 @@
 import { Daemon } from "./daemon";
 import { WalletRPC } from "./wallet-rpc";
+const { Swap } = require("./swap");
 import { SCEE } from "./SCEE-Node";
 import { dialog } from "electron";
 import semver from "semver";
@@ -23,6 +24,7 @@ export class Backend {
     this.mainWindow = mainWindow;
     this.daemon = null;
     this.walletd = null;
+    this.swap = null;
     this.wss = null;
     this.token = null;
     this.config_dir = null;
@@ -130,8 +132,24 @@ export class Backend {
         port: "19091"
       },
       {
-        host: "rpcnode.stream",
-        port: "19091"
+        host: "publicnode1.rpcnode.stream",
+        port: "29095"
+      },
+      {
+        host: "publicnode2.rpcnode.stream",
+        port: "29095"
+      },
+      {
+        host: "publicnode3.rpcnode.stream",
+        port: "29095"
+      },
+      {
+        host: "publicnode4.rpcnode.stream",
+        port: "29095"
+      },
+      {
+        host: "publicnode5.rpcnode.stream",
+        port: "29095"
       }
     ];
 
@@ -165,7 +183,7 @@ export class Backend {
 
   receive(data) {
     let decrypted_data = JSON.parse(this.scee.decryptString(data, this.token));
-
+    // console.log("decrypted_data:", decrypted_data);
     // route incoming request to either the daemon, wallet, or here
     switch (decrypted_data.module) {
       case "core":
@@ -179,6 +197,11 @@ export class Backend {
       case "wallet":
         if (this.walletd) {
           this.walletd.handle(decrypted_data);
+        }
+        break;
+      case "swap":
+        if (this.swap) {
+          this.swap.handle(decrypted_data);
         }
         break;
     }
@@ -512,6 +535,7 @@ export class Backend {
 
       this.daemon = new Daemon(this);
       this.walletd = new WalletRPC(this);
+      this.swap = new Swap(this);
 
       this.send("set_app_data", {
         status: {

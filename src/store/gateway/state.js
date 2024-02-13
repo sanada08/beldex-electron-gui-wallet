@@ -146,5 +146,19 @@ export default {
   },
   update_required: false,
   router_path_rightpane: "send",
-  sender_address: ""
+  sender_address: "",
+  mnDetails: {},
+  stepperPosition: 1,
+
+  //  swap states
+
+  currencyList: [],
+  exchangeAmount: [],
+  fixedExchangeRate: [],
+  createdTxnDetails: [],
+  RecipientAddressValidation: { result: { result: false } },
+  refundAddressValidation: { result: { result: false } },
+  pairsMinMax: [],
+  txnStatus: [],
+  txnHistory: []
 };

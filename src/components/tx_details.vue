@@ -7,7 +7,7 @@
       <q-toolbar>
         <!-- <q-btn flat round dense icon="" @click="isVisible = false" /> -->
         <!-- <q-btn flat round dense @click="goback()" > -->
-        <div class="flex items-center back-arrow-btn" @click="goback()">
+        <div class="flex items-center back-arrow-btn q-ml-md" @click="goback()">
           <svg
             width="26"
             height="26"
@@ -91,8 +91,9 @@
         />
       </q-toolbar>
     </q-header>
+    <div style="height: 62px;"></div>
     <q-page class="detail-page" style="min-height: unset">
-      <div class="layout-padding">
+      <div class="layout-padding" style="padding-top: 0 !important;">
         <!-- <div class="row items-center non-selectable">
           <div class="q-mr-sm">
             <TxTypeIcon :type="tx.type" :tooltip="false" />
@@ -135,7 +136,7 @@
           </div>
         </div> -->
 
-        <div class="justify-between" style="margin-top: 72px">
+        <div class="justify-between">
           <div class="infoBox tx_details_wrapper ft-regular">
             <div class="flex row justify-between">
               <div class="text">
@@ -380,7 +381,11 @@
           {{ JSON.stringify(this.tx, null, 2) }}
         </article>
         <div class="flex justify-center q-my-lg ">
-          <q-btn color="accent" label="close" @click="showTxnDetails(false)" />
+          <q-btn
+            color="accent"
+            :label="$t('buttons.close')"
+            @click="showTxnDetails(false)"
+          />
         </div>
       </div>
     </q-dialog>
@@ -557,6 +562,10 @@ export default {
     }
     .value {
       font-size: 16px;
+      word-break: break-all;
+      .q-btn--flat {
+        height: unset;
+      }
     }
   }
   .txnDirection {
@@ -618,7 +627,7 @@ export default {
 .txn-details-modal {
   width: 600px;
   padding: 25px 25px 10px 25px;
-  background-color: #2f2f40;
+  background-color: #242433;
   color: #fff;
   border-radius: 10px !important;
   word-break: break-all;

@@ -63,7 +63,7 @@
                 color="#A9A9CD"
               />
             </div>
-            <q-btn @click="navigator">
+            <q-btn flat dense class="contact-btn" @click="navigator">
               <svg
                 width="18"
                 height="18"
@@ -119,7 +119,7 @@
           </OxenField>
         </div>
 
-        <div v-if="newTx.address_book.save">
+        <div v-if="newTx.address_book.save" class="q-mt-lg">
           <OxenField :label="$t('fieldLabels.name')" optional>
             <q-input
               v-model="newTx.address_book.name"
@@ -531,6 +531,10 @@ export default {
     width: 9vw;
     min-width: unset;
   }
+  .contact-btn {
+    width: 31px;
+    height: 31px;
+  }
 }
 
 .amount {
@@ -577,7 +581,7 @@ export default {
     color: #fff;
   }
   .on-left {
-    margin-right: unset;
+    margin-right: 5px;
   }
 }
 @media only screen and (max-height: 780px) {
