@@ -516,12 +516,13 @@ export class Daemon {
 
     const params = {
       entries: [
-        {
-          name_hash: nameHash,
-          // 0 = bchat
-          // 2 = belnet
-          types: [0, 2]
-        }
+        nameHash
+        // {
+        // name_hash: nameHash,
+        // 0 = bchat
+        // 2 = belnet
+        // types: [0, 2]
+        // }
       ]
     };
 

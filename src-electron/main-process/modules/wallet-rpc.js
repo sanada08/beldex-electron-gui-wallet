@@ -1124,7 +1124,7 @@ export class WalletRPC {
             ...record
           };
         }
-        console.log("updateLocalBNSRecords 6::", current, record);
+        // console.log("updateLocalBNSRecords 6::", current, record);
 
         // Otherwise just update our current record with new information (in the case that owner or backup_owner was updated)
         return {
@@ -1332,7 +1332,7 @@ export class WalletRPC {
     const value = await this.decryptBNSValue(
       type,
       fullName,
-      record.encrypted_value
+      record.encrypted_bchat_value
     );
 
     return {

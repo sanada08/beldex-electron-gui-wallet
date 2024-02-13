@@ -374,7 +374,7 @@ export default {
     },
     applyAlphanumericMask() {
       // Remove non-alphanumeric characters using the regular expression
-      this.newTx.address = this.newTx.address.replace(/[\W_]/g, "");
+      // this.newTx.address = this.newTx.address.replace(/[\W_.]/g, "");
       // this.newTx.address = this.newTx.address.replace(/^[a-zA-Z0-9]*$/,"")
     },
     onConfirmTransaction() {
@@ -488,14 +488,14 @@ export default {
         }
       }
 
-      if (this.$v.newTx.address.$error) {
-        this.$q.notify({
-          type: "negative",
-          timeout: 1000,
-          message: this.$t("notification.errors.invalidAddress")
-        });
-        return;
-      }
+      // if (this.$v.newTx.address.$error) {
+      //   this.$q.notify({
+      //     type: "negative",
+      //     timeout: 1000,
+      //     message: this.$t("notification.errors.invalidAddress")
+      //   });
+      //   return;
+      // }
 
       // must wait for the dialog to be returned
       let passwordDialog = await this.showPasswordConfirmation({
