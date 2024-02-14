@@ -6,7 +6,11 @@
       class="oxen-list-item"
     >
       <q-item-section class="type" avatar>
-        <q-icon :name="isLocked(record) ? 'lock' : 'lock_open'" size="24px" />
+        <q-icon
+          color="white"
+          :name="isLocked(record) ? 'lock' : 'lock_open'"
+          size="24px"
+        />
       </q-item-section>
       <q-item-section>
         <q-item-label :class="bindClass(record)">{{
@@ -18,7 +22,7 @@
         <template v-if="isLocked(record)">{{
           record.update_height | blockHeight
         }}</template>
-        <template v-else>
+        <!-- <template v-else>
           <q-item-section>
             <div class="row update-renew-buttons">
               <q-btn
@@ -34,7 +38,7 @@
               />
             </div>
           </q-item-section>
-        </template>
+        </template> -->
       </q-item-section>
       <q-item-section v-if="!isLocked(record)" side>
         <span v-if="record.type === 'bchat'">{{

@@ -68,11 +68,14 @@
           :disable="disableName"
           borderless
           dense
+          :suffix="'.bdx'"
           @blur="$v.record.name.$touch"
         />
       </OxenField>
     </div>
-
+    <div class="notes q-mt-xs">
+      Note: BNS Name for registration
+    </div>
     <!-- Value (Bchat ID, Wallet Address or .bdx address) -->
     <!-- <div class="col q-mt-sm">
       <OxenField
@@ -112,6 +115,10 @@
         />
       </OxenField>
     </div>
+    <div class="notes q-mt-xs">
+      Note: Use current address (leave blank if same wallet) or specify the
+      address if it is a different wallet
+    </div>
 
     <!-- Backup owner -->
     <div class="col q-mt-sm">
@@ -132,10 +139,46 @@
         />
       </OxenField>
     </div>
+    <div class="notes q-mt-xs">
+      Note: Use current address (leave blank if same wallet) or specify backup
+      address
+    </div>
     <!-- <BNSAddressSelection :parentValue="parentValue" @update-parent="updateParentValue" /> -->
 
-    <div class="idSelectorWrapper">
-      <section class="q-mt-md">
+    <div
+      class="idSelectorWrapper"
+      :class="[idsValidation ? 'errorborder' : '']"
+    >
+      <section>
+        <div
+          class="flex row items-center no-wrap q-pa-sm q-mb-sm selectionBox"
+          :class="[addressRef ? 'selected' : '']"
+        >
+          <q-checkbox
+            v-model="addressRef"
+            style="width: 140px"
+            size="sm"
+            label="Address"
+            color="green"
+          />
+          <OxenField class="full-width" optional>
+            <q-input
+              v-model="address"
+              :disable="!addressRef"
+              :dark="theme == 'dark'"
+              placeholder="Address"
+              borderless
+              dense
+            />
+          </OxenField>
+          <!-- <q-radio
+          keep-color
+          v-model="selectedId"
+          val="Address"
+          label="Address"
+          color="green"
+        /> -->
+        </div>
         <div
           class="flex row items-center no-wrap q-pa-sm q-mb-sm selectionBox"
           :class="[bchatIdRef ? 'selected' : '']"
@@ -166,7 +209,7 @@
         /> -->
         </div>
         <div
-          class="flex row items-center no-wrap q-pa-sm q-mb-sm selectionBox"
+          class="flex row items-center no-wrap q-pa-sm  selectionBox"
           :class="[belnetIdRef ? 'selected' : '']"
         >
           <q-checkbox
@@ -191,35 +234,6 @@
           v-model="selectedId"
           val="Belnet ID"
           label="Belnet ID"
-          color="green"
-        /> -->
-        </div>
-        <div
-          class="flex row items-center no-wrap q-pa-sm q-mb-sm selectionBox"
-          :class="[addressRef ? 'selected' : '']"
-        >
-          <q-checkbox
-            v-model="addressRef"
-            style="width: 140px"
-            size="sm"
-            label="Address"
-            color="green"
-          />
-          <OxenField class="full-width" optional>
-            <q-input
-              v-model="address"
-              :disable="!addressRef"
-              :dark="theme == 'dark'"
-              placeholder="Address"
-              borderless
-              dense
-            />
-          </OxenField>
-          <!-- <q-radio
-          keep-color
-          v-model="selectedId"
-          val="Address"
-          label="Address"
           color="green"
         /> -->
         </div>
@@ -324,25 +338,25 @@ export default {
     let belnetOptions = [
       {
         // label: this.$t("strings.bns.belnetName1Year"),
-        label: "1 Year",
+        label: "1 yr",
         value: "1y",
         amount: "650 bdx"
       },
       {
         // label: this.$t("strings.bns.belnetNameXYears", { years: 2 }),
-        label: "2 Year",
+        label: "2 yrs",
         value: "2y",
         amount: "1000 bdx"
       },
       {
         // label: this.$t("strings.bns.belnetNameXYears", { years: 5 }),
-        label: "5 Year",
+        label: "5 yrs",
         value: "5y",
         amount: "2000 bdx"
       },
       {
         // label: this.$t("strings.bns.belnetNameXYears", { years: 10 }),
-        label: "10 Year",
+        label: "10 yrs",
         value: "10y",
         amount: "4000 bdx"
       }
@@ -352,7 +366,7 @@ export default {
 
     const initialRecord = {
       // Belnet 1 year is valid on renew or purchase
-      years: typeOptions[0].value,
+      years: typeOptions[3].value,
       type: "",
       name: "",
       value: "",
@@ -367,8 +381,35 @@ export default {
 
       bchatId: "",
       belnetId: "",
-      address: ""
+      address: "",
+      idsValidation: false
     };
+  },
+  watch: {
+    addressRef: {
+      handler(val, old) {
+        if (val === old) return;
+        if (!val) {
+          this.address = "";
+        }
+      }
+    },
+    bchatIdRef: {
+      handler(val, old) {
+        if (val === old) return;
+        if (!val) {
+          this.bchatId = "";
+        }
+      }
+    },
+    belnetIdRef: {
+      handler(val, old) {
+        if (val === old) return;
+        if (!val) {
+          this.belnetId = "";
+        }
+      }
+    }
   },
   computed: mapState({
     theme: state => state.gateway.app.config.appearance.theme,
@@ -508,6 +549,20 @@ export default {
         });
         return;
       }
+      console.log("this.record.name.toLowerCase() ", this.record.name);
+
+      if (!this.bchatId || !this.belnetId || !this.address) {
+        this.idsValidation = true;
+        this.$q.notify({
+          type: "negative",
+          timeout: 3000,
+          message: "please enter any ids"
+        });
+        return;
+      } else {
+        this.idsValidation = false;
+      }
+
       // The validators validate on lowercase, need to submit as lowercase too
       const submitRecord = {
         ...this.record,
@@ -595,7 +650,15 @@ export default {
       margin-left: 8px;
     }
   }
+  .notes {
+    color: #20d030;
+    font-size: 12px;
+  }
+  .errorborder {
+    border: 1px solid red;
+  }
 }
+
 .idSelectorWrapper {
   .selectionBox {
     background-color: #474766;
