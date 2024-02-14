@@ -704,8 +704,8 @@
       <q-input
         v-if="refundDestinationTag === 'yes'"
         v-model="refundDestinationTagValue"
-        class="box-input"
         :placeholder="`Enter ${this.sendAmounType.extraIdName}`"
+        class="box-input"
         borderless
         dense
       />
@@ -1326,13 +1326,13 @@ export default {
         receiveFund = this.fixedExchangeRate.amountTo;
       }
       let destiniTag;
-      if (this.refundDestinationTag === "yes") {
+      if (this.destinationTag === "yes") {
         destiniTag = this.destinationTagValue;
       } else {
         destiniTag = true;
       }
       let refundDestiniTag;
-      if (this.destinationTag === "yes") {
+      if (this.refundDestinationTag === "yes") {
         refundDestiniTag = this.refundDestinationTagValue;
       } else {
         refundDestiniTag = true;

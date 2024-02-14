@@ -66,6 +66,12 @@ export const bchat_name = input => {
     /^[a-z0-9_]([a-z0-9-_]*[a-z0-9_])?$/.test(input.toLowerCase())
   );
 };
+export const bns_name = input => {
+  return (
+    input.length === 0 ||
+    /^[a-z0-9]([a-z0-9-]*[a-z0-9])?$/.test(input.toLowerCase())
+  );
+};
 
 export const address = (input, gateway) => {
   // Validate the address

@@ -34,6 +34,7 @@
             :label="$t('buttons.rescan')"
             icon="refresh"
             class="rescan-btn q-mr-sm"
+            :disable="!this.is_ready"
             @click.native="showModal('rescan')"
           />
           <WalletSettings />

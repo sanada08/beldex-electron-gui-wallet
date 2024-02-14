@@ -252,7 +252,12 @@
     <!-- :disable="!is_able_to_send || disableSubmitButton || !can_update ||!record.name" -->
 
     <div class="buttons flex justify-center q-mt-sm">
-      <q-btn color="primary" :label="submitLabel" @click="submit()" />
+      <q-btn
+        color="primary"
+        :disable="!is_ready"
+        :label="submitLabel"
+        @click="submit()"
+      />
       <q-btn
         v-if="showClearButton"
         color="accent"
@@ -270,8 +275,9 @@ import {
   address,
   bchat_id,
   belnet_address,
-  belnet_name,
-  bchat_name
+  bns_name
+  // belnet_name,
+  // bchat_name
 } from "src/validators/common";
 import OxenField from "components/oxen_field";
 import WalletPassword from "src/mixins/wallet_password";
@@ -415,6 +421,9 @@ export default {
     theme: state => state.gateway.app.config.appearance.theme,
     our_address: state => state.gateway.wallet.info.address,
     info: state => state.gateway.wallet.info,
+    is_ready() {
+      return this.$store.getters["gateway/isReady"];
+    },
     is_able_to_send() {
       return this.$store.getters["gateway/isAbleToSend"];
     },
@@ -549,17 +558,31 @@ export default {
         });
         return;
       }
-      console.log("this.record.name.toLowerCase() ", this.record.name);
+
+      if (!this.bchatId && !this.belnetId && !this.address) {
+        this.idsValidation = true;
+        this.$q.notify({
+          type: "negative",
+          timeout: 3000,
+          message: "please enter any ids"
+        });
+        return;
+      } else {
+        this.idsValidation = false;
+      }
 
       // The validators validate on lowercase, need to submit as lowercase too
       const submitRecord = {
         ...this.record,
-        name: this.record.name.toLowerCase() + ".bdx",
+        name: this.record.name.includes(".bdx")
+          ? this.record.name.toLowerCase()
+          : this.record.name.toLowerCase() + ".bdx",
         value: this.record.value.toLowerCase(),
         value_bchat: this.bchatId,
         value_belnet: this.belnetId,
         value_wallet: this.address
       };
+
       // Send up the submission with the record
       this.$emit("onSubmit", submitRecord);
     },
@@ -574,16 +597,18 @@ export default {
         maxLength: maxLength(64),
         hyphen: function(value) {
           let str = value || "";
+
           return !(str.startsWith("-") || str.endsWith("-"));
         },
         validate: function(value) {
           const _value = value.toLowerCase();
-          if (this.record.type === "bchat") {
-            return bchat_name(_value);
-          } else {
-            // shortened belnet BNS name
-            return belnet_name(_value);
-          }
+          // if (this.record.type === "bchat") {
+          return bns_name(_value);
+
+          // } else {
+          //   // shortened belnet BNS name
+          //   return belnet_name(_value);
+          // }
         }
       },
       owner: {

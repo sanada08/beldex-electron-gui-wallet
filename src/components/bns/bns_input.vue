@@ -151,6 +151,10 @@ export default {
         ok: {
           label: this.$t("dialog.purchase.ok"),
           color: "primary"
+        },
+        cancel: {
+          color: "accent",
+          label: this.$t("buttons.cancel")
         }
       });
       passwordDialog
