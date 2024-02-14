@@ -25,14 +25,14 @@
         />
       </div>
     </div>
-    <div v-if="bchat_records.length > 0" class="records-group">
+    <!-- <div v-if="bchat_records.length > 0" class="records-group">
       <span class="record-type-title">{{ $t("titles.bnsBchatRecords") }}</span>
       <BNSRecordList
         :record-list="bchat_records"
         :is-belnet="false"
         @onUpdate="onUpdate"
       />
-    </div>
+    </div> -->
     <div v-if="belnet_records.length > 0" class="records-group">
       <span class="record-type-title">{{ $t("titles.bnsBelnetRecords") }}</span>
       <BNSRecordList
@@ -87,15 +87,15 @@ export default {
   }),
   methods: {
     records_of_type(state, type) {
+      console.log("type..:", type);
       // receives the type and returns the records of that type
       const ourAddresses = this.ourAddresses;
       const records = state.gateway.wallet.bnsRecords;
-      // console.log("records_of_type ::",records)
+      console.log("records_of_type ::", records);
       const ourRecords = records.filter(record => {
         return (
-          record.type === type &&
-          (ourAddresses.includes(record.owner) ||
-            ourAddresses.includes(record.backup_owner))
+          ourAddresses.includes(record.owner) ||
+          ourAddresses.includes(record.backup_owner)
         );
       });
 

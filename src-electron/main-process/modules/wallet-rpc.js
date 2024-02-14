@@ -95,7 +95,8 @@ export class WalletRPC {
           "--rpc-bind-ip",
           "127.0.0.1",
           "--log-level",
-          options.wallet.log_level
+          options.wallet.log_level,
+          "--trusted-daemon"
         ];
 
         const { net_type, wallet_data_dir, data_dir } = options.app;
@@ -966,6 +967,8 @@ export class WalletRPC {
 
     clearInterval(this.bnsHeartbeat);
     this.bnsHeartbeat = setInterval(() => {
+      1000;
+      console.log("nowooo");
       this.updateLocalBNSRecords();
     }, 80000); // change from 30*1000 to 80000
     this.updateLocalBNSRecords();
@@ -1093,7 +1096,7 @@ export class WalletRPC {
       const records = await this.backend.daemon.getBNSRecordsForOwners(
         addresses
       );
-      // console.log("updateLocalBNSRecords 2::", records);
+      console.log("records 2::", records);
 
       // We need to ensure that we decrypt any incoming records that we already have
       const currentRecords = this.wallet_state.bnsRecords;
@@ -1138,7 +1141,7 @@ export class WalletRPC {
       // fetch the known (cached) records from the wallet and add the data
       // to the records being set in state
       let known_names = await this.lnsKnownNames();
-
+      console.log("known_names:", known_names);
       // Fill the necessary decrypted values of the cached BNS names
       for (let r of newRecords) {
         for (let k of known_names) {
@@ -1326,8 +1329,9 @@ export class WalletRPC {
     if (!nameHash) return null;
 
     const record = await this.backend.daemon.getBNSRecord(nameHash);
-    if (!record || !record.encrypted_value) return null;
-
+    console.log("record:", record);
+    // if (!record || !record.encrypted_value) return null;
+    console.log("record:", record);
     // Decrypt the value if possible
     const value = await this.decryptBNSValue(
       type,
@@ -1351,11 +1355,13 @@ export class WalletRPC {
     }
 
     try {
+      console.log("fullName:", fullName);
+      console.log("type...:", type);
       const data = await this.sendRPC("bns_hash_name", {
-        type,
+        // type,
         name: fullName
       });
-
+      console.log("data:::::::", data);
       if (data.hasOwnProperty("error")) {
         let error =
           data.error.message.charAt(0).toUpperCase() +
@@ -1384,7 +1390,7 @@ export class WalletRPC {
         name: fullName,
         encrypted_value
       });
-
+      console.log("data:", data);
       if (data.hasOwnProperty("error")) {
         let error =
           data.error.message.charAt(0).toUpperCase() +
@@ -1843,6 +1849,7 @@ export class WalletRPC {
 
       this.sendRPC(rpc_endpoint, params)
         .then(data => {
+          console.log("data transfer:", data);
           if (data.hasOwnProperty("error") || !data.hasOwnProperty("result")) {
             let error = "";
             if (data.error && data.error.message) {
@@ -1955,7 +1962,7 @@ export class WalletRPC {
         console.log("bns_buy_mapping 0::", params);
 
         this.sendRPC("bns_buy_mapping", params).then(data => {
-          // console.log("bns_buy_mapping 1::",data)
+          console.log("bns_buy_mapping 1::", data);
           if (data.hasOwnProperty("error")) {
             // console.log("bns_buy_mapping 2::", data.error)
 
@@ -2337,7 +2344,8 @@ export class WalletRPC {
           "miner",
           "mnode",
           "gov",
-          "stake"
+          "stake",
+          "bns"
         ];
         types.forEach(type => {
           if (data.result.hasOwnProperty(type)) {

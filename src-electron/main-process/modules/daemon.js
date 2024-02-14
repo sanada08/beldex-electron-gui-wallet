@@ -492,8 +492,10 @@ export class Daemon {
     // only 256 addresses allowed in this call
     let ownersMax = owners.slice(0, 256);
     const data = await this.sendRPC("bns_owners_to_names", {
+      //all values are encrpted
       entries: ownersMax
     });
+    console.log("ownersMax:", ownersMax);
     if (!data.hasOwnProperty("result")) return [];
 
     // We need to map request_index to owner
@@ -505,8 +507,9 @@ export class Daemon {
         owner
       };
     });
-
-    return this._sanitizeBNSRecords(recordsWithOwners);
+    console.log("recordsWithOwners:", recordsWithOwners);
+    // return this._sanitizeBNSRecords(recordsWithOwners);
+    return recordsWithOwners;
   }
 
   async getBNSRecord(nameHash) {
@@ -529,7 +532,9 @@ export class Daemon {
     const data = await this.sendRPC("bns_names_to_owners", params);
     if (!data.hasOwnProperty("result")) return null;
 
-    const entries = this._sanitizeBNSRecords(data.result.entries);
+    const entries = data.result.entries;
+    console.log("entries:", entries);
+    // this._sanitizeBNSRecords(data.result.entries);
     if (entries.length === 0) return null;
 
     return entries[0];

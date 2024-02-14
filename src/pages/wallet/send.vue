@@ -96,7 +96,7 @@
         <!-- <q-checkbox
           v-model="newTx.address_book.save"
           :label="$t('strings.saveToAddressBook')"
-        /> -->
+        />-->
         <div class="addAddress q-pt-sm" @click="addAddress">
           + {{ this.$t("buttons.addAddressBook") }}
         </div>
@@ -281,6 +281,12 @@ export default {
           if (value === "") return true;
 
           return new Promise(resolve => {
+            if (
+              (value.length > 106 || value.length < 95) &&
+              !value.includes(".bdx")
+            ) {
+              resolve(false);
+            }
             address(value, this.$gateway)
               .then(() => resolve(true))
               .catch(() => resolve(false));

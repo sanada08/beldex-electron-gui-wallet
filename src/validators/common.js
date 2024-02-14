@@ -68,11 +68,12 @@ export const bchat_name = input => {
 };
 
 export const address = (input, gateway) => {
-  if (!/^[0-9A-Za-z]+$/.test(input)) return false;
-
   // Validate the address
   return new Promise((resolve, reject) => {
+    if (input.includes(".bdx")) return resolve();
+    if (!/^[0-9A-Za-z]+$/.test(input)) return reject();
     gateway.once("validate_address", data => {
+      console.log("data..address validation.......:", data);
       if (data.address && data.address !== input) {
         reject();
       } else {

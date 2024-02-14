@@ -551,18 +551,6 @@ export default {
       }
       console.log("this.record.name.toLowerCase() ", this.record.name);
 
-      if (!this.bchatId || !this.belnetId || !this.address) {
-        this.idsValidation = true;
-        this.$q.notify({
-          type: "negative",
-          timeout: 3000,
-          message: "please enter any ids"
-        });
-        return;
-      } else {
-        this.idsValidation = false;
-      }
-
       // The validators validate on lowercase, need to submit as lowercase too
       const submitRecord = {
         ...this.record,
