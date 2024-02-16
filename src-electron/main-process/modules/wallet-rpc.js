@@ -1139,7 +1139,7 @@ export class WalletRPC {
       this.wallet_state.bnsRecords = newRecords;
       // fetch the known (cached) records from the wallet and add the data
       // to the records being set in state
-      let known_names = await this.lnsKnownNames();
+      let known_names = await this.bnsKnownNames();
       console.log("known_names:", known_names);
 
       // const _record = {
@@ -1181,7 +1181,7 @@ export class WalletRPC {
   /*
   Get the BNS records cached in this wallet. 
   */
-  async lnsKnownNames() {
+  async bnsKnownNames() {
     try {
       let params = {
         decrypt: true,

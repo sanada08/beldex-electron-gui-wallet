@@ -621,6 +621,7 @@ export default {
         miner: "Miner",
         masterNode: "Master Node",
         governance: "Governance",
+        bns: "Bns",
         stake: "Stake",
         failed: "Failed"
       }
