@@ -99,7 +99,7 @@
     </q-icon>
   </div>
 
-  <div v-else-if="type == 'bns'" class="tx-icon" style="color: #afafbe">
+  <div v-else-if="type == 'bns'" class="tx-icon" style="color: white">
     <q-icon size="27px" class="main-icon">
       <svg viewBox="0 0 25 28" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
