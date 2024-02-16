@@ -73,9 +73,7 @@
         />
       </OxenField>
     </div>
-    <div class="notes q-mt-xs">
-      Note: BNS Name for registration
-    </div>
+    <div class="notes q-mt-xs">Note: BNS Name for registration</div>
     <!-- Value (Bchat ID, Wallet Address or .bdx address) -->
     <!-- <div class="col q-mt-sm">
       <OxenField
@@ -154,14 +152,11 @@
           class="flex row items-center no-wrap q-pa-sm q-mb-sm selectionBox"
           :class="[addressRef ? 'selected' : '']"
         >
-          <q-checkbox
-            v-model="addressRef"
-            style="width: 140px"
-            size="sm"
-            label="Address"
-            color="green"
-          />
-          <OxenField class="full-width" optional>
+          <!-- style="width: 140px" -->
+
+          <q-checkbox v-model="addressRef" size="sm" color="green" />
+          <div style="width: 100px">Address</div>
+          <OxenField class="full-width" optional :error="$v.address.$error">
             <q-input
               v-model="address"
               :disable="!addressRef"
@@ -169,6 +164,7 @@
               placeholder="Address"
               borderless
               dense
+              @blur="$v.address.$touch"
             />
           </OxenField>
           <!-- <q-radio
@@ -183,14 +179,9 @@
           class="flex row items-center no-wrap q-pa-sm q-mb-sm selectionBox"
           :class="[bchatIdRef ? 'selected' : '']"
         >
-          <q-checkbox
-            v-model="bchatIdRef"
-            style="width: 140px"
-            size="sm"
-            label="BChat ID"
-            color="green"
-          />
-          <OxenField class="full-width" optional>
+          <q-checkbox v-model="bchatIdRef" size="sm" color="green" />
+          <div style="width: 100px">BChat ID</div>
+          <OxenField class="full-width" optional :error="$v.bchatId.$error">
             <q-input
               v-model="bchatId"
               :disable="!bchatIdRef"
@@ -198,6 +189,7 @@
               placeholder="BChat ID"
               borderless
               dense
+              @blur="$v.bchatId.$touch"
             />
           </OxenField>
           <!-- <q-radio
@@ -209,17 +201,12 @@
         /> -->
         </div>
         <div
-          class="flex row items-center no-wrap q-pa-sm  selectionBox"
+          class="flex row items-center no-wrap q-pa-sm selectionBox"
           :class="[belnetIdRef ? 'selected' : '']"
         >
-          <q-checkbox
-            v-model="belnetIdRef"
-            style="width: 140px"
-            size="sm"
-            label="Belnet ID"
-            color="green"
-          />
-          <OxenField class="full-width" optional>
+          <q-checkbox v-model="belnetIdRef" size="sm" color="green" />
+          <div style="width: 100px">Belnet ID</div>
+          <OxenField class="full-width" optional :error="$v.belnetId.$error">
             <q-input
               v-model="belnetId"
               :disable="!belnetIdRef"
@@ -227,6 +214,7 @@
               placeholder="Belnet ID"
               borderless
               dense
+              @blur="$v.belnetId.$touch"
             />
           </OxenField>
           <!-- <q-radio
@@ -372,14 +360,14 @@ export default {
 
     const initialRecord = {
       // Belnet 1 year is valid on renew or purchase
-      years: typeOptions[3].value,
+      years: typeOptions[0].value,
       type: "",
       name: "",
       value: "",
       owner: "",
       backup_owner: ""
     };
-    console.log("initialRecord ::", initialRecord);
+
     return {
       record: { ...initialRecord },
       typeOptions,
@@ -500,6 +488,9 @@ export default {
       this.initialRecord = { ...this.cleanRecord };
       this.record = { ...this.cleanRecord };
       (this.bchatId = ""), (this.belnetId = ""), (this.address = "");
+      (this.bchatIdRef = false),
+        (this.belnetIdRef = false),
+        (this.addressRef = false);
       this.$v.$reset();
     },
     submit() {
@@ -525,21 +516,6 @@ export default {
         });
         return;
       }
-      // console.log("onsubmit :2:");
-
-      // if (this.$v.record.value.$error) {
-      //   let message = "Invalid value provided";
-      //   if (this.record.type === "bchat") {
-      //     message = this.$t("notification.errors.invalidBchatId");
-      //   }
-      //   this.$q.notify({
-      //     type: "negative",
-      //     timeout: 3000,
-      //     message
-      //   });
-      //   return;
-      // }
-      // console.log("onsubmit :3:");
 
       if (this.$v.record.backup_owner.$error) {
         this.$q.notify({
@@ -558,6 +534,58 @@ export default {
         });
         return;
       }
+      if (this.addressRef) {
+        this.$v.address.$touch();
+        if (this.$v.address.$error) {
+          this.$q.notify({
+            type: "negative",
+            timeout: 3000,
+            message: "please enter the valid address"
+          });
+          return;
+        }
+      }
+      if (this.bchatIdRef) {
+        this.$v.bchatId.$touch();
+        console.log("bchatIdRef error");
+        if (this.$v.bchatId.$error) {
+          console.log("bchatIdRef error2");
+
+          this.$q.notify({
+            type: "negative",
+            timeout: 3000,
+            message: "please enter the valid bchat Id"
+          });
+          return;
+        }
+      }
+      if (this.belnetIdRef) {
+        this.$v.belnetId.$touch();
+        if (this.$v.belnetId.$error) {
+          this.$q.notify({
+            type: "negative",
+            timeout: 3000,
+            message: "please enter the valid belnetId Id"
+          });
+          return;
+        }
+      }
+
+      // console.log("onsubmit :2:");
+
+      // if (this.$v.record.value.$error) {
+      //   let message = "Invalid value provided";
+      //   if (this.record.type === "bchat") {
+      //     message = this.$t("notification.errors.invalidBchatId");
+      //   }
+      //   this.$q.notify({
+      //     type: "negative",
+      //     timeout: 3000,
+      //     message
+      //   });
+      //   return;
+      // }
+      // console.log("onsubmit :3:");
 
       if (!this.bchatId && !this.belnetId && !this.address) {
         this.idsValidation = true;
@@ -582,7 +610,7 @@ export default {
         value_belnet: this.belnetId,
         value_wallet: this.address
       };
-
+      console.log("submitRecord ::", submitRecord);
       // Send up the submission with the record
       this.$emit("onSubmit", submitRecord);
     },
@@ -616,22 +644,12 @@ export default {
           return this.isAddress(value);
         }
       },
-      bchatId: {
-        required,
+      backup_owner: {
         validate: function(value) {
-          const _value = value.toLowerCase();
-
-          return bchat_id(_value);
+          return this.isAddress(value);
         }
-      },
-      belnetId: {
-        required,
-        validate: function(value) {
-          const _value = value.toLowerCase();
+      }
 
-          return belnet_address(_value);
-        }
-      },
       // value: {
       //   required,
       //   validate: function (value) {
@@ -644,10 +662,25 @@ export default {
       //     }
       //   }
       // },
-      backup_owner: {
-        validate: function(value) {
-          return this.isAddress(value);
-        }
+    },
+    address: {
+      validate: function(value) {
+        return this.isAddress(value);
+      }
+    },
+    bchatId: {
+      validate: function(value) {
+        const _value = value.toLowerCase();
+
+        return bchat_id(_value);
+      }
+    },
+
+    belnetId: {
+      validate: function(value) {
+        const _value = value.toLowerCase();
+
+        return belnet_address(_value);
       }
     }
   }

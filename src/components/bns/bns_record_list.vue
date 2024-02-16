@@ -1,27 +1,36 @@
 <template>
   <q-list link no-border class="bns-record-list">
+    <!-- class="oxen-list-item" -->
+
     <q-item
       v-for="record in recordList"
       :key="record.name_hash"
+      v-ripple
       class="oxen-list-item"
     >
-      <q-item-section class="type" avatar>
+      <!-- <q-item-section class="type" avatar>
         <q-icon
           color="white"
           :name="isLocked(record) ? 'lock' : 'lock_open'"
           size="24px"
         />
-      </q-item-section>
+      </q-item-section> -->
+
       <q-item-section>
-        <q-item-label :class="bindClass(record)">{{
-          isLocked(record) ? record.name_hash : record.name
-        }}</q-item-label>
+        <q-item-label :class="bindClass(record)">
+          Name Hash :
+          {{ isLocked(record) ? record.name_hash : record.name }}</q-item-label
+        >
         <q-item-label v-if="!isLocked(record)">{{ record.value }}</q-item-label>
       </q-item-section>
       <q-item-section side class="height">
-        <template v-if="isLocked(record)">{{
-          record.update_height | blockHeight
-        }}</template>
+        <!-- <template v-if="isLocked(record)"> -->
+        <div>
+          {{ record.update_height | blockHeight }}
+          <q-icon color="#8787A8" name="play_arrow" size="18px"></q-icon>
+        </div>
+
+        <!-- </template> -->
         <!-- <template v-else>
           <q-item-section>
             <div class="row update-renew-buttons">
@@ -47,6 +56,32 @@
         <span v-else class="belnet-expiration">{{
           record.expiration_height | expirationHeight
         }}</span>
+      </q-item-section>
+      <q-item-section>
+        <section>
+          <div class="tablewrapper flex row">
+            <div class="label">Name</div>
+            <div class="content">this.confirmModal.record.name</div>
+          </div>
+
+          <div class="tablewrapper flex row q-mt-md">
+            <div class="label">year</div>
+            <div class="yearscontent">this.confirmModal.record.years</div>
+          </div>
+
+          <div class="tablewrapper flex row q-mt-md">
+            <div class="label">Owner</div>
+            <div class="address">
+              this.confirmModal.record.owner
+            </div>
+          </div>
+          <div class="tablewrapper flex row q-mt-md">
+            <div class="label">Backup Owner</div>
+            <div class="address">
+              this.confirmModal.record.backup_owner
+            </div>
+          </div>
+        </section>
       </q-item-section>
       <ContextMenu
         :menu-items="validMenuItems(record)"

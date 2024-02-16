@@ -1,6 +1,6 @@
 <template>
   <div class="bns-record-list">
-    <div v-if="needsDecryption" class="decrypt row justify-between items-end">
+    <div v-if="needsDecryption" class="decrypt row justify-between ">
       <OxenField
         :label="$t('fieldLabels.decryptRecord')"
         :disable="decrypting"
@@ -16,7 +16,7 @@
           @blur="$v.name.$touch"
         />
       </OxenField>
-      <div class="btn-wrapper q-ml-md row items-center">
+      <div class="btn-wrapper q-ml-md  items-end">
         <q-btn
           color="primary"
           :label="$t('buttons.decrypt')"
@@ -34,7 +34,7 @@
       />
     </div> -->
     <div v-if="belnet_records.length > 0" class="records-group">
-      <span class="record-type-title">{{ $t("titles.bnsBelnetRecords") }}</span>
+      <span class="record-type-title">BNS Records </span>
       <BNSRecordList
         :record-list="belnet_records"
         :is-belnet="true"
@@ -199,10 +199,12 @@ export default {
   }
 
   .decrypt {
+    height: 100px;
     margin-bottom: 20px;
 
     .btn-wrapper {
-      height: 46px;
+      height: 50px;
+      margin-top: 60px;
     }
   }
 }
