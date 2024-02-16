@@ -968,7 +968,6 @@ export class WalletRPC {
     clearInterval(this.bnsHeartbeat);
     this.bnsHeartbeat = setInterval(() => {
       1000;
-      console.log("nowooo");
       this.updateLocalBNSRecords();
     }, 80000); // change from 30*1000 to 80000
     this.updateLocalBNSRecords();

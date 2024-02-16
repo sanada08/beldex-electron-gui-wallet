@@ -2,9 +2,9 @@
   <div class="bns-input-form">
     <div class="prices">
       <span class="pricelabel">
-        <span class="bnsname q-mr-sm">BNS</span
-        >{{ $t("strings.bns.prices") }}</span
-      >
+        <span class="bnsname q-mr-sm">BNS</span>
+        {{ $t("strings.bns.prices") }}
+      </span>
       <section class="flex row q-mt-xs q-gutter-sm">
         <div
           v-for="item in typeOptions"
@@ -35,7 +35,7 @@
           >
             <div>{{ $t("strings.bns.belnetNameXYears", { years: 10 }) }}</div>
             <div class="amount">90 BDX</div>
-          </div> -->
+        </div>-->
       </section>
     </div>
     <!-- Type -->
@@ -51,7 +51,7 @@
           dense
         />
       </OxenField>
-    </div> -->
+    </div>-->
     <!-- Name -->
     <div class="col q-mt-sm">
       <OxenField
@@ -92,7 +92,7 @@
           @blur="$v.record.value.$touch"
         />
       </OxenField>
-    </div> -->
+    </div>-->
 
     <!-- Owner -->
     <div class="col q-mt-sm">
@@ -173,7 +173,7 @@
           val="Address"
           label="Address"
           color="green"
-        /> -->
+          />-->
         </div>
         <div
           class="flex row items-center no-wrap q-pa-sm q-mb-sm selectionBox"
@@ -198,7 +198,7 @@
           val="BChat ID"
           label="BChat ID"
           color="green"
-        /> -->
+          />-->
         </div>
         <div
           class="flex row items-center no-wrap q-pa-sm selectionBox"
@@ -223,7 +223,7 @@
           val="Belnet ID"
           label="Belnet ID"
           color="green"
-        /> -->
+          />-->
         </div>
       </section>
       <!-- <div class="col q-mt-sm">
@@ -235,7 +235,7 @@
           dense
         />
       </OxenField>
-    </div> -->
+      </div>-->
     </div>
     <!-- :disable="!is_able_to_send || disableSubmitButton || !can_update ||!record.name" -->
 
@@ -679,8 +679,7 @@ export default {
     belnetId: {
       validate: function(value) {
         const _value = value.toLowerCase();
-
-        return belnet_address(_value);
+        return belnet_address(_value.replace(".bdx", ""));
       }
     }
   }
