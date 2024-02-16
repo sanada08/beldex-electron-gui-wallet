@@ -495,7 +495,6 @@ export class Daemon {
       //all values are encrpted
       entries: ownersMax
     });
-    console.log("ownersMax:", ownersMax);
     if (!data.hasOwnProperty("result")) return [];
 
     // We need to map request_index to owner
@@ -507,7 +506,6 @@ export class Daemon {
         owner
       };
     });
-    console.log("recordsWithOwners:", recordsWithOwners);
     // return this._sanitizeBNSRecords(recordsWithOwners);
     return recordsWithOwners;
   }

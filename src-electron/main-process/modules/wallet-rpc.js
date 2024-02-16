@@ -1096,7 +1096,7 @@ export class WalletRPC {
       const records = await this.backend.daemon.getBNSRecordsForOwners(
         addresses
       );
-      console.log("records 2::", records);
+      // console.log("records 2::", records);
 
       // We need to ensure that we decrypt any incoming records that we already have
       const currentRecords = this.wallet_state.bnsRecords;
@@ -1137,11 +1137,20 @@ export class WalletRPC {
       });
 
       this.wallet_state.bnsRecords = newRecords;
-
       // fetch the known (cached) records from the wallet and add the data
       // to the records being set in state
       let known_names = await this.lnsKnownNames();
       console.log("known_names:", known_names);
+
+      // const _record = {
+      //   // type: record.type,
+      //   name: 'munavver.bdx'
+      // };
+      // const params = {
+      //   names: [_record]
+      // };
+      // this.sendRPC("bns_add_known_names", params);
+
       // Fill the necessary decrypted values of the cached BNS names
       for (let r of newRecords) {
         for (let k of known_names) {
@@ -1149,19 +1158,21 @@ export class WalletRPC {
             r["name"] = k.name;
             r["value"] = k.value;
             r["expiration_height"] = k.expiration_height;
+            k["name_hash"] = k.hashed;
           }
         }
       }
-      // console.log("updateLocalBNSRecords 7::", newRecords);
-      this.sendGateway("set_wallet_data", { bnsRecords: newRecords });
+      console.log("newRecords1:", known_names);
+      this.sendGateway("set_wallet_data", { bnsRecords: known_names });
 
       // Decrypt the records serially
-      let updatePromise = Promise.resolve();
-      for (const [name, type] of Object.entries(recordsToUpdate)) {
-        updatePromise = updatePromise.then(() => {
-          this.decryptBNSRecord(type, name);
-        });
-      }
+      // console.log("recordsToUpdate:",recordsToUpdate)
+      // let updatePromise = Promise.resolve();
+      // for (const [name, type] of Object.entries(recordsToUpdate)) {
+      //   updatePromise = updatePromise.then(() => {
+      //     this.decryptBNSRecord(type, name);
+      //   });
+      // }
     } catch (e) {
       console.debug("Something went wrong when updating bns records: ", e);
     }
@@ -1265,11 +1276,11 @@ export class WalletRPC {
   */
   async decryptBNSRecord(type, name) {
     let _type = type;
-    // console.log("decryptBNSRecord 0::", _type);
+    console.log("decryptBNSRecord 0::", _type, name);
     // type can initially be "belnet_1y" etc. on a purchase
-    if (type.startsWith("belnet")) {
-      _type = "belnet";
-    }
+    // if (type.startsWith("belnet")) {
+    //   _type = "belnet";
+    // }
     try {
       const record = await this.getBNSRecord(_type, name);
       if (!record) return null;
@@ -1325,20 +1336,21 @@ export class WalletRPC {
       fullName = fullName + ".bdx";
     }
 
-    const nameHash = await this.hashBNSName(type, lowerCaseName);
+    const nameHash = await this.hashBNSName(lowerCaseName);
+    // console.log("nameHash:", nameHash)
     if (!nameHash) return null;
 
     const record = await this.backend.daemon.getBNSRecord(nameHash);
     console.log("record:", record);
     // if (!record || !record.encrypted_value) return null;
-    console.log("record:", record);
+    // console.log("record:", record);
     // Decrypt the value if possible
     const value = await this.decryptBNSValue(
       type,
       fullName,
       record.encrypted_bchat_value
     );
-
+    // console.log("value:", value)
     return {
       name: fullName,
       value,
@@ -1346,17 +1358,15 @@ export class WalletRPC {
     };
   }
 
-  async hashBNSName(type, name) {
-    if (!type || !name) return null;
-
-    let fullName = name;
-    if (type === "belnet" && !name.endsWith(".bdx")) {
+  async hashBNSName(fullName) {
+    if (!fullName) return null;
+    if (!fullName.endsWith(".bdx")) {
       fullName = fullName + ".bdx";
     }
 
     try {
-      console.log("fullName:", fullName);
-      console.log("type...:", type);
+      // console.log("fullName:", fullName);
+      // console.log("type...:", type);
       const data = await this.sendRPC("bns_hash_name", {
         // type,
         name: fullName
@@ -1390,7 +1400,7 @@ export class WalletRPC {
         name: fullName,
         encrypted_value
       });
-      console.log("data:", data);
+      // console.log("data:bns_decrypt_value", data);
       if (data.hasOwnProperty("error")) {
         let error =
           data.error.message.charAt(0).toUpperCase() +
