@@ -1,6 +1,6 @@
 <template>
   <div class="bns-record-list">
-    <div v-if="needsDecryption" class="decrypt row justify-between ">
+    <div class="decrypt row justify-between ">
       <OxenField
         :label="$t('fieldLabels.decryptRecord')"
         :disable="decrypting"
@@ -19,7 +19,7 @@
       <div class="btn-wrapper q-ml-md  items-end">
         <q-btn
           color="primary"
-          :label="$t('buttons.decrypt')"
+          :label="$t('buttons.addRecord')"
           :loading="decrypting"
           @click="decrypt()"
         />
@@ -33,10 +33,10 @@
         @onUpdate="onUpdate"
       />
     </div> -->
-    <div v-if="belnet_records.length > 0" class="records-group">
+    <div v-if="bns_record.length > 0" class="records-group">
       <span class="record-type-title">BNS Records </span>
       <BNSRecordList
-        :record-list="belnet_records"
+        :record-list="bns_record"
         :is-belnet="true"
         @onUpdate="onUpdate"
         @onRenew="onRenew"
@@ -74,24 +74,29 @@ export default {
       const all = [...used, ...unused, ...primary];
       return all.map(a => a.address).filter(a => !!a);
     },
-    bchat_records(state) {
-      return this.records_of_type(state, "bchat");
-    },
-    belnet_records(state) {
-      return this.records_of_type(state, "belnet");
+    // bchat_records(state) {
+    //   return this.records_of_type(state, "bchat");
+    // },
+    // belnet_records(state) {
+    //   return this.records_of_type(state, "belnet");
+    // },
+    bns_record(state) {
+      return this.records_of_type(state);
     },
     needsDecryption() {
-      const records = [...this.belnet_records, ...this.bchat_records];
+      // const records = [...this.belnet_records, ...this.bchat_records];
+      const records = [...this.bns_record];
       return records.find(r => this.isLocked(r));
     }
   }),
   methods: {
-    records_of_type(state, type) {
-      console.log("type..:", type);
+    records_of_type(state) {
+      // console.log("type..:", type);
       // receives the type and returns the records of that type
       const ourAddresses = this.ourAddresses;
       const records = state.gateway.wallet.bnsRecords;
-      console.log("records_of_type ::", records);
+      // console.log("records_of_type ::", records);
+
       const ourRecords = records.filter(record => {
         return (
           ourAddresses.includes(record.owner) ||
@@ -191,7 +196,7 @@ export default {
     font-size: 0.9em;
   }
   .q-item {
-    cursor: default;
+    cursor: cursor;
   }
 
   .oxen-field {

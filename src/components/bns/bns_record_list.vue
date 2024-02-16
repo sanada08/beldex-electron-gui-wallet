@@ -1,37 +1,51 @@
 <template>
   <q-list link no-border class="bns-record-list">
     <!-- class="oxen-list-item" -->
-
-    <q-item
+    <div
       v-for="record in recordList"
       :key="record.name_hash"
-      v-ripple
-      class="oxen-list-item"
+      class="recordListWrapper q-mb-md"
     >
-      <!-- <q-item-section class="type" avatar>
+      <q-item
+        v-if="selectedNameHash !== record.name_hash"
+        class="oxen-list-item q-px-md"
+      >
+        <!-- <q-item-section class="type" avatar>
         <q-icon
           color="white"
           :name="isLocked(record) ? 'lock' : 'lock_open'"
           size="24px"
         />
-      </q-item-section> -->
+       </q-item-section> -->
 
-      <q-item-section>
-        <q-item-label :class="bindClass(record)">
-          Name Hash :
-          {{ isLocked(record) ? record.name_hash : record.name }}</q-item-label
+        <q-item-section>
+          <q-item-label
+            :class="bindClass(record)"
+            @click="selectAndValidateNamehash(record.name_hash)"
+          >
+            Name Hash :
+            <span class="namehash">
+              {{ isLocked(record) ? record.name_hash : record.name }}
+            </span>
+          </q-item-label>
+          <q-item-label v-if="!isLocked(record)">{{
+            record.value
+          }}</q-item-label>
+        </q-item-section>
+        <q-item-section
+          side
+          class="height"
+          @click="selectAndValidateNamehash(record.name_hash)"
         >
-        <q-item-label v-if="!isLocked(record)">{{ record.value }}</q-item-label>
-      </q-item-section>
-      <q-item-section side class="height">
-        <!-- <template v-if="isLocked(record)"> -->
-        <div>
-          {{ record.update_height | blockHeight }}
-          <q-icon color="#8787A8" name="play_arrow" size="18px"></q-icon>
-        </div>
+          <!-- <template v-if="isLocked(record)"> -->
+          <div>
+            <!-- {{ record.update_height | blockHeight }} -->
+            {{ record.expiration_height | expirationHeight }}
+            <q-icon color="#8787A8" name="play_arrow" size="18px"></q-icon>
+          </div>
 
-        <!-- </template> -->
-        <!-- <template v-else>
+          <!-- </template> -->
+          <!-- <template v-else>
           <q-item-section>
             <div class="row update-renew-buttons">
               <q-btn
@@ -48,54 +62,89 @@
             </div>
           </q-item-section>
         </template> -->
-      </q-item-section>
-      <q-item-section v-if="!isLocked(record)" side>
+        </q-item-section>
+        <!-- <q-item-section v-if="!isLocked(record)" side>
         <span v-if="record.type === 'bchat'">{{
           record.update_height | blockHeight
         }}</span>
         <span v-else class="belnet-expiration">{{
           record.expiration_height | expirationHeight
         }}</span>
-      </q-item-section>
-      <q-item-section>
-        <section>
-          <div class="tablewrapper flex row">
-            <div class="label">Name</div>
-            <div class="content">this.confirmModal.record.name</div>
+       </q-item-section> -->
+
+        <ContextMenu
+          :menu-items="validMenuItems(record)"
+          @ownerCopy="
+            copy(record.owner, $t('notification.positive.ownerCopied'))
+          "
+          @nameCopy="copy(record.name, $t('notification.positive.nameCopied'))"
+          @copyValue="copyValue(record)"
+          @backupOwnerCopy="
+            copy(
+              record.backup_owner,
+              $t('notification.positive.backupOwnerCopied')
+            )
+          "
+        />
+      </q-item>
+      <section v-if="selectedNameHash === record.name_hash" class="q-pa-md">
+        <div
+          class="tablewrapper flex row justify-between"
+          @click="selectAndValidateNamehash('')"
+        >
+          <div class="row no-wrap clickable">
+            <div class="label" style="width: 205px">Name</div>
+            <div class="address">{{ record.name }}</div>
           </div>
 
-          <div class="tablewrapper flex row q-mt-md">
-            <div class="label">year</div>
-            <div class="yearscontent">this.confirmModal.record.years</div>
+          <div class="upArrow">
+            <q-icon color="#8787A8" name="play_arrow" size="18px"></q-icon>
           </div>
+        </div>
 
-          <div class="tablewrapper flex row q-mt-md">
-            <div class="label">Owner</div>
-            <div class="address">
-              this.confirmModal.record.owner
-            </div>
+        <div class="tablewrapper flex row q-mt-md">
+          <div class="label">Expiration Height</div>
+          <div class="address">{{ record.expiration_height }}</div>
+        </div>
+
+        <div class="tablewrapper flex row q-mt-md">
+          <div class="label">Update Height</div>
+          <div class="address">
+            {{ record.update_height }}
           </div>
-          <div class="tablewrapper flex row q-mt-md">
-            <div class="label">Backup Owner</div>
-            <div class="address">
-              this.confirmModal.record.backup_owner
-            </div>
+        </div>
+        <div class="tablewrapper flex row q-mt-md">
+          <div class="label">Owner</div>
+          <div class="address">
+            {{ record.owner }}
           </div>
-        </section>
-      </q-item-section>
-      <ContextMenu
-        :menu-items="validMenuItems(record)"
-        @ownerCopy="copy(record.owner, $t('notification.positive.ownerCopied'))"
-        @nameCopy="copy(record.name, $t('notification.positive.nameCopied'))"
-        @copyValue="copyValue(record)"
-        @backupOwnerCopy="
-          copy(
-            record.backup_owner,
-            $t('notification.positive.backupOwnerCopied')
-          )
-        "
-      />
-    </q-item>
+        </div>
+        <div class="tablewrapper flex row q-mt-md">
+          <div class="label">Transaction ID</div>
+          <div class="address">
+            {{ record.txid }}
+          </div>
+        </div>
+        <div v-if="record.value_bchat" class="tablewrapper flex row q-mt-md">
+          <div class="label">BChat Value</div>
+          <div class="address">
+            {{ record.value_bchat }}
+          </div>
+        </div>
+        <div v-if="record.value_belnet" class="tablewrapper flex row q-mt-md">
+          <div class="label">Belnet Value</div>
+          <div class="address">
+            {{ record.value_belnet }}
+          </div>
+        </div>
+        <div v-if="record.value_wallet" class="tablewrapper flex row q-mt-md">
+          <div class="label">Wallet Value</div>
+          <div class="address">
+            {{ record.value_wallet }}
+          </div>
+        </div>
+      </section>
+    </div>
   </q-list>
 </template>
 
@@ -120,6 +169,12 @@ export default {
       required: true
     }
   },
+  data() {
+    return {
+      selectedNameHash: ""
+    };
+  },
+
   computed: mapState({
     theme: state => state.gateway.app.config.appearance.theme
   }),
@@ -145,6 +200,9 @@ export default {
     },
     onRenew(record) {
       this.$emit("onRenew", record);
+    },
+    selectAndValidateNamehash(name_hash) {
+      this.selectedNameHash = name_hash;
     },
     copyNameI18nLabel(record) {
       if (record.type === "bchat") {
@@ -200,4 +258,44 @@ export default {
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.bns-record-list {
+  .recordListWrapper {
+    background-color: #32324a;
+    border-radius: 10px;
+    .q-item {
+      padding: 10 !important;
+    }
+    .clickable {
+      cursor: pointer;
+    }
+  }
+  .namehash {
+    color: #afafbe !important;
+    font-weight: 400;
+    word-break: break-word;
+    font-size: 12px;
+  }
+  .tablewrapper {
+    padding-bottom: 5px;
+    border-bottom: 1px solid #41415b;
+    .upArrow {
+      .q-icon {
+        transform: rotate(-93deg);
+      }
+    }
+    .label {
+      width: 150px;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .address {
+      color: #afafbe;
+      font-weight: 400;
+      word-break: break-word;
+      width: 75%;
+    }
+  }
+}
+</style>

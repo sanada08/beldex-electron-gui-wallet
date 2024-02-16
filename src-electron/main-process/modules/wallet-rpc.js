@@ -1281,6 +1281,14 @@ export class WalletRPC {
     //   _type = "belnet";
     // }
     try {
+      // const _record = {
+      //   // type: record.type,
+      //   name: name
+      // };
+      // const params = {
+      //   names: [_record]
+      // };
+      // this.sendRPC("bns_add_known_names", params);
       const record = await this.getBNSRecord(_type, name);
       if (!record) return null;
 
