@@ -531,7 +531,6 @@ export class Daemon {
     if (!data.hasOwnProperty("result")) return null;
 
     const entries = data.result.entries;
-    console.log("entries:", entries);
     // this._sanitizeBNSRecords(data.result.entries);
     if (entries.length === 0) return null;
 

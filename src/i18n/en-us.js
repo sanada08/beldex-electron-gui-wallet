@@ -20,7 +20,7 @@ export default {
     copySignature: "Copy Signature",
     createWallet: "Create Wallet",
     decrypt: "DECRYPT",
-    addRecord: "Add BNS",
+    addRecord: "Add MYBNS",
     delete: "Delete",
     edit: "Edit",
     editNotes: "Edit Notes",

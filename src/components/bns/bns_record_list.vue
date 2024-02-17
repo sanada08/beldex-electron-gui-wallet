@@ -7,7 +7,7 @@
       class="recordListWrapper q-mb-md"
     >
       <q-item
-        v-if="selectedNameHash !== record.name_hash"
+        v-if="selectedNameHash !== record.name_hash && record.name"
         class="oxen-list-item q-px-md"
       >
         <!-- <q-item-section class="type" avatar>
@@ -25,12 +25,13 @@
           >
             Name Hash :
             <span class="namehash">
-              {{ isLocked(record) ? record.name_hash : record.name }}
+              <!-- {{ isLocked(record) ? record.name_hash : record.name }} -->
+              {{ record.name_hash }}
             </span>
           </q-item-label>
-          <q-item-label v-if="!isLocked(record)">{{
+          <!-- <q-item-label v-if="!isLocked(record)">{{
             record.value
-          }}</q-item-label>
+          }}</q-item-label> -->
         </q-item-section>
         <q-item-section
           side
@@ -87,57 +88,69 @@
           "
         />
       </q-item>
-      <section v-if="selectedNameHash === record.name_hash" class="q-pa-md">
+      <section
+        v-if="selectedNameHash === record.name_hash"
+        class="q-pa-md"
+        style="position: relative;"
+      >
         <div
-          class="tablewrapper flex row justify-between"
+          class="tablewrapper flex row clickable no-wrap"
           @click="selectAndValidateNamehash('')"
         >
-          <div class="row no-wrap clickable">
-            <div class="label" style="width: 205px">Name</div>
-            <div class="address">{{ record.name }}</div>
-          </div>
-
-          <div class="upArrow">
-            <q-icon color="#8787A8" name="play_arrow" size="18px"></q-icon>
+          <div class="label">Name</div>
+          <div class="row no-wrap " style="width:70%">
+            <div class="address" style="width:100%">{{ record.name }}</div>
+            <div class="upArrow">
+              <q-icon color="#8787A8" name="play_arrow" size="18px"></q-icon>
+            </div>
           </div>
         </div>
 
-        <div class="tablewrapper flex row q-mt-md">
+        <div class="tablewrapper flex row q-mt-md no-wrap">
           <div class="label">Expiration Height</div>
           <div class="address">{{ record.expiration_height }}</div>
         </div>
 
-        <div class="tablewrapper flex row q-mt-md">
+        <div class="tablewrapper flex row q-mt-md no-wrap">
           <div class="label">Update Height</div>
           <div class="address">
             {{ record.update_height }}
           </div>
         </div>
-        <div class="tablewrapper flex row q-mt-md">
+        <div class="tablewrapper flex row q-mt-md no-wrap">
           <div class="label">Owner</div>
           <div class="address">
             {{ record.owner }}
           </div>
         </div>
-        <div class="tablewrapper flex row q-mt-md">
+        <div class="tablewrapper flex row q-mt-md no-wrap">
           <div class="label">Transaction ID</div>
           <div class="address">
             {{ record.txid }}
           </div>
         </div>
-        <div v-if="record.value_bchat" class="tablewrapper flex row q-mt-md">
+        <div
+          v-if="record.value_bchat"
+          class="tablewrapper flex row q-mt-md no-wrap"
+        >
           <div class="label">BChat Value</div>
           <div class="address">
             {{ record.value_bchat }}
           </div>
         </div>
-        <div v-if="record.value_belnet" class="tablewrapper flex row q-mt-md">
+        <div
+          v-if="record.value_belnet"
+          class="tablewrapper flex row q-mt-md no-wrap"
+        >
           <div class="label">Belnet Value</div>
           <div class="address">
             {{ record.value_belnet }}
           </div>
         </div>
-        <div v-if="record.value_wallet" class="tablewrapper flex row q-mt-md">
+        <div
+          v-if="record.value_wallet"
+          class="tablewrapper flex row q-mt-md no-wrap"
+        >
           <div class="label">Wallet Value</div>
           <div class="address">
             {{ record.value_wallet }}
@@ -190,6 +203,7 @@ export default {
   },
   methods: {
     isLocked(record) {
+      // return record
       return !record.name || !record.value;
     },
     bindClass(record) {
@@ -261,6 +275,7 @@ export default {
 <style lang="scss">
 .bns-record-list {
   .recordListWrapper {
+    width: 100%;
     background-color: #32324a;
     border-radius: 10px;
     .q-item {
@@ -280,6 +295,8 @@ export default {
     padding-bottom: 5px;
     border-bottom: 1px solid #41415b;
     .upArrow {
+      position: absolute;
+      right: 20px;
       .q-icon {
         transform: rotate(-93deg);
       }

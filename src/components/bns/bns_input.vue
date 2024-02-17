@@ -247,8 +247,6 @@ export default {
     },
     async purchase() {
       let record = this.confirmModal.record;
-      console.log("purchase ", record);
-
       let passwordDialog = await this.showPasswordConfirmation({
         title: this.$t("dialog.purchase.title"),
         noPasswordMessage: this.$t("dialog.purchase.message"),

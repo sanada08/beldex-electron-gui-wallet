@@ -5,7 +5,7 @@
         <span class="bnsname q-mr-sm">BNS</span>
         {{ $t("strings.bns.prices") }}
       </span>
-      <section class="flex row q-mt-xs q-gutter-sm">
+      <section class="flex row no-wrap q-mt-xs q-gutter-sm">
         <div
           v-for="item in typeOptions"
           :key="item.type"
@@ -547,10 +547,7 @@ export default {
       }
       if (this.bchatIdRef) {
         this.$v.bchatId.$touch();
-        console.log("bchatIdRef error");
         if (this.$v.bchatId.$error) {
-          console.log("bchatIdRef error2");
-
           this.$q.notify({
             type: "negative",
             timeout: 3000,
@@ -610,7 +607,6 @@ export default {
         value_belnet: this.belnetId,
         value_wallet: this.address
       };
-      console.log("submitRecord ::", submitRecord);
       // Send up the submission with the record
       this.$emit("onSubmit", submitRecord);
     },
@@ -665,13 +661,15 @@ export default {
     },
     address: {
       validate: function(value) {
+        // console.log("!value&&!this.addressref ::",!value&&!this.addressref)
+        // if(!value&&!this.addressref) return true;
+        if (!value) return false;
         return this.isAddress(value);
       }
     },
     bchatId: {
       validate: function(value) {
         const _value = value.toLowerCase();
-
         return bchat_id(_value);
       }
     },

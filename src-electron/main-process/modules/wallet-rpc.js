@@ -465,7 +465,6 @@ export class WalletRPC {
       case "set_sender_address":
         // this.getBalance("getbalance");
         this.set_sender_address(params.data);
-        //   console.log("munavver");
         // this.$store.commit("gateway/set_router_path_rightpane", {
         //   path: "receive"
         // });
@@ -1088,25 +1087,14 @@ export class WalletRPC {
       // Pull out all our addresses from the data and make sure they're valid
       const results = addressData.result.addresses || [];
       const addresses = results.map(a => a.address).filter(a => !!a);
-      // console.log("updateLocalBNSRecords 1::", addresses);
-
       if (addresses.length === 0) return;
-
       const records = await this.backend.daemon.getBNSRecordsForOwners(
         addresses
       );
-      // console.log("records 2::", records);
-
       // We need to ensure that we decrypt any incoming records that we already have
       const currentRecords = this.wallet_state.bnsRecords;
-      // console.log("updateLocalBNSRecords 3::", currentRecords);
-
       const recordsToUpdate = { ...this.purchasedNames };
-      // console.log("updateLocalBNSRecords 4::", recordsToUpdate);
-
       const newRecords = records.map(record => {
-        // console.log("updateLocalBNSRecords 5::", record);
-
         // If we have a new record or we haven't decrypted our current record then we should return the new record
         const current = currentRecords.find(
           c => c.name_hash === record.name_hash
@@ -1120,26 +1108,22 @@ export class WalletRPC {
         if (needsToUpdate) {
           const { name, type } = current;
           recordsToUpdate[name] = type;
-
           return {
             name,
             ...record
           };
         }
-        // console.log("updateLocalBNSRecords 6::", current, record);
-
         // Otherwise just update our current record with new information (in the case that owner or backup_owner was updated)
         return {
           ...current,
           ...record
         };
       });
-
       this.wallet_state.bnsRecords = newRecords;
       // fetch the known (cached) records from the wallet and add the data
       // to the records being set in state
       let known_names = await this.bnsKnownNames();
-      console.log("known_names:", known_names);
+      // console.log("known_names:", known_names);
 
       // const _record = {
       //   // type: record.type,
@@ -1161,7 +1145,7 @@ export class WalletRPC {
           }
         }
       }
-      console.log("newRecords1:", known_names);
+      // console.log("newRecords1:", known_names);
       this.sendGateway("set_wallet_data", { bnsRecords: known_names });
 
       // Decrypt the records serially
@@ -1348,7 +1332,6 @@ export class WalletRPC {
     if (!nameHash) return null;
 
     const record = await this.backend.daemon.getBNSRecord(nameHash);
-    console.log("record:", record);
     // if (!record || !record.encrypted_value) return null;
     // console.log("record:", record);
     // Decrypt the value if possible
@@ -1378,7 +1361,6 @@ export class WalletRPC {
         // type,
         name: fullName
       });
-      console.log("data:::::::", data);
       if (data.hasOwnProperty("error")) {
         let error =
           data.error.message.charAt(0).toUpperCase() +
@@ -1866,7 +1848,6 @@ export class WalletRPC {
 
       this.sendRPC(rpc_endpoint, params)
         .then(data => {
-          console.log("data transfer:", data);
           if (data.hasOwnProperty("error") || !data.hasOwnProperty("result")) {
             let error = "";
             if (data.error && data.error.message) {
@@ -1976,8 +1957,6 @@ export class WalletRPC {
           value_belnet: belnetId,
           value_wallet: walletAddress
         };
-        console.log("bns_buy_mapping 0::", params);
-
         this.sendRPC("bns_buy_mapping", params).then(data => {
           console.log("bns_buy_mapping 1::", data);
           if (data.hasOwnProperty("error")) {

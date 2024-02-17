@@ -275,7 +275,6 @@ export default {
       const all_in = ["in", "pool", "miner", "mnode", "gov", "bns"];
       const all_out = ["out", "pending", "stake"];
       const all_pending = ["pending", "pool"];
-      console.log("this.tx_list:", this.tx_list);
       this.tx_list_filtered = this.tx_list.filter(tx => {
         let valid = true;
         if (this.type === "all_in" && !all_in.includes(tx.type)) {
