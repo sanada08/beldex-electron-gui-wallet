@@ -7,7 +7,7 @@
       class="recordListWrapper q-mb-md"
     >
       <q-item
-        v-if="selectedNameHash !== record.name_hash && record.name"
+        v-if="selectedNameHash !== record.name_hash"
         class="oxen-list-item q-px-md"
       >
         <!-- <q-item-section class="type" avatar>
@@ -16,22 +16,22 @@
           :name="isLocked(record) ? 'lock' : 'lock_open'"
           size="24px"
         />
-       </q-item-section> -->
+        </q-item-section>-->
 
         <q-item-section>
           <q-item-label
             :class="bindClass(record)"
             @click="selectAndValidateNamehash(record.name_hash)"
           >
-            Name Hash :
+            {{ record.name ? "Name :" : "Name Hash :" }}
             <span class="namehash">
               <!-- {{ isLocked(record) ? record.name_hash : record.name }} -->
-              {{ record.name_hash }}
+              {{ record.name || record.name_hash }}
             </span>
           </q-item-label>
           <!-- <q-item-label v-if="!isLocked(record)">{{
             record.value
-          }}</q-item-label> -->
+          }}</q-item-label>-->
         </q-item-section>
         <q-item-section
           side
@@ -62,7 +62,7 @@
               />
             </div>
           </q-item-section>
-        </template> -->
+          </template>-->
         </q-item-section>
         <!-- <q-item-section v-if="!isLocked(record)" side>
         <span v-if="record.type === 'bchat'">{{
@@ -71,7 +71,7 @@
         <span v-else class="belnet-expiration">{{
           record.expiration_height | expirationHeight
         }}</span>
-       </q-item-section> -->
+        </q-item-section>-->
 
         <ContextMenu
           :menu-items="validMenuItems(record)"
@@ -97,9 +97,11 @@
           class="tablewrapper flex row clickable no-wrap"
           @click="selectAndValidateNamehash('')"
         >
-          <div class="label">Name</div>
-          <div class="row no-wrap " style="width:70%">
-            <div class="address" style="width:100%">{{ record.name }}</div>
+          <div class="label">{{ record.name ? "Name" : "Name Hash" }}</div>
+          <div class="row no-wrap" style="width:70%">
+            <div class="address" style="width:100%">
+              {{ record.name || record.name_hash }}
+            </div>
             <div class="upArrow">
               <q-icon color="#8787A8" name="play_arrow" size="18px"></q-icon>
             </div>
@@ -113,48 +115,57 @@
 
         <div class="tablewrapper flex row q-mt-md no-wrap">
           <div class="label">Update Height</div>
-          <div class="address">
-            {{ record.update_height }}
-          </div>
+          <div class="address">{{ record.update_height }}</div>
         </div>
         <div class="tablewrapper flex row q-mt-md no-wrap">
           <div class="label">Owner</div>
-          <div class="address">
-            {{ record.owner }}
-          </div>
+          <div class="address">{{ record.owner }}</div>
         </div>
         <div class="tablewrapper flex row q-mt-md no-wrap">
           <div class="label">Transaction ID</div>
-          <div class="address">
-            {{ record.txid }}
-          </div>
+          <div class="address">{{ record.txid }}</div>
         </div>
         <div
-          v-if="record.value_bchat"
+          v-if="!record.name && record.encrypted_bchat_value"
           class="tablewrapper flex row q-mt-md no-wrap"
         >
-          <div class="label">BChat Value</div>
-          <div class="address">
-            {{ record.value_bchat }}
-          </div>
+          <div class="label">Encrypted Bchat ID</div>
+          <div class="address">{{ record.encrypted_bchat_value }}</div>
         </div>
         <div
-          v-if="record.value_belnet"
+          v-if="!record.name && record.encrypted_belnet_value"
           class="tablewrapper flex row q-mt-md no-wrap"
         >
-          <div class="label">Belnet Value</div>
-          <div class="address">
-            {{ record.value_belnet }}
-          </div>
+          <div class="label">Encrypted Belnet ID</div>
+          <div class="address">{{ record.encrypted_belnet_value }}</div>
+        </div>
+        <div
+          v-if="!record.name && record.encrypted_wallet_value"
+          class="tablewrapper flex row q-mt-md no-wrap"
+        >
+          <div class="label">Encrypted Wallet Address</div>
+          <div class="address">{{ record.encrypted_wallet_value }}</div>
         </div>
         <div
           v-if="record.value_wallet"
           class="tablewrapper flex row q-mt-md no-wrap"
         >
-          <div class="label">Wallet Value</div>
-          <div class="address">
-            {{ record.value_wallet }}
-          </div>
+          <div class="label">Wallet Address</div>
+          <div class="address">{{ record.value_wallet }}</div>
+        </div>
+        <div
+          v-if="record.value_bchat"
+          class="tablewrapper flex row q-mt-md no-wrap"
+        >
+          <div class="label">BChat ID</div>
+          <div class="address">{{ record.value_bchat }}</div>
+        </div>
+        <div
+          v-if="record.value_belnet"
+          class="tablewrapper flex row q-mt-md no-wrap"
+        >
+          <div class="label">Belnet ID</div>
+          <div class="address">{{ record.value_belnet }}</div>
         </div>
       </section>
     </div>
@@ -203,6 +214,7 @@ export default {
   },
   methods: {
     isLocked(record) {
+      // console.log("record front en:", this.recordList);
       // return record
       return !record.name || !record.value;
     },

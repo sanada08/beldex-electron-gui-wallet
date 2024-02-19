@@ -223,7 +223,7 @@ export default {
     daemonP2pPort: "Daemon P2P Port",
     data: "Data",
     dataStoragePath: "Data Storage Path",
-    decryptRecord: "Add RECORD",
+    decryptRecord: "Add Record",
     filter: "Filter",
     filterTransactionType: "FILTER BY TRANSACTION TYPE",
     internalWalletPort: "Internal Wallet Port",
