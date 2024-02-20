@@ -14,10 +14,10 @@
             :class="bindClass(record)"
             @click="selectAndValidateNamehash(record.name_hash)"
           >
-            {{ record.name ? "Name :" : "Name Hash :" }}
-            <span class="namehash">
+            {{ record.name ? record.name : record.name_hash }}
+            <!-- <span class="namehash">
               {{ record.name || record.name_hash }}
-            </span>
+            </span> -->
           </q-item-label>
         </q-item-section>
         <q-item-section
