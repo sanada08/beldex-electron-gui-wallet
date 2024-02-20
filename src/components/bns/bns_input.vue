@@ -84,8 +84,6 @@
             </div>
           </section>
         </q-card-section>
-
-        <!-- <q-btn flat label="OK" v-close-popup /> -->
         <div class="buttons flex justify-center q-mt-sm q-mb-md">
           <q-btn
             v-close-popup

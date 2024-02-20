@@ -1119,15 +1119,6 @@ export class WalletRPC {
         }
       }
       this.sendGateway("set_wallet_data", { bnsRecords: newRecords });
-
-      // Decrypt the records serially
-      // console.log("recordsToUpdate:",recordsToUpdate)
-      // let updatePromise = Promise.resolve();
-      // for (const [name, type] of Object.entries(recordsToUpdate)) {
-      //   updatePromise = updatePromise.then(() => {
-      //     this.decryptBNSRecord(type, name);
-      //   });
-      // }
     } catch (e) {
       console.debug("Something went wrong when updating bns records: ", e);
     }
@@ -1919,6 +1910,17 @@ export class WalletRPC {
             let error =
               data.error.message.charAt(0).toUpperCase() +
               data.error.message.slice(1);
+            if (
+              error.includes(
+                "Cannot buy an BNS name that is already registered"
+              )
+            ) {
+              error = "Cannot buy an BNS name that is already registered";
+            }
+            if (error.includes("Transaction is too big")) {
+              error =
+                "Transaction is too big, please do the sweep_all from [masternode -> stakings]";
+            }
             this.sendGateway("set_bns_status", {
               code: -1,
               message: error,

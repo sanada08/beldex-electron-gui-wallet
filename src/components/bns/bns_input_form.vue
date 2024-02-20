@@ -16,42 +16,9 @@
           <div>{{ item.label }}</div>
           <div class="amount">{{ item.amount }}</div>
         </div>
-        <!-- <div
-            class="flex row tag items-center justify-between  no-wrap"
-          >
-            <div>{{ $t("strings.bns.belnetName1Year") }}</div>
-            <div class="amount">15 BDX</div>
-          </div>
-          <div class="flex row tag items-center justify-between no-wrap">
-            <div>{{ $t("strings.bns.belnetNameXYears", { years: 2 }) }}</div>
-            <div class="amount">30 BDX</div>
-          </div>
-          <div class="flex row tag items-center justify-between no-wrap">
-            <div>{{ $t("strings.bns.belnetNameXYears", { years: 5 }) }}</div>
-            <div class="amount">60 BDX</div>
-          </div>
-          <div
-            class="flex row tag items-center justify-between q-mr-sm q-ml-sm no-wrap"
-          >
-            <div>{{ $t("strings.bns.belnetNameXYears", { years: 10 }) }}</div>
-            <div class="amount">90 BDX</div>
-        </div>-->
       </section>
     </div>
-    <!-- Type -->
-    <!-- <div class="col q-mt-sm">
-      <OxenField :label="$t('fieldLabels.bnsType')" :disable="updating">
-        <q-select
-          v-model.trim="record.type"
-          emit-value
-          map-options
-          :options="renewing ? belnetOptions : typeOptions"
-          :disable="updating"
-          borderless
-          dense
-        />
-      </OxenField>
-    </div>-->
+
     <!-- Name -->
     <div class="col q-mt-sm">
       <OxenField
@@ -59,11 +26,10 @@
         :disable="disableName"
         :error="$v.record.name.$error"
       >
-        <!-- :suffix="record.type === 'bchat' ? '' : '.bdx'" -->
-
         <q-input
           v-model.trim="record.name"
           :dark="theme == 'dark'"
+          maxlength="67"
           :placeholder="$t('placeholders.bnsName')"
           :disable="disableName"
           borderless
@@ -74,25 +40,6 @@
       </OxenField>
     </div>
     <div class="notes q-mt-xs">Note: BNS Name for registration</div>
-    <!-- Value (Bchat ID, Wallet Address or .bdx address) -->
-    <!-- <div class="col q-mt-sm">
-      <OxenField
-        class="q-mt-md"
-        :label="value_field_label"
-        :error="$v.record.value.$error"
-      >
-        <q-input
-          v-model.trim="record.value"
-          :dark="theme == 'dark'"
-          :placeholder="value_placeholder"
-          borderless
-          dense
-          :disable="renewing"
-          :suffix="record.type === 'bchat' ? '' : '.bdx'"
-          @blur="$v.record.value.$touch"
-        />
-      </OxenField>
-    </div>-->
 
     <!-- Owner -->
     <div class="col q-mt-sm">
@@ -137,11 +84,6 @@
         />
       </OxenField>
     </div>
-    <!-- <div class="notes q-mt-xs">
-      Note: Use current address (leave blank if same wallet) or specify backup
-      address
-    </div>-->
-
     <div
       class="idSelectorWrapper"
       :class="[idsValidation ? 'errorborder' : '']"
@@ -207,7 +149,9 @@
     <div class="buttons flex justify-center q-mt-sm">
       <q-btn
         color="primary"
-        :disable="!is_ready"
+        :disable="
+          !(is_ready && record.name && (address || bchatId || belnetId))
+        "
         :label="submitLabel"
         @click="submit()"
       />
@@ -223,7 +167,7 @@
 <script>
 import { ref } from "vue";
 import { mapState } from "vuex";
-import { required, maxLength } from "vuelidate/lib/validators";
+import { required } from "vuelidate/lib/validators";
 import {
   address,
   bchat_id,
@@ -242,7 +186,7 @@ export default {
     return {
       bchatIdRef: ref(false),
       belnetIdRef: ref(false),
-      addressRef: ref(false)
+      addressRef: ref(true)
     };
   },
   mixins: [WalletPassword],
@@ -307,7 +251,7 @@ export default {
     let typeOptions = [...belnetOptions];
 
     const initialRecord = {
-      // Belnet 1 year is valid on renew or purchase
+      // bns 1 year is valid on renew or purchase
       years: typeOptions[0].value,
       type: "",
       name: "",
@@ -406,7 +350,7 @@ export default {
     },
     cleanRecord() {
       return {
-        years: "",
+        years: this.typeOptions[0].value,
         type: "bchat",
         name: "",
         value: "",
@@ -456,7 +400,6 @@ export default {
         } else {
           message = "notification.errors.invalidNameFormat";
         }
-        // console.log("onsubmit ::", message);
         this.$q.notify({
           type: "negative",
           timeout: 3000,
@@ -488,7 +431,7 @@ export default {
           this.$q.notify({
             type: "negative",
             timeout: 3000,
-            message: "please enter the valid address"
+            message: "Invalid Address"
           });
           return;
         }
@@ -499,7 +442,7 @@ export default {
           this.$q.notify({
             type: "negative",
             timeout: 3000,
-            message: "please enter the valid bchat Id"
+            message: "Invalid Bchat Id"
           });
           return;
         }
@@ -510,38 +453,10 @@ export default {
           this.$q.notify({
             type: "negative",
             timeout: 3000,
-            message: "please enter the valid belnetId Id"
+            message: "Invalid Belnet Id"
           });
           return;
         }
-      }
-
-      // console.log("onsubmit :2:");
-
-      // if (this.$v.record.value.$error) {
-      //   let message = "Invalid value provided";
-      //   if (this.record.type === "bchat") {
-      //     message = this.$t("notification.errors.invalidBchatId");
-      //   }
-      //   this.$q.notify({
-      //     type: "negative",
-      //     timeout: 3000,
-      //     message
-      //   });
-      //   return;
-      // }
-      // console.log("onsubmit :3:");
-
-      if (!this.bchatId && !this.belnetId && !this.address) {
-        this.idsValidation = true;
-        this.$q.notify({
-          type: "negative",
-          timeout: 3000,
-          message: "please enter any ids"
-        });
-        return;
-      } else {
-        this.idsValidation = false;
       }
 
       // The validators validate on lowercase, need to submit as lowercase too
@@ -566,7 +481,14 @@ export default {
     record: {
       name: {
         required,
-        maxLength: maxLength(64),
+        maxLength: function(value) {
+          let alphanumericOnly = !/^[0-9A-Za-z]+$/.test(value);
+          if (!alphanumericOnly) {
+            return value.length < 33;
+          } else {
+            return value.length < 64;
+          }
+        },
         hyphen: function(value) {
           let str = value || "";
 
@@ -574,13 +496,7 @@ export default {
         },
         validate: function(value) {
           const _value = value.toLowerCase();
-          // if (this.record.type === "bchat") {
           return bns_name(_value);
-
-          // } else {
-          //   // shortened belnet BNS name
-          //   return belnet_name(_value);
-          // }
         }
       },
       owner: {
@@ -593,24 +509,9 @@ export default {
           return this.isAddress(value);
         }
       }
-
-      // value: {
-      //   required,
-      //   validate: function (value) {
-      //     const _value = value.toLowerCase();
-      //     if (this.record.type === "bchat") {
-      //       return bchat_id(_value);
-      //     } else {
-      //       // full belnet address
-      //       return belnet_address(_value);
-      //     }
-      //   }
-      // },
     },
     address: {
       validate: function(value) {
-        // console.log("!value&&!this.addressref ::",!value&&!this.addressref)
-        // if(!value&&!this.addressref) return true;
         if (!value) return false;
         return this.isAddress(value);
       }

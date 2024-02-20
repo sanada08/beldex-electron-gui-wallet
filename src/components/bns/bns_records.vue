@@ -12,6 +12,7 @@
         <q-input
           v-model.trim="name"
           :dark="theme == 'dark'"
+          maxlength="67"
           borderless
           dense
           :placeholder="$t('placeholders.bnsDecryptName')"
@@ -28,14 +29,7 @@
         />
       </div>
     </div>
-    <!-- <div v-if="bchat_records.length > 0" class="records-group">
-      <span class="record-type-title">{{ $t("titles.bnsBchatRecords") }}</span>
-      <BNSRecordList
-        :record-list="bchat_records"
-        :is-belnet="false"
-        @onUpdate="onUpdate"
-      />
-    </div> -->
+
     <div class="records-group">
       <span v-if="bns_record.length > 0" class="record-type-title"
         >BNS Records
@@ -106,36 +100,26 @@ export default {
       const all = [...used, ...unused, ...primary];
       return all.map(a => a.address).filter(a => !!a);
     },
-    // bchat_records(state) {
-    //   return this.records_of_type(state, "bchat");
-    // },
-    // belnet_records(state) {
-    //   return this.records_of_type(state, "belnet");
-    // },
+
     bns_record(state) {
       return this.records_of_type(state);
     },
     needsDecryption() {
-      // const records = [...this.belnet_records, ...this.bchat_records];
       const records = [...this.bns_record];
       return records.find(r => this.isLocked(r));
     }
   }),
   methods: {
     records_of_type(state) {
-      // console.log("type..:", type);
       // receives the type and returns the records of that type
       const ourAddresses = this.ourAddresses;
       const records = state.gateway.wallet.bnsRecords;
-      // console.log("records_of_type ::", records);
-
       const ourRecords = records.filter(record => {
         return (
           ourAddresses.includes(record.owner) ||
           ourAddresses.includes(record.backup_owner)
         );
       });
-
       // Sort the records by decrypted ones first, followed by non-decrypted
       return ourRecords.sort((a, b) => {
         if (a.name && !b.name) {
@@ -230,7 +214,8 @@ export default {
     flex: 1;
   }
   .emptybns {
-    height: 100%;
+    //height: 100%;
+    height: calc(100vh - 631px);
     margin-top: 30px;
     .hintmsg {
       width: 72%;

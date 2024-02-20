@@ -53,7 +53,6 @@ export default {
     font-weight: 600;
   }
   .tag {
-    // width: 32%;
     width: 23.7%;
     height: 50px;
     background-color: #40405d;

@@ -319,15 +319,11 @@ export default {
         });
         return;
       }
-      // console.log("this.newEntry", this.newEntry);
-
       if (this.mode === "new") {
         let addressIsExist =
           this.address_book_combined.filter(
-            // item =>  console.log('filter item',item.address)
             item => item.address === this.newEntry.address
           ).length > 0;
-        // console.log('address_book_combined filter ::',addressIsExist)
         if (addressIsExist) {
           this.$q.notify({
             type: "negative",
@@ -366,7 +362,6 @@ export default {
     applyAlphanumericMask() {
       // Remove non-alphanumeric characters using the regular expression
       this.newEntry.address = this.newEntry.address.replace(/[\W_]/g, "");
-      // this.newTx.address = this.newTx.address.replace(/^[a-zA-Z0-9]*$/,"")
     },
     edit() {
       this.mode = "edit";

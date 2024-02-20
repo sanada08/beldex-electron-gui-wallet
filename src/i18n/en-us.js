@@ -20,7 +20,7 @@ export default {
     copySignature: "Copy Signature",
     createWallet: "Create Wallet",
     decrypt: "DECRYPT",
-    addRecord: "Add MYBNS",
+    addRecord: "Add MyBNS",
     delete: "Delete",
     edit: "Edit",
     editNotes: "Edit Notes",
@@ -124,7 +124,7 @@ export default {
     purchase: {
       title: "Purchase name",
       message: "Do you want to purchase the name?",
-      ok: "PURCHASE"
+      ok: "Purchase"
     },
     renew: {
       title: "Renew name",
@@ -384,9 +384,8 @@ export default {
       invalidAddress: "Address not valid",
       invalidAmount: "Amount not valid",
       invalidBackupOwner: "Backup owner address not valid",
-      invalidNameLength: "Name must be between 1 and 64 characters long",
-      invalidNameFormat:
-        "Name may only contain alphanumerics, hyphens and underscore",
+      invalidNameLength: "Invalid name length",
+      invalidNameFormat: "Name may only contain alphanumerics and hyphens",
       invalidNameHypenNotAllowed:
         "Name may only begin or end with alphanumerics or an underscore",
       invalidOldPassword: "Invalid old password",
@@ -661,7 +660,7 @@ export default {
     bnsServices: "BNS Service",
     bns: {
       purchase: "Buy BNS",
-      myBns: "MY BNS"
+      myBns: "My BNS"
     },
     masterNode: {
       registration: "Registration",

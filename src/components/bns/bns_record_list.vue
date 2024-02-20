@@ -1,6 +1,5 @@
 <template>
   <q-list link no-border class="bns-record-list">
-    <!-- class="oxen-list-item" -->
     <div
       v-for="record in recordList"
       :key="record.name_hash"
@@ -10,14 +9,6 @@
         v-if="selectedNameHash !== record.name_hash"
         class="oxen-list-item q-px-md"
       >
-        <!-- <q-item-section class="type" avatar>
-        <q-icon
-          color="white"
-          :name="isLocked(record) ? 'lock' : 'lock_open'"
-          size="24px"
-        />
-        </q-item-section>-->
-
         <q-item-section>
           <q-item-label
             :class="bindClass(record)"
@@ -25,22 +16,16 @@
           >
             {{ record.name ? "Name :" : "Name Hash :" }}
             <span class="namehash">
-              <!-- {{ isLocked(record) ? record.name_hash : record.name }} -->
               {{ record.name || record.name_hash }}
             </span>
           </q-item-label>
-          <!-- <q-item-label v-if="!isLocked(record)">{{
-            record.value
-          }}</q-item-label>-->
         </q-item-section>
         <q-item-section
           side
           class="height"
           @click="selectAndValidateNamehash(record.name_hash)"
         >
-          <!-- <template v-if="isLocked(record)"> -->
           <div>
-            <!-- {{ record.update_height | blockHeight }} -->
             {{ record.expiration_height | expirationHeight }}
             <q-icon color="#8787A8" name="play_arrow" size="18px"></q-icon>
           </div>
@@ -93,7 +78,7 @@
         class="q-pa-md"
         style="position: relative;"
       >
-        <div class="tablewrapper flex row clickable no-wrap">
+        <div class="tablewrapper flex row  no-wrap">
           <div class="label">{{ record.name ? "Name" : "Name Hash" }}</div>
           <div class="row no-wrap" style="width:70%">
             <div class="address" style="width:100%">
@@ -214,8 +199,6 @@ export default {
   },
   methods: {
     isLocked(record) {
-      // console.log("record front en:", this.recordList);
-      // return record
       return !record.name || !record.value;
     },
     bindClass(record) {
