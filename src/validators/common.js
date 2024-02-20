@@ -76,10 +76,11 @@ export const bns_name = input => {
 export const address = (input, gateway) => {
   // Validate the address
   return new Promise((resolve, reject) => {
-    if (input.includes(".bdx")) return resolve();
+    if (input.includes(".bdx")) {
+      return resolve();
+    }
     if (!/^[0-9A-Za-z]+$/.test(input)) return reject();
     gateway.once("validate_address", data => {
-      // console.log("data..address validation.......:", data);
       if (data.address && data.address !== input) {
         reject();
       } else {
