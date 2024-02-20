@@ -482,11 +482,11 @@ export default {
       name: {
         required,
         maxLength: function(value) {
-          let alphanumericOnly = !/^[0-9A-Za-z]+$/.test(value);
-          if (!alphanumericOnly) {
-            return value.length < 33;
-          } else {
+          let hypens = value.includes("-");
+          if (hypens) {
             return value.length < 64;
+          } else {
+            return value.length < 33;
           }
         },
         hyphen: function(value) {
