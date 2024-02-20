@@ -1,6 +1,9 @@
 <template>
   <div class="bns-record-list">
-    <div class="decrypt row justify-between">
+    <div v-if="bns_record.length > 0" class="tab-desc">
+      {{ $t("strings.bnsDescription") }}
+    </div>
+    <div v-if="bns_record.length > 0" class="decrypt row justify-between">
       <OxenField
         :label="$t('fieldLabels.decryptRecord')"
         :disable="decrypting"
@@ -34,7 +37,9 @@
       />
     </div> -->
     <div class="records-group">
-      <span class="record-type-title">BNS Records </span>
+      <span v-if="bns_record.length > 0" class="record-type-title"
+        >BNS Records
+      </span>
       <BNSRecordList
         v-if="bns_record.length > 0"
         :record-list="bns_record"
@@ -196,11 +201,6 @@ export default {
       });
 
       let type = "bchat";
-      // // bchat names cannot have a "." so this is safe
-      // if (name.endsWith(".bdx")) {
-      //   type = "belnet";
-      // }
-
       this.$gateway.send("wallet", "decrypt_record", {
         name,
         type

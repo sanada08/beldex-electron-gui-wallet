@@ -196,14 +196,11 @@ export default {
       } else if (this.renewing) {
         this.renew(record);
       } else {
-        // console.log('record ::',record)
         this.confirmModal = {
           ...this.confirmModal,
           open: true,
           record: record
         };
-        // this.confirmModal.record
-        // this.purchase(record);
       }
     },
     onClear() {

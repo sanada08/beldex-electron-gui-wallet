@@ -137,11 +137,10 @@
         />
       </OxenField>
     </div>
-    <div class="notes q-mt-xs">
+    <!-- <div class="notes q-mt-xs">
       Note: Use current address (leave blank if same wallet) or specify backup
       address
-    </div>
-    <!-- <BNSAddressSelection :parentValue="parentValue" @update-parent="updateParentValue" /> -->
+    </div>-->
 
     <div
       class="idSelectorWrapper"
@@ -152,8 +151,6 @@
           class="flex row items-center no-wrap q-pa-sm q-mb-sm selectionBox"
           :class="[addressRef ? 'selected' : '']"
         >
-          <!-- style="width: 140px" -->
-
           <q-checkbox v-model="addressRef" size="sm" color="green" />
           <div style="width: 100px">Address</div>
           <OxenField class="full-width" optional :error="$v.address.$error">
@@ -167,13 +164,6 @@
               @blur="$v.address.$touch"
             />
           </OxenField>
-          <!-- <q-radio
-          keep-color
-          v-model="selectedId"
-          val="Address"
-          label="Address"
-          color="green"
-          />-->
         </div>
         <div
           class="flex row items-center no-wrap q-pa-sm q-mb-sm selectionBox"
@@ -192,13 +182,6 @@
               @blur="$v.bchatId.$touch"
             />
           </OxenField>
-          <!-- <q-radio
-          keep-color
-          v-model="selectedId"
-          val="BChat ID"
-          label="BChat ID"
-          color="green"
-          />-->
         </div>
         <div
           class="flex row items-center no-wrap q-pa-sm selectionBox"
@@ -217,27 +200,9 @@
               @blur="$v.belnetId.$touch"
             />
           </OxenField>
-          <!-- <q-radio
-          keep-color
-          v-model="selectedId"
-          val="Belnet ID"
-          label="Belnet ID"
-          color="green"
-          />-->
         </div>
       </section>
-      <!-- <div class="col q-mt-sm">
-      <OxenField v-if="selectedId" class="q-mt-md" optional>
-        <q-input
-          :dark="theme == 'dark'"
-          :placeholder="selectedId"
-          borderless
-          dense
-        />
-      </OxenField>
-      </div>-->
     </div>
-    <!-- :disable="!is_able_to_send || disableSubmitButton || !can_update ||!record.name" -->
 
     <div class="buttons flex justify-center q-mt-sm">
       <q-btn
@@ -264,8 +229,6 @@ import {
   bchat_id,
   belnet_address,
   bns_name
-  // belnet_name,
-  // bchat_name
 } from "src/validators/common";
 import OxenField from "components/oxen_field";
 import WalletPassword from "src/mixins/wallet_password";
@@ -274,12 +237,9 @@ export default {
   name: "BNSInputForm",
   components: {
     OxenField
-    // BNSAddressSelection
   },
   setup() {
-    // const selectedId = ref();
     return {
-      // selectedId: ref(""),
       bchatIdRef: ref(false),
       belnetIdRef: ref(false),
       addressRef: ref(false)
@@ -322,40 +282,28 @@ export default {
     }
   },
   data() {
-    // let bchatOptions = [
-    //   // {
-    //   //   label: this.$t("strings.bns.bchatID"),
-    //   //   value: "bchat",
-    //   //   amount: "15 bdx"
-    //   // }
-    // ];
     let belnetOptions = [
       {
-        // label: this.$t("strings.bns.belnetName1Year"),
         label: "1 yr",
         value: "1y",
         amount: "650 bdx"
       },
       {
-        // label: this.$t("strings.bns.belnetNameXYears", { years: 2 }),
         label: "2 yrs",
         value: "2y",
         amount: "1000 bdx"
       },
       {
-        // label: this.$t("strings.bns.belnetNameXYears", { years: 5 }),
         label: "5 yrs",
         value: "5y",
         amount: "2000 bdx"
       },
       {
-        // label: this.$t("strings.bns.belnetNameXYears", { years: 10 }),
         label: "10 yrs",
         value: "10y",
         amount: "4000 bdx"
       }
     ];
-    // let typeOptions = [...bchatOptions, ...belnetOptions];
     let typeOptions = [...belnetOptions];
 
     const initialRecord = {

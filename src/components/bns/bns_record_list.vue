@@ -93,16 +93,16 @@
         class="q-pa-md"
         style="position: relative;"
       >
-        <div
-          class="tablewrapper flex row clickable no-wrap"
-          @click="selectAndValidateNamehash('')"
-        >
+        <div class="tablewrapper flex row clickable no-wrap">
           <div class="label">{{ record.name ? "Name" : "Name Hash" }}</div>
           <div class="row no-wrap" style="width:70%">
             <div class="address" style="width:100%">
               {{ record.name || record.name_hash }}
             </div>
-            <div class="upArrow">
+            <div
+              class="upArrow clickable"
+              @click="selectAndValidateNamehash('')"
+            >
               <q-icon color="#8787A8" name="play_arrow" size="18px"></q-icon>
             </div>
           </div>

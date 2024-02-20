@@ -361,7 +361,6 @@ export class WalletRPC {
         this.purchaseBNS(
           params.years,
           params.password,
-          // params.type,
           params.name,
           params.value,
           params.owner || "",
@@ -455,35 +454,19 @@ export class WalletRPC {
         break;
 
       case "set_router_path_rightpane":
-        // this.getBalance("getbalance");
         this.set_rightPane_value(params.data);
-        // this.$store.commit("gateway/set_router_path_rightpane", {
-        //   path: "receive"
-        // });
         break;
 
       case "set_sender_address":
-        // this.getBalance("getbalance");
         this.set_sender_address(params.data);
-        // this.$store.commit("gateway/set_router_path_rightpane", {
-        //   path: "receive"
-        // });
         break;
 
       case "set_mnDetails":
-        // this.getBalance("getbalance");
         this.set_mnDetails(params.data);
-        // this.$store.commit("gateway/set_router_path_rightpane", {
-        //   path: "receive"
-        // });
         break;
 
       case "set_stepperPosition":
-        // this.getBalance("getbalance");
         this.set_stepperPosition(params.data);
-        // this.$store.commit("gateway/set_router_path_rightpane", {
-        //   path: "receive"
-        // });
         break;
 
       default:
@@ -527,7 +510,6 @@ export class WalletRPC {
       // Handle successfull response
     })
       .on("rejected", err => {
-        // console.log("rejected", method)
         return {
           method: method,
           params: {},
@@ -1123,26 +1105,10 @@ export class WalletRPC {
       // fetch the known (cached) records from the wallet and add the data
       // to the records being set in state
       let known_names = await this.bnsKnownNames();
-      // console.log("known_names:", known_names);
-
-      // const _record = {
-      //   // type: record.type,
-      //   name: 'munavver.bdx'
-      // };
-      // const params = {
-      //   names: [_record]
-      // };
-      // this.sendRPC("bns_add_known_names", params);
-
-      // Fill the necessary decrypted values of the cached BNS names
-
-      // console.log("newRecords:", newRecords);
-      // console.log("known_names:", known_names);
       for (let r of newRecords) {
         for (let k of known_names) {
           if (k.hashed === r.name_hash) {
             r["name"] = k.name;
-            // r["value"] = k.value;
             r["expiration_height"] = k.expiration_height;
             k["name_hash"] = k.hashed;
             r["name_hash"] = k.hashed;
@@ -1152,8 +1118,6 @@ export class WalletRPC {
           }
         }
       }
-      // console.log("newRecords1:", known_names);
-      // console.log("newRecords1`11111111:",newRecords)
       this.sendGateway("set_wallet_data", { bnsRecords: newRecords });
 
       // Decrypt the records serially
@@ -1267,22 +1231,8 @@ export class WalletRPC {
   */
   async decryptBNSRecord(type, name) {
     let _type = type;
-    // console.log("decryptBNSRecord 0::", _type, name);
-    // type can initially be "belnet_1y" etc. on a purchase
-    // if (type.startsWith("belnet")) {
-    //   _type = "belnet";
-    // }
     try {
-      // const _record = {
-      //   // type: record.type,
-      //   name: name
-      // };
-      // const params = {
-      //   names: [_record]
-      // };
-      // this.sendRPC("bns_add_known_names", params);
       const record = await this.getBNSRecord(_type, name);
-      // console.log("record..nowfil......:", record)
       if (!record) return null;
 
       // Update our current records with the new decrypted record
@@ -1295,7 +1245,6 @@ export class WalletRPC {
       } else {
         // if it's our record, we can cache it
         const _record = {
-          // type: record.type,
           name: record.name
         };
         const params = {
@@ -1323,10 +1272,6 @@ export class WalletRPC {
   Get a BNS record associated with the given name
   */
   async getBNSRecord(type, name) {
-    // We currently only support bchat and belnet
-    // const types = ["bchat", "belnet"];
-    // if (!types.includes(type)) return null;
-
     if (!name || name.trim().length === 0) return null;
 
     const lowerCaseName = name.toLowerCase();
@@ -1335,18 +1280,14 @@ export class WalletRPC {
     if (!name.endsWith(".bdx")) {
       fullName = fullName + ".bdx";
     }
-
-    const nameHash = await this.hashBNSName(lowerCaseName);
-    // console.log("nameHash:", nameHash)
+    const nameHash = await this.hashBNSName(fullName);
     if (!nameHash) return null;
 
     const record = await this.backend.daemon.getBNSRecord(nameHash);
-    // if (!record || !record.encrypted_value) return null;
-    // console.log("record:.............with nowfilllllll", record);
+    if (!record) return null;
     // Decrypt the value if possible
     let encryptedValue;
     let key;
-    // console.log("type...........:", type)
     if (record.encrypted_bchat_value) {
       encryptedValue = record.encrypted_bchat_value;
       key = "value_bchat";
@@ -1360,9 +1301,7 @@ export class WalletRPC {
       key = "value_wallet";
       type = "wallet";
     }
-    // console.log("my value...", encryptedValue, key)
     const value = await this.decryptBNSValue(type, fullName, encryptedValue);
-    // console.log("valuevalueeeeeee......:", value)
     return {
       name: fullName,
       [key]: value,
@@ -1377,10 +1316,7 @@ export class WalletRPC {
     }
 
     try {
-      // console.log("fullName:", fullName);
-      // console.log("type...:", type);
       const data = await this.sendRPC("bns_hash_name", {
-        // type,
         name: fullName
       });
       if (data.hasOwnProperty("error")) {
@@ -1406,15 +1342,11 @@ export class WalletRPC {
     }
 
     try {
-      // console.log("bns_decrypt_value....:", type,
-      //   fullName,
-      //   encrypted_value)
       const data = await this.sendRPC("bns_decrypt_value", {
         type,
         name: fullName,
         encrypted_value
       });
-      // console.log("data:bns_decrypt_value", data);
       if (data.hasOwnProperty("error")) {
         let error =
           data.error.message.charAt(0).toUpperCase() +
@@ -1928,7 +1860,6 @@ export class WalletRPC {
   purchaseBNS(
     years,
     password,
-    // params.type,
     name,
     value,
     owner,
@@ -1984,10 +1915,7 @@ export class WalletRPC {
           value_wallet: walletAddress
         };
         this.sendRPC("bns_buy_mapping", params).then(data => {
-          // console.log("bns_buy_mapping 1::", data);
           if (data.hasOwnProperty("error")) {
-            // console.log("bns_buy_mapping 2::", data.error)
-
             let error =
               data.error.message.charAt(0).toUpperCase() +
               data.error.message.slice(1);
@@ -1998,8 +1926,6 @@ export class WalletRPC {
             });
             return;
           }
-          // console.log("bns_buy_mapping 3::", this.purchasedNames[name.trim()] = years)
-
           this.purchasedNames[name.trim()] = years;
 
           // Fetch new records and then get the decrypted record for the one we just inserted
@@ -2064,6 +1990,13 @@ export class WalletRPC {
             let error =
               data.error.message.charAt(0).toUpperCase() +
               data.error.message.slice(1);
+            if (
+              error.includes(
+                "Cannot buy an BNS name that is already registered"
+              )
+            ) {
+              error = "Cannot buy an BNS name that is already registered";
+            }
             this.sendGateway("set_bns_status", {
               code: -1,
               message: error,
@@ -2720,8 +2653,6 @@ export class WalletRPC {
   }
 
   async listWallets(legacy = false) {
-    // let a = await this.swap.getCurrencyList();
-    // console.log("aaaa:",a)
     let wallets = {
       list: [],
       directories: []

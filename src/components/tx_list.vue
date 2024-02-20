@@ -385,22 +385,11 @@ export default {
       });
     },
     details(tx) {
-      // console.log("txn details", tx);
       this.$emit("submitTxDetails", tx);
-      // this.$refs.txDetails.tx = tx;
-      // this.$refs.txDetails.txNotes = tx.note;
-      // this.$refs.txDetails.isVisible = true;
     },
     formatHeight(tx) {
       let height = tx.height;
-      // let confirms = Math.max(0, this.wallet_height - height);
       if (height == 0) return this.$t("strings.transactions.types.pending");
-      // if (confirms < Math.max(1, tx.unlock_time - height))
-      //   return (
-      //     this.$t("strings.height") +
-      //     `: ${height} (${confirms} confirm${confirms == 1 ? "" : "s"})`
-      //   );
-      // else
       return (
         this.$t("strings.height") +
         `: ${height} (${this.$t("strings.transactionConfirmed")})`

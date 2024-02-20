@@ -114,13 +114,10 @@ export default {
   },
 
   setup() {
-    // const selectedId = ref();
     return {
-      // selectedId: ref(""),
       bchatIdRef: ref(false),
       belnetIdRef: ref(false),
       addressRef: ref(false),
-      // bchatId: "",
       belnetId: "",
       address: ""
     };

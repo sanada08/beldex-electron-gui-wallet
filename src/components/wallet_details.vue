@@ -320,12 +320,9 @@ export default {
   .wallet-content {
     width: 100%;
     text-align: center;
-    // padding:0 1em;
-    // padding: 0 1em 1em;
     padding: 0.5em 1em 1em;
     background: #242433;
     margin-bottom: 15px;
-    // margin-top: 15px;
     border-radius: 10px;
 
     .balance {
@@ -333,7 +330,6 @@ export default {
         font-size: 16px;
       }
       .value {
-        // font-size: 35px;
         font-size: 26px;
         margin-left: 10px;
       }
@@ -358,9 +354,7 @@ export default {
         overflow: hidden;
         text-overflow: ellipsis;
         margin: 4px 0;
-        // background: #45455a;
         padding: 15px 5px;
-        // width: 83%;
         color: #afafbe;
       }
       .title {
@@ -395,10 +389,5 @@ export default {
       color: #afafbe;
     }
   }
-  // @media only screen and (max-height: 780px) {
-  //   .wallet-content {
-  //     padding: 0.5em 2em;
-  //   }
-  // }
 }
 </style>
