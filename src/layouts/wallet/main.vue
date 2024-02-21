@@ -23,7 +23,7 @@
     <q-page class="flex row justify-around">
       <!-- <div class="col-md-3"> -->
       <div style="width: 23%; height: auto">
-        <section class="rectangleBox">
+        <section class="rectangleBox" style="position: relative;">
           <article style="height: 93%; overflow-y: auto">
             <router-link to="/wallet" class="box">
               <article
@@ -561,7 +561,8 @@ export default {
 
 .version-wrapper {
   position: absolute;
-  bottom: 28px;
+  bottom: 20px;
+  // bottom: 28px;
   // height: 52%;
   /* background-color: aliceblue; */
   display: flex;

@@ -41,7 +41,10 @@
         @onUpdate="onUpdate"
         @onRenew="onRenew"
       />
-      <div v-else class="flex column justify-center items-center emptybns">
+      <div
+        v-else
+        class="flex no-wrap column justify-center items-center emptybns"
+      >
         <svg
           width="100"
           height="100"
