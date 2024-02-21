@@ -76,7 +76,7 @@ export const bns_name = input => {
 export const address = (input, gateway) => {
   // Validate the address
   return new Promise((resolve, reject) => {
-    if (input.includes(".bdx")) {
+    if (input.toLowerCase().endsWith(".bdx")) {
       return resolve();
     }
     if (!/^[0-9A-Za-z]+$/.test(input)) return reject();

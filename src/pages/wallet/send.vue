@@ -282,7 +282,7 @@ export default {
           return new Promise(resolve => {
             if (
               (value.length > 106 || value.length < 95) &&
-              !value.includes(".bdx")
+              !value.toLowerCase().endsWith(".bdx")
             ) {
               resolve(false);
             }
