@@ -40,7 +40,7 @@
                   :src="txnTypeIndicate(tx.type)"
                   width="20px"
                   height="20px"
-                /> -->
+                />-->
                 <TxTypeIcon :type="tx.type" :tooltip="false" />
               </div>
               <!-- <div>{{ tx.type | typeToString }}</div> -->
@@ -50,9 +50,9 @@
                 {{ "out" === tx.type ? "-" : "" }}
                 <FormatOxen :amount="tx.amount || 0" />
               </q-item-label>
-              <q-item-label class="txn_id ft-Light" caption>
-                {{ tx.txid }}
-              </q-item-label>
+              <q-item-label class="txn_id ft-Light" caption>{{
+                tx.txid
+              }}</q-item-label>
             </q-item-label>
             <q-item-section class="meta">
               <q-item-label class="ft-small">
@@ -69,9 +69,9 @@
                   :locale="$i18n.locale"
                 />-->
               </q-item-label>
-              <q-item-label caption class="blk-height-txt ft-Light">
-                {{ formatHeight(tx) }}
-              </q-item-label>
+              <q-item-label caption class="blk-height-txt ft-Light">{{
+                formatHeight(tx)
+              }}</q-item-label>
             </q-item-section>
 
             <div class="q-ml-lg q-mr-xs flex items-center">
@@ -140,6 +140,8 @@ export default {
           return i18n.t("strings.transactions.types.masterNode");
         case "gov":
           return i18n.t("strings.transactions.types.governance");
+        case "bns":
+          return i18n.t("strings.transactions.types.bns");
         case "stake":
           return i18n.t("strings.transactions.types.stake");
         default:
@@ -270,7 +272,7 @@ export default {
   },
   methods: {
     filterTxList() {
-      const all_in = ["in", "pool", "miner", "mnode", "gov"];
+      const all_in = ["in", "pool", "miner", "mnode", "gov", "bns"];
       const all_out = ["out", "pending", "stake"];
       const all_pending = ["pending", "pool"];
       this.tx_list_filtered = this.tx_list.filter(tx => {
@@ -383,22 +385,11 @@ export default {
       });
     },
     details(tx) {
-      // console.log("txn details", tx);
       this.$emit("submitTxDetails", tx);
-      // this.$refs.txDetails.tx = tx;
-      // this.$refs.txDetails.txNotes = tx.note;
-      // this.$refs.txDetails.isVisible = true;
     },
     formatHeight(tx) {
       let height = tx.height;
-      // let confirms = Math.max(0, this.wallet_height - height);
       if (height == 0) return this.$t("strings.transactions.types.pending");
-      // if (confirms < Math.max(1, tx.unlock_time - height))
-      //   return (
-      //     this.$t("strings.height") +
-      //     `: ${height} (${confirms} confirm${confirms == 1 ? "" : "s"})`
-      //   );
-      // else
       return (
         this.$t("strings.height") +
         `: ${height} (${this.$t("strings.transactionConfirmed")})`

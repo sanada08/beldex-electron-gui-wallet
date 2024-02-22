@@ -95,7 +95,8 @@ export class WalletRPC {
           "--rpc-bind-ip",
           "127.0.0.1",
           "--log-level",
-          options.wallet.log_level
+          options.wallet.log_level,
+          "--trusted-daemon"
         ];
 
         const { net_type, wallet_data_dir, data_dir } = options.app;
@@ -358,12 +359,15 @@ export class WalletRPC {
         break;
       case "purchase_bns":
         this.purchaseBNS(
+          params.years,
           params.password,
-          params.type,
           params.name,
           params.value,
           params.owner || "",
-          params.backup_owner || ""
+          params.backup_owner || "",
+          params.value_bchat || "",
+          params.value_belnet || "",
+          params.value_wallet || ""
         );
         break;
       case "bns_renew_mapping":
@@ -450,36 +454,19 @@ export class WalletRPC {
         break;
 
       case "set_router_path_rightpane":
-        // this.getBalance("getbalance");
         this.set_rightPane_value(params.data);
-        // this.$store.commit("gateway/set_router_path_rightpane", {
-        //   path: "receive"
-        // });
         break;
 
       case "set_sender_address":
-        // this.getBalance("getbalance");
         this.set_sender_address(params.data);
-        //   console.log("munavver");
-        // this.$store.commit("gateway/set_router_path_rightpane", {
-        //   path: "receive"
-        // });
         break;
 
       case "set_mnDetails":
-        // this.getBalance("getbalance");
         this.set_mnDetails(params.data);
-        // this.$store.commit("gateway/set_router_path_rightpane", {
-        //   path: "receive"
-        // });
         break;
 
       case "set_stepperPosition":
-        // this.getBalance("getbalance");
         this.set_stepperPosition(params.data);
-        // this.$store.commit("gateway/set_router_path_rightpane", {
-        //   path: "receive"
-        // });
         break;
 
       default:
@@ -523,7 +510,6 @@ export class WalletRPC {
       // Handle successfull response
     })
       .on("rejected", err => {
-        // console.log("rejected", method)
         return {
           method: method,
           params: {},
@@ -960,12 +946,12 @@ export class WalletRPC {
     }, 8000);
     this.heartbeatAction(true);
 
-    // disabled the BNS for the future release
-    // clearInterval(this.bnsHeartbeat);
-    // this.bnsHeartbeat = setInterval(() => {
-    //   this.updateLocalBNSRecords();
-    // }, 80000); // change from 30*1000 to 80000
-    // this.updateLocalBNSRecords();
+    clearInterval(this.bnsHeartbeat);
+    this.bnsHeartbeat = setInterval(() => {
+      1000;
+      this.updateLocalBNSRecords();
+    }, 80000); // change from 30*1000 to 80000
+    this.updateLocalBNSRecords();
   }
 
   heartbeatAction(extended = false) {
@@ -1084,11 +1070,9 @@ export class WalletRPC {
       const results = addressData.result.addresses || [];
       const addresses = results.map(a => a.address).filter(a => !!a);
       if (addresses.length === 0) return;
-
       const records = await this.backend.daemon.getBNSRecordsForOwners(
         addresses
       );
-
       // We need to ensure that we decrypt any incoming records that we already have
       const currentRecords = this.wallet_state.bnsRecords;
       const recordsToUpdate = { ...this.purchasedNames };
@@ -1106,46 +1090,35 @@ export class WalletRPC {
         if (needsToUpdate) {
           const { name, type } = current;
           recordsToUpdate[name] = type;
-
           return {
             name,
             ...record
           };
         }
-
         // Otherwise just update our current record with new information (in the case that owner or backup_owner was updated)
         return {
           ...current,
           ...record
         };
       });
-
       this.wallet_state.bnsRecords = newRecords;
-
       // fetch the known (cached) records from the wallet and add the data
       // to the records being set in state
-      let known_names = await this.lnsKnownNames();
-
-      // Fill the necessary decrypted values of the cached BNS names
+      let known_names = await this.bnsKnownNames();
       for (let r of newRecords) {
         for (let k of known_names) {
           if (k.hashed === r.name_hash) {
             r["name"] = k.name;
-            r["value"] = k.value;
             r["expiration_height"] = k.expiration_height;
+            k["name_hash"] = k.hashed;
+            r["name_hash"] = k.hashed;
+            r["value_wallet"] = k.value_wallet ? k.value_wallet : "";
+            r["value_bchat"] = k.value_bchat ? k.value_bchat : "";
+            r["value_belnet"] = k.value_belnet ? k.value_belnet : "";
           }
         }
       }
-
       this.sendGateway("set_wallet_data", { bnsRecords: newRecords });
-
-      // Decrypt the records serially
-      let updatePromise = Promise.resolve();
-      for (const [name, type] of Object.entries(recordsToUpdate)) {
-        updatePromise = updatePromise.then(() => {
-          this.decryptBNSRecord(type, name);
-        });
-      }
     } catch (e) {
       console.debug("Something went wrong when updating bns records: ", e);
     }
@@ -1154,7 +1127,7 @@ export class WalletRPC {
   /*
   Get the BNS records cached in this wallet. 
   */
-  async lnsKnownNames() {
+  async bnsKnownNames() {
     try {
       let params = {
         decrypt: true,
@@ -1249,10 +1222,6 @@ export class WalletRPC {
   */
   async decryptBNSRecord(type, name) {
     let _type = type;
-    // type can initially be "belnet_1y" etc. on a purchase
-    if (type.startsWith("belnet")) {
-      _type = "belnet";
-    }
     try {
       const record = await this.getBNSRecord(_type, name);
       if (!record) return null;
@@ -1267,7 +1236,6 @@ export class WalletRPC {
       } else {
         // if it's our record, we can cache it
         const _record = {
-          type: record.type,
           name: record.name
         };
         const params = {
@@ -1295,53 +1263,53 @@ export class WalletRPC {
   Get a BNS record associated with the given name
   */
   async getBNSRecord(type, name) {
-    // We currently only support bchat and belnet
-    const types = ["bchat", "belnet"];
-    if (!types.includes(type)) return null;
-
     if (!name || name.trim().length === 0) return null;
 
     const lowerCaseName = name.toLowerCase();
 
     let fullName = lowerCaseName;
-    if (type === "belnet" && !name.endsWith(".bdx")) {
+    if (!name.endsWith(".bdx")) {
       fullName = fullName + ".bdx";
     }
-
-    const nameHash = await this.hashBNSName(type, lowerCaseName);
+    const nameHash = await this.hashBNSName(fullName);
     if (!nameHash) return null;
 
     const record = await this.backend.daemon.getBNSRecord(nameHash);
-    if (!record || !record.encrypted_value) return null;
-
+    if (!record) return null;
     // Decrypt the value if possible
-    const value = await this.decryptBNSValue(
-      type,
-      fullName,
-      record.encrypted_value
-    );
-
+    let encryptedValue;
+    let key;
+    if (record.encrypted_bchat_value) {
+      encryptedValue = record.encrypted_bchat_value;
+      key = "value_bchat";
+      type = "bchat";
+    } else if (record.encrypted_belnet_value) {
+      encryptedValue = record.encrypted_belnet_value;
+      key = "value_belnet";
+      type = "belnet";
+    } else {
+      encryptedValue = record.encrypted_wallet_value;
+      key = "value_wallet";
+      type = "wallet";
+    }
+    const value = await this.decryptBNSValue(type, fullName, encryptedValue);
     return {
       name: fullName,
-      value,
+      [key]: value,
       ...record
     };
   }
 
-  async hashBNSName(type, name) {
-    if (!type || !name) return null;
-
-    let fullName = name;
-    if (type === "belnet" && !name.endsWith(".bdx")) {
+  async hashBNSName(fullName) {
+    if (!fullName) return null;
+    if (!fullName.endsWith(".bdx")) {
       fullName = fullName + ".bdx";
     }
 
     try {
       const data = await this.sendRPC("bns_hash_name", {
-        type,
         name: fullName
       });
-
       if (data.hasOwnProperty("error")) {
         let error =
           data.error.message.charAt(0).toUpperCase() +
@@ -1370,7 +1338,6 @@ export class WalletRPC {
         name: fullName,
         encrypted_value
       });
-
       if (data.hasOwnProperty("error")) {
         let error =
           data.error.message.charAt(0).toUpperCase() +
@@ -1404,6 +1371,7 @@ export class WalletRPC {
           message: error,
           sending: false
         });
+
         return;
       }
       const signature = rpcData.result.signature;
@@ -1880,77 +1848,100 @@ export class WalletRPC {
     crypto.pbkdf2(password, this.auth[2], 1000, 64, "sha512", cryptoCallback);
   }
 
-  // purchaseBNS(password, type, name, value, owner, backupOwner) {
-  //   let _name = name.trim().toLowerCase();
-  //   const _owner = owner.trim() === "" ? null : owner;
-  //   const backup_owner = backupOwner.trim() === "" ? null : backupOwner;
+  purchaseBNS(
+    years,
+    password,
+    name,
+    value,
+    owner,
+    backupOwner,
+    bchatId,
+    belnetId,
+    walletAddress
+  ) {
+    let _name = name.trim().toLowerCase();
+    const _owner = owner.trim() === "" ? null : owner;
+    const backup_owner = backupOwner.trim() === "" ? null : backupOwner;
 
-  //   // the RPC accepts names with the .bdx already appeneded only
-  //   // can be belnet_1y, belnet_2y, belnet_5y, belnet_10y
-  //   if (type.startsWith("belnet")) {
-  //     _name = _name + ".bdx";
-  //     value = value + ".bdx";
-  //   }
+    // the RPC accepts names with the .bdx already appeneded only
+    // can be belnet_1y, belnet_2y, belnet_5y, belnet_10y
+    // if (type.startsWith("belnet")) {
+    //   _name = _name + ".bdx";
 
-  //   crypto.pbkdf2(
-  //     password,
-  //     this.auth[2],
-  //     1000,
-  //     64,
-  //     "sha512",
-  //     (err, password_hash) => {
-  //       if (err) {
-  //         this.sendGateway("set_bns_status", {
-  //           code: -1,
-  //           i18n: "notification.errors.internalError",
-  //           sending: false
-  //         });
-  //         return;
-  //       }
-  //       if (!this.isValidPasswordHash(password_hash)) {
-  //         this.sendGateway("set_bns_status", {
-  //           code: -1,
-  //           i18n: "notification.errors.invalidPassword",
-  //           sending: false
-  //         });
-  //         return;
-  //       }
+    //   value = value + ".bdx";
+    // }
 
-  //       const params = {
-  //         type,
-  //         owner: _owner,
-  //         backup_owner,
-  //         name: _name,
-  //         value
-  //       };
+    crypto.pbkdf2(
+      password,
+      this.auth[2],
+      1000,
+      64,
+      "sha512",
+      (err, password_hash) => {
+        if (err) {
+          this.sendGateway("set_bns_status", {
+            code: -1,
+            i18n: "notification.errors.internalError",
+            sending: false
+          });
+          return;
+        }
+        if (!this.isValidPasswordHash(password_hash)) {
+          this.sendGateway("set_bns_status", {
+            code: -1,
+            i18n: "notification.errors.invalidPassword",
+            sending: false
+          });
+          return;
+        }
 
-  //       this.sendRPC("bns_buy_mapping", params).then(data => {
-  //         if (data.hasOwnProperty("error")) {
-  //           let error =
-  //             data.error.message.charAt(0).toUpperCase() +
-  //             data.error.message.slice(1);
-  //           this.sendGateway("set_bns_status", {
-  //             code: -1,
-  //             message: error,
-  //             sending: false
-  //           });
-  //           return;
-  //         }
+        const params = {
+          years: years,
+          owner: _owner,
+          backup_owner: backup_owner,
+          name: _name,
+          value_bchat: bchatId,
 
-  //         this.purchasedNames[name.trim()] = type;
+          value_belnet: belnetId,
+          value_wallet: walletAddress
+        };
+        this.sendRPC("bns_buy_mapping", params).then(data => {
+          if (data.hasOwnProperty("error")) {
+            let error =
+              data.error.message.charAt(0).toUpperCase() +
+              data.error.message.slice(1);
+            if (
+              error.includes(
+                "Cannot buy an BNS name that is already registered"
+              )
+            ) {
+              error = "Cannot buy an BNS name that is already registered";
+            }
+            if (error.includes("Transaction is too big")) {
+              error =
+                "Transaction is too big, please do the sweep_all from [masternode -> stakings]";
+            }
+            this.sendGateway("set_bns_status", {
+              code: -1,
+              message: error,
+              sending: false
+            });
+            return;
+          }
+          this.purchasedNames[name.trim()] = years;
 
-  //         // Fetch new records and then get the decrypted record for the one we just inserted
-  //         setTimeout(() => this.updateLocalBNSRecords(), 5000);
+          // Fetch new records and then get the decrypted record for the one we just inserted
+          setTimeout(() => this.updateLocalBNSRecords(), 5000);
 
-  //         this.sendGateway("set_bns_status", {
-  //           code: 0,
-  //           i18n: "notification.positive.namePurchased",
-  //           sending: false
-  //         });
-  //       });
-  //     }
-  //   );
-  // }
+          this.sendGateway("set_bns_status", {
+            code: 0,
+            i18n: "notification.positive.namePurchased",
+            sending: false
+          });
+        });
+      }
+    );
+  }
 
   updateBNSMapping(password, type, name, value, owner, backupOwner) {
     let _name = name.trim().toLowerCase();
@@ -2001,6 +1992,13 @@ export class WalletRPC {
             let error =
               data.error.message.charAt(0).toUpperCase() +
               data.error.message.slice(1);
+            if (
+              error.includes(
+                "Cannot buy an BNS name that is already registered"
+              )
+            ) {
+              error = "Cannot buy an BNS name that is already registered";
+            }
             this.sendGateway("set_bns_status", {
               code: -1,
               message: error,
@@ -2129,7 +2127,12 @@ export class WalletRPC {
   }
 
   rescanBlockchain() {
+    clearInterval(this.heartbeat);
+    clearInterval(this.lnsHeartbeat);
+    this.wallet_state.balance = null;
+    this.wallet_state.unlocked_balance = null;
     this.sendRPC("rescan_blockchain");
+    this.startHeartbeat();
   }
 
   rescanSpent() {
@@ -2298,7 +2301,8 @@ export class WalletRPC {
           "miner",
           "mnode",
           "gov",
-          "stake"
+          "stake",
+          "bns"
         ];
         types.forEach(type => {
           if (data.result.hasOwnProperty(type)) {
@@ -2651,8 +2655,6 @@ export class WalletRPC {
   }
 
   async listWallets(legacy = false) {
-    // let a = await this.swap.getCurrencyList();
-    // console.log("aaaa:",a)
     let wallets = {
       list: [],
       directories: []

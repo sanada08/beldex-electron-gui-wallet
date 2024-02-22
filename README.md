@@ -5,7 +5,7 @@
 Beldex is a private cryptocurrency based on Monero. Beldex aims to provide a private data transmission layer using a second layer of Master Nodes.
 More information on the project can be found on the [website](https://beldex.io) and in the [whitepaper](https://beldex.io/whitepaper). Beldex is an open source project, and we encourage contributions from anyone with something to offer.
 
-![Beldex wallet image](./src-electron/icons/mrcuug.png)
+![Beldex wallet image](./src-electron/icons/Beldex-team.png)
 
 ### About this project
 
@@ -21,7 +21,7 @@ Please submit any changes as pull requests to the development branch, all change
 #### Commands
 
 ```
-nvm use 14.11.0
+nvm use 14.14.0
 npm install -g @quasar/cli
 git clone https://github.com/Beldex-Coin/beldex-electron-gui-wallet
 cd beldex-electron-gui-wallet

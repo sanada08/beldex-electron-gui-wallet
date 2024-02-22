@@ -496,6 +496,7 @@ export default {
         miner: "Майнинг",
         masterNode: "Сервисная Нода",
         governance: "Управление",
+        bns: "Бнс",
         stake: "Стейк",
         failed: "Не удавшиеся"
       }

@@ -28,6 +28,7 @@
           :placeholder="$t('placeholders.hexCharacters', { count: 64 })"
           borderless
           dense
+          @input="applyAlphanumericMask"
           @blur="$v.master_node.key.$touch"
         />
       </OxenField>
@@ -385,6 +386,11 @@ export default {
         .onDismiss(() => {})
         .onCancel(() => {});
     },
+    applyAlphanumericMask() {
+      // Remove non-alphanumeric characters using the regular expression
+      this.master_node.key = this.master_node.key.replace(/[\W_]/g, "");
+    },
+
     buildDialogFieldsSweepAll(txData) {
       this.confirmFields = this.buildDialogFields(txData);
     },

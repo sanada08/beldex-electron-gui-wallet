@@ -495,6 +495,7 @@ export default {
         miner: "Mineiro",
         masterNode: "Nódulo de Serviço",
         governance: "Governança",
+        bns: "Bns",
         stake: "Participação",
         failed: "Falhou"
       }

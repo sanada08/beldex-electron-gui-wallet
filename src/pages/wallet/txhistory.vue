@@ -35,10 +35,7 @@
         <!-- <section class="searchBox flex row col-8">
           <article class="flex row items-center col-10"> -->
         <section class="searchBox flex row no-wrap">
-          <article
-            class="flex row items-center no-wrap  q-ml-lg"
-            style="width:80%; "
-          >
+          <article class="flex row items-center no-wrap  q-ml-lg">
             <div class="col-1 filter-txt ft-semibold">
               {{ $t("fieldLabels.filter") }}
             </div>
@@ -130,6 +127,10 @@ export default {
           value: "gov"
         },
         {
+          label: this.$t("strings.transactions.types.bns"),
+          value: "bns"
+        },
+        {
           label: this.$t("strings.transactions.types.stake"),
           value: "stake"
         },
@@ -192,8 +193,8 @@ export default {
   font-size: 16px;
 }
 .searchBox .oxen-field .content {
-  min-height: 45px !important;
-  height: 45px !important;
+  min-height: 58px !important;
+  height: 58px !important;
   background-color: #32324a;
   margin-bottom: unset !important;
 }

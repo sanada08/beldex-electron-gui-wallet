@@ -492,6 +492,7 @@ export class Daemon {
     // only 256 addresses allowed in this call
     let ownersMax = owners.slice(0, 256);
     const data = await this.sendRPC("bns_owners_to_names", {
+      //all values are encrpted
       entries: ownersMax
     });
     if (!data.hasOwnProperty("result")) return [];
@@ -505,8 +506,8 @@ export class Daemon {
         owner
       };
     });
-
-    return this._sanitizeBNSRecords(recordsWithOwners);
+    // return this._sanitizeBNSRecords(recordsWithOwners);
+    return recordsWithOwners;
   }
 
   async getBNSRecord(nameHash) {
@@ -516,19 +517,21 @@ export class Daemon {
 
     const params = {
       entries: [
-        {
-          name_hash: nameHash,
-          // 0 = bchat
-          // 2 = belnet
-          types: [0, 2]
-        }
+        nameHash
+        // {
+        // name_hash: nameHash,
+        // 0 = bchat
+        // 2 = belnet
+        // types: [0, 2]
+        // }
       ]
     };
 
     const data = await this.sendRPC("bns_names_to_owners", params);
     if (!data.hasOwnProperty("result")) return null;
 
-    const entries = this._sanitizeBNSRecords(data.result.entries);
+    const entries = data.result.entries;
+    // this._sanitizeBNSRecords(data.result.entries);
     if (entries.length === 0) return null;
 
     return entries[0];
