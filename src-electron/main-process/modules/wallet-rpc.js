@@ -1118,6 +1118,7 @@ export class WalletRPC {
           }
         }
       }
+      console.log("bnsRecords ::", newRecords.length, newRecords);
       this.sendGateway("set_wallet_data", { bnsRecords: newRecords });
     } catch (e) {
       console.debug("Something went wrong when updating bns records: ", e);
@@ -1919,7 +1920,7 @@ export class WalletRPC {
                 "Cannot buy an BNS name that is already registered"
               )
             ) {
-              error = "Cannot buy an BNS name that is already registered";
+              error = "Cannot buy a BNS name that is already registered";
             }
             if (error.includes("Transaction is too big")) {
               error =
