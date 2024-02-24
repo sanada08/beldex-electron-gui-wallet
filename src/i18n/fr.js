@@ -364,7 +364,7 @@ export default {
     addNotesOptional: "Ajouter des notes (facultatif)",
     addressBookName: "Nom rattaché à cette adresse",
     addressOfSigner: "Adresse du portefeuille public du signataire",
-    beldexAddress: "Adresse Beldex",
+    beldexAddress: "Enter Address or BNS Name",
     enterName: "Entrez le nom",
     enterAddress: "Entrer l'adresse",
     enteroldPassword: "Entrez l'ancien mot de passe",

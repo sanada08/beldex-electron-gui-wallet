@@ -528,6 +528,7 @@ export class Daemon {
     };
 
     const data = await this.sendRPC("bns_names_to_owners", params);
+
     if (!data.hasOwnProperty("result")) return null;
 
     const entries = data.result.entries;

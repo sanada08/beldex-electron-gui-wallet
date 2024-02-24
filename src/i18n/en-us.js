@@ -432,7 +432,7 @@ export default {
     addNotesOptional: "Add notes (optional)",
     addressBookName: "Name that belongs to this address",
     addressOfSigner: "Public wallet address of signer",
-    beldexAddress: "Beldex Address",
+    beldexAddress: "Enter Address or BNS Name",
     dataToSign: "Data you want to sign with your primary address's private key",
     filterTx: "Enter an ID, name, address or amount",
     hexCharacters: "{count} hexadecimal characters",
