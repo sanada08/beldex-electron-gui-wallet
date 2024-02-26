@@ -47,10 +47,9 @@
         />
       </div>
     </div>
-
     <!-- empty bns history -->
     <div
-      v-else-if="is_ready && bns_record.length === 0"
+      v-else-if="is_ready && bns_record.length === 0 && ourAddresses.length > 0"
       class="flex no-wrap column justify-center items-center emptybns"
     >
       <svg
@@ -79,7 +78,7 @@
       </div>
     </div>
 
-    <q-inner-loading :showing="!is_ready">
+    <q-inner-loading v-else :showing="true">
       <q-spinner color="primary" size="30" />
     </q-inner-loading>
   </div>

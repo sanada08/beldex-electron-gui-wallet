@@ -52,7 +52,7 @@
         <q-input
           v-model.trim="record.owner"
           :dark="theme == 'dark'"
-          :placeholder="owner_placeholder"
+          :placeholder="$t('placeholders.bnsOwner')"
           borderless
           dense
           :disable="renewing"
