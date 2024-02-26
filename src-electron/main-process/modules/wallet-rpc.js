@@ -1118,7 +1118,6 @@ export class WalletRPC {
           }
         }
       }
-      console.log("bnsRecords ::", newRecords.length, newRecords);
       this.sendGateway("set_wallet_data", { bnsRecords: newRecords });
     } catch (e) {
       console.debug("Something went wrong when updating bns records: ", e);
