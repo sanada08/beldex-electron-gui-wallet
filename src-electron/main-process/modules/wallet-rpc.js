@@ -1134,7 +1134,6 @@ export class WalletRPC {
         include_expired: false
       };
       let data = await this.sendRPC("bns_known_names", params);
-
       if (data.result && data.result.known_names) {
         return data.result.known_names;
       } else {
@@ -1276,28 +1275,33 @@ export class WalletRPC {
 
     const record = await this.backend.daemon.getBNSRecord(nameHash);
     if (!record) return null;
-    // Decrypt the value if possible
-    let encryptedValue;
-    let key;
-    if (record.encrypted_bchat_value) {
-      encryptedValue = record.encrypted_bchat_value;
-      key = "value_bchat";
-      type = "bchat";
-    } else if (record.encrypted_belnet_value) {
-      encryptedValue = record.encrypted_belnet_value;
-      key = "value_belnet";
-      type = "belnet";
-    } else {
-      encryptedValue = record.encrypted_wallet_value;
-      key = "value_wallet";
-      type = "wallet";
-    }
-    const value = await this.decryptBNSValue(type, fullName, encryptedValue);
     return {
       name: fullName,
-      [key]: value,
+      // [key]: value,
       ...record
     };
+    // Decrypt the value if possible
+    // let encryptedValue;
+    // let key;
+    // if (record.encrypted_bchat_value) {
+    //   encryptedValue = record.encrypted_bchat_value;
+    //   key = "value_bchat";
+    //   type = "bchat";
+    // } else if (record.encrypted_belnet_value) {
+    //   encryptedValue = record.encrypted_belnet_value;
+    //   key = "value_belnet";
+    //   type = "belnet";
+    // } else {
+    //   encryptedValue = record.encrypted_wallet_value;
+    //   key = "value_wallet";
+    //   type = "wallet";
+    // }
+    // const value = await this.decryptBNSValue(type, fullName, encryptedValue);
+    // return {
+    //   name: fullName,
+    //   [key]: value,
+    //   ...record
+    // };
   }
 
   async hashBNSName(fullName) {
@@ -1915,7 +1919,7 @@ export class WalletRPC {
                 "Cannot buy an BNS name that is already registered"
               )
             ) {
-              error = "Cannot buy an BNS name that is already registered";
+              error = "Cannot buy a BNS name that is already registered";
             }
             if (error.includes("Transaction is too big")) {
               error =

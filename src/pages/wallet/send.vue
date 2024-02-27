@@ -493,14 +493,14 @@ export default {
         }
       }
 
-      // if (this.$v.newTx.address.$error) {
-      //   this.$q.notify({
-      //     type: "negative",
-      //     timeout: 1000,
-      //     message: this.$t("notification.errors.invalidAddress")
-      //   });
-      //   return;
-      // }
+      if (this.$v.newTx.address.$error) {
+        this.$q.notify({
+          type: "negative",
+          timeout: 1000,
+          message: this.$t("notification.errors.invalidAddress")
+        });
+        return;
+      }
 
       // must wait for the dialog to be returned
       let passwordDialog = await this.showPasswordConfirmation({

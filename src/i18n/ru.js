@@ -356,7 +356,7 @@ export default {
     addNotesOptional: "Добавьте примечания (необязательно)",
     addressBookName: "Имя для этого адреса",
     addressOfSigner: "Публичный адрес кошелька подписавшего",
-    beldexAddress: "Белдекс Адрес",
+    beldexAddress: "Enter Address or BNS Name",
     enterName: "Введите имя",
     enterAddress: "Введите адрес",
     enteroldPassword: "Введите старый пароль",
