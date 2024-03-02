@@ -42,7 +42,7 @@
                 {{ this.confirmModal.record.owner }}
               </div>
             </div>
-            <div
+            <!-- <div
               v-if="this.confirmModal.backup_owner"
               class="tablewrapper flex row q-mt-md"
             >
@@ -50,7 +50,7 @@
               <div class="address">
                 {{ this.confirmModal.record.backup_owner }}
               </div>
-            </div>
+            </div> -->
           </section>
         </q-card-section>
         <q-card-section class="q-pt-none ownerDetails q-mx-lg q-my-md q-pa-md">
@@ -210,8 +210,8 @@ export default {
       const updatedRecord = {
         ...record,
         value: record.value,
-        owner: record.owner,
-        backup_owner: record.backup_owner
+        owner: record.owner
+        // backup_owner: record.backup_owner
       };
 
       let passwordDialog = await this.showPasswordConfirmation({

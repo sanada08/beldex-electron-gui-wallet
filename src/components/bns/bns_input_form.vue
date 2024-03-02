@@ -66,7 +66,7 @@
     </div>
 
     <!-- Backup owner -->
-    <div class="col q-mt-sm">
+    <!-- <div class="col q-mt-sm">
       <OxenField
         class="q-mt-md"
         :label="$t('fieldLabels.backupOwner')"
@@ -83,7 +83,7 @@
           @blur="$v.record.backup_owner.$touch"
         />
       </OxenField>
-    </div>
+    </div>-->
     <div
       class="idSelectorWrapper"
       :class="[idsValidation ? 'errorborder' : '']"
@@ -256,8 +256,8 @@ export default {
       type: "",
       name: "",
       value: "",
-      owner: "",
-      backup_owner: ""
+      owner: ""
+      // backup_owner: ""
     };
 
     return {
@@ -322,12 +322,12 @@ export default {
         const isOwnerDifferent =
           this.record.owner !== "" &&
           this.record.owner !== this.initialRecord.owner;
-        const isBackupOwnerDifferent =
-          this.record.backup_owner !== "" &&
-          this.record.backup_owner !== this.initialRecord.backup_owner;
+        // const isBackupOwnerDifferent =
+        //   this.record.backup_owner !== "" &&
+        //   this.record.backup_owner !== this.initialRecord.backup_owner;
         const isValueDifferent = this.record.value !== this.initialRecord.value;
-        const different =
-          isOwnerDifferent || isBackupOwnerDifferent || isValueDifferent;
+        const different = isOwnerDifferent || isValueDifferent;
+        // isBackupOwnerDifferent ||
 
         return different;
       }
@@ -354,8 +354,8 @@ export default {
         type: "bchat",
         name: "",
         value: "",
-        owner: "",
-        backup_owner: ""
+        owner: ""
+        // backup_owner: ""
       };
     }
   }),
@@ -408,14 +408,14 @@ export default {
         return;
       }
 
-      if (this.$v.record.backup_owner.$error) {
-        this.$q.notify({
-          type: "negative",
-          timeout: 3000,
-          message: this.$t("notification.errors.invalidBackupOwner")
-        });
-        return;
-      }
+      // if (this.$v.record.backup_owner.$error) {
+      //   this.$q.notify({
+      //     type: "negative",
+      //     timeout: 3000,
+      //     message: this.$t("notification.errors.invalidBackupOwner")
+      //   });
+      //   return;
+      // }
 
       if (this.$v.record.owner.$error) {
         this.$q.notify({
@@ -503,12 +503,12 @@ export default {
         validate: function(value) {
           return this.isAddress(value);
         }
-      },
-      backup_owner: {
-        validate: function(value) {
-          return this.isAddress(value);
-        }
       }
+      // backup_owner: {
+      //   validate: function(value) {
+      //     return this.isAddress(value);
+      //   }
+      // }
     },
     address: {
       validate: function(value) {
