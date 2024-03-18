@@ -86,6 +86,7 @@
               :placeholder="address_placeholder"
               borderless
               dense
+              @input="applyAlphanumericMask"
               @blur="$v.newEntry.address.$touch"
             />
             <!-- <q-btn
@@ -318,15 +319,11 @@ export default {
         });
         return;
       }
-      // console.log("this.newEntry", this.newEntry);
-
       if (this.mode === "new") {
         let addressIsExist =
           this.address_book_combined.filter(
-            // item =>  console.log('filter item',item.address)
             item => item.address === this.newEntry.address
           ).length > 0;
-        // console.log('address_book_combined filter ::',addressIsExist)
         if (addressIsExist) {
           this.$q.notify({
             type: "negative",
@@ -361,6 +358,10 @@ export default {
       //     address: this.entry.address
       //   }
       // });
+    },
+    applyAlphanumericMask() {
+      // Remove non-alphanumeric characters using the regular expression
+      this.newEntry.address = this.newEntry.address.replace(/[\W_]/g, "");
     },
     edit() {
       this.mode = "edit";

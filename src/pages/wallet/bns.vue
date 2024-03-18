@@ -1,6 +1,6 @@
 <template>
-  <q-page class="bns-page">
-    <div class="header row items-center justify-center q-pt-md">
+  <q-page class="bns-page" style="min-height: unset;">
+    <div class="header row items-center justify-center q-pb-xs">
       <q-btn-toggle
         v-model="screen"
         toggle-color="primary"

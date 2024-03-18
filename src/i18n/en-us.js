@@ -20,6 +20,7 @@ export default {
     copySignature: "Copy Signature",
     createWallet: "Create Wallet",
     decrypt: "DECRYPT",
+    addRecord: "Add BNS",
     delete: "Delete",
     edit: "Edit",
     editNotes: "Edit Notes",
@@ -33,7 +34,7 @@ export default {
     min: "Min",
     next: "Next",
     openWallet: "Open Wallet",
-    purchase: "PURCHASE",
+    purchase: "Purchase",
     receive: "Receive",
     registerMasterNode: "Register Master Node",
     renew: "Renew",
@@ -54,7 +55,7 @@ export default {
     stake: "Stake",
     sweepAll: "Sweep All",
     unlock: "unlock",
-    update: "UPDATE",
+    update: "Update",
     verify: "Verify",
     viewOnExplorer: "View in explorer",
     //new wamp
@@ -123,7 +124,7 @@ export default {
     purchase: {
       title: "Purchase name",
       message: "Do you want to purchase the name?",
-      ok: "PURCHASE"
+      ok: "Purchase"
     },
     renew: {
       title: "Renew name",
@@ -216,13 +217,13 @@ export default {
     address: "Address",
     recipientAddress: "Recipient Address",
     amount: "Amount",
-    backupOwner: "BACKUP OWNER",
+    backupOwner: "Backup Owner",
     confirmPassword: "Confirm Password (optional)",
     daemonLogLevel: "Daemon Log Level",
     daemonP2pPort: "Daemon P2P Port",
     data: "Data",
     dataStoragePath: "Data Storage Path",
-    decryptRecord: "DECRYPT RECORD",
+    decryptRecord: "Add Record",
     filter: "Filter",
     filterTransactionType: "FILTER BY TRANSACTION TYPE",
     internalWalletPort: "Internal Wallet Port",
@@ -366,7 +367,9 @@ export default {
       copyWalletFail: "Failed to copy wallet",
       copyingPrivateKeys: "Error copying private keys",
       dataPathNotFound: "Data storage path not found",
-      decryptBNSRecord: "Failed to decrypt BNS Record for {name}",
+      // decryptBNSRecord: "Failed to decrypt BNS Record for {name}",
+      decryptBNSRecord:
+        "The given BNS record doesn't exist or does not belong to this wallet",
       differentNetType: "Remote node is using a different nettype",
       enterSeedWords: "Enter seed words",
       enterTransactionId: "Enter transaction ID",
@@ -383,9 +386,8 @@ export default {
       invalidAddress: "Address not valid",
       invalidAmount: "Amount not valid",
       invalidBackupOwner: "Backup owner address not valid",
-      invalidNameLength: "Name must be between 1 and 64 characters long",
-      invalidNameFormat:
-        "Name may only contain alphanumerics, hyphens and underscore",
+      invalidNameLength: "Invalid name length",
+      invalidNameFormat: "Name may only contain alphanumerics and hyphens",
       invalidNameHypenNotAllowed:
         "Name may only begin or end with alphanumerics or an underscore",
       invalidOldPassword: "Invalid old password",
@@ -432,11 +434,12 @@ export default {
     addNotesOptional: "Add notes (optional)",
     addressBookName: "Name that belongs to this address",
     addressOfSigner: "Public wallet address of signer",
-    beldexAddress: "Beldex Address",
+    beldexAddress: "Enter Address or BNS Name",
     dataToSign: "Data you want to sign with your primary address's private key",
     filterTx: "Enter an ID, name, address or amount",
     hexCharacters: "{count} hexadecimal characters",
     bnsName: "The name to purchase via Beldex Name Service",
+    bnsOwner: "The wallet address of the owner",
     bnsBackupOwner: "The wallet address of the backup owner",
     bnsDecryptName: "A BNS name that belongs to you",
     belnetFullAddress: "Full belnet address to map BNS name to (without .bdx)",
@@ -526,7 +529,7 @@ export default {
       bchatID: "Bchat ID",
       belnetName1Year: "Belnet Name 1 year",
       belnetNameXYears: "Belnet Name {years} years",
-      prices: "BNS Prices:"
+      prices: "Prices :"
     },
     bnsPurchaseDescription:
       "Purchase or update an BNS record. If you purchase a name, it may take a minute or two for it to show up in the list.",
@@ -621,6 +624,7 @@ export default {
         miner: "Miner",
         masterNode: "Master Node",
         governance: "Governance",
+        bns: "Bns",
         stake: "Stake",
         failed: "Failed"
       }
@@ -656,10 +660,10 @@ export default {
     privateKeys: "Private keys",
     rescanWallet: "Rescan Wallet",
     restoreFromSeed: "Restore from Seed",
-
+    bnsServices: "BNS Service",
     bns: {
-      purchase: "PURCHASE",
-      myBns: "MY BNS"
+      purchase: "Buy BNS",
+      myBns: "My BNS"
     },
     masterNode: {
       registration: "Registration",

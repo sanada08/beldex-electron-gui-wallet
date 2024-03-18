@@ -1,9 +1,6 @@
 <template>
   <div class="my-bns">
     <div class="q-px-md q-pt-md">
-      <div class="tab-desc">
-        {{ $t("strings.bnsDescription") }}
-      </div>
       <BNSRecords @onUpdate="onUpdate" @onRenew="onRenew" />
     </div>
   </div>

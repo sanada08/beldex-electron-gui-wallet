@@ -360,7 +360,7 @@ export default {
     addNotesOptional: "Adicionar notas (opcional)",
     addressBookName: "Nome que pertence a este endereço",
     addressOfSigner: "Endereço público da carteira do signatário",
-    beldexAddress: "Endereço Beldex",
+    beldexAddress: "Enter Address or BNS Name",
     enterAddress: "Insira o endereço",
     enterName: "Insira o nome",
     enteroldPassword: "Digite a senha antiga",
@@ -495,6 +495,7 @@ export default {
         miner: "Mineiro",
         masterNode: "Nódulo de Serviço",
         governance: "Governança",
+        bns: "Bns",
         stake: "Participação",
         failed: "Falhou"
       }

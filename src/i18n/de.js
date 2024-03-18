@@ -362,7 +362,7 @@ export default {
     addressBookName: "Zugehörige Namen zu dieser Adresse",
     addressOfSigner: "Öffentliche Wallet-Adresse des Unterzeichners",
 
-    beldexAddress: "Beldex-Adresse",
+    beldexAddress: "Enter Address or BNS Name",
     enterName: "Name eingeben",
     enterAddress: "Adresse eingeben",
     enteroldPassword: "Geben Sie das alte Passwort ein",
@@ -503,6 +503,7 @@ export default {
         miner: "Miner",
         masterNode: "Master Node",
         governance: "Governance",
+        bns: "Bns",
         stake: "Stake",
         failed: "Fehlgeschlagen"
       }

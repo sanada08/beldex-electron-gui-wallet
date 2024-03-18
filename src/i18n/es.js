@@ -363,7 +363,7 @@ export default {
     addNotesOptional: "Añadir notas (opcional)",
     addressBookName: "Nombre asociado a esta dirección",
     addressOfSigner: "Public wallet address of signer",
-    beldexAddress: "Dirección de Beldex",
+    beldexAddress: "Enter Address or BNS Name",
     enterName: "Ingrese su nombre",
     enterAddress: "Ingresa la direccion",
     enteroldPassword: "Ingrese la contraseña anterior",
@@ -499,6 +499,7 @@ export default {
         miner: "Minería",
         masterNode: "Nodo de Servicio",
         governance: "Gobernanza",
+        bns: "Bns",
         stake: "Participación retenida",
         failed: "Fallida"
       }

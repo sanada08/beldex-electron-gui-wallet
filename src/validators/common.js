@@ -66,12 +66,20 @@ export const bchat_name = input => {
     /^[a-z0-9_]([a-z0-9-_]*[a-z0-9_])?$/.test(input.toLowerCase())
   );
 };
+export const bns_name = input => {
+  return (
+    input.length === 0 ||
+    /^[a-z0-9]([a-z0-9-]*[a-z0-9])?$/.test(input.toLowerCase())
+  );
+};
 
 export const address = (input, gateway) => {
-  if (!/^[0-9A-Za-z]+$/.test(input)) return false;
-
   // Validate the address
   return new Promise((resolve, reject) => {
+    if (input.toLowerCase().endsWith(".bdx")) {
+      return resolve();
+    }
+    if (!/^[0-9A-Za-z]+$/.test(input)) return reject();
     gateway.once("validate_address", data => {
       if (data.address && data.address !== input) {
         reject();

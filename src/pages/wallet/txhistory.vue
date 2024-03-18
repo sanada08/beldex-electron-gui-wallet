@@ -127,6 +127,10 @@ export default {
           value: "gov"
         },
         {
+          label: this.$t("strings.transactions.types.bns"),
+          value: "bns"
+        },
+        {
           label: this.$t("strings.transactions.types.stake"),
           value: "stake"
         },

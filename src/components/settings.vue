@@ -505,11 +505,13 @@ export default {
   // }
   .rectangleBox {
     margin: 90px AUTO 0;
+    position: relative;
   }
   .version-wrapper,
   .version-wrapperwithpeer {
     position: absolute;
-    bottom: 28px;
+    // bottom: 28px;
+    bottom: 20px;
     // height: 75%;
     .version {
       display: flex;
