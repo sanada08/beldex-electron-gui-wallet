@@ -27,13 +27,23 @@
       <q-field>
         <div class="row gutter-sm">
           <div class="col-12">
-            <q-input v-model="wallet_path" stack-label="Wallet file" disable :dark="theme == 'dark'" />
+            <q-input
+              v-model="wallet_path"
+              stack-label="Wallet file"
+              disable
+              :dark="theme == 'dark'"
+            />
           </div>
         </div>
       </q-field>
 
       <q-field>
-        <q-input v-model="wallet.password" type="password" float-label="Password" :dark="theme == 'dark'" />
+        <q-input
+          v-model="wallet.password"
+          type="password"
+          float-label="Password"
+          :dark="theme == 'dark'"
+        />
       </q-field>
 
       <q-field>
@@ -129,7 +139,8 @@ export default {
       }
 
       this.$q.loading.show({
-        delay: 0
+        delay: 0,
+        spinnerColor: "positive"
       });
 
       this.wallet.path = this.wallet_path;

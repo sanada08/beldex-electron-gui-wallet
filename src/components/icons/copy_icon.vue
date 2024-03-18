@@ -1,5 +1,12 @@
 <template>
-  <q-btn ref="copy" color="primary" size="sm" padding="xs" icon="file_copy" @click="copyContent">
+  <q-btn
+    ref="copy"
+    color="primary"
+    size="sm"
+    padding="xs"
+    icon="file_copy"
+    @click="copyContent"
+  >
     <q-tooltip anchor="center right" self="center left" :offset="[5, 10]">
       {{ $t("menuItems.copyAddress") }}
     </q-tooltip>

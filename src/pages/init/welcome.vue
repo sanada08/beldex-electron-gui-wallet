@@ -1,26 +1,55 @@
 <template>
-  <q-page class="welcome">
-    <q-stepper ref="stepper" v-model="step" class="welcome-stepper" flat dark>
+  <q-page class="welcome" style="min-height:unset;">
+    <q-stepper
+      ref="stepper"
+      v-model="step"
+      class="welcome-stepper"
+      active-color="#00AD07"
+      done-color="#000"
+      flat
+      dark
+    >
       <q-step
         :name="1"
-        :title="$t('titles.welcome')"
+        :title="$t('titles.chooseLanguage')"
         :done="step > 1"
         class="first-step"
+        icon="settings"
       >
         <div class="welcome-container">
-          <img src="beldex.png" height="100" class="q-mb-md" />
-          <div>Wallet Version: v{{ version }}</div>
-          <div>Daemon Version: {{ daemonVersion }}</div>
-          <LanguageSelect class="q-mt-lg" @select="onLanguageSelected" />
+          <div>
+            <img src="../../assets/images/Logo.png" class="logo" />
+          </div>
+          <h3 class="ft-bold q-my-md appName">
+            <span>Beldex</span> Electron Wallet
+          </h3>
+          <div class="ft-medium wallet-txt">
+            Wallet Version : <span>{{ version }}</span>
+          </div>
+          <div class="ft-medium wallet-txt">
+            Daemon Version : <span>{{ daemonVersion }}</span>
+          </div>
+          <LanguageSelect class="q-mt-md" @select="onLanguageSelected" />
         </div>
       </q-step>
 
-      <q-step :name="2" :title="$t('titles.configure')">
-        <SettingsGeneral ref="settingsGeneral" :randomise-remote="true" />
+      <q-step
+        :name="2"
+        :title="$t('titles.configure')"
+        icon="settings"
+        class="second-step"
+      >
+        <SettingsGeneral
+          ref="settingsGeneral"
+          :randomise-remote="true"
+          :welcome="true"
+          @clickPrev="clickPrev"
+          @clickNext="clickNext"
+        />
       </q-step>
     </q-stepper>
 
-    <q-footer v-if="!(step === 1)" class="no-shadow q-pa-sm">
+    <!-- <q-footer v-if="!(step === 1)" class="no-shadow q-pa-sm">
       <div class="row justify-end">
         <div>
           <q-btn flat :label="$t('buttons.back')" @click="clickPrev()" />
@@ -34,7 +63,7 @@
           />
         </div>
       </div>
-    </q-footer>
+    </q-footer> -->
   </q-page>
 </template>
 
@@ -102,23 +131,80 @@ export default {
 <style lang="scss">
 .welcome {
   height: 100vh;
-
   .welcome-stepper {
-    height: 100%;
-    background: transparent;
+    .q-stepper__header {
+      width: 50%;
+      margin: 0 auto;
+    }
+    .q-stepper__title {
+      font-family: "poppins-SemiBold";
+      font-size: 16px;
+    }
   }
-
-  .welcome-container {
-    padding-top: 14vh;
+  .logo {
+    height: 100px;
+    width: 100px;
+  }
+  .q-dark {
+    // background-color: #292929;
+    background: #1c1c26;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    height: 100%;
+  }
+  .first-step {
+    // .welcome-stepper {
+
+    // width: 1001px;
+    height: 100%;
+
+    background: transparent;
+    margin: auto;
+    font-size: 5px;
+  }
+
+  .welcome-container,
+  .second-step {
+    // padding-top: 14vh;
+    width: 1001px;
+    padding-bottom: 25px;
+
+    padding-top: 3vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #242433;
+
+    border: 1px solid #242433;
+    box-shadow: 0px 6px 24px rgba(0, 0, 0, 0.2);
+    border-radius: 25px;
+
+    .appName {
+      font-size: 2.75rem;
+      span {
+        color: #00ad07;
+      }
+    }
+    .wallet-txt {
+      font-size: 1.125rem;
+      span {
+        color: #00ad07;
+      }
+    }
   }
 
   .first-step .q-stepper-step-inner {
     min-height: 250px;
     height: calc(100vh - 102px);
+  }
+  .second-step {
+    display: block;
+    margin-bottom: 49px;
+    max-height: 81vh;
+    overflow: auto;
   }
 }
 
@@ -142,5 +228,23 @@ export default {
 
 .q-stepper-header {
   min-height: 10vh;
+}
+
+@media only screen and (max-height: 780px) {
+  .welcome {
+    .first-step {
+      max-height: 92vh;
+    }
+    .welcome-container {
+      padding: 35px 0;
+    }
+    .logo {
+      height: 50px;
+      width: 50px;
+    }
+    .second-step {
+      padding-bottom: 0;
+    }
+  }
 }
 </style>

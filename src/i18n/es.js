@@ -2,6 +2,9 @@ export default {
   buttons: {
     // All button text is uppercased in the gui
     advanced: "AVANZADO",
+    addAddressBook: "Agregar a la libreta de direcciones",
+    addWallet: "Agregar billetera",
+
     all: "TODO",
     back: "ATRÁS",
     browse: "EXAMINAR",
@@ -9,23 +12,32 @@ export default {
     change: "MODIFICAR",
     check: "COMPROBAR",
     clear: "RESTABLECER",
+    clearAll: "Limpiar todo",
     close: "CERRAR",
     contacts: "CONTACTOS",
     copyAddress: "COPIAR DIRECCIÓN",
+    copy: "Copiar",
+
     copySignature: "COPIAR FIRMA",
     createWallet: "CREAR MONEDERO",
     delete: "ELIMINAR",
     edit: "EDITAR",
+    editNotes: "Editar notas",
     export: "EXPORTAR",
+    fromBlockheight: "Desde altura de bloque",
+
     generate: "GENERAR",
     import: "IMPORTAR",
     importWallet: "IMPORTAR MONEDERO | IMPORTAR MONEDEROS",
+    min: "mínimo",
+    max: "máx.",
     next: "SIGUIENTE",
     openWallet: "ABRIR MONEDERO",
     receive: "RECIBIR",
     registerMasterNode: "REGISTRAR NODO DE SERVICIO",
     rescan: "VOLVER A EXAMINAR",
     restoreWallet: "RESTAURAR MONEDERO",
+    refresh: "Actualizar",
     save: "GUARDAR",
     saveTxNotes: "GUARDAR NOTAS DE LA TRANSACCIÓN",
     selectLocation: "SELECCIONAR UBICACIÓN",
@@ -35,11 +47,12 @@ export default {
     masterNode: "NODO DE SERVICIO",
     settings: "CONFIGURACIÓN",
     showQRCode: "MOSTRAR CÓDIGO QR",
-    showTxDetails: "MOSTRAR DETALLES DE LA TRANSACCIÓN",
+    showTxDetails: "Detalles de TXN",
     stake: "RETENER PARTICIPACIÓN",
     sweepAll: "TRANSFERIR/BARRER TODO",
     unlock: "LIBERAR",
-    viewOnExplorer: "VER EN EL EXPLORADOR"
+    viewOnExplorer: "VER EN EL EXPLORADOR",
+    add: "Agregar"
   },
   dialog: {
     // Generic buttons
@@ -73,8 +86,7 @@ export default {
     },
     deleteWallet: {
       title: "Eliminar monedero",
-      message:
-        "¿Está absolutamente seguro de querer eliminar su monedero?\nAsegúrese de tener una copia de seguridad de sus claves privadas antes de proceder.\n¡ESTE PROCESO NO ES REVERSIBLE!",
+      message: "¿Está seguro de que desea eliminar la billetera actual?",
       ok: "ELIMINAR"
     },
     exit: {
@@ -94,7 +106,7 @@ export default {
       ok: "SÍ"
     },
     password: {
-      title: "Contraseña",
+      title: "Ingrese su contraseña de billetera",
       message: "Introduzca la contraseña del monedero para continuar."
     },
     registerMasterNode: {
@@ -138,6 +150,8 @@ export default {
     switchWallet: {
       title: "Cambiar de monedero",
       closeMessage: "¿Confirma que desea cerrar el monedero actual?",
+      restartWalletMessage:
+        "Are you sure you want to close and Restart the wallet?",
       restartMessage:
         "El monedero se está sincronizando. \nSi desea cambiar de monedero, tendrá que reiniciar la aplicación. \nEl progreso de la sincronización no se guardará y será necesario volver a examinar la cadena de bloques."
     },
@@ -169,13 +183,16 @@ export default {
   },
   fieldLabels: {
     // Field labels are also all uppercased
-    address: "DIRECCIÓN",
+    address: "Dirección",
+    recipientAddress: "Dirección de la destinataria",
     amount: "CANTIDAD",
     confirmPassword: "CONFIRMAR CONTRASEÑA",
     daemonLogLevel: "NIVEL LOG PARA EL SERVICIO",
     daemonP2pPort: "PUERTO P2P SERVICIO",
     dataStoragePath: "RUTA DE ALMACENAMIENTO DE DATOS",
-    filter: "FILTRO",
+    data: "Datos",
+
+    filter: "Filtro",
     filterTransactionType: "FILTRAR POR TIPO DE TRANSACCIÓN",
     internalWalletPort: "PUERTO INTERNO MONEDERO",
     keyImages: {
@@ -188,11 +205,12 @@ export default {
     localDaemonPort: "PUERTO SERVICIO LOCAL",
     maxIncomingPeers: "NÚM. MÁX. PARES ENTRANTES",
     maxOutgoingPeers: "NÚM. MÁX. PARES SALIENTES",
-    message: "MENSAJE",
+    message: "Mensaje",
     mnemonicSeed: "SEMILLA MNEMÓNICA",
     name: "NOMBRE",
     newWalletName: "NUEVO NOMBRE PARA EL MONEDERO",
     notes: "NOTAS",
+    addressBookNotes: "Notas de la libreta de direcciones",
     optional: "OPCIONAL",
     password: "CONTRASEÑA",
     paymentId: "ID DE PAGO",
@@ -202,10 +220,12 @@ export default {
     restoreFromBlockHeight: "RESTAURAR DESDE EL BLOQUE NÚMERO",
     restoreFromDate: "RESTAURAR DESDE EL DÍA",
     seedLanguage: "IDIOMA SEMILLA",
+    totalBalance: "Balance total",
     masterNodeCommand: "ORDEN PARA REGISTRAR EL NODO DE SERVICIO",
     masterNodeKey: "CLAVE NODO DE SERVICIO",
     signature: "FIRMA",
     transactionId: "ID DE LA TRANSACCIÓN",
+    to: "A",
     walletFile: "ARCHIVO MONEDERO",
     walletLogLevel: "NIVEL LOG MONEDERO",
     walletName: "NOMBRE MONEDERO",
@@ -221,6 +241,8 @@ export default {
     transactionNotes: "Notas de la Transacción",
     chooseNetwork: "Seleccione una Red",
     network: "Red"
+
+    // new design revamp
   },
   footer: {
     ready: "LISTO",
@@ -234,6 +256,7 @@ export default {
     about: "Acerca de",
     changePassword: "Modificar Contraseña",
     copyAddress: "Copiar dirección",
+    copySeed: "Copiar semilla",
     copyQR: "Copiar código QR",
     copySeedWords: "Copiar palabras semilla",
     copySpendKey: "Copiar clave de gasto",
@@ -316,7 +339,9 @@ export default {
       },
       negativeAmount: "La cantidad no puede ser negativa",
       newPasswordNoMatch: "Las contraseñas nuevas no coinciden",
-      newPasswordSame: "La nueva contraseña debe ser diferente",
+      newPasswordSame:
+        "No se puede usar la contraseña anterior. Establezca una contraseña diferente",
+      passwordFieldEmpty: "Por favor, introduzca su contraseña",
       notEnoughBalance: "No hay suficiente saldo libre",
       passwordNoMatch: "Las contraseñas no coinciden",
       remoteCannotBeReached: "No se puede conectar con el servicio remoto",
@@ -335,16 +360,30 @@ export default {
   },
   placeholders: {
     additionalNotes: "Notas adicionales",
+    addNotesOptional: "Añadir notas (opcional)",
     addressBookName: "Nombre asociado a esta dirección",
+    addressOfSigner: "Public wallet address of signer",
+    beldexAddress: "Enter Address or BNS Name",
+    enterName: "Ingrese su nombre",
+    enterAddress: "Ingresa la direccion",
+    enteroldPassword: "Ingrese la contraseña anterior",
+    enterNewPassword: "Ingrese nueva clave",
+    reEnterPassword: "Escriba la contraseña otra vez",
     filterTx: "Introduzca un ID, nombre, dirección o cantidad",
     hexCharacters: "{count} caracteres hexadecimales",
     mnemonicSeed: "Semilla mnemónica de 25 (o 24) palabras",
+    dataToSign: "Data you want to sign with your primary address's private key",
+
     pasteTransactionId: "Pegar ID de la transacción",
     pasteTransactionProof: "Pegar prueba de la transacción",
     proveOptionalMessage: "Mensaje opcional contra el qué se firma la firma",
     recipientWalletAddress: "Dirección del monedero de destino",
+    reEnterWalletPassword: "Escriba la contraseña otra vez",
     selectAFile: "Seleccione un archivo por favor",
     transactionNotes: "Notas adicionales para agregar a la transacción",
+    signature: "Signature to verify",
+    unsignedData: "Los datos como deberían verse antes de ser firmados",
+
     walletName: "Nombre para identificar su monedero",
     walletPassword: "Contraseña opcional para proteger su monedero"
   },
@@ -356,9 +395,10 @@ export default {
       myPrimaryAddress: "Mi dirección principal",
       myUnusedAddresses: "Mis direcciones no usadas",
       myUsedAddresses: "Mis direcciones usadas",
-      primaryAddress: "Dirección principal",
+      // primaryAddress: "Dirección principal",
       subAddress: "Dirección auxiliar",
-      subAddressIndex: "Índice {index}"
+      subAddressIndex: "Índice {index}",
+      primaryAccount: "Cuenta principal"
     },
     advancedOptions: "Opciones avanzadas",
     bannedPeers: {
@@ -415,7 +455,8 @@ export default {
       slow: "Lenta",
       normal: "Normal",
       fast: "Rápida",
-      fastest: "La más rápida"
+      fastest: "La más rápida",
+      flash: "destello"
     },
     peerList: "Lista de pares",
     proveTransactionDescription:
@@ -450,14 +491,15 @@ export default {
       timestamp: "Fecha y hora",
       types: {
         all: "Todas",
-        incoming: "Recibida",
-        outgoing: "Emitida",
+        incoming: "Recibir",
+        outgoing: "Enviado",
         pending: "Pendiente",
         pendingIncoming: "Recibida pendiente",
         pendingOutgoing: "Emitida pendiente",
         miner: "Minería",
         masterNode: "Nodo de Servicio",
         governance: "Gobernanza",
+        bns: "Bns",
         stake: "Participación retenida",
         failed: "Fallida"
       }
@@ -467,23 +509,36 @@ export default {
     userUsedAddress: "Ha utilizado esta dirección",
     viewKey: "Clave de visualización",
     viewOnlyMode:
-      "Este monedero solo permite visualizar operaciones. Por favor, abra uno completo para poder transferir fondos."
+      "Este monedero solo permite visualizar operaciones. Por favor, abra uno completo para poder transferir fondos.",
+
+    // new design revamp
+    fromBlockHeight: "From Blockheight"
   },
   titles: {
     addressBook: "Libreta de direcciones",
     addressDetails: "Detalles de la dirección",
+    contactBook: "Libreta de contactos",
+
     advanced: {
       checkTransaction: "COMPROBAR TRANSACCIÓN",
-      prove: "PRUEBA"
+      prove: "PRUEBA",
+      signAndVerify: "Firmar/Verificar",
+
+      sign: "firmar",
+      verify: "Verificar"
     },
     changePassword: "Modificar contraseña",
-    configure: "Configurar",
+    configure: "Ajustes de configuración",
     currentlyStakedNodes: "Nodos en los que actualmente participa",
+    importFromFile: "Importar desde archivo",
     privateKeys: "Claves privadas",
     rescanWallet: "Volver a examinar monedero",
+    restoreFromSeed: "Restaurar desde semilla",
+
     masterNode: {
       registration: "REGISTRO",
-      staking: "PARTICIPACIÓN"
+      staking: "PARTICIPACIÓN",
+      myStakes: "Mis apuestas"
     },
     settings: {
       title: "Configuración",
@@ -498,13 +553,113 @@ export default {
     wallet: {
       createNew: "Crear un monedero nuevo",
       createdOrRestored: "Monedero creado/restaurado",
+      walletRestored: "Monedero restaurado",
+      walletCreated: "Monedero creado",
+      walletImported: "Cartera importada",
       importFromFile: "Importar monedero de un archivo",
+      useExistingWallet: "Use Existing Wallet",
       importFromLegacyGUI: "Importar monedero de una interfaz gráfica heredada",
       importFromOldGUI: "Importar monedero de una interfaz gráfica antigua",
       restoreFromSeed: "Restaurar monedero mediante semilla",
       restoreViewOnly: "Restaurar monedero de solo visualización"
     },
-    welcome: "Bienvenido/a",
-    yourWallets: "Sus Monederos"
+    chooseLanguage: "Elige lengua",
+    yourWallets: "Sus Monederos",
+    swap: {
+      swap: "Intercambio",
+      exchange: "Intercambio",
+      history: "Historia",
+      unsupportedpair: "Par de intercambio no admitido",
+      minimumAmt: "La cantidad mínima es",
+      maximumAmt: "La cantidad máxima es",
+      transactionDetails: "Detalles de la transacción",
+      youSend: "Usted envía",
+      exchangeRate: "Tipo de cambio",
+      fixedRate: "Tipo de interés fijo",
+      fixedRateUpdateSec: "La tarifa fija se actualiza cada 30 segundos.",
+      serviceFee: "Tarifa de servicio 0,25%",
+      fees: "Honorarios",
+      allTheFees: "Todos los honorarios incluidos en la tarifa.",
+      networkFee: "Tarifa de red",
+      youGet: "Usted obtiene",
+      floatingExchangeRate: "Tipo de cambio flotante",
+      fixedExchangeRate: "Tipo de cambio fijo",
+      stillProcessing:
+        "Su transacción anterior aún se está procesando. Puedes crear uno nuevo en 15 minutos.",
+      minimumExchangeAmtAbove: "El monto mínimo de cambio está por encima",
+      for: "para",
+      maximumExchangeAmtUnder: "El importe máximo de cambio está por debajo",
+      floatingRateDisc:
+        "La tasa flotante puede cambiar en cualquier momento debido a las condiciones del mercado, por lo que es posible que reciba más o menos criptomonedas de lo esperado.",
+      fixedRateExactAmtDisc:
+        "Con la tasa fija, recibirás la cantidad exacta de criptomonedas que ves en esta pantalla.",
+      walletAddress: "Dirección de billetera",
+      myWalletRequire: "mi billetera requiere",
+      agreeWith: "estoy de acuerdo con",
+      termOfUse: "Condiciones de uso",
+      and: "y",
+      privacyPolicy: "política de privacidad",
+      checkout: "Verificar",
+      blockchain: "cadena de bloques",
+      exchangefee: "Tarifa de cambio",
+      exchangeFeeIncluded:
+        "La tarifa de cambio ya está incluida en el monto mostrado que recibirás",
+      networkFeeIncluded:
+        "La tarifa de red ya está incluida en el monto mostrado que recibirás",
+      guaranteeFee: "Tarifa Garantizada",
+      refundAddress: "Dirección de reembolso",
+      exchanging: "Intercambio",
+      confirmingProcess: "Confirmando en progreso",
+      Once: "Una vez",
+      confirmedInBlockchain:
+        "está confirmado en la cadena de bloques, comenzaremos a intercambiarlo con",
+      seenInputExplorer: "Ver hash de entrada en el explorador",
+      to: "a",
+      pleaseWait: "El proceso tardará unos minutos. espere por favor.",
+      sendFundsToWallet: "Enviar fondos a su billetera",
+      waitHere: "No tienes que esperar aquí.",
+      newTransaction: "Puede iniciar una nueva transacción.",
+      checkStatus:
+        "Siempre puedes verificar el estado de esta transacción en transacción",
+      // history: "history",
+      transactionPreview: "Vista previa de la transacción",
+      transactionID: "ID de transacción",
+      changellyAddress: "dirección cambiante",
+      completed: "Terminada",
+      amountTo: "Cantidad a",
+      amountReceived: "Cantidad recibida",
+      amountSend: "Cantidad enviada",
+      inputHash: "hash de entrada",
+      outputHash: "Hash de salida",
+      amountFrom: "Cantidad de",
+      paymentNotReceived:
+        "Los fondos no se recibieron en 3 horas. Por favor verifique las tarifas y cree una nueva transacción",
+      downloadCsv: "Descargar CSV",
+      status: "Estado",
+      date: "fechas",
+      exchangeAmount: "Monto del cambio",
+      receiver: "Receptor",
+      sendFundDisc: "Envíe fondos a la siguiente dirección",
+      timeLeft: "Tiempo restante para enviar",
+      guaranteedRateDisc: "La tarifa garantizada ha sido cancelada",
+      sendFundsAboveAddress:
+        "Tenga en cuenta que solo puede enviar fondos a la dirección anterior",
+      once: "una vez",
+      swapMaintenance: "El intercambio está temporalmente en mantenimiento",
+      tryAgainSomeTimes:
+        "Por favor, inténtalo de nuevo después de algunas veces.",
+      afterYourFirstTxn: "Después de su primera transacción",
+      youWillBeViewHere: "Lo podrás ver aquí",
+      openHistory: "Historia Abierta",
+      newTransactionBtn: "Nueva transacción",
+      exchangePair: "Par de intercambio",
+      exchangePairDisc: "Establecer el par de intercambio preferido",
+      walletAddressDisc:
+        "Complete los detalles de la dirección de la billetera criptográfica",
+      payment: "Pago",
+      paymentDisc: "Deposite el monto requerido para el cambio.",
+      exchangeDisc: "Espere a que se complete su transacción",
+      paymentConfirm: "Confirm & Make payment"
+    }
   }
 };

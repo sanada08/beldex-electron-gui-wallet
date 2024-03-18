@@ -55,13 +55,14 @@ function createWindow() {
     y: mainWindowState.y,
     width: mainWindowState.width,
     height: mainWindowState.height,
-    minWidth: 640,
-    minHeight: 480,
+    minWidth: 1200,
+    minHeight: 650,
     icon: require("path").join(__statics, "icon.png"),
     title,
     webPreferences: {
       nodeIntegration: true,
       nodeIntegrationInWorker: true,
+      contextIsolation: false,
       // anything we want preloaded, e.g. global vars
       preload: path.resolve(__dirname, "electron-preload.js")
     }

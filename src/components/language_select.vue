@@ -1,22 +1,27 @@
 <template>
-  <div class="language-select column items-center justify-center">
-    <h6 class="q-my-md" style="font-weight: 300">
+  <section>
+    <div class="language-select column items-center justify-center q-mb-md">
+      <!-- <h6 class="q-my-md" style="font-weight: 300">
       {{ $t("strings.selectLanguage") }}:
-    </h6>
-    <div class="row justify-center">
-      <q-btn
-        v-for="option in options"
-        :key="option.value"
-        class="row justify-center items-center"
-        :color="lang === option.value ? 'primary' : 'accent'"
-        size="md"
-        @click="setLanguage(option.value)"
-      >
-        <span :class="`flag-icon flag-icon-${option.flag}`" />
-        <span>{{ option.label }}</span>
-      </q-btn>
+     </h6> -->
+      <div class="inner-box row justify-between q-mb-md">
+        <q-btn
+          v-for="option in options"
+          :key="option.value"
+          class="row justify-center items-center"
+          :color="lang === option.value ? 'active' : ''"
+          outline
+          @click="setLanguage(option.value)"
+        >
+          <span :class="`flag-icon flag-icon-${option.flag}`" />
+          <span>{{ option.label }}</span>
+        </q-btn>
+      </div>
     </div>
-  </div>
+    <div class="flex justify-center ">
+      <q-btn color="primary" label="Next" @click="submit()" />
+    </div>
+  </section>
 </template>
 
 <script>
@@ -24,6 +29,11 @@ import { languages } from "src/i18n";
 
 export default {
   name: "LanguageSelect",
+  data() {
+    return {
+      langData: ""
+    };
+  },
   computed: {
     lang() {
       return this.$i18n.locale;
@@ -39,7 +49,11 @@ export default {
   methods: {
     setLanguage(lang) {
       this.$gateway.send("core", "set_language", { lang });
-      this.$emit("select", lang);
+      this.langData = lang;
+      // this.$emit("select", lang);
+    },
+    submit() {
+      this.$emit("select", this.langData);
     }
   }
 };
@@ -47,13 +61,17 @@ export default {
 
 <style lang="scss">
 .language-select {
-  color: #fff;
-  .q-btn {
-    margin: 2px;
-  }
+  .inner-box {
+    color: #fff;
+    width: 83%;
+    background-color: #32324a;
+    /* height: 212px; */
+    padding: 36px 36px 5px 36px;
+    border-radius: 10px;
 
-  .flag-icon {
-    margin-right: 4px;
+    .flag-icon {
+      margin-right: 10px;
+    }
   }
 }
 </style>

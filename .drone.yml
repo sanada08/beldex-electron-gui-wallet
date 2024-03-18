@@ -1,0 +1,13 @@
+kind: pipeline
+type: docker
+name: Electron-wallet-linux
+
+steps:
+- name: dev
+    image: node:14.11.0
+    commands:
+    - npm install -g @quasar/cli
+    - cp path_to_beldexd_binaries/beldexd bin/
+    - cp path_to_beldexd_binaries/beldex-wallet-rpc bin/
+    - npm install
+    - npm run build
