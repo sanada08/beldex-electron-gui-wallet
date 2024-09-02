@@ -10,7 +10,8 @@ export const resetWalletData = state => {
       height: 0,
       balance: 0,
       unlocked_balance: 0,
-      view_only: false
+      view_only: false,
+      load_balance: false
     },
     secret: {
       mnemonic: "",
@@ -40,5 +41,11 @@ export const resetWalletStatus = state => {
 export const resetPendingConfig = state => {
   state.commit("set_app_data", {
     pending_config: state.state.app.config
+  });
+};
+
+export const update_router_path_rightpane = state => {
+  state.commit("set_router_path_rightpane", {
+    router_path_rightpane: state.state.app.config
   });
 };

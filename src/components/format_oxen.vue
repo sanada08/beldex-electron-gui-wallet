@@ -1,5 +1,5 @@
 <template>
-  <span> {{ value }} BDX </span>
+  <span> {{ value }} <span class="coin-extensions">BDX</span> </span>
 </template>
 
 <script>
@@ -31,4 +31,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.coin-extensions {
+  color: #00ad07;
+}
+</style>

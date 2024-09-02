@@ -33,7 +33,8 @@ export default {
       height: 0,
       balance: 0,
       unlocked_balance: 0,
-      view_only: false
+      view_only: false,
+      load_balance: false
     },
     secret: {
       mnemonic: "",
@@ -48,7 +49,7 @@ export default {
       unused: [],
       address_book: []
     },
-    lnsRecords: [],
+    bnsRecords: [],
     isRPCSyncing: false
   },
   tx_status: {
@@ -109,7 +110,7 @@ export default {
     i18n: "",
     sending: false
   },
-  lns_status: {
+  bns_status: {
     code: 0,
     message: "",
     i18n: "",
@@ -143,5 +144,21 @@ export default {
       fetching: true
     }
   },
-  update_required: false
+  update_required: false,
+  router_path_rightpane: "send",
+  sender_address: "",
+  mnDetails: {},
+  stepperPosition: 1,
+
+  //  swap states
+
+  currencyList: [],
+  exchangeAmount: [],
+  fixedExchangeRate: [],
+  createdTxnDetails: [],
+  RecipientAddressValidation: { result: { result: false } },
+  refundAddressValidation: { result: { result: false } },
+  pairsMinMax: [],
+  txnStatus: [],
+  txnHistory: []
 };

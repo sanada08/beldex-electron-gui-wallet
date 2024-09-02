@@ -1,13 +1,14 @@
 <template>
   <div class="check-transaction">
     <div class="q-pa-md">
-      <div class="q-mb-lg tab-desc">
+      <div class="q-mb-lg tab-desc ft-medium">
         {{ $t("strings.checkTransaction.description") }}
       </div>
       <div>
         <OxenField
           :label="$t('fieldLabels.transactionId')"
           :error="$v.txid.$error"
+          class="ft-medium"
         >
           <q-input
             v-model.trim="txid"
@@ -19,8 +20,8 @@
           />
         </OxenField>
         <OxenField
-          class="q-mt-md"
-          :label="$t('fieldLabels.address')"
+          class="q-mt-md ft-medium"
+          :label="$t('fieldLabels.recipientAddress')"
           :error="$v.address.$error"
           optional
         >
@@ -33,7 +34,11 @@
             @blur="$v.address.$touch"
           />
         </OxenField>
-        <OxenField class="q-mt-md" :label="$t('fieldLabels.message')" optional>
+        <OxenField
+          class="q-mt-md ft-medium"
+          :label="$t('fieldLabels.message')"
+          optional
+        >
           <q-input
             v-model.trim="message"
             :dark="theme == 'dark'"
@@ -43,7 +48,7 @@
           />
         </OxenField>
         <OxenField
-          class="q-mt-md"
+          class="q-mt-md ft-medium"
           :label="$t('fieldLabels.signature')"
           :error="$v.signature.$error"
         >
@@ -55,45 +60,54 @@
             dense
           />
         </OxenField>
-        <div class="submit-button">
+        <div class="submit-button flex row justify-center">
           <q-btn color="primary" :label="$t('buttons.check')" @click="check" />
           <q-btn
             v-if="canClear"
-            color="secondsary="
+            color="accent"
             :label="$t('buttons.clear')"
             @click="clear"
           />
         </div>
       </div>
-      <div v-if="status.state.txid">
-        <div class="q-mb-sm">
-          <div class="title">{{ $t("strings.transactionID") }}</div>
-          <div>{{ status.state.txid }}</div>
+      <div v-if="status.state.txid" style="color:white">
+        <div class="q-mb-sm flex row no-wrap ">
+          <div class="title q-mr-sm">{{ $t("strings.transactionID") }}</div>
+          <div style="word-break: break-all">{{ status.state.txid }}</div>
         </div>
-        <div class="q-mb-sm">
-          <div class="title">
+        <div class="q-mb-sm flex row no-wrap">
+          <div class="title q-mr-sm">
             {{ $t("strings.checkTransaction.infoTitles.validTransaction") }}
           </div>
           <div :class="status.state.good ? 'good' : 'bad'">
             {{ validTransaction }}
           </div>
         </div>
-        <div v-if="status.state.received != null" class="q-mb-sm">
-          <div class="title">
+        <div
+          v-if="status.state.received != null"
+          class="q-mb-sm flex row no-wrap"
+        >
+          <div class="title q-mr-sm">
             {{ $t("strings.checkTransaction.infoTitles.received") }}
           </div>
           <div>
             <FormatOxen :amount="status.state.received" raw-value />
           </div>
         </div>
-        <div v-if="status.state.in_pool != null" class="q-mb-sm">
-          <div class="title">
+        <div
+          v-if="status.state.in_pool != null"
+          class="q-mb-sm flex row no-wrap"
+        >
+          <div class="title q-mr-sm">
             {{ $t("strings.checkTransaction.infoTitles.inPool") }}
           </div>
           <div>{{ status.state.in_pool }}</div>
         </div>
-        <div v-if="status.state.confirmations != null" class="q-mb-sm">
-          <div class="title">
+        <div
+          v-if="status.state.confirmations != null"
+          class="q-mb-sm flex row no-wrap"
+        >
+          <div class="title q-mr-sm">
             {{ $t("strings.checkTransaction.infoTitles.confirmations") }}
           </div>
           <div>{{ status.state.confirmations }}</div>

@@ -1,5 +1,6 @@
 import { Daemon } from "./daemon";
 import { WalletRPC } from "./wallet-rpc";
+const { Swap } = require("./swap");
 import { SCEE } from "./SCEE-Node";
 import { dialog } from "electron";
 import semver from "semver";
@@ -23,6 +24,7 @@ export class Backend {
     this.mainWindow = mainWindow;
     this.daemon = null;
     this.walletd = null;
+    this.swap = null;
     this.wss = null;
     this.token = null;
     this.config_dir = null;
@@ -35,20 +37,20 @@ export class Backend {
 
   init(config) {
     let configDir;
-    let legacyLokiConfigDir;
+    let legacyBeldexConfigDir;
     if (os.platform() === "win32") {
       configDir = "C:\\ProgramData\\beldex";
-      legacyLokiConfigDir = "C:\\ProgramData\\beldex\\";
+      legacyBeldexConfigDir = "C:\\ProgramData\\beldex\\";
       this.wallet_dir = `${os.homedir()}\\Documents\\Beldex`;
     } else {
       configDir = path.join(os.homedir(), ".beldex");
-      legacyLokiConfigDir = path.join(os.homedir(), ".beldex/");
+      legacyBeldexConfigDir = path.join(os.homedir(), ".beldex/");
       this.wallet_dir = path.join(os.homedir(), "Beldex");
     }
 
-    // if the user has used loki before, just keep the same stuff
-    if (fs.existsSync(legacyLokiConfigDir)) {
-      this.config_dir = legacyLokiConfigDir;
+    // if the user has used beldex before, just keep the same stuff
+    if (fs.existsSync(legacyBeldexConfigDir)) {
+      this.config_dir = legacyBeldexConfigDir;
     } else {
       // create the new, Beldex location
       this.config_dir = configDir;
@@ -80,8 +82,8 @@ export class Backend {
     const daemons = {
       mainnet: {
         ...daemon,
-        remote_host: "explorer.beldex.io",
-        remote_port: 19091
+        remote_host: "mainnet.beldex.io",
+        remote_port: 29095
       },
       stagenet: {
         ...daemon,
@@ -122,12 +124,32 @@ export class Backend {
 
     this.remotes = [
       {
+        host: "mainnet.beldex.io",
+        port: "29095"
+      },
+      {
         host: "explorer.beldex.io",
         port: "19091"
       },
       {
-        host: "rpcnode.stream",
-        port: "19091"
+        host: "publicnode1.rpcnode.stream",
+        port: "29095"
+      },
+      {
+        host: "publicnode2.rpcnode.stream",
+        port: "29095"
+      },
+      {
+        host: "publicnode3.rpcnode.stream",
+        port: "29095"
+      },
+      {
+        host: "publicnode4.rpcnode.stream",
+        port: "29095"
+      },
+      {
+        host: "publicnode5.rpcnode.stream",
+        port: "29095"
       }
     ];
 
@@ -148,12 +170,10 @@ export class Backend {
       event,
       data
     };
-
     let encrypted_data = this.scee.encryptString(
       JSON.stringify(message),
       this.token
     );
-
     this.wss.clients.forEach(function each(client) {
       if (client.readyState === WebSocket.OPEN) {
         client.send(encrypted_data);
@@ -163,7 +183,7 @@ export class Backend {
 
   receive(data) {
     let decrypted_data = JSON.parse(this.scee.decryptString(data, this.token));
-
+    // console.log("decrypted_data:", decrypted_data);
     // route incoming request to either the daemon, wallet, or here
     switch (decrypted_data.module) {
       case "core":
@@ -177,6 +197,11 @@ export class Backend {
       case "wallet":
         if (this.walletd) {
           this.walletd.handle(decrypted_data);
+        }
+        break;
+      case "swap":
+        if (this.swap) {
+          this.swap.handle(decrypted_data);
         }
         break;
     }
@@ -286,7 +311,7 @@ export class Backend {
         if (path) {
           const baseUrl =
             net_type === "testnet"
-              ? "https://lokitestnet.com"
+              ? "https://testnet.beldex.dev"
               : "https://explorer.beldex.io";
           const url = `${baseUrl}/${path}/`;
           require("electron").shell.openExternal(url + params.id);
@@ -510,6 +535,7 @@ export class Backend {
 
       this.daemon = new Daemon(this);
       this.walletd = new WalletRPC(this);
+      this.swap = new Swap(this);
 
       this.send("set_app_data", {
         status: {

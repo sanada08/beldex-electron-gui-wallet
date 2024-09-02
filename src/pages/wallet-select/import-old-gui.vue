@@ -140,7 +140,8 @@ export default {
     },
     import_wallets() {
       this.$q.loading.show({
-        delay: 0
+        delay: 0,
+        spinnerColor: "positive"
       });
       this.$gateway.send("wallet", "copy_old_gui_wallets", {
         wallets: this.selectedWallets

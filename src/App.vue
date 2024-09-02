@@ -24,4 +24,37 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+@font-face {
+  font-family: "Poppins-Regular";
+  src: local("Poppins-Regular"),
+    url(./assets/fonts/Poppins-Regular.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Poppins-Medium";
+  src: local("Poppins-Medium"),
+    url(./assets/fonts/Poppins-Medium.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Poppins-SemiBold";
+  src: local("Poppins-SemiBold"),
+    url(./assets/fonts/Poppins-SemiBold.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Poppins-Bold";
+  src: local("Poppins-Bold"),
+    url(./assets/fonts/Poppins-Bold.ttf) format("truetype");
+}
+@font-face {
+  font-family: "Poppins-Light";
+  src: local("Poppins-Light"),
+    url(./assets/fonts/Poppins-Light.ttf) format("truetype");
+}
+
+#q-app {
+  font-family: "Poppins-Regular";
+}
+</style>

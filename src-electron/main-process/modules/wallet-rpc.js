@@ -1,17 +1,19 @@
 import child_process from "child_process";
-
 const request = require("request-promise");
 const queue = require("promise-queue");
+const nodeQueue = require("node-request-queue");
 const http = require("http");
 const os = require("os");
 const fs = require("fs-extra");
 const path = require("upath");
 const crypto = require("crypto");
 const portscanner = require("portscanner");
+const { Swap } = require("./swap");
 
 export class WalletRPC {
   constructor(backend) {
     this.backend = backend;
+    this.swap = null;
     this.data_dir = null;
     this.wallet_dir = null;
     this.auth = [];
@@ -25,7 +27,7 @@ export class WalletRPC {
       password_hash: null,
       balance: null,
       unlocked_balance: null,
-      lnsRecords: []
+      bnsRecords: []
     };
     this.isRPCSyncing = false;
     this.dirs = null;
@@ -57,8 +59,9 @@ export class WalletRPC {
       }
     ];
 
-    this.agent = new http.Agent({ keepAlive: true, maxSockets: 1 });
+    this.agent = new http.Agent({ keepAlive: true, maxSockets: 10 });
     this.queue = new queue(1, Infinity);
+    this.swap = new Swap(this);
   }
 
   // this function will take an options object for testnet, data-dir, etc
@@ -92,7 +95,8 @@ export class WalletRPC {
           "--rpc-bind-ip",
           "127.0.0.1",
           "--log-level",
-          options.wallet.log_level
+          options.wallet.log_level,
+          "--trusted-daemon"
         ];
 
         const { net_type, wallet_data_dir, data_dir } = options.app;
@@ -253,7 +257,7 @@ export class WalletRPC {
         break;
 
       case "decrypt_record": {
-        const record = await this.decryptLNSRecord(params.type, params.name);
+        const record = await this.decryptBNSRecord(params.type, params.name);
         this.sendGateway("set_decrypt_record_result", {
           record,
           decrypted: !!record
@@ -353,21 +357,24 @@ export class WalletRPC {
           !!params.isSweepAll
         );
         break;
-      case "purchase_lns":
-        this.purchaseLNS(
+      case "purchase_bns":
+        this.purchaseBNS(
+          params.years,
           params.password,
-          params.type,
           params.name,
           params.value,
           params.owner || "",
-          params.backup_owner || ""
+          params.backup_owner || "",
+          params.value_bchat || "",
+          params.value_belnet || "",
+          params.value_wallet || ""
         );
         break;
-      case "lns_renew_mapping":
+      case "bns_renew_mapping":
         this.lnsRenewMapping(params.password, params.type, params.name);
         break;
-      case "update_lns_mapping":
-        this.updateLNSMapping(
+      case "update_bns_mapping":
+        this.updateBNSMapping(
           params.password,
           params.type,
           params.name,
@@ -442,8 +449,82 @@ export class WalletRPC {
         this.deleteWallet(params.password);
         break;
 
+      case "get_balance":
+        this.getBalance("getbalance");
+        break;
+
+      case "set_router_path_rightpane":
+        this.set_rightPane_value(params.data);
+        break;
+
+      case "set_sender_address":
+        this.set_sender_address(params.data);
+        break;
+
+      case "set_mnDetails":
+        this.set_mnDetails(params.data);
+        break;
+
+      case "set_stepperPosition":
+        this.set_stepperPosition(params.data);
+        break;
+
       default:
     }
+  }
+
+  async getBalance(method) {
+    let options = {
+      uri: `${this.protocol}${this.hostname}:${this.port}/json_rpc`,
+      method: "POST",
+      json: {
+        jsonrpc: "2.0",
+        id: this.id++,
+        method: method
+      },
+      auth: {
+        user: this.auth[0],
+        pass: this.auth[1],
+        sendImmediately: false
+      },
+      agent: this.agent
+    };
+    this.getTransactions().then(wallet => {
+      this.sendGateway("set_wallet_data", wallet);
+    });
+    let rq = new nodeQueue(1000);
+    rq.push(options);
+    rq.on("resolved", response => {
+      if (method == "getbalance") {
+        let walletData = {
+          info: {
+            address: response.result.per_subaddress[0].address,
+            balance: response.result.balance,
+            unlocked_balance: response.result.unlocked_balance,
+            view_only: false,
+            load_balance: false
+          }
+        };
+        this.sendGateway("set_wallet_data", walletData);
+      }
+      // Handle successfull response
+    })
+      .on("rejected", err => {
+        return {
+          method: method,
+          params: {},
+          error: {
+            code: -1,
+            message: "Cannot connect to wallet-rpc",
+            cause: err.message
+          }
+        };
+        // Handle rejected response
+      })
+      .on("completed", () => {
+        console.log("completed queue");
+        // Handle queue empty.
+      });
   }
 
   isValidPasswordHash(password_hash) {
@@ -755,7 +836,8 @@ export class WalletRPC {
           balance: 0,
           unlocked_balance: 0,
           height: 0,
-          view_only: false
+          view_only: false,
+          load_balance: false
         },
         secret: {
           mnemonic: "",
@@ -861,14 +943,15 @@ export class WalletRPC {
     clearInterval(this.heartbeat);
     this.heartbeat = setInterval(() => {
       this.heartbeatAction();
-    }, 5000);
+    }, 8000);
     this.heartbeatAction(true);
 
-    clearInterval(this.lnsHeartbeat);
-    this.lnsHeartbeat = setInterval(() => {
-      this.updateLocalLNSRecords();
-    }, 30 * 1000); // Every 30 seconds
-    this.updateLocalLNSRecords();
+    clearInterval(this.bnsHeartbeat);
+    this.bnsHeartbeat = setInterval(() => {
+      1000;
+      this.updateLocalBNSRecords();
+    }, 80000); // change from 30*1000 to 80000
+    this.updateLocalBNSRecords();
   }
 
   heartbeatAction(extended = false) {
@@ -969,7 +1052,7 @@ export class WalletRPC {
     });
   }
 
-  async updateLocalLNSRecords() {
+  async updateLocalBNSRecords() {
     try {
       const addressData = await this.sendRPC(
         "get_address",
@@ -987,13 +1070,11 @@ export class WalletRPC {
       const results = addressData.result.addresses || [];
       const addresses = results.map(a => a.address).filter(a => !!a);
       if (addresses.length === 0) return;
-
-      const records = await this.backend.daemon.getLNSRecordsForOwners(
+      const records = await this.backend.daemon.getBNSRecordsForOwners(
         addresses
       );
-
       // We need to ensure that we decrypt any incoming records that we already have
-      const currentRecords = this.wallet_state.lnsRecords;
+      const currentRecords = this.wallet_state.bnsRecords;
       const recordsToUpdate = { ...this.purchasedNames };
       const newRecords = records.map(record => {
         // If we have a new record or we haven't decrypted our current record then we should return the new record
@@ -1009,63 +1090,50 @@ export class WalletRPC {
         if (needsToUpdate) {
           const { name, type } = current;
           recordsToUpdate[name] = type;
-
           return {
             name,
             ...record
           };
         }
-
         // Otherwise just update our current record with new information (in the case that owner or backup_owner was updated)
         return {
           ...current,
           ...record
         };
       });
-
-      this.wallet_state.lnsRecords = newRecords;
-
+      this.wallet_state.bnsRecords = newRecords;
       // fetch the known (cached) records from the wallet and add the data
       // to the records being set in state
-      let known_names = await this.lnsKnownNames();
-
-      // Fill the necessary decrypted values of the cached LNS names
+      let known_names = await this.bnsKnownNames();
       for (let r of newRecords) {
         for (let k of known_names) {
           if (k.hashed === r.name_hash) {
             r["name"] = k.name;
-            r["value"] = k.value;
             r["expiration_height"] = k.expiration_height;
+            k["name_hash"] = k.hashed;
+            r["name_hash"] = k.hashed;
+            r["value_wallet"] = k.value_wallet ? k.value_wallet : "";
+            r["value_bchat"] = k.value_bchat ? k.value_bchat : "";
+            r["value_belnet"] = k.value_belnet ? k.value_belnet : "";
           }
         }
       }
-
-      this.sendGateway("set_wallet_data", { lnsRecords: newRecords });
-
-      // Decrypt the records serially
-      let updatePromise = Promise.resolve();
-      for (const [name, type] of Object.entries(recordsToUpdate)) {
-        updatePromise = updatePromise.then(() => {
-          this.decryptLNSRecord(type, name);
-        });
-      }
+      this.sendGateway("set_wallet_data", { bnsRecords: newRecords });
     } catch (e) {
-      console.debug("Something went wrong when updating lns records: ", e);
+      console.debug("Something went wrong when updating bns records: ", e);
     }
   }
 
   /*
-  Get the LNS records cached in this wallet. 
+  Get the BNS records cached in this wallet. 
   */
-  async lnsKnownNames() {
+  async bnsKnownNames() {
     try {
       let params = {
         decrypt: true,
         include_expired: false
       };
-
-      let data = await this.sendRPC("lns_known_names", params);
-
+      let data = await this.sendRPC("bns_known_names", params);
       if (data.result && data.result.known_names) {
         return data.result.known_names;
       } else {
@@ -1078,17 +1146,17 @@ export class WalletRPC {
   }
 
   /*
-  Renews an LNS (Lokinet) mapping, since they can expire
+  Renews an BNS (Belnet) mapping, since they can expire
   type can be:
-  lokinet_1y, lokinet_2y, lokinet_5y, lokinet_10y
+  belnet_1y, belnet_2y, belnet_5y, belnet_10y
   */
   lnsRenewMapping(password, type, name) {
     let _name = name.trim().toLowerCase();
 
-    // the RPC accepts names with the .loki already appeneded only
-    // can be lokinet_1y, lokinet_2y, lokinet_5y, lokinet_10y
-    if (type.startsWith("lokinet")) {
-      _name = _name + ".loki";
+    // the RPC accepts names with the .bdx already appeneded only
+    // can be belnet_1y, belnet_2y, belnet_5y, belnet_10y
+    if (type.startsWith("belnet")) {
+      _name = _name + ".bdx";
     }
 
     crypto.pbkdf2(
@@ -1099,7 +1167,7 @@ export class WalletRPC {
       "sha512",
       (err, password_hash) => {
         if (err) {
-          this.sendGateway("set_lns_status", {
+          this.sendGateway("set_bns_status", {
             code: -1,
             i18n: "notification.errors.internalError",
             sending: false
@@ -1107,7 +1175,7 @@ export class WalletRPC {
           return;
         }
         if (!this.isValidPasswordHash(password_hash)) {
-          this.sendGateway("set_lns_status", {
+          this.sendGateway("set_bns_status", {
             code: -1,
             i18n: "notification.errors.invalidPassword",
             sending: false
@@ -1120,12 +1188,12 @@ export class WalletRPC {
           name: _name
         };
 
-        this.sendRPC("lns_renew_mapping", params).then(data => {
+        this.sendRPC("bns_renew_mapping", params).then(data => {
           if (data.hasOwnProperty("error")) {
             let error =
               data.error.message.charAt(0).toUpperCase() +
               data.error.message.slice(1);
-            this.sendGateway("set_lns_status", {
+            this.sendGateway("set_bns_status", {
               code: -1,
               message: error,
               sending: false
@@ -1135,9 +1203,9 @@ export class WalletRPC {
 
           this.purchasedNames[name.trim()] = type;
 
-          setTimeout(() => this.updateLocalLNSRecords(), 5000);
+          setTimeout(() => this.updateLocalBNSRecords(), 5000);
 
-          this.sendGateway("set_lns_status", {
+          this.sendGateway("set_bns_status", {
             code: 0,
             i18n: "notification.positive.nameRenewed",
             sending: false
@@ -1148,21 +1216,17 @@ export class WalletRPC {
   }
 
   /*
-  Get our LNS record and update our wallet state with decrypted values.
+  Get our BNS record and update our wallet state with decrypted values.
   This will return `null` if the record is not in our currently stored records.
   */
-  async decryptLNSRecord(type, name) {
+  async decryptBNSRecord(type, name) {
     let _type = type;
-    // type can initially be "lokinet_1y" etc. on a purchase
-    if (type.startsWith("lokinet")) {
-      _type = "lokinet";
-    }
     try {
-      const record = await this.getLNSRecord(_type, name);
+      const record = await this.getBNSRecord(_type, name);
       if (!record) return null;
 
       // Update our current records with the new decrypted record
-      const currentRecords = this.wallet_state.lnsRecords;
+      const currentRecords = this.wallet_state.bnsRecords;
       const isOurRecord = currentRecords.find(
         c => c.name_hash === record.name_hash
       );
@@ -1171,13 +1235,12 @@ export class WalletRPC {
       } else {
         // if it's our record, we can cache it
         const _record = {
-          type: record.type,
           name: record.name
         };
         const params = {
           names: [_record]
         };
-        this.sendRPC("lns_add_known_names", params);
+        this.sendRPC("bns_add_known_names", params);
       }
 
       const newRecords = currentRecords.map(current => {
@@ -1186,66 +1249,71 @@ export class WalletRPC {
         }
         return current;
       });
-      this.wallet_state.lnsRecords = newRecords;
-      this.sendGateway("set_wallet_data", { lnsRecords: newRecords });
+      this.wallet_state.bnsRecords = newRecords;
+      this.sendGateway("set_wallet_data", { bnsRecords: newRecords });
       return record;
     } catch (e) {
-      console.debug("Something went wrong decrypting lns record: ", e);
+      console.debug("Something went wrong decrypting bns record: ", e);
       return null;
     }
   }
 
   /*
-  Get a LNS record associated with the given name
+  Get a BNS record associated with the given name
   */
-  async getLNSRecord(type, name) {
-    // We currently only support session and lokinet
-    const types = ["session", "lokinet"];
-    if (!types.includes(type)) return null;
-
+  async getBNSRecord(type, name) {
     if (!name || name.trim().length === 0) return null;
 
     const lowerCaseName = name.toLowerCase();
 
     let fullName = lowerCaseName;
-    if (type === "lokinet" && !name.endsWith(".loki")) {
-      fullName = fullName + ".loki";
+    if (!name.endsWith(".bdx")) {
+      fullName = fullName + ".bdx";
     }
-
-    const nameHash = await this.hashLNSName(type, lowerCaseName);
+    const nameHash = await this.hashBNSName(fullName);
     if (!nameHash) return null;
 
-    const record = await this.backend.daemon.getLNSRecord(nameHash);
-    if (!record || !record.encrypted_value) return null;
-
-    // Decrypt the value if possible
-    const value = await this.decryptLNSValue(
-      type,
-      fullName,
-      record.encrypted_value
-    );
-
+    const record = await this.backend.daemon.getBNSRecord(nameHash);
+    if (!record) return null;
     return {
       name: fullName,
-      value,
+      // [key]: value,
       ...record
     };
+    // Decrypt the value if possible
+    // let encryptedValue;
+    // let key;
+    // if (record.encrypted_bchat_value) {
+    //   encryptedValue = record.encrypted_bchat_value;
+    //   key = "value_bchat";
+    //   type = "bchat";
+    // } else if (record.encrypted_belnet_value) {
+    //   encryptedValue = record.encrypted_belnet_value;
+    //   key = "value_belnet";
+    //   type = "belnet";
+    // } else {
+    //   encryptedValue = record.encrypted_wallet_value;
+    //   key = "value_wallet";
+    //   type = "wallet";
+    // }
+    // const value = await this.decryptBNSValue(type, fullName, encryptedValue);
+    // return {
+    //   name: fullName,
+    //   [key]: value,
+    //   ...record
+    // };
   }
 
-  async hashLNSName(type, name) {
-    if (!type || !name) return null;
-
-    let fullName = name;
-    if (type === "lokinet" && !name.endsWith(".loki")) {
-      fullName = fullName + ".loki";
+  async hashBNSName(fullName) {
+    if (!fullName) return null;
+    if (!fullName.endsWith(".bdx")) {
+      fullName = fullName + ".bdx";
     }
 
     try {
-      const data = await this.sendRPC("lns_hash_name", {
-        type,
+      const data = await this.sendRPC("bns_hash_name", {
         name: fullName
       });
-
       if (data.hasOwnProperty("error")) {
         let error =
           data.error.message.charAt(0).toUpperCase() +
@@ -1255,26 +1323,25 @@ export class WalletRPC {
 
       return (data.result && data.result.name) || null;
     } catch (e) {
-      console.debug("Failed to hash lns name: ", e);
+      console.debug("Failed to hash bns name: ", e);
       return null;
     }
   }
 
-  async decryptLNSValue(type, name, encrypted_value) {
+  async decryptBNSValue(type, name, encrypted_value) {
     if (!type || !name || !encrypted_value) return null;
 
     let fullName = name;
-    if (type === "lokinet" && !name.endsWith(".loki")) {
-      fullName = fullName + ".loki";
+    if (type === "belnet" && !name.endsWith(".bdx")) {
+      fullName = fullName + ".bdx";
     }
 
     try {
-      const data = await this.sendRPC("lns_decrypt_value", {
+      const data = await this.sendRPC("bns_decrypt_value", {
         type,
         name: fullName,
         encrypted_value
       });
-
       if (data.hasOwnProperty("error")) {
         let error =
           data.error.message.charAt(0).toUpperCase() +
@@ -1284,7 +1351,7 @@ export class WalletRPC {
 
       return (data.result && data.result.value) || null;
     } catch (e) {
-      console.debug("Failed to decrypt lns value: ", e);
+      console.debug("Failed to decrypt bns value: ", e);
       return null;
     }
   }
@@ -1308,6 +1375,7 @@ export class WalletRPC {
           message: error,
           sending: false
         });
+
         return;
       }
       const signature = rpcData.result.signature;
@@ -1784,17 +1852,28 @@ export class WalletRPC {
     crypto.pbkdf2(password, this.auth[2], 1000, 64, "sha512", cryptoCallback);
   }
 
-  purchaseLNS(password, type, name, value, owner, backupOwner) {
+  purchaseBNS(
+    years,
+    password,
+    name,
+    value,
+    owner,
+    backupOwner,
+    bchatId,
+    belnetId,
+    walletAddress
+  ) {
     let _name = name.trim().toLowerCase();
     const _owner = owner.trim() === "" ? null : owner;
     const backup_owner = backupOwner.trim() === "" ? null : backupOwner;
 
-    // the RPC accepts names with the .loki already appeneded only
-    // can be lokinet_1y, lokinet_2y, lokinet_5y, lokinet_10y
-    if (type.startsWith("lokinet")) {
-      _name = _name + ".loki";
-      value = value + ".loki";
-    }
+    // the RPC accepts names with the .bdx already appeneded only
+    // can be belnet_1y, belnet_2y, belnet_5y, belnet_10y
+    // if (type.startsWith("belnet")) {
+    //   _name = _name + ".bdx";
+
+    //   value = value + ".bdx";
+    // }
 
     crypto.pbkdf2(
       password,
@@ -1804,7 +1883,7 @@ export class WalletRPC {
       "sha512",
       (err, password_hash) => {
         if (err) {
-          this.sendGateway("set_lns_status", {
+          this.sendGateway("set_bns_status", {
             code: -1,
             i18n: "notification.errors.internalError",
             sending: false
@@ -1812,7 +1891,7 @@ export class WalletRPC {
           return;
         }
         if (!this.isValidPasswordHash(password_hash)) {
-          this.sendGateway("set_lns_status", {
+          this.sendGateway("set_bns_status", {
             code: -1,
             i18n: "notification.errors.invalidPassword",
             sending: false
@@ -1821,32 +1900,44 @@ export class WalletRPC {
         }
 
         const params = {
-          type,
+          years: years,
           owner: _owner,
-          backup_owner,
+          backup_owner: backup_owner,
           name: _name,
-          value
-        };
+          value_bchat: bchatId,
 
-        this.sendRPC("lns_buy_mapping", params).then(data => {
+          value_belnet: belnetId,
+          value_wallet: walletAddress
+        };
+        this.sendRPC("bns_buy_mapping", params).then(data => {
           if (data.hasOwnProperty("error")) {
             let error =
               data.error.message.charAt(0).toUpperCase() +
               data.error.message.slice(1);
-            this.sendGateway("set_lns_status", {
+            if (
+              error.includes(
+                "Cannot buy an BNS name that is already registered"
+              )
+            ) {
+              error = "Cannot buy a BNS name that is already registered";
+            }
+            if (error.includes("Transaction is too big")) {
+              error =
+                "Transaction is too big, please do the sweep_all from [masternode -> stakings]";
+            }
+            this.sendGateway("set_bns_status", {
               code: -1,
               message: error,
               sending: false
             });
             return;
           }
-
-          this.purchasedNames[name.trim()] = type;
+          this.purchasedNames[name.trim()] = years;
 
           // Fetch new records and then get the decrypted record for the one we just inserted
-          setTimeout(() => this.updateLocalLNSRecords(), 5000);
+          setTimeout(() => this.updateLocalBNSRecords(), 5000);
 
-          this.sendGateway("set_lns_status", {
+          this.sendGateway("set_bns_status", {
             code: 0,
             i18n: "notification.positive.namePurchased",
             sending: false
@@ -1856,16 +1947,16 @@ export class WalletRPC {
     );
   }
 
-  updateLNSMapping(password, type, name, value, owner, backupOwner) {
+  updateBNSMapping(password, type, name, value, owner, backupOwner) {
     let _name = name.trim().toLowerCase();
     const _owner = owner.trim() === "" ? null : owner;
     const backup_owner = backupOwner.trim() === "" ? null : backupOwner;
 
-    // updated records have type "lokinet" or "session"
+    // updated records have type "belnet" or "bchat"
     // UI passes the values without the extension
-    if (type === "lokinet") {
-      _name = _name + ".loki";
-      value = value + ".loki";
+    if (type === "belnet") {
+      _name = _name + ".bdx";
+      value = value + ".bdx";
     }
 
     crypto.pbkdf2(
@@ -1876,7 +1967,7 @@ export class WalletRPC {
       "sha512",
       (err, password_hash) => {
         if (err) {
-          this.sendGateway("set_lns_status", {
+          this.sendGateway("set_bns_status", {
             code: -1,
             i18n: "notification.errors.internalError",
             sending: false
@@ -1884,7 +1975,7 @@ export class WalletRPC {
           return;
         }
         if (!this.isValidPasswordHash(password_hash)) {
-          this.sendGateway("set_lns_status", {
+          this.sendGateway("set_bns_status", {
             code: -1,
             i18n: "notification.errors.invalidPassword",
             sending: false
@@ -1900,12 +1991,19 @@ export class WalletRPC {
           value
         };
 
-        this.sendRPC("lns_update_mapping", params).then(data => {
+        this.sendRPC("bns_update_mapping", params).then(data => {
           if (data.hasOwnProperty("error")) {
             let error =
               data.error.message.charAt(0).toUpperCase() +
               data.error.message.slice(1);
-            this.sendGateway("set_lns_status", {
+            if (
+              error.includes(
+                "Cannot buy an BNS name that is already registered"
+              )
+            ) {
+              error = "Cannot buy an BNS name that is already registered";
+            }
+            this.sendGateway("set_bns_status", {
               code: -1,
               message: error,
               sending: false
@@ -1916,11 +2014,11 @@ export class WalletRPC {
           this.purchasedNames[name.trim()] = type;
 
           // Fetch new records and then get the decrypted record for the one we just inserted
-          setTimeout(() => this.updateLocalLNSRecords(), 5000);
+          setTimeout(() => this.updateLocalBNSRecords(), 5000);
 
           // Optimistically update our record
-          const { lnsRecords } = this.wallet_state;
-          const newRecords = lnsRecords.map(record => {
+          const { bnsRecords } = this.wallet_state;
+          const newRecords = bnsRecords.map(record => {
             if (
               record.type === type &&
               record.name &&
@@ -1936,10 +2034,10 @@ export class WalletRPC {
 
             return record;
           });
-          this.wallet_state.lnsRecords = newRecords;
-          this.sendGateway("set_wallet_data", { lnsRecords: newRecords });
+          this.wallet_state.bnsRecords = newRecords;
+          this.sendGateway("set_wallet_data", { bnsRecords: newRecords });
 
-          this.sendGateway("set_lns_status", {
+          this.sendGateway("set_bns_status", {
             code: 0,
             i18n: "notification.positive.lnsRecordUpdated",
             sending: false
@@ -2033,7 +2131,12 @@ export class WalletRPC {
   }
 
   rescanBlockchain() {
+    clearInterval(this.heartbeat);
+    clearInterval(this.lnsHeartbeat);
+    this.wallet_state.balance = null;
+    this.wallet_state.unlocked_balance = null;
     this.sendRPC("rescan_blockchain");
+    this.startHeartbeat();
   }
 
   rescanSpent() {
@@ -2202,7 +2305,8 @@ export class WalletRPC {
           "miner",
           "mnode",
           "gov",
-          "stake"
+          "stake",
+          "bns"
         ];
         types.forEach(type => {
           if (data.result.hasOwnProperty(type)) {
@@ -2329,6 +2433,18 @@ export class WalletRPC {
     });
   }
 
+  set_rightPane_value(val) {
+    this.sendGateway("set_router_path_rightpane", val);
+  }
+  set_sender_address(val) {
+    this.sendGateway("set_sender_address", val);
+  }
+  set_mnDetails(val) {
+    this.sendGateway("set_mnDetails", val);
+  }
+  set_stepperPosition(val) {
+    this.sendGateway("set_stepperPosition", val);
+  }
   exportKeyImages(password, filename = null) {
     crypto.pbkdf2(
       password,
@@ -2542,12 +2658,11 @@ export class WalletRPC {
     this.listWallets();
   }
 
-  listWallets(legacy = false) {
+  async listWallets(legacy = false) {
     let wallets = {
       list: [],
       directories: []
     };
-
     let walletFiles = [];
     try {
       walletFiles = fs.readdirSync(this.wallet_dir);
@@ -2638,9 +2753,9 @@ export class WalletRPC {
       wallets.legacy = [];
       let legacy_paths = [];
       if (os.platform() == "win32") {
-        legacy_paths = ["C:\\ProgramData\\Loki"];
+        legacy_paths = ["C:\\ProgramData\\Beldex"];
       } else {
-        legacy_paths = [path.join(os.homedir(), "Loki")];
+        legacy_paths = [path.join(os.homedir(), "Beldex")];
       }
       for (var i = 0; i < legacy_paths.length; i++) {
         try {
@@ -2803,7 +2918,7 @@ export class WalletRPC {
       password_hash: null,
       balance: null,
       unlocked_balance: null,
-      lnsRecords: []
+      bnsRecords: []
     };
 
     this.purchasedNames = {};

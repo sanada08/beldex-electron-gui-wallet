@@ -1,62 +1,79 @@
 <template>
-  <q-page class="create-wallet beldex-wallet">
-    <div class="fields">
-      <OxenField
-        :label="$t('fieldLabels.walletName')"
-        :error="$v.wallet.name.$error"
-      >
-        <q-input
-          v-model="wallet.name"
-          :dark="theme == 'dark'"
-          :placeholder="$t('placeholders.walletName')"
-          borderless
-          dense
-          @keyup.enter="create"
-          @blur="$v.wallet.name.$touch"
-        />
-      </OxenField>
+  <q-page
+    class="create-wallet beldex-wallet flex justify-center items-center"
+    style="min-height: unset; height: calc(100vh - 70px)"
+  >
+    <section class="flex justify-center items-center">
+      <div class="fields">
+        <div class="createTitle">{{ this.$t("titles.wallet.createNew") }}</div>
+        <OxenField
+          :label="$t('fieldLabels.walletName')"
+          :error="$v.wallet.name.$error"
+        >
+          <q-input
+            v-model="wallet.name"
+            :dark="theme == 'dark'"
+            :placeholder="$t('placeholders.walletName')"
+            borderless
+            dense
+            maxlength="26"
+            @keyup.enter="create"
+            @blur="$v.wallet.name.$touch"
+          />
+        </OxenField>
 
-      <OxenField :label="$t('fieldLabels.seedLanguage')">
-        <q-select
-          v-model="wallet.language"
-          :options="languageOptions"
-          borderless
-          dense
-          emit-value
-          map-options
-        />
-      </OxenField>
+        <OxenField :label="$t('fieldLabels.seedLanguage')" class="dropdown">
+          <q-select
+            v-model="wallet.language"
+            :options="languageOptions"
+            borderless
+            dense
+            emit-value
+            map-options
+            dropdown-icon="expand_more"
+          />
+        </OxenField>
 
-      <OxenField :label="$t('fieldLabels.password')" optional>
-        <q-input
-          v-model="wallet.password"
-          type="password"
-          :dark="theme == 'dark'"
-          :placeholder="$t('placeholders.walletPassword')"
-          borderless
-          dense
-          @keyup.enter="create"
-        />
-      </OxenField>
-
-      <OxenField :label="$t('fieldLabels.confirmPassword')">
-        <q-input
-          v-model="wallet.password_confirm"
-          type="password"
-          :dark="theme == 'dark'"
-          borderless
-          dense
-          @keyup.enter="create"
-        />
-      </OxenField>
-
-      <q-btn
-        class="submit-button"
-        color="primary"
-        :label="$t('buttons.createWallet')"
-        @click="create"
-      />
-    </div>
+        <OxenField :label="$t('fieldLabels.password')">
+          <q-input
+            v-model="wallet.password"
+            type="password"
+            :dark="theme == 'dark'"
+            :placeholder="$t('placeholders.walletPassword')"
+            borderless
+            dense
+            @keyup.enter="create"
+          />
+        </OxenField>
+        <!-- :placeholder="$t('placeholders.reEnterWalletPassword')" -->
+        <OxenField :label="$t('fieldLabels.confirmPassword')">
+          <q-input
+            v-model="wallet.password_confirm"
+            type="password"
+            :dark="theme == 'dark'"
+            :placeholder="$t('placeholders.reEnterWalletPassword')"
+            borderless
+            dense
+            @keyup.enter="create"
+          />
+        </OxenField>
+        <div class="flex justify-center align-center submit">
+          <q-btn
+            class="submit-button"
+            color="cancel"
+            :label="$t('buttons.cancel')"
+            @click="cancel()"
+          />
+          <span class="divider"></span>
+          <q-btn
+            class="submit-button"
+            color="primary"
+            :label="$t('buttons.createWallet')"
+            @click="create"
+          />
+        </div>
+      </div>
+    </section>
   </q-page>
 </template>
 
@@ -108,7 +125,10 @@ export default {
           case 0:
             this.$q.loading.hide();
             this.$router.replace({
-              path: "/wallet-select/created"
+              path: "/wallet-select/created",
+              query: {
+                title: this.$t("titles.wallet.walletCreated")
+              }
             });
             break;
           default:
@@ -132,7 +152,8 @@ export default {
   methods: {
     createWallet() {
       this.$q.loading.show({
-        delay: 0
+        delay: 0,
+        spinnerColor: "positive"
       });
       this.$gateway.send("wallet", "create_wallet", this.wallet);
     },
@@ -162,15 +183,17 @@ export default {
           title: this.$t("dialog.noPassword.title"),
           message: this.$t("dialog.noPassword.message"),
           ok: {
-            label: this.$t("dialog.noPassword.ok")
+            label: this.$t("dialog.noPassword.ok"),
+            color: "primary"
           },
           cancel: {
-            flat: true,
+            // flat: true,
             label: this.$t("dialog.buttons.cancel"),
-            color: this.theme === "dark" ? "white" : "dark"
+            // color: this.theme === "dark" ? "white" : "dark"
+            color: "accent"
           },
-          dark: this.theme == "dark",
-          color: "positive"
+          dark: this.theme == "dark"
+          // color: "positive"
         });
         passwordPromise
           .onOk(() => {
@@ -189,4 +212,19 @@ export default {
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.create-wallet {
+  .dropdown {
+    .content:hover {
+      background-color: #41415b !important;
+      border-color: #41415b !important;
+      // transition: none;
+    }
+  }
+}
+.submit {
+  .q-btn {
+    width: 251px;
+  }
+}
+</style>
